@@ -4,9 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pycodestyle = "*"
-pylint = "*"
-rope = "*"
 alembic = "==1.9.2"
 click = "==8.1.3"
 flask = "==2.2.2"
