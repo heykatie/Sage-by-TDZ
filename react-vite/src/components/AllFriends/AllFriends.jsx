@@ -54,7 +54,7 @@ export default function AllFriends() {
                     src={profile?.profile_pic || '/default-avatar.png'}
                     alt='Profile'
                 />
-                <button onClick={() => setActiveSection('edit-profile')}>
+                <button className='edit-profile-button' onClick={() => setActiveSection('edit-profile')}>
                     Edit Profile
                 </button>
             </div>
@@ -89,12 +89,13 @@ export default function AllFriends() {
                 </nav>
             </div>
             </section>
-            <div className='tiles'>
-                {friends && friends.map(friend=>(
-                friendTile(friend)
-                ))}
+            <div className='tile-container'>
+                <div className='tiles'>
+                    {friends && friends.map(friend=>(
+                    friendTile(friend)
+                    ))}
+                </div>
             </div>
-            
         </div>
     )
 }

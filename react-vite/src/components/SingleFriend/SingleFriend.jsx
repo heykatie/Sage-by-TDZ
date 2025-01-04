@@ -10,18 +10,20 @@ import { Link } from 'react-router-dom';
 
 const friendInfo = friend => {
     return (
-        <div key={friend.id}>
-            <img height='100px' width='100px' src={friend.profile_pic} />
-            <h1>{friend.first_name} {friend.last_name}</h1>
-            <h4>{friend.username} | {friend.city} | {friend.state}</h4>
-            <button><FaUserCheck /> Friends</button>
+        <div className='dashboard-title' key={friend.id}>
+            <img className='profile-picture' height='100px' width='100px' src={friend.profile_pic} />
+            <div className='friend-info'>
+                <h2 className='friend-name'>{friend.first_name} {friend.last_name}</h2>
+                <h4>{friend.username} | {friend.city} | {friend.state}</h4>
+            </div>
+            <button className='friends-button'><FaUserCheck /> Friends</button>
         </div>
     )
 }
 
 const eventInfo = event => {
     return (
-        <div key={event.id}>
+        <div className='friend-info' key={event.id}>
             <p>{event.title}</p>
             <img height='400px' width='400px' src={event.preview} />
             <p>{event.city}, {event.state}</p>
@@ -51,7 +53,7 @@ export default function SingleFriend() {
     return (
         <div className='single-friend'>
             {friend && friend.map(f=>(friendInfo(f)))}
-            <h2> <Link className='all-events' onClick={handleClick} >Events Attended</Link> | <Link className='shared-events' to={`/friends/${friendId}`}>Shared Events</Link></h2>
+            <h2> <Link className='events-attended' onClick={handleClick} >Events Attended</Link> | <Link className='shared-events' to={`/friends/${friendId}`}>Shared Events</Link></h2>
             {events && events.map(event=>(eventInfo(event)))}
         </div>
     )

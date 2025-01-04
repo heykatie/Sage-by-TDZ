@@ -18,13 +18,20 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
+    text-decoration: none;
+    color: black;
+}
+
+.friend-link:hover {
+    text-decoration: underline;
 }
 
 .more-dots {
     padding-right: 10px;
 }
 
-.all-friends {
+.tile-container {
+    /* border: dotted purple; */
     max-width: 660px;
     margin: 0 auto;
 }
@@ -40,9 +47,22 @@
     column-gap: 16px;
     row-gap: 12px;
     min-height: fit-content;
+    max-width: 660px;
 }
 
 .friend-name {
     text-align: center;
     align-items: center;
 }
+
+@media only screen and (max-width: 800px){
+    .tiles {
+        display: block;
+    }
+    .tile-container {
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
