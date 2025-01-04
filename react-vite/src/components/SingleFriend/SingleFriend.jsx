@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { thunkSingleFriend } from '../../redux/friends';
 import { thunkSharedEvents } from '../../redux/friends';
 import { FaUserCheck } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 
 const friendInfo = friend => {
@@ -35,12 +36,14 @@ export default function SingleFriend() {
 
     useEffect(() => {
         dispatch(thunkSingleFriend(friendId))
-    }, [dispatch, friendId])
+    }, [dispatch, friendId]);
 
 
     useEffect(() => {
         dispatch(thunkSharedEvents(friendId))
-    }, [dispatch, friendId])
+    }, [dispatch, friendId]);
+
+    const handleClick = () => { alert("Feature Coming Soon..."); };
 
     const friend = Object.values(useSelector(state=>state.friends.friend));
     const events = Object.values(useSelector(state=>state.friends.sharedEvents));
@@ -48,7 +51,7 @@ export default function SingleFriend() {
     return (
         <div className='single-friend'>
             {friend && friend.map(f=>(friendInfo(f)))}
-            <h2> <span>Events Attended</span> | <span>Shared Events</span></h2>
+            <h2> <Link className='all-events' onClick={handleClick} >Events Attended</Link> | <Link className='shared-events' to={`/friends/${friendId}`}>Shared Events</Link></h2>
             {events && events.map(event=>(eventInfo(event)))}
         </div>
     )
