@@ -40,7 +40,7 @@ const EventDetails = () => {
 
     if (eventInfo) {
         const event = eventInfo[0]?.event
-        console.log('HERE IS YOUR EVENT --->', event)
+        // console.log('HERE IS YOUR EVENT --->', event)
 
         const categories = event?.categories.split(',');
         // console.log('HERE ARE YOUR CATEGORIES --->',categories)
@@ -52,27 +52,27 @@ const EventDetails = () => {
     return (
         <>
         <div className='event-details-container'>
-            <h1>{event.title}</h1>
+            <h1>{event?.title}</h1>
             <div className='li-event-preview'>
-                <img src={event.preview} alt={event.title} />
+                <img src={event?.preview} alt={event?.title} />
             </div>
                 <div className='li-event-categories'>
-                    {categories.forEach(category => {
+                    {categories?.forEach(category => {
                         <li className='category'>
                             <p>{category}</p>
                         </li>
                     })}
             </div>
             <div className='li-event-description'>
-                <p>{event.description}</p>
+                <p>{event?.description}</p>
                 <h2>Location</h2>
-                <h3>{event.address}</h3>
-                <h3>{event.city}</h3>
-                <h3>{event.state}</h3>
+                <h3>{event?.address}</h3>
+                <h3>{event?.city}</h3>
+                <h3>{event?.state}</h3>
                 <h2>Date and Time</h2>
-                <h3>Date: {event.event_date}</h3>
-                <h3>Start Time: {event.start_time}</h3>
-                <h3>End Time: {event.end_time}</h3>
+                <h3>Date: {event?.event_date}</h3>
+                <h3>Start Time: {event?.start_time}</h3>
+                <h3>End Time: {event?.end_time}</h3>
             </div>
             <div className='li-event-attendees'>
                 {/* need rsvps reducer */}
@@ -85,35 +85,35 @@ const EventDetails = () => {
             </div>
         </div>
         <div className='li-organizer-details'>
-            <h2>{organizer.name}</h2>
+            <h2>{organizer?.name}</h2>
             <div className='li-organizer-description'>
-                <p>{organizer.description}</p>
+                <p>{organizer?.description}</p>
                 <div className='li-organizer-logo'>
-                    <img src={organizer.logo} alt={organizer.name} />
+                    <img src={organizer?.logo} alt={organizer?.name} />
                 </div>
                 <div className='li-organizer-contact'>
                 <h3>Contact Us!</h3>
                 <MdLocalPhone className='icon' />
-                    <p>{organizer.phone_number}</p>
+                    <p>{organizer?.phone_number}</p>
                 <GoLinkExternal className='icon' />
-                    <p>{organizer.link}</p>
+                    <p>{organizer?.link}</p>
                 <TfiEmail className='icon' />
-                    <p>{organizer.email}</p>
+                    <p>{organizer?.email}</p>
                 </div>
             </div>
             <div className='li-organizer-feedback'>
                 <h3>Community Feedback: </h3>
                 {
-                    event.avgFeedback?
-                    <img src={avgReaction(avgFeedback)} alt={organizer.name} /> :
+                    event?.avgFeedback?
+                    <img src={avgReaction(avgFeedback)} alt={organizer?.name} /> :
                     <p>Be the first to voice your feeback !</p>
                 }
-                <img src={avgReaction(avgFeedback)} alt={organizer.name} />
+                <img src={avgReaction(avgFeedback)} alt={organizer?.name} />
                 {
                     user?
                     <OpenModalButton
                     buttonText="Give Your Feedback"
-                    modalComponent={<FeedbackModal eventId={event.id} organizer={organizer} user={user}/>}
+                    modalComponent={<FeedbackModal eventId={event?.id} organizer={organizer} user={user}/>}
                     onButtonClick
                     onModalClose
                     /> :
