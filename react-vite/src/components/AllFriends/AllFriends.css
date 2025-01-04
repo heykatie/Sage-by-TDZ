@@ -1,0 +1,48 @@
+.friend-tile {
+    /* border: dotted red; */
+    padding: 10px;
+    min-width: 300px;
+    max-width: 50%;
+}
+
+.profile-pic {
+    height: 80px;
+    padding: 20px;
+    padding-right: 0;
+}
+
+.friend-link {
+    border: solid 1px lightgray;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+.more-dots {
+    padding-right: 10px;
+}
+
+.all-friends {
+    max-width: 660px;
+    margin: 0 auto;
+}
+
+.tiles {
+    /* border: solid purple; */
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: fit-content;
+    column-gap: 16px;
+    row-gap: 12px;
+    min-height: fit-content;
+}
+
+.friend-name {
+    text-align: center;
+    align-items: center;
+}

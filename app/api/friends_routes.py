@@ -54,8 +54,7 @@ def shared_events(friend_id):
         friend_badges = get_badges(friend_id)
         user_badges = get_badges(current_user.id)
         if not friend_badges:
-            return {'errors': {'message': "No shared events found"}}
-        # return{'user': user_badges, 'friend': friend_badges}
+            return {'errors': {'message': "No shared events found"}}, 404
         return [shared_badges for shared_badges in user_badges if shared_badges in friend_badges]
 
-    return {'message': 'Friend not found'}
+    return {'message': 'Friend not found'}, 404
