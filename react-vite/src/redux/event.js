@@ -2,7 +2,7 @@
 // import { createSelector } from 'reselect';
 
 // export const getEvents = createSelector(
-//     (state) => state.events,
+//     (state) => state.events.events
 //     (allEvents) => Object.values(allEvents)
 // )
 
@@ -14,9 +14,10 @@ const LOAD_EVENTS = 'session/LOAD_EVENTS';
 const RECEIVE_EVENT = 'session/RECEIVE_EVENT';
 
 //action-creators
-export const load = (events) => ({
+export const load = (events, upcoming) => ({
     type: LOAD_EVENTS,
-    events
+    events,
+    upcoming
 });
 
 export const receive = (event) => ({
@@ -25,15 +26,18 @@ export const receive = (event) => ({
 });
 
 //thunk actions
+
 export const getAllEvents = () => async dispatch => {
-    const res = await csrfFetch('/api/events/')
+    const res = await csrfFetch('/api/events')
+
+    // console.log('WE HAVE THUNK')
 
     if( res.status === 200 ){
 
         const events = await res.json();
 
-        // console.log('EVENTS HAVE BEEN FOUND  ----->', events)
-        dispatch(load(events.events));
+        // console.log('EVENTS HAVE BEEN FOUND  ----->', events.events)
+        dispatch(load(events.events, null));
         return null;
     } else {
         const errors = res.errors;
@@ -63,20 +67,24 @@ export const singleEvent = (id) => async dispatch => {
 
 //move to rsvps reducer
 
-export const addOrgFeedback = (feedback) => async dispatch => {
-    const res = await fetch("/api/profile/feedback", {
+export const addOrgFeedback = (feedback, eventId) => async dispatch => {
+    const res = await fetch("/api/prfoile/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(feedback)
       });
 
-    if ( res.status === 200 ) {
+    if ( res.status === 201 ) {
         // console.log('I AM IN THUNK')
-        const info = await res.json();
+        const newFeedback = await res.json();
 
-        // console.log('FEEDBACK HAS BEEN MADE  ----->', info)
-        dispatch(receive(info));
-        return info;
+        // console.log('FEEDBACK HAS BEEN MADE  ----->', newFeedback)
+        const res = await fetch(`/api/events/${eventId}`);
+        if (res.status === 200) {
+            const event = await res.json()
+            dispatch(receive(event))
+        }
+        return newFeedback;
     } else {
         const errors = res.errors;
 
@@ -86,21 +94,52 @@ export const addOrgFeedback = (feedback) => async dispatch => {
     }
 };
 
+export const getAllUpcomingEvents = () => async dispatch => {
+    const res = await csrfFetch('/api/profile/rsvps')
 
+    if( res.status === 200 ){
+
+        const events = await res.json();
+
+        // console.log('EVENTS HAVE BEEN FOUND  ----->', events)
+        dispatch(load(null, events.rsvps));
+        return null;
+    } else {
+        const errors = res.errors;
+        // console.log('IM A PROBLEM', errors)
+        return errors;
+    }
+};
+
+//normailzer
+const normalData = (data) => {
+    const normalData = {}
+    data.forEach((event) => {
+        normalData[event.id] = event
+    })
+
+    return normalData
+}
 //reducer
-const eventsReducer = (state = {}, action) => {
+const initialState = {events: {}, upcoming: {}, single: {}}
+const eventsReducer = (state = initialState, action) => {
     switch(action.type) {
         case LOAD_EVENTS:{
-            const eventState = {};
-            // console.log('DO I MAKE IT ?', action.events)
-            action.events.forEach((event) => {
-                eventState[event.id] = event;
-            });
-            return eventState;
-        }
-        case RECEIVE_EVENT:
-            return { ...state, [action.event.id]: action.event }
+            // console.log('IN REDUCER -->',action.events)
+            const eventState = {...state}
+                if (action.events) eventState.events = normalData(action.events)
 
+                if (action.upcoming) eventState.upcoming = normalData(action.upcoming)
+
+                return eventState;
+             }
+        case RECEIVE_EVENT: {
+            // console.log('DO I MAKE IT ?', action.event)
+            const eventState = { ...state}
+            eventState.single[action.event.event.id] = action.event
+
+            return eventState
+        }
         default:
             return state
     }
