@@ -23,9 +23,9 @@ const friendInfo = friend => {
 
 const eventInfo = event => {
     return (
-        <div className='friend-info' key={event.id}>
-            <p>{event.title}</p>
-            <img height='400px' width='400px' src={event.preview} />
+        <div className='shared-event-info' key={event.id}>
+            <h2>{event.title}</h2>
+            <img className='event-img' height='400px' width='400px' src={event.preview} />
             <p>{event.city}, {event.state}</p>
             <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
         </div>
@@ -51,10 +51,12 @@ export default function SingleFriend() {
     const events = Object.values(useSelector(state=>state.friends.sharedEvents));
 
     return (
-        <div className='single-friend'>
-            {friend && friend.map(f=>(friendInfo(f)))}
-            <h2> <Link className='events-attended' onClick={handleClick} >Events Attended</Link> | <Link className='shared-events' to={`/friends/${friendId}`}>Shared Events</Link></h2>
+    <div className='single-friend'>
+        {friend && friend.map(f=>(friendInfo(f)))}
+        <div className='info-body'>
+            <h3 className='nav-title'> <Link className='events-attended' onClick={handleClick} >Events Attended </Link> | <Link className='shared-events' to={`/friends/${friendId}`}>Shared Events</Link></h3>
             {events && events.map(event=>(eventInfo(event)))}
         </div>
+    </div>
     )
 }

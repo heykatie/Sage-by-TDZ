@@ -8,7 +8,8 @@
     text-decoration: underline;
 }
 
-.single-friend h2 {
+.nav-title {
+    /* border: dotted green; */
     font-weight: 100;
     color: gray;
 }
@@ -25,7 +26,7 @@
 
 .dashboard-title h4 {
     font-weight: 200;
-    color: darkgray;
+    color: gray;
 }
 
 .dashboard-title {
@@ -42,3 +43,25 @@
     min-width: 80px;
 }
 
+h2.friend-name {
+    /* border: solid red; */
+    color: black;
+    font-weight: 600;
+}
+
+.info-body {
+    /* border: dotted red; */
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shared-event-info {
+    text-align: center;
+}
+
+.info-body img {
+    /* border: dotted magenta; */
+    width: 100%;
+}
