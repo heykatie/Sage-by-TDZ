@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 // import EventsIndex from '../components/EventsIndex';
+import ListEvents from '../components/ListEvents';
 import EventDetails from '../components/EventDetails';
 import EditProfileModal from '../components/EditProfileModal';
 import UpcomingEvents from '../components/UpcomingEvents';
@@ -28,10 +29,6 @@ export const router = createBrowserRouter([
 			{
 				path: 'signup',
 				element: <SignupFormPage />,
-			},
-			{
-				path: 'events',
-				element: <EventsIndex />,
 			},
 			{
 				path: 'events/:eventId',
