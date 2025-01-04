@@ -151,7 +151,7 @@ export const fetchUserFriends = () => async (dispatch) => {
 	dispatch(setStatus('loading'));
 	try {
 		console.log('Fetching friends...'); // Debug log
-		const res = await csrfFetch('/api/friends', {
+		const res = await csrfFetch('/api/friends/', {
 			method: 'GET',
 			credentials: 'include',
 		});

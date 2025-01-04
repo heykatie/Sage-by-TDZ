@@ -1,78 +1,46 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom'; // Import useLocation
 import {
-	thunkFetchGroup,
+	CreateGroupModal,
+	DeleteGroupModal,
+	RemoveFriendModal,
+} from '../GroupModals';
+import {
 	thunkCreateGroup,
 	thunkUpdateGroup,
 	thunkDeleteGroup,
-} from '../../redux/group';
-import { fetchUserEvents, fetchUserFriends } from '../../redux/user'; // Fetch friends too
-import './GroupComponent.css';
+} from '../../../redux/group';
+import { fetchUserFriends } from '../../../redux/user';
 
-const GroupComponent = () => {
+const GroupFormPage = ({ isEditMode, groupData }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const location = useLocation(); // Get data from route state
+	const eventData = location.state?.eventData; // Get eventData from modal navigation
 	const { groupId } = useParams();
+	const currentUser = useSelector((state) => state.session.user);
 	const { group, loading, error } = useSelector((state) => state.group);
 	const { events, friends } = useSelector((state) => state.user);
 	const [description, setDescription] = useState('');
+	const [friendsList, setFriendsList] = useState([]);
 	const [selectedFriends, setSelectedFriends] = useState([]);
+	const [showRemoveModal, setShowRemoveModal] = useState(false);
+	const [friendToRemove, setFriendToRemove] = useState(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
-	const isEditMode = !!groupId;
-	const { user } = useSelector((state) => state.session);
 
-	// Fetch events and friends when the component mounts
 	useEffect(() => {
-		dispatch(fetchUserEvents());
-		console.log('USER', user)
-		dispatch(fetchUserFriends()); // Fetch friends list
-		console.log('friends after fetch')
-		if (isEditMode) {
-			dispatch(thunkFetchGroup(groupId));
-		} else {
-			setDescription('');
-			setSelectedFriends([]);
-		}
-	}, [dispatch, groupId, isEditMode,user]);
-
-	// Prefill form when editing
-	useEffect(() => {
-		if (group && isEditMode) {
-			setDescription(group.description || '');
-			setSelectedFriends(group.invitedFriends || []);
-		}
-	}, [group, isEditMode]);
-
-	const selectedEvent = events.find((event) => event.id === group?.event_id);
-
-	// Save group (create or update)
-	const handleSaveGroup = async (e) => {
-		e.preventDefault();
-		const groupData = {
-			description,
-			eventId: selectedEvent?.id || null, // Ensure eventId is correct
-			friends: selectedFriends,
-		};
-
-		if (!groupData.eventId) {
-			alert('Please select an event before saving the group.');
+		if (!eventData) {
+			alert('No event data provided. Redirecting to events page...');
+			navigate('/events'); // Redirect if event data is missing
 			return;
 		}
-
-		if (isEditMode) {
-			await dispatch(thunkUpdateGroup({ ...groupData, groupId }));
-		} else {
-			await dispatch(thunkCreateGroup(groupData));
+		if (isEditMode && groupData) {
+			setDescription(groupData.description || '');
+			setSelectedFriends(groupData.invitedFriends || []);
 		}
-		navigate('/events');
-	};
-
-	// Delete group
-	const handleDeleteGroup = async () => {
-		await dispatch(thunkDeleteGroup(groupId));
-		navigate('/dashboard');
-	};
+		dispatch(fetchUserFriends()).then((friends) => setFriendsList(friends));
+	}, [dispatch, isEditMode, groupData, eventData, navigate]);
 
 	// Toggle friend selection
 	const toggleFriendSelection = (friend) => {
@@ -83,33 +51,64 @@ const GroupComponent = () => {
 		);
 	};
 
+	const handleSaveGroup = async (e) => {
+		e.preventDefault();
+		if (!eventData) {
+			alert('Event data is missing!');
+			return;
+		}
+		const payload = {
+			description,
+			eventId: eventData.id, // Use event ID passed from modal
+			friends: selectedFriends,
+		};
+		if (isEditMode) {
+			await dispatch(
+				thunkUpdateGroup({ ...payload, groupId: groupData.id })
+			);
+			navigate(`/events/${eventData.id}`);
+		} else {
+			await dispatch(thunkCreateGroup(payload));
+			navigate(`/events/${eventData.id}`);
+		}
+	};
+
+	// Delete group
+	const handleDeleteGroup = async () => {
+		await dispatch(thunkDeleteGroup(groupId));
+		navigate('/dashboard');
+	};
+
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
 
 	return (
 		<div className='group-form-page'>
-			{/* Event Information */}
-			<h2>{selectedEvent?.title || 'Chosen Event Name'}</h2>
+			<h2>
+				{isEditMode
+					? `Edit Group - ${eventData.title || 'Event Title'}`
+					: `Create Group - ${eventData.title || 'Event Title'}`}
+			</h2>
 			<p>
-				{selectedEvent?.event_date || 'Event Date'} |{' '}
-				{selectedEvent?.start_time || 'Event Time'} |{' '}
-				{selectedEvent?.categories || 'Event Category'}
+				Hosted by:{' '}
+				{currentUser
+					? `${currentUser.first_name} ${currentUser.last_name}`
+					: 'Loading...'}
 			</p>
-			<p>{selectedEvent?.address || 'Event Location'}</p>
-			<a href={`/events/${selectedEvent?.id}`} className='event-link'>
-				Link to event page
+			<p>{`${eventData.event_date} | ${eventData.start_time} | ${eventData.categories}`}</p>
+			<p>{eventData.address}</p>
+			<a href={`/events/${eventData.id}`} className='event-link'>
+				Link to Event Page
 			</a>
 
-			{/* Group Description */}
-			<div className='group-description'>
-				<label htmlFor='description'>Add group description:</label>
-				<textarea
-					id='description'
-					value={description}
-					onChange={(e) => setDescription(e.target.value)}
-					required
-				/>
-			</div>
+			{/* Group description */}
+			<label htmlFor='description'>Add group description:</label>
+			<textarea
+				id='description'
+				value={description}
+				onChange={(e) => setDescription(e.target.value)}
+				required
+			/>
 
 			{/* Friends Selection */}
 			<section className='friends-section'>
@@ -177,4 +176,4 @@ const GroupComponent = () => {
 	);
 };
 
-export default GroupComponent;
+export default GroupFormPage;
