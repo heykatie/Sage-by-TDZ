@@ -22,7 +22,7 @@ def create_request():
     receiver_id = data['receiver_id']
     oldRequest = Request.query.filter(Request.sender_id == current_user.id and Request.receiver_id == receiver_id)
     if oldRequest:
-        return { 'errors': {'message': 'A request already exists.'} }
+        return { 'errors': {'message': 'A request already exists.'} }, 403
 
     newRequest = Request(
         sender_id=current_user.id,

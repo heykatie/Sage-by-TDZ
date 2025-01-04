@@ -82,7 +82,7 @@ def update_invite(invite_id):
     invite = Invites.query.get(invite_id)
 
     if not invite:
-        return { 'message': 'Invite not found'}
+        return { 'message': 'Invite not found'}, 404
 
     if 'going' in data and invite.friend_id == current_user.id:
         invite.going = data['going'] # Update the response to an invite you have received
@@ -104,10 +104,10 @@ def delete_invite(invite_id):
     invite = Invites.query.get(invite_id)
 
     if not invite:
-        return { 'message': 'Invite not found'}
+        return { 'message': 'Invite not found'}, 404
 
     if invite.user_id != current_user.id:
-        return { 'message': 'Permission denied'}
+        return { 'message': 'Permission denied'}, 403
 
     db.session.delete(invite)
     db.session.commit()

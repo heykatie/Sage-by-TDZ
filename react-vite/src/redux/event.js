@@ -61,7 +61,6 @@ export const singleEvent = (id) => async dispatch => {
     }
 };
 
-
 //move to rsvps reducer
 
 export const addOrgFeedback = (feedback) => async dispatch => {
@@ -101,8 +100,9 @@ const eventsReducer = (state = {}, action) => {
         }
         case RECEIVE_EVENT:
             return { ...state, [action.event.id]: action.event }
+
         default:
-            return state;
+            return state
     }
 }
 

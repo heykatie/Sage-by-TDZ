@@ -24,7 +24,7 @@ def get_all_friends():
         [friend_ids.append(req['receiver_id']) for req in all_reqs['sent']]
         [friend_ids.append(req['sender_id']) for req in all_reqs['received']]
         return {'friends': [User.query.get(friend_id).to_dict() for friend_id in friend_ids] }
-    return {'errors': {'message': "No friends found"}}
+    return {'errors': {'message': "No friends found"}}, 404
 
 @friends_routes.route('/<int:friend_id>')
 @login_required
@@ -33,9 +33,9 @@ def view_friend(friend_id):
     if all_friends:
         friend = [friend for friend in all_friends if friend['id'] == friend_id]
         if not friend:
-            return {'errors': {'message': "Friend not found"}}
+            return {'errors': {'message': "Friend not found"}}, 404
         return friend
-    return {'errors': {'message': "Friend not found"}}
+    return {'errors': {'message': "Friend not found"}}, 404
 
 @friends_routes.route('/<int:friend_id>/events')
 @login_required
