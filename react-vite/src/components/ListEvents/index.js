@@ -1,3 +1,3 @@
-import ListEvents from "./LIstEvents";
+import ListEvents from "./ListEvents";
 
 export default ListEvents;

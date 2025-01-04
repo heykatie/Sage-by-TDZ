@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
 import { thunkEditProfile, thunkLogin } from "../../redux/session";
@@ -15,6 +15,9 @@ const EditProfileModal = ({ user, newData }) => {
 
     const dispatch = useDispatch();
 
+    user = useSelector(state => state.session.user)
+
+    console.log(errors)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,7 +44,7 @@ const EditProfileModal = ({ user, newData }) => {
             })
         }
 
-        setErrors[password]('Passwords must match')
+        setErrors({password: 'passwords must match'})
     }
     return (
         <>
@@ -56,7 +59,6 @@ const EditProfileModal = ({ user, newData }) => {
                 required
               />
             </label>
-            {errors.password && <p>{errors.password}</p>}
             <label>
               Confirm Password
               <input
@@ -66,7 +68,7 @@ const EditProfileModal = ({ user, newData }) => {
                 required
               />
             </label>
-            {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+            {errors.password && <p>{errors.password}</p>}
             <button type="Submit" className="button-yes" onClick={handleSubmit}>Delete Profile</button>
             <Link to={'/profile'}>No, Go Back.</Link>
           </form>

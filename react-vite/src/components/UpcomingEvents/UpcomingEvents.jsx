@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllEvents } from '../../redux/event';
+import { getAllUpcomingEvents } from '../../redux/event';
 import { useEffect } from 'react';
 import './UpcomingEvents.css'
 
@@ -12,12 +12,12 @@ const UpcomingEvents = ({user}) => {
     // const user = useSelector((state) => state.session.user)
 
     useEffect(() => {
-        dispatch(getAllEvents(user.id))
+        dispatch(getAllUpcomingEvents())
     }, [dispatch, user.id])
 
-    const upcomingEvents = useSelector((state) => state.session.upcoming)
+    const upcomingEvents = Object.values(useSelector((state) => state.events.upcoming))
 
-    const eventTiles = (events) => {events.map((event)=>{
+    const eventTiles = (events) => (events.map((event)=>(
         <li key = {event.id}>
             <div className='li-event-list'>
                 <Link to={ `/events/${event.id}` } > {event.title}
@@ -38,13 +38,17 @@ const UpcomingEvents = ({user}) => {
                 </Link>
             </div>
         </li>
-    })}
+    )))
 
     return (
         <>
         <div className='event-list-container'>
+        <h1>UPCOMING EVENTS</h1>
         <ul className='event-list'>
-            {eventTiles(upcomingEvents)}
+            { upcomingEvents ?
+            eventTiles(upcomingEvents) :
+            <h1>RSVP to see Upcoming Events</h1>
+            }
         </ul>
         </div>
         </>

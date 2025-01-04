@@ -30,14 +30,14 @@ def delete_rsvp(id):
 
 @rsvp_routes.route('/feedback', methods=['POST'])
 @login_required
-def add_feedback(id):
+def add_feedback():
     userId = current_user.get_id()
     data=request.json()
     feedbackList = Feedback.query.filter(Feedback.organizer_id == id and Feedback.user_id == userId)
 
     if not feedbackList:
         feedback = Feedback(
-        organizer_id=id,
+        organizer_id=data['organizer_id'],
         user_id=userId,
         reaction=data['reaction']
         )
