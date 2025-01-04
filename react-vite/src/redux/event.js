@@ -121,7 +121,7 @@ const normalData = (data) => {
     return normalData
 }
 //reducer
-const initialState = {events: {}, upcoming: {}}
+const initialState = {events: {}, upcoming: {}, single: {}}
 const eventsReducer = (state = initialState, action) => {
     switch(action.type) {
         case LOAD_EVENTS:{
@@ -133,10 +133,10 @@ const eventsReducer = (state = initialState, action) => {
 
                 return eventState;
              }
-            // console.log('DO I MAKE IT ?', action.events)
         case RECEIVE_EVENT: {
+            // console.log('DO I MAKE IT ?', action.event)
             const eventState = { ...state}
-            eventState.events[action.event.id]= action.event
+            eventState.single[action.event.event.id] = action.event
 
             return eventState
         }
