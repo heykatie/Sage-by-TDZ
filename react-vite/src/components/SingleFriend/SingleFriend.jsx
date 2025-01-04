@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 const friendInfo = friend => {
     return (
         <div key={friend.id}>
-            <img src={friend.profile_pic} />
+            <img height='100px' width='100px' src={friend.profile_pic} />
             <h1>{friend.first_name} {friend.last_name}</h1>
             <h4>{friend.username} | {friend.city} | {friend.state}</h4>
             <button><FaUserCheck /> Friends</button>
@@ -23,7 +23,7 @@ const eventInfo = event => {
     return (
         <div key={event.id}>
             <p>{event.title}</p>
-            <img src={event.preview} />
+            <img height='400px' width='400px' src={event.preview} />
             <p>{event.city}, {event.state}</p>
             <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
         </div>

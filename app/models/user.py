@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     city = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255), nullable=True)
-    profile_pic = db.Column(db.String(255), nullable=True, default='assets/sprout.png')
+    profile_pic = db.Column(db.String(255), nullable=True, default='https://i.postimg.cc/jdK73WSg/sprout.png')
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
     requests = db.relationship('Request', backref='sender', cascade='all, delete-orphan')
     invites = db.relationship('Invites', backref='sender', cascade='all, delete-orphan')

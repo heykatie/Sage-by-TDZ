@@ -20,7 +20,7 @@ export default function AllFriends() {
                 <Link 
                 to={`/friends/${friend.id}`} 
                 >
-                <img src={friend.profile_pic} />
+                <img height='50px' width='50px' src={friend.profile_pic} />
                 <h2>{friend.first_name} {friend.last_name}</h2>
                 <IoIosMore />
                 </Link>
