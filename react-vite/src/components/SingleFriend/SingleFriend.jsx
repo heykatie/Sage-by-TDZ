@@ -2,28 +2,54 @@ import './SingleFriend.css';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as friendActions from '../../redux/friends';
+import { thunkSingleFriend } from '../../redux/friends';
+import { thunkSharedEvents } from '../../redux/friends';
+import { FaUserCheck } from "react-icons/fa6";
+
+
+const friendInfo = friend => {
+    return (
+        <div key={friend.id}>
+            <img src={friend.profile_pic} />
+            <h1>{friend.first_name} {friend.last_name}</h1>
+            <h4>{friend.username} | {friend.city} | {friend.state}</h4>
+            <button><FaUserCheck /> Friends</button>
+        </div>
+    )
+}
+
+const eventInfo = event => {
+    return (
+        <div key={event.id}>
+            <p>{event.title}</p>
+            <img src={event.preview} />
+            <p>{event.city}, {event.state}</p>
+            <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
+        </div>
+    )
+}
 
 export default function SingleFriend() {
     const { friendId } = useParams();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(friendActions.thunkSingleFriend(friendId))
+        dispatch(thunkSingleFriend(friendId))
     }, [dispatch, friendId])
 
-    const friend = useSelector(state=>state.friends.friend);
-    let friendArr;
 
-    if(friend) { friendArr = Object.values({...friend})}
+    useEffect(() => {
+        dispatch(thunkSharedEvents(friendId))
+    }, [dispatch, friendId])
+
+    const friend = Object.values(useSelector(state=>state.friends.friend));
+    const events = Object.values(useSelector(state=>state.friends.sharedEvents));
 
     return (
-        <div>
-            {friendArr && friendArr.map(f=>(
-                <div key={f.id}>
-                    <h1>{f.first_name}</h1>
-                </div>
-            ))}
+        <div className='single-friend'>
+            {friend && friend.map(f=>(friendInfo(f)))}
+            <h2> <span>Events Attended</span> | <span>Shared Events</span></h2>
+            {events && events.map(event=>(eventInfo(event)))}
         </div>
     )
 }

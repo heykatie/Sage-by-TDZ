@@ -26,7 +26,7 @@ export const thunkAllFriends = () => async dispatch => {
         const friends = await res.json();
         if(friends.errors) { return; }
 
-        dispatch(getFriends(friends))
+        dispatch(getFriends(friends));
     }
 }
 
