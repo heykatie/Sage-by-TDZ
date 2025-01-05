@@ -43,4 +43,4 @@ def rsvps(eventId):
     rsvp = RSVP.query.filter(RSVP.event_id == eventId)
     if not rsvp:
         return {"message": "No RSVPs found"}, 404
-    return {"RSVPs": [r.to_dict() for r in rsvp]}
+    return jsonify({"RSVPs": [r.to_dict() for r in rsvp]})

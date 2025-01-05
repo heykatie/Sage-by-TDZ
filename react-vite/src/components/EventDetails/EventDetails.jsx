@@ -8,10 +8,11 @@ import * as eventActions from '../../redux/event';
 import { MdLocalPhone } from "react-icons/md";
 import { GoLinkExternal } from "react-icons/go";
 import { TfiEmail } from "react-icons/tfi";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import OpenModalButton  from '../OpenModalButton/OpenModalButton'
 import FeedbackModal from '../FeedbackModal/FeedbackModal'
 import './EventDetails.css';
+import AllAttendees from '../AllAttendees/AllAttendees';
 
 const EventDetails = () => {
 
@@ -19,15 +20,20 @@ const EventDetails = () => {
 
     const { eventId } = useParams()
 
+    const[isLoaded, setisLoaded] = useState(false)
+
     useEffect(() => {
         dispatch(eventActions.singleEvent(eventId))
+        setisLoaded(true)
     }, [dispatch, eventId])
+
+
 
     const user = useSelector((state) => state.session.user)
     const event = useSelector((state) => state.events.single)
-    const eventInfo = Object.values(event)
+    const eventInfo = event[eventId]
 
-    // console.log('ALL EVENTS --->', eventInfo)
+    // console.log('ALL EVENTS --->', event[eventId])
 
     let avgReaction = (rating) => {
         if (rating === 1) return <TbMoodSadSquint className='sad-face'/>
@@ -38,16 +44,17 @@ const EventDetails = () => {
     };
 
 
-    if (eventInfo) {
-        const event = eventInfo[0]?.event
+    if (eventInfo && isLoaded) {
+        console.log('ALL EVENTS --->', eventInfo)
+        const event = eventInfo?.event
         // console.log('HERE IS YOUR EVENT --->', event)
 
         const categories = event?.categories.split(',');
         // console.log('HERE ARE YOUR CATEGORIES --->',categories)
 
-        const organizer = eventInfo[0]?.organizer
+        const organizer = eventInfo?.organizer
 
-        const avgFeedback = eventInfo[0]?.avgFeedback
+        const avgFeedback = eventInfo?.avgFeedback
         // console.log('OTHER INFO ---> ', organizer, avgFeedback)
     return (
         <>
@@ -75,6 +82,7 @@ const EventDetails = () => {
                 <h3>End Time: {event?.end_time}</h3>
             </div>
             <div className='li-event-attendees'>
+                <AllAttendees />
                 {/* need rsvps reducer */}
             </div>
             <div className='li-event-rsvp'>

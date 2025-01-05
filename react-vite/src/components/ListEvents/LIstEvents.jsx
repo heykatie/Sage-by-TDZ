@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { getAllEvents } from '../../redux/event';
 import * as eventActions from '../../redux/event';
 import './ListEvents.css'
 import { useEffect } from 'react';
@@ -17,13 +16,11 @@ const ListEvents = () => {
 
     const user = useSelector((state) => state.session.user)
     const events = Object.values(useSelector((state) => state.events.events))
-    // const upcomingEvents = useSelector((state) => state.session.upcoming)
 
     // console.log('I AM YOUR EVENTS --->', events)
 
     const eventTiles = (events) => (events.map((event)=>(
         <>
-        {console.log(event.title)}
        <li key = {event.id}>
             <div className='li-event-list'>
                 <Link to={ `/events/${event.id}` } > {event.title}
@@ -51,7 +48,6 @@ const ListEvents = () => {
 
     return (
         <>
-        {/* <h1>{events[0].title}</h1> */}
         <div className='event-list-container'>
         <ul className='event-list'>
             { events ?
