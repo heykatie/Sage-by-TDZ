@@ -16,13 +16,28 @@
 }
 
 .event-details-container .li-event-preview .preview-img {
-    width: 100%;
+    /* border: solid blue; */
+    width: 80%;
     height: auto;
+    border-radius: 16px;
 }
 
-.li-event-description  h2, h3 {
+.event-details-container .li-event-preview {
+    /* border: dotted teal; */
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.li-event-description  h3 {
     font-size: 16px;
     font-weight: 400;
+    padding: 4px 0px;
+}
+
+.li-event-description  h2 {
+    font-size: 18px;
+    font-weight: 500;
     padding: 4px 0px;
 }
 
@@ -44,11 +59,12 @@
 }
 
 .organizer-name-logo .organizer-logo {
-    border: dotted green;
+    /* border: dotted green; */
     width: 200px;
     height: auto;
+    margin: 24px 0px;
 }
 
-.event-details-container .li-organizer-details {
-    border: dotted red;
+.li-organizer-description .description {
+    color: gray;
 }

@@ -27,3 +27,7 @@ li {
     max-width: fit-content;
     max-height: fit-content;
 }
+
+h2 {
+    color: green;
+}

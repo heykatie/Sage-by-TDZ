@@ -8,7 +8,7 @@ def seed_organizers():
     redCross = Organizer(
         name='Red Cross',
         description='Red Cross volunteers and staff work to deliver vital services – from providing relief and support to those in crisis, to helping you be prepared to respond in emergencies',
-        logo='https://banner2.cleanpng.com/20181115/koi/kisspng-american-red-cross-logo-volunteering-organization-fau-essay-topics-5bee308cd9f0d0.9843661215423366528927.jpg',
+        logo='https://prnewswire2-a.akamaihd.net/p/1893751/sp/189375100/thumbnail/entry_id/0_tg3nh4xw/def_height/2700/def_width/2700/version/100012/type/1',
         link='https://www.redcross.org/',
         phone_number='786-306-5050',
         email='redcross@aa.io'

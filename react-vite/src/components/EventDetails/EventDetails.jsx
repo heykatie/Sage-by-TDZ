@@ -84,12 +84,12 @@ const EventDetails = () => {
         </div>
         <div className='li-organizer-details'>
             <div className='organizer-name-logo'>
-                <h2>{organizer?.name}</h2>
+                <h2>Event Organizer - {organizer?.name}</h2>
                 <img className='organizer-logo' src={organizer?.logo} alt={organizer?.name} />
             </div>
             
             <div className='li-organizer-description'>
-                <p>{organizer?.description}</p>
+                <p className='description' >{organizer?.description}</p>
                 
                 <div className='li-organizer-contact'>
                     <div className='contact-logo-label'>

@@ -42,7 +42,7 @@ export default function AllFriends() {
                 to={`/friends/${friend.id}`}
                 className='friend-link' 
                 >
-                <img className='profile-pic' src={friend.profile_pic} />
+                <img className='profile-pic' src={friend.profile_pic}  />
                 <h3 className='friend-name'>{friend.first_name} {friend.last_name}</h3>
                 <IoIosMore className='more-dots' />
                 </Link>
