@@ -13,9 +13,9 @@ import {
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
 import sprout from 'https://i.postimg.cc/jdK73WSg/sprout.png';
-import GroupForm from './GroupForm.css'
+import './GroupForm.css'
 
-const GroupFormPage = ({ isEditMode, groupData }) => {
+const GroupForm = ({ isEditMode, groupData }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation(); // Get data from route state
@@ -197,7 +197,7 @@ return (
 );
 };
 
-export default GroupFormPage;
+export default GroupForm;
 
 {/* Delete Modal
 {showDeleteModal && (

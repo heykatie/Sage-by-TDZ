@@ -11,6 +11,7 @@ html {
 
 ul {
     list-style-type: none;
+    margin: none;
 }
 
 h2, h3 {

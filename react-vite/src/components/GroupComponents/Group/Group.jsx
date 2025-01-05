@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkFetchGroup } from '../../../redux/group';
 import sprout from 'https://i.postimg.cc/jdK73WSg/sprout.png';
+import './Group.css';
 
-const GroupPage = () => {
+const Group = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { groupId } = useParams();
@@ -193,4 +194,4 @@ const GroupPage = () => {
 	);
 };
 
-export default GroupPage;
+export default Group;
