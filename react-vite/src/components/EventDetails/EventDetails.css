@@ -1,0 +1,54 @@
+.event-details-container .li-event-description {
+    /* border: dotted red; */
+    display: flex;
+    max-height: fit-content;
+    justify-content: center;
+}
+
+.event-details-container .location-info {
+    text-align: left;
+    width: 50%;
+}
+
+.event-details-container .date-time-info {
+    text-align: right;
+    width: 50%;
+}
+
+.event-details-container .li-event-preview .preview-img {
+    width: 100%;
+    height: auto;
+}
+
+.li-event-description  h2, h3 {
+    font-size: 16px;
+    font-weight: 400;
+    padding: 4px 0px;
+}
+
+.event-details-container {
+    /* border: dashed magenta; */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.event-details-container .description {
+    color: gray;
+}
+
+.event-details-container .contact-logo-label, .org-link, .org-email {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.organizer-name-logo .organizer-logo {
+    border: dotted green;
+    width: 200px;
+    height: auto;
+}
+
+.event-details-container .li-organizer-details {
+    border: dotted red;
+}

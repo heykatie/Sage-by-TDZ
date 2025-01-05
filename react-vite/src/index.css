@@ -22,3 +22,8 @@ a {
     text-decoration: none;
     color: black;
 }
+
+li {
+    max-width: fit-content;
+    max-height: fit-content;
+}

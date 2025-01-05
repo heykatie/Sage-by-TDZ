@@ -41,9 +41,8 @@ const ListEvents = () => {
                         <h3>Start Time: {event.start_time}</h3>
                         <h3>End Time: {event.end_time}</h3>
                     </div>
-                    
-                    <p>{event.description}</p>
                 </div>
+                <p>{event.description}</p>
                 </Link>
             </div>
         </li>
