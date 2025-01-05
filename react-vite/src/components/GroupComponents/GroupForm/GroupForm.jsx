@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, useParams } from 'react-router-dom'; // Import useLocation
-import {
-	CreateGroupModal,
-	DeleteGroupModal,
-	RemoveFriendModal,
-} from '../GroupModals';
+// import {
+// 	CreateGroupModal,
+// 	DeleteGroupModal,
+// 	RemoveFriendModal,
+// } from '../GroupModals';
 import {
 	thunkCreateGroup,
 	thunkUpdateGroup,
@@ -22,14 +22,14 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 	const { groupId } = useParams();
 
 	const currentUser = useSelector((state) => state.session.user);
-	const { group, loading, error } = useSelector((state) => state.group);
-	const { events, friends } = useSelector((state) => state.user);
+	const { loading, error } = useSelector((state) => state.group); // group,
+	const { friends } = useSelector((state) => state.user); // events,
 
 	const [description, setDescription] = useState('');
 	const [friendsList, setFriendsList] = useState([]);
 	const [selectedFriends, setSelectedFriends] = useState([]);
-	const [showRemoveModal, setShowRemoveModal] = useState(false);
-	const [friendToRemove, setFriendToRemove] = useState(null);
+	// const [showRemoveModal, setShowRemoveModal] = useState(false);
+	// const [friendToRemove, setFriendToRemove] = useState(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	useEffect(() => {
@@ -42,7 +42,10 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 			setDescription(groupData.description || '');
 			setSelectedFriends(groupData.invitedFriends || []);
 		}
-		dispatch(fetchUserFriends()).then((friends) => setFriendsList(friends || []));
+		dispatch(fetchUserFriends()).then((friends) =>
+			setFriendsList(friends || [])
+		);
+		if (friendsList) console.log(friendsList);
 	}, [dispatch, isEditMode, groupData, eventData, navigate]);
 
 	// Toggle friend selection
@@ -89,7 +92,7 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
 
-	console.log(eventData)
+	console.log(eventData);
 
 	return (
 		<div className='group-form-page'>
@@ -169,7 +172,9 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 				</button>
 				{isEditMode && (
 					<>
-						<button className='save-group-button' onClick={handleSaveGroup}>
+						<button
+							className='save-group-button'
+							onClick={handleSaveGroup}>
 							Save Group
 						</button>
 						<button

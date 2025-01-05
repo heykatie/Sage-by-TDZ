@@ -1,1 +1,1 @@
-export default function DeleteGroupModal({ groupId, onConfirm, onClose }) { return <div></div>}
+export default function DeleteGroupModal() { return <div></div>} //{groupId, onConfirm, onClose}
