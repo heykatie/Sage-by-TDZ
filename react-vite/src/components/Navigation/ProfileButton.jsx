@@ -6,6 +6,7 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useNavigate } from "react-router-dom";
+import { IoMenu } from "react-icons/io5";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -44,8 +45,12 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button 
+      onClick={toggleMenu}
+      className="profile-menu-button"
+      >
         <FaUserCircle />
+        <IoMenu />
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
