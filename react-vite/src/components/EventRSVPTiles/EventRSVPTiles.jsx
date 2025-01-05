@@ -34,10 +34,6 @@ export default function EventRSVPTiles() {
         return ``
     }
 
-    if (!users) {
-        return <div>Loading...</div>;
-      }
-
     const rsvpTile = r => {
         return (
             <div className='event-rsvp-tile' key={r.id}>
