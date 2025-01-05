@@ -15,13 +15,16 @@ function GroupInvite({ invite }){
 
 function GroupInvites() {
     const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.user)
+
+    console.log('user', sessionUser)
 
     useEffect(() => {
         dispatch(fetchGroupInvites() )
     }, []);
 
-    const invites = useSelector(state => state.invites);
-
+    const invites = useSelector(state => state.invite);
+    console.log("what is going on with you", invites)
     return (
         <div className="group-invite-container">
             {invites.map(invite => (

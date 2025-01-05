@@ -10,10 +10,11 @@ import EventRSVPs from '../components/EventRSVPs';
 import SingleFriend from '../components/SingleFriend';
 import SharedEvents from '../components/SharedEvents';
 import ProfilePage from '../components/ProfilePage';
-import ListEvents from '../components/ListEvents';
+// import ListEvents from '../components/ListEvents';
 import GroupInvites from '../components/InvitePage/InvitePage';
 import Layout from './Layout';
 import GroupComponent from '../components/GroupComponent';
+import Dashboard from '../components/Dashboard/Dashboard';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: 'dashboard',
+        element: <Dashboard />
       },
       {
         path: "events",

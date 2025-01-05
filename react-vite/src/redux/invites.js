@@ -92,6 +92,7 @@ export const deleteInvite = (invite) => async (dispatch) => {
 const inviteReducer = ( state = initialState, action) => {
     switch (action.type){
         case LOAD_INVITES:
+            console.log('What happing here', action)
             return [...action.invites]
         case ADD_INVITE:
             return [...state, action.invites];

@@ -1,6 +1,3 @@
-import { NavLink } from 'react-router-dom';
-import ProfileButton from './ProfileButton';
-import './Navigation.css';
 import { useState } from 'react';
 import CreateGroupModal from '../CreateGroupModal';
 import { NavLink } from "react-router-dom";
@@ -37,12 +34,6 @@ function Navigation() {
 						SAGE
 					</li>
 				</div>
-				<div className="profile-button">
-					<li>
-						<ProfileButton />
-					</li>
-				</div>
-
 				{/* Create Group Modal */}
 				<li className='create-group-container'>
 					<button className='create-group-button' onClick={openModal}>
@@ -52,6 +43,12 @@ function Navigation() {
 						<CreateGroupModal onClose={closeModal} />
 					)}
 				</li>
+				<div className="profile-button">
+					<li>
+						<ProfileButton />
+					</li>
+				</div>
+
 			</ul>
 		</nav>
 	);
