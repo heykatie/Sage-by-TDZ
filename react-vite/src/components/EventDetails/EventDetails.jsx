@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TbMoodSadSquint } from "react-icons/tb";
 import { BiHappy } from "react-icons/bi";
 import { PiSmileyMeh } from "react-icons/pi";
-import * as eventActions from '../../redux/event';
+// import * as eventActions from '../../redux/event';
 import { MdLocalPhone } from "react-icons/md";
 import { GoLinkExternal } from "react-icons/go";
 import { TfiEmail } from "react-icons/tfi";
@@ -13,6 +13,7 @@ import OpenModalButton  from '../OpenModalButton/OpenModalButton'
 import FeedbackModal from '../FeedbackModal/FeedbackModal'
 import './EventDetails.css';
 import AllAttendees from '../AllAttendees/AllAttendees';
+import { thunkSingleEvent } from '../../redux/events';
 
 const EventDetails = () => {
 
@@ -23,17 +24,15 @@ const EventDetails = () => {
     const[isLoaded, setisLoaded] = useState(false)
 
     useEffect(() => {
-        dispatch(eventActions.singleEvent(eventId))
+        dispatch(thunkSingleEvent(eventId))
         setisLoaded(true)
     }, [dispatch, eventId])
 
 
 
-    const user = useSelector((state) => state.session.user)
-    const event = useSelector((state) => state.events.single)
-    const eventInfo = event[eventId]
-
-    // console.log('ALL EVENTS --->', event[eventId])
+    const user = useSelector((state) => state.session.user);
+    const event = useSelector((state) => state.event.event);
+    const eventInfo = event[eventId];
 
     let avgReaction = (rating) => {
         if (rating === 1) return <TbMoodSadSquint className='sad-face'/>
@@ -47,15 +46,13 @@ const EventDetails = () => {
     if (eventInfo && isLoaded) {
         console.log('ALL EVENTS --->', eventInfo)
         const event = eventInfo?.event
-        // console.log('HERE IS YOUR EVENT --->', event)
 
         const categories = event?.categories.split(',');
-        // console.log('HERE ARE YOUR CATEGORIES --->',categories)
 
         const organizer = eventInfo?.organizer
 
         const avgFeedback = eventInfo?.avgFeedback
-        // console.log('OTHER INFO ---> ', organizer, avgFeedback)
+
     return (
         <>
         <div className='event-details-container'>
@@ -137,8 +134,6 @@ const EventDetails = () => {
     return (
         <h1>No Event Found</h1>
     )
-
-
 
 }
 
