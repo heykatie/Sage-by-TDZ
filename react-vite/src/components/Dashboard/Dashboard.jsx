@@ -4,24 +4,30 @@ import { useSelector } from "react-redux"
 // import { EventRSVPs } from './EventRSVPs'
 // import { GroupComponent } from './GroupComponent'
 
-const Badges = () => <div>
+const Badges = () => (
+    <div>
     <h2>badges</h2>
     </div>
-
-const Friends = () => <div>
+)
+const Friends = () => (
+    <div>
     <h2>Friends</h2>
     {/* <AllFriends /> */}
     </div>
-
-const Events = () => <div>
+)
+const Events = () => (
+    <div>
     <h2>Events</h2>
     {/* <EventRSVPs /> */}
     </div>
+)
 
-const Groups = () => <div>
+const Groups = () => (
+    <div>
     <h2>Groups</h2>
     {/* <GroupComponent /> */}
     </div>
+)
 
 
 function Dashboard() {
