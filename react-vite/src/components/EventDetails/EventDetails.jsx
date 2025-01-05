@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { TbMoodSadSquint } from "react-icons/tb";
-import { BiHappy } from "react-icons/bi";
-import { PiSmileyMeh } from "react-icons/pi";
-// import * as eventActions from '../../redux/event';
 import { MdLocalPhone } from "react-icons/md";
 import { GoLinkExternal } from "react-icons/go";
 import { TfiEmail } from "react-icons/tfi";
@@ -49,16 +45,6 @@ const EventDetails = () => {
         <>
         <div className='event-details-container'>
             <h1>{event?.title}</h1>
-            <div className='li-event-preview'>
-                <img src={event?.preview} alt={event?.title} />
-            </div>
-                <div className='li-event-categories'>
-                    {categories?.forEach(category => {
-                        <li className='category'>
-                            <p>{category}</p>
-                        </li>
-                    })}
-            </div>
             <div className='li-event-description'>
                 <p>{event?.description}</p>
                 <h2>Location</h2>
@@ -70,6 +56,17 @@ const EventDetails = () => {
                 <h3>Start Time: {event?.start_time}</h3>
                 <h3>End Time: {event?.end_time}</h3>
             </div>
+            <div className='li-event-preview'>
+                <img src={event?.preview} alt={event?.title} />
+            </div>
+            <div className='li-event-categories'>
+                {categories?.forEach(category => {
+                    <li className='category'>
+                        <p>{category}</p>
+                    </li>
+                })}
+            </div>
+        
             <div className='li-event-attendees'>
                 <AllAttendees />
                 {/* need rsvps reducer */}
@@ -92,15 +89,14 @@ const EventDetails = () => {
                 <h3>Contact Us!</h3>
                 <MdLocalPhone className='icon' />
                     <p>{organizer?.phone_number}</p>
-                <GoLinkExternal className='icon' />
-                    <p>{organizer?.link}</p>
+                <Link to={organizer.link}><GoLinkExternal className='icon' /> <p>{organizer?.link}</p></Link>
                 <TfiEmail className='icon' />
                     <p>{organizer?.email}</p>
                 </div>
             </div>
             <div className='li-organizer-feedback'>
                 <h3>Community Feedback: </h3>
-                {
+                { 
                     event?.avgFeedback?
                     <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :
                     <p>Be the first to voice your feedback !</p>
