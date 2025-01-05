@@ -1,9 +1,10 @@
 import './EventRSVPs.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { thunkSingleEvent, thunkGetRSVPs } from '../../redux/events';
 import { thunkAllUsers } from '../../redux/user';
+import { thunkAllFriends } from '../../redux/friends';
 import { IoIosMore } from "react-icons/io";
 
 export default function EventRSVPs() {
@@ -19,20 +20,33 @@ export default function EventRSVPs() {
         dispatch(thunkSingleEvent(eventId))
         dispatch(thunkGetRSVPs(eventId))
         dispatch(thunkAllUsers())
+        dispatch(thunkAllFriends())
     }, [dispatch, eventId]);
 
     const event = Object.values(useSelector(state=>state.event.event));
     const rsvps = Object.values(useSelector(state=>state.event.rsvps));
     const users = useSelector(state=>state.user.users);
+    const friends = useSelector(state=>state.friends.allFriends);
 
-    console.log(users)
+    const linkSrc = (id) => {
+        if(friends[id]) return `/friends/${id}`
+        if(id === currentUser.id) return `/profile/`
+        return ``
+    }
+
+    console.log(currentUser.id)
 
     const rsvpTile = r => {
         return (
-            <div key={r.id}>
-                <img src={users && users[r.user_id].profile_pic} />
-                <h3>{users && users[r.user_id].first_name}</h3>
-                <IoIosMore />
+            <div className='rsvp-tile' key={r.id}>
+                <Link
+                className='friend-link'
+                to={linkSrc(r.user_id)}
+                >
+                <img src={users[r.user_id].profile_pic} className='profile-pic' />
+                <h3 className='friend-name'>{users[r.user_id].first_name}</h3>
+                <IoIosMore className='more-dots' />
+                </Link>
             </div>
         )
     }

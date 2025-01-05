@@ -5,7 +5,7 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 
 function ProfileButton() {
@@ -56,8 +56,23 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
+              <li><b>Hey {user.first_name}!</b></li>
               <li>{user.username}</li>
               <li>{user.email}</li>
+              <li><Link 
+              to='/profile/'
+              onClick={closeMenu}
+              >Dashboard</Link></li>
+              <li><Link 
+              to='/friends/'
+              onClick={closeMenu}
+              >Friends</Link></li>
+              <li><Link
+              to='/'
+              onClick={closeMenu}
+              >Events</Link></li>
+              <li><Link>Manage Groups</Link></li>
+              <li><Link>Notifications</Link></li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>
