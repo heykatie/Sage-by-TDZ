@@ -20,7 +20,7 @@ def seed_events():
         preview='https://i0.wp.com/www.onegreenplanet.org/wp-content/uploads/2017/07/img_4149.jpg'
         )
     xmasToyDrive = Event(
-        title='XMAS Toy Drive',
+        title='Holiday Toy Drive',
         description='This an event description.',
         organizer_id=3,
         categories='Indoors, Donation, Handicap Accessible',

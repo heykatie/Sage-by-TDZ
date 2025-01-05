@@ -24,10 +24,12 @@ const friendInfo = friend => {
 const eventInfo = event => {
     return (
         <div className='shared-event-info' key={event.id}>
-            <h2>{event.title}</h2>
+            <h2 className='title'>{event.title}</h2>
             <img className='event-img' height='400px' width='400px' src={event.preview} />
-            <p>{event.city}, {event.state}</p>
-            <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
+            <div className='date-time'>
+                <p>{event.city}, {event.state}</p>
+                <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
+            </div>
         </div>
     )
 }
