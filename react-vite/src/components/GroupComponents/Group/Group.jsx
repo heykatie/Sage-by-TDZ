@@ -12,6 +12,7 @@ import {
 	thunkDeleteGroup,
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
+import sprout from '../../../../dist/assets/sprout.png';
 
 const GroupFormPage = ({ isEditMode, groupData }) => {
 	const dispatch = useDispatch();
@@ -19,9 +20,11 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 	const location = useLocation(); // Get data from route state
 	const eventData = location.state?.eventData; // Get eventData from modal navigation
 	const { groupId } = useParams();
+
 	const currentUser = useSelector((state) => state.session.user);
 	const { group, loading, error } = useSelector((state) => state.group);
 	const { events, friends } = useSelector((state) => state.user);
+
 	const [description, setDescription] = useState('');
 	const [friendsList, setFriendsList] = useState([]);
 	const [selectedFriends, setSelectedFriends] = useState([]);
@@ -39,7 +42,7 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 			setDescription(groupData.description || '');
 			setSelectedFriends(groupData.invitedFriends || []);
 		}
-		dispatch(fetchUserFriends()).then((friends) => setFriendsList(friends));
+		dispatch(fetchUserFriends()).then((friends) => setFriendsList(friends || []));
 	}, [dispatch, isEditMode, groupData, eventData, navigate]);
 
 	// Toggle friend selection
@@ -66,17 +69,17 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 			await dispatch(
 				thunkUpdateGroup({ ...payload, groupId: groupData.id })
 			);
-			navigate(`/events/${eventData.id}`);
+			navigate(`/groups/${groupId}`);
 		} else {
 			await dispatch(thunkCreateGroup(payload));
-			navigate(`/events/${eventData.id}`);
+			navigate(`/groups/${groupId}`);
 		}
 	};
 
 	// Delete group
 	const handleDeleteGroup = async () => {
 		await dispatch(thunkDeleteGroup(groupId));
-		navigate('/dashboard');
+		navigate('/profile');
 	};
 
 	if (loading) return <p>Loading...</p>;
@@ -84,6 +87,13 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 
 	return (
 		<div className='group-form-page'>
+			<div className='event-header'>
+				<img
+					className='event-banner'
+					src={eventData.preview || sprout}
+					alt='Event Banner'
+				/>
+			</div>
 			<h2>
 				{isEditMode
 					? `Edit Group - ${eventData.title || 'Event Title'}`
@@ -97,14 +107,17 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 			</p>
 			<p>{`${eventData.event_date} | ${eventData.start_time} | ${eventData.categories}`}</p>
 			<p>{eventData.address}</p>
-			<a href={`/events/${eventData.id}`} className='event-link'>
-				Link to Event Page
-			</a>
+			<p>
+				<a href={`/events/${eventData.id}`} className='event-link'>
+					Link to Event Page
+				</a>
+			</p>
 
 			{/* Group description */}
-			<label htmlFor='description'>Add group description:</label>
+			{/* <label htmlFor='description'>Add group description:</label> */}
 			<textarea
 				id='description'
+				placeholder='Add group description:'
 				value={description}
 				onChange={(e) => setDescription(e.target.value)}
 				required
@@ -112,7 +125,7 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 
 			{/* Friends Selection */}
 			<section className='friends-section'>
-				<h3>Invite Friends!</h3>
+				<h3>{isEditMode ? 'Friends Invited' : 'Invite Friends!'}</h3>
 				<div className='friends-list'>
 					{friends.length ? (
 						friends.map((friend) => (
@@ -143,12 +156,22 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 				<button className='save-group-button' onClick={handleSaveGroup}>
 					Save Group
 				</button>
+				<button
+					onClick={() => navigate(`/events/${eventData.id}`)}
+					className='cancel-button'>
+					Cancel
+				</button>
 				{isEditMode && (
-					<button
-						className='delete-group-button'
-						onClick={() => setShowDeleteModal(true)}>
-						Delete Group
-					</button>
+					<>
+						<button className='save-group-button' onClick={handleSaveGroup}>
+							Save Group
+						</button>
+						<button
+							className='delete-group-button'
+							onClick={() => setShowDeleteModal(true)}>
+							Delete Group
+						</button>
+					</>
 				)}
 			</div>
 
