@@ -38,18 +38,23 @@ def create_group():
     """
     data = request.get_json()
     event_id = data.get("eventId")
+    description = data.get("description", "")  # Optional description
+
     if not event_id:
         return {
             "message": "Bad Request",
             "errors": {"eventId": "Event choice is required"}
         }, 400
 
+    # Create a new group instance
     new_group = Group(
         event_id=event_id,
-        owner_id=current_user.id
+        owner_id=current_user.id,
+        description=description  # Add description
     )
     db.session.add(new_group)
     db.session.commit()
+
     return new_group.to_dict(), 201
 
 @group_routes.route('/<int:groupId>', methods=['DELETE'])

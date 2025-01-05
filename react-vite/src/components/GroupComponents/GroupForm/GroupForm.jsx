@@ -63,7 +63,7 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 		const payload = {
 			description,
 			eventId: eventData.id, // Use event ID passed from modal
-			friends: selectedFriends,
+			// ownerId: currentUser.id,
 		};
 		if (isEditMode) {
 			await dispatch(
@@ -71,19 +71,25 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 			);
 			navigate(`/groups/${groupId}`);
 		} else {
-			await dispatch(thunkCreateGroup(payload));
-			navigate(`/groups/${groupId}`);
+			const savedGroup = await dispatch(thunkCreateGroup(payload));
+			if (savedGroup?.id) {
+				navigate(`/groups/${savedGroup.id}`); // Use savedGroup's id to navigate
+			} else {
+				console.error('Failed to navigate: Group ID not found');
+			}
 		}
 	};
 
 	// Delete group
 	const handleDeleteGroup = async () => {
 		await dispatch(thunkDeleteGroup(groupId));
-		navigate('/profile');
+		navigate('/events');
 	};
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
+
+	console.log(eventData)
 
 	return (
 		<div className='group-form-page'>
