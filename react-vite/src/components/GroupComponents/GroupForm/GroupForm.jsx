@@ -13,6 +13,7 @@ import {
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
 import sprout from '../../../../dist/assets/sprout.png';
+import GroupForm from './GroupForm.css'
 
 const GroupFormPage = ({ isEditMode, groupData }) => {
 	const dispatch = useDispatch();
@@ -94,15 +95,10 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 
 	console.log(eventData);
 
-	return (
-		<div className='group-form-page'>
-			<div className='event-header'>
-				<img
-					className='event-banner'
-					src={eventData.preview || sprout}
-					alt='Event Banner'
-				/>
-			</div>
+return (
+	<div className='group-form-page'>
+		{/* Left Column: Group Details and Friends */}
+		<div className='left-column'>
 			<h2>
 				{isEditMode
 					? `Edit Group - ${eventData.title || 'Event Title'}`
@@ -114,25 +110,28 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 					? `${currentUser.first_name} ${currentUser.last_name}`
 					: 'Loading...'}
 			</p>
-			<p>{`${eventData.event_date} | ${eventData.start_time} | ${eventData.categories}`}</p>
-			<p>{eventData.address}</p>
+			<p>{`${eventData.event_date} | ${eventData.start_time} - ${eventData.end_time} | ${eventData.categories}`}</p>
+			<p>
+				{eventData.address} {eventData.city}, {eventData.state}
+			</p>
 			<p>
 				<a href={`/events/${eventData.id}`} className='event-link'>
-					Link to Event Page
+					Link to {eventData.title} Event Page
 				</a>
 			</p>
 
 			{/* Group description */}
-			{/* <label htmlFor='description'>Add group description:</label> */}
-			<textarea
-				id='description'
-				placeholder='Add group description:'
-				value={description}
-				onChange={(e) => setDescription(e.target.value)}
-				required
-			/>
+			<div className='group-description'>
+				<textarea
+					id='description'
+					placeholder='Add group description:'
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
+					required
+				/>
+			</div>
 
-			{/* Friends Selection */}
+			{/* Friends Section */}
 			<section className='friends-section'>
 				<h3>{isEditMode ? 'Friends Invited' : 'Invite Friends!'}</h3>
 				<div className='friends-list'>
@@ -159,6 +158,17 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 					)}
 				</div>
 			</section>
+		</div>
+
+		{/* Right Column: Banner and Buttons */}
+		<div className='right-column'>
+			<div className='event-header'>
+				<img
+					className='event-banner'
+					src={eventData.preview || sprout}
+					alt='Event Banner'
+				/>
+			</div>
 
 			{/* Save and Delete Buttons */}
 			<div className='group-buttons'>
@@ -171,43 +181,37 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 					Cancel
 				</button>
 				{isEditMode && (
-					<>
-						<button
-							className='save-group-button'
-							onClick={handleSaveGroup}>
-							Save Group
-						</button>
-						<button
-							className='delete-group-button'
-							onClick={() => setShowDeleteModal(true)}>
-							Delete Group
-						</button>
-					</>
+					<button
+						className='delete-group-button'
+						onClick={() => setShowDeleteModal(true)}>
+						Delete Group
+					</button>
 				)}
 			</div>
-
-			{/* Delete Modal */}
-			{showDeleteModal && (
-				<div className='delete-modal'>
-					<div className='delete-modal-content'>
-						<p>Are you sure you want to delete this group?</p>
-						<div className='modal-buttons'>
-							<button
-								className='confirm-delete'
-								onClick={handleDeleteGroup}>
-								Yes, Delete
-							</button>
-							<button
-								className='cancel-delete'
-								onClick={() => setShowDeleteModal(false)}>
-								No, Go Back
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
 		</div>
-	);
+	</div>
+);
 };
 
 export default GroupFormPage;
+
+{/* Delete Modal
+{showDeleteModal && (
+	<div className='delete-modal'>
+		<div className='delete-modal-content'>
+			<p>Are you sure you want to delete this group?</p>
+			<div className='modal-buttons'>
+				<button
+					className='confirm-delete'
+					onClick={handleDeleteGroup}>
+					Yes, Delete
+				</button>
+				<button
+					className='cancel-delete'
+					onClick={() => setShowDeleteModal(false)}>
+					No, Go Back
+				</button>
+			</div>
+		</div>
+	</div>
+)} */}
