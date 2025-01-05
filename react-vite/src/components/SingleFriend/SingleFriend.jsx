@@ -15,6 +15,8 @@ export default function SingleFriend() {
     const { friendId } = useParams();
 
     const currentUser = useSelector((state) => state.session.user);
+    const friend = Object.values(useSelector(state=>state.friends.friend));
+    const sharedEvents = Object.values(useSelector(state=>state.friends.sharedEvents));
 
     useEffect(() => {
         dispatch(thunkSingleFriend(friendId));
@@ -36,27 +38,31 @@ export default function SingleFriend() {
         )
     }
     
-    const eventInfo = event => {
-        return (
-            <Link 
-            className='shared-event-info' 
-            key={event.id}
-            to={`/events/${event.id}`}
-            >
-                <h2 className='title'>{event.title}</h2>
-                <img className='event-img' height='400px' width='400px' src={event.preview} />
-                <div className='date-time'>
-                    <p>{event.city}, {event.state}</p>
-                    <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
-                </div>
-            </Link>
-        )
+    const eventInfo = events => {
+        if(!events.length) {
+           return (
+            <h1>No Shared Events Found</h1>
+            ) 
+        } else {
+            return (events.map(event=>(
+                <Link 
+                className='shared-event-info' 
+                key={event.id}
+                to={`/events/${event.id}`}
+                >
+                    <h2 className='title'>{event.title}</h2>
+                    <img className='event-img' height='400px' width='400px' src={event.preview} />
+                    <div className='date-time'>
+                        <p>{event.city}, {event.state}</p>
+                        <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
+                    </div>
+                </Link>
+            ))) 
+        } 
     }
 
     const handleClick = () => { alert("Feature Coming Soon..."); };
 
-    const friend = Object.values(useSelector(state=>state.friends.friend));
-    const sharedEvents = Object.values(useSelector(state=>state.friends.sharedEvents));
 
     if(friend.length) {
         return (
@@ -64,7 +70,7 @@ export default function SingleFriend() {
             {friend && friend.map(f=>(friendInfo(f)))}
             <div className='info-body'>
                 <h3 className='nav-title'> <Link className='events-attended' onClick={handleClick} >Events Attended</Link> | <Link className='shared-events' to={`/friends/${friendId}`}>Shared Events</Link></h3>
-                {sharedEvents && sharedEvents.map(event=>(eventInfo(event)))}
+                {sharedEvents && eventInfo(sharedEvents)}
             </div>
         </div>
         )
