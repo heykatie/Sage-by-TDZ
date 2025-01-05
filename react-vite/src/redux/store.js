@@ -11,7 +11,6 @@ import userReducer from './user';
 import groupReducer from './group';
 import friendReducer from './friends';
 import eventReducer from "./events";
-import rsvpsReducer from "./rsvp";
 
   const rootReducer = combineReducers({
     session: sessionReducer,
@@ -20,7 +19,6 @@ import rsvpsReducer from "./rsvp";
     group: groupReducer,
     friends: friendReducer,
     event: eventReducer,
-    rsvps: rsvpsReducer,
 });
 
 let enhancer;

@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { thunkSingleEvent, thunkGetRSVPs } from '../../redux/events';
 import { thunkAllUsers } from '../../redux/user';
 import { thunkAllFriends } from '../../redux/friends';
-import { IoIosMore } from "react-icons/io";
 
 export default function EventRSVPs() {
     const dispatch = useDispatch();
@@ -31,36 +30,43 @@ export default function EventRSVPs() {
     const linkSrc = (id) => {
         if(friends[id]) return `/friends/${id}`
         if(id === currentUser.id) return `/profile/`
+        // need page for users who are not friends
         return ``
     }
 
-    console.log(currentUser.id)
+    if (!users) {
+        return <div>Loading...</div>;
+      }
 
     const rsvpTile = r => {
         return (
             <div className='rsvp-tile' key={r.id}>
                 <Link
-                className='friend-link'
+                className='rsvp-link'
                 to={linkSrc(r.user_id)}
                 >
-                <img src={users[r.user_id].profile_pic} className='profile-pic' />
-                <h3 className='friend-name'>{users[r.user_id].first_name}</h3>
-                <IoIosMore className='more-dots' />
+                <img src={users[r.user_id]?.profile_pic} className='profile-pic' />
+                <h3 className='friend-name'>{users[r.user_id]?.first_name}</h3>
                 </Link>
             </div>
         )
     }
 
+    if(!rsvps.length) return (<></>)
+
 
     return (
         <div>
             {event && event.map(e=>(
-                <div key={e.event.id}>
-                    <h1>{e.event.title} - RSVPs</h1>
+                <div key={e.id}>
+                    <h2>RSVPs</h2>
+                   <div className='rsvp-tiles-container' key={e.event.id}>
                     {rsvps && rsvps.map(r=>(
-                        rsvpTile(r)
+                        <div key={r.id}>{rsvpTile(r)}</div>
                     ))}
+                    </div> 
                 </div>
+                
             ))}
         </div>
     )

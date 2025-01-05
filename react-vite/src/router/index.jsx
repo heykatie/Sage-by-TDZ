@@ -7,7 +7,6 @@ import EventDetails from '../components/EventDetails';
 import EditProfileModal from '../components/EditProfileModal';
 import UpcomingEvents from '../components/UpcomingEvents';
 import AllFriends from '../components/AllFriends';
-import EventRSVPs from '../components/EventRSVPs';
 import SingleFriend from '../components/SingleFriend';
 import ProfilePage from '../components/Profile/Profile';
 // import SharedEvents from '../components/SharedEvents';
@@ -51,10 +50,6 @@ export const router = createBrowserRouter([
 			{
 				path: 'friends/:friendId',
 				element: <SingleFriend />,
-			},
-			{
-				path: 'events/:eventId/rsvps',
-				element: <EventRSVPs />,
 			},
 			{
 				path: 'profile',

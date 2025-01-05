@@ -17,8 +17,6 @@ const ListEvents = () => {
     const user = useSelector((state) => state.session.user)
     const events = Object.values(useSelector((state) => state.events.events))
 
-    // console.log('I AM YOUR EVENTS --->', events)
-
     const eventTiles = (events) => (events.map((event)=>(
         <>
        <li key = {event.id}>

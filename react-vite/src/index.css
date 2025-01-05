@@ -31,3 +31,7 @@ li {
 h2 {
     color: green;
 }
+
+div::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}

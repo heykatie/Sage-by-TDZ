@@ -8,9 +8,11 @@ import { useEffect, useState } from 'react';
 import OpenModalButton  from '../OpenModalButton/OpenModalButton'
 import FeedbackModal from '../FeedbackModal/FeedbackModal'
 import './EventDetails.css';
-import AllAttendees from '../AllAttendees/AllAttendees';
 import { thunkSingleEvent } from '../../redux/events';
 import AvgReaction from '../AvgReaction/AvgReaction';
+import EventRSVPs from '../EventRSVPs';
+import { thunkGetRSVPs } from '../../redux/events';
+
 
 const EventDetails = () => {
 
@@ -21,7 +23,8 @@ const EventDetails = () => {
     const[isLoaded, setisLoaded] = useState(false)
 
     useEffect(() => {
-        dispatch(thunkSingleEvent(eventId))
+        dispatch(thunkSingleEvent(eventId));
+        dispatch(thunkGetRSVPs());
         setisLoaded(true)
     }, [dispatch, eventId])
 
@@ -30,15 +33,15 @@ const EventDetails = () => {
     const user = useSelector((state) => state.session.user);
     const event = useSelector((state) => state.event.event);
     const eventInfo = event[eventId];
+    const rsvps = Object.values(useSelector(state=>state.event.rsvps));
+
+    console.log(rsvps.length)
 
     if (eventInfo && isLoaded) {
-        console.log('ALL EVENTS --->', eventInfo)
-        const event = eventInfo?.event
 
+        const event = eventInfo?.event;
         const categories = event?.categories.split(',');
-
-        const organizer = eventInfo?.organizer
-
+        const organizer = eventInfo?.organizer;
         const avgFeedback = eventInfo?.avgFeedback;
 
     return (
@@ -72,8 +75,7 @@ const EventDetails = () => {
             </div>
         
             <div className='li-event-attendees'>
-                <AllAttendees />
-                {/* need rsvps reducer */}
+                <EventRSVPs />
             </div>
             <div className='li-event-rsvp'>
                 {/* need rsvps reducer */}
