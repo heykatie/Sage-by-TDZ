@@ -9,7 +9,7 @@ class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     event_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('events.id')), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    description = db.Column(db.Text, nullable=True)  # Add description column
+    description = db.Column(db.Text, nullable=True)
 
     # Relationships
     event = db.relationship('Event', back_populates='groups', lazy=True)
@@ -23,9 +23,5 @@ class Group(db.Model):
             'owner_id': self.owner_id,
             'description': self.description,
             'event': self.event.to_dict() if self.event else None,
-            'owner': {
-                'id': self.owner.id,
-                'username': self.owner.username,
-                'email': self.owner.email,
-            } if self.owner else None,
+            'owner': self.owner.to_dict() if self.owner else None,
         }

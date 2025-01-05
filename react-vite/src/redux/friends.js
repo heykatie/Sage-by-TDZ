@@ -26,7 +26,7 @@ export const thunkAllFriends = () => async dispatch => {
         const friends = await res.json();
         if(friends.errors) { return; }
 
-        dispatch(getFriends(friends))
+        dispatch(getFriends(friends));
     }
 }
 
@@ -47,7 +47,7 @@ export const thunkSharedEvents = (friendId) => async dispatch => {
     if(res.ok) {
         const events = await res.json();
 
-        if(events.errors) { return; }
+        if(events.errors) { return; } 
 
         dispatch(getSharedEvents(events));
     }

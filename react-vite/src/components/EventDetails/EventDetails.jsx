@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { TbMoodSadSquint } from "react-icons/tb";
-import { BiHappy } from "react-icons/bi";
-import { PiSmileyMeh } from "react-icons/pi";
-import { singleEvent } from '../../redux/event';
 import { MdLocalPhone } from "react-icons/md";
 import { GoLinkExternal } from "react-icons/go";
 import { TfiEmail } from "react-icons/tfi";
-import { useEffect } from 'react';
-import FeedbackModal from '../FeedbackRatingInput/FeebackModal';
-import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import { useEffect, useState } from 'react';
+import OpenModalButton  from '../OpenModalButton/OpenModalButton'
+import FeedbackModal from '../FeedbackModal/FeedbackModal'
 import './EventDetails.css';
+import { thunkSingleEvent } from '../../redux/events';
+import AvgReaction from '../AvgReaction/AvgReaction';
+import EventRSVPTiles from '../EventRSVPTiles';
+import { thunkGetRSVPs } from '../../redux/events';
+
 
 const EventDetails = () => {
 
@@ -19,53 +20,60 @@ const EventDetails = () => {
 
     const { eventId } = useParams()
 
+    const[isLoaded, setisLoaded] = useState(false)
+
     useEffect(() => {
-        dispatch(singleEvent(eventId))
+        dispatch(thunkSingleEvent(eventId));
+        dispatch(thunkGetRSVPs());
+        setisLoaded(true)
     }, [dispatch, eventId])
 
-    const user = useSelector((state) => state.session.user)
-    const events = useSelector((state) => state.session.events)
-    const event = events[eventId]
 
-    let avgReaction = (rating) => {
-        if (rating === 1) return <TbMoodSadSquint className='sad-face'/>
 
-        if (rating === 2) return <PiSmileyMeh className='meh-face'/>
+    const currentUser = useSelector((state) => state.session.user);
+    const event = useSelector((state) => state.event.event);
+    const eventInfo = event[eventId];
 
-        return <BiHappy className='happy-face'/>
-    };
 
-    const categories = event.categories.split(',');
+    if (eventInfo && isLoaded && currentUser) {
 
-    console.log('HERE ARE YOUR CATEGORIES --->',categories)
+        const event = eventInfo?.event;
+        const categories = event?.categories.split(',');
+        const organizer = eventInfo?.organizer;
+        const avgFeedback = eventInfo?.avgFeedback;
 
     return (
-        <>
         <div className='event-details-container'>
-            <h1>{event.event.title}</h1>
-            <div className='li-event-preview'>
-                <img src={event.event.preview} alt={event.event.title} />
-            </div>
-                <div className='li-event-categories'>
-                    {categories.forEach(category => {
-                        <li className='category'>
-                            <p>{category}</p>
-                        </li>
-                    })}
-            </div>
+        <div className='event-details'>
+            <h1 className='event-title'>{event?.title}</h1>
+            <p className='description'>{event?.description}</p>
             <div className='li-event-description'>
-                <p>{event.event.description}</p>
-                <h2>Location</h2>
-                <h3>{event.event.address}</h3>
-                <h3>{event.event.city}</h3>
-                <h3>{event.event.state}</h3>
-                <h2>Date and Time</h2>
-                <h3>Date: {event.event.event_date}</h3>
-                <h3>Start Time: {event.event.start_time}</h3>
-                <h3>End Time: {event.event.end_time}</h3>
+                <div className='location-info'>
+                   <h2>Location</h2>
+                    <h3>{event?.address}</h3>
+                    <h3>{event?.city}</h3>
+                    <h3>{event?.state}</h3> 
+                </div>
+                <div className='date-time-info'>
+                   <h2>Date and Time</h2>
+                    <h3>Date: {event?.event_date}</h3>
+                    <h3>Start Time: {event?.start_time}</h3>
+                    <h3>End Time: {event?.end_time}</h3> 
+                </div>
             </div>
+            <div className='li-event-preview'>
+                <img className='preview-img' src={event?.preview} alt={event?.title} />
+            </div>
+            <div className='li-event-categories'>
+                {categories?.forEach(category => {
+                    <li className='category'>
+                        <p>{category}</p>
+                    </li>
+                })}
+            </div>
+        
             <div className='li-event-attendees'>
-                {/* need rsvps reducer */}
+                <EventRSVPTiles />
             </div>
             <div className='li-event-rsvp'>
                 {/* need rsvps reducer */}
@@ -75,35 +83,49 @@ const EventDetails = () => {
             </div>
         </div>
         <div className='li-organizer-details'>
-            <h2>{event.organizer.name}</h2>
+            <div className='organizer-name-logo'>
+                <h2>Event Organizer - {organizer?.name}</h2>
+                <img className='organizer-logo' src={organizer?.logo} alt={organizer?.name} />
+            </div>
+            
             <div className='li-organizer-description'>
-                <p>{event.organizer}</p>
-                <div className='li-organizer-logo'>
-                    <img src={event.organizer.logo} alt={event.organizer.name} />
-                </div>
+                <p className='description' >{organizer?.description}</p>
+                
                 <div className='li-organizer-contact'>
-                <h3>Contact Us!</h3>
-                <MdLocalPhone className='icon' />
-                    <p>{event.organizer.phone_number}</p>
-                <GoLinkExternal className='icon' />
-                    <p>{event.organizer.link}</p>
-                <TfiEmail className='icon' />
-                    <p>{event.organizer.email}</p>
+                    <div className='contact-logo-label'>
+                        <MdLocalPhone className='icon' />
+                        <h3>Contact Us!</h3>
+                        <p>{organizer?.phone_number}</p>
+                    </div>
+                
+                    
+                <Link 
+                className='org-link' 
+                to={organizer.link}
+                ><GoLinkExternal className='icon' /> 
+                <p>{organizer?.link}</p>
+                </Link>
+
+                <div className='org-email'>
+                    <TfiEmail className='icon' />
+                    <p>{organizer?.email}</p>
+                </div>
+                
                 </div>
             </div>
             <div className='li-organizer-feedback'>
-                <h3>Community Feedback: </h3>
-                {
-                    event.avgFeedback?
-                    <img src={avgReaction(event.avgFeedback)} alt={event.organizer.name} /> :
-                    <p>Be the first to voice your feeback !</p>
+                <h3>Community Feedback: <AvgReaction rating={avgFeedback} /> </h3>
+                { 
+                    event?.avgFeedback?
+                    <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :
+                    <p>Be the first to voice your feedback !</p>
                 }
-                <img src={avgReaction(event.avgFeedback)} alt={event.organizer.name} />
+                
                 {
-                    user?
+                    currentUser?
                     <OpenModalButton
                     buttonText="Give Your Feedback"
-                    modalComponent={<FeedbackModal organizer={event.organizer} user={user}/>}
+                    modalComponent={<FeedbackModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
                     onButtonClick
                     onModalClose
                     /> :
@@ -111,9 +133,165 @@ const EventDetails = () => {
                 }
             </div>
         </div>
-        </>
+        </div>
 
     )
+    } else if (eventInfo && isLoaded) {
+
+        const event = eventInfo?.event;
+        const categories = event?.categories.split(',');
+        const organizer = eventInfo?.organizer;
+        const avgFeedback = eventInfo?.avgFeedback;
+
+        // return (
+        //     <div className='event-details-container'>
+        //     <div className='event-details'>
+        //         <h1 className='event-title'>{event?.title}</h1>
+        //         <p className='description'>{event?.description}</p>
+        //         <div className='li-event-description'>
+        //             <div className='location-info'>
+        //                <h2>Location</h2>
+        //                 <h3>{event?.address}</h3>
+        //                 <h3>{event?.city}</h3>
+        //                 <h3>{event?.state}</h3> 
+        //             </div>
+        //             <div className='date-time-info'>
+        //                <h2>Date and Time</h2>
+        //                 <h3>Date: {event?.event_date}</h3>
+        //                 <h3>Start Time: {event?.start_time}</h3>
+        //                 <h3>End Time: {event?.end_time}</h3> 
+        //             </div>
+        //         </div>
+        //         <div className='li-event-preview'>
+        //             <img className='preview-img' src={event?.preview} alt={event?.title} />
+        //         </div>
+        //         <div className='li-event-categories'>
+        //             {categories?.forEach(category => {
+        //                 <li className='category'>
+        //                     <p>{category}</p>
+        //                 </li>
+        //             })}
+        //         </div>
+            
+        //         <div className='li-event-attendees'>
+        //             <EventRSVPTiles />
+        //         </div>
+        //         <div className='li-event-rsvp'>
+        //             {/* need rsvps reducer */}
+        //         </div>
+        //         <div className='li-event-invite'>
+        //             {/* need invites reducer */}
+        //         </div>
+        //     </div>
+        //     <div className='li-organizer-details'>
+        //         <div className='organizer-name-logo'>
+        //             <h2>Event Organizer - {organizer?.name}</h2>
+        //             <img className='organizer-logo' src={organizer?.logo} alt={organizer?.name} />
+        //         </div>
+                
+        //         <div className='li-organizer-description'>
+        //             <p className='description' >{organizer?.description}</p>
+                    
+        //             <div className='li-organizer-contact'>
+        //                 <div className='contact-logo-label'>
+        //                     <MdLocalPhone className='icon' />
+        //                     <h3>Contact Us!</h3>
+        //                     <p>{organizer?.phone_number}</p>
+        //                 </div>
+                    
+                        
+        //             <Link className='org-link' to={organizer.link}><GoLinkExternal className='icon' /> <p>{organizer?.link}</p></Link>
+    
+        //             <div className='org-email'>
+        //                 <TfiEmail className='icon' />
+        //                 <p>{organizer?.email}</p>
+        //             </div>
+                    
+        //             </div>
+        //         </div>
+        //         <div className='li-organizer-feedback'>
+        //             <h3>Community Feedback: </h3>
+        //             { 
+        //                 event?.avgFeedback?
+        //                 <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :
+        //                 <p>Be the first to voice your feedback !</p>
+        //             }
+                    
+        //         </div>
+        //     </div>
+        //     </div>
+    
+        // )
+
+        return(
+            <div className='event-details-container'>
+                <div className='event-details'>
+                    <h1 className='event-title'>{event?.title}</h1>
+                    <p className='description'>{event?.description}</p>
+                    <div className='li-event-description'>
+                        <div className='location-info'>
+                        <h2>Location</h2>
+                            <h3>{event?.address}</h3>
+                            <h3>{event?.city}</h3>
+                            <h3>{event?.state}</h3> 
+                        </div>
+                        <div className='date-time-info'>
+                        <h2>Date and Time</h2>
+                            <h3>Date: {event?.event_date}</h3>
+                            <h3>Start Time: {event?.start_time}</h3>
+                            <h3>End Time: {event?.end_time}</h3> 
+                        </div>
+                    </div>
+                    <div className='li-event-preview'>
+                        <img className='preview-img' src={event?.preview} alt={event?.title} />
+                    </div>
+                    <div className='li-event-categories'>
+                        {categories?.forEach(category => {
+                            <li className='category'>
+                                <p>{category}</p>
+                            </li>
+                        })}
+                    </div>
+                    <button className='login-to-rsvp-button'>Login to RSVP</button>
+                    <div className='li-organizer-details'>
+                        <div className='organizer-name-logo'>
+                            <h2>Event Organizer - {organizer?.name}</h2>
+                            <img className='organizer-logo' src={organizer?.logo} alt={organizer?.name} />
+                        </div>
+                        <div className='li-organizer-description'>
+                            <p className='description' >{organizer?.description}</p>
+                            <div className='li-organizer-contact'>
+                                <div className='contact-logo-label'>
+                                    <MdLocalPhone className='icon' />
+                                    <h3>Contact Us!</h3>
+                                    <p>{organizer?.phone_number}</p>
+                                </div>
+                                <Link 
+                                className='org-link' 
+                                to={organizer.link}
+                                ><GoLinkExternal className='icon' /> 
+                                <p>{organizer?.link}</p>
+                                </Link>
+                                <div className='org-email'>
+                                    <TfiEmail className='icon' />
+                                    <p>{organizer?.email}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='li-organizer-feedback'>
+                            <h3>Community Feedback: <AvgReaction rating={avgFeedback} /> </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+        
+    }
+
+    return (
+        <h1>No Event Found</h1>
+    )
+
 }
 
 export default EventDetails

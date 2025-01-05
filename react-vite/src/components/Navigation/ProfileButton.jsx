@@ -5,10 +5,12 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { IoMenu } from "react-icons/io5";
 
 function ProfileButton() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
@@ -38,26 +40,39 @@ function ProfileButton() {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    navigate('/');
   };
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+      <button 
+      onClick={toggleMenu}
+      className="profile-menu-button"
+      >
+        <FaUserCircle className="user-icon" />
+        <IoMenu className="menu-icon" />
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
+              <li><b>Hey {user.first_name}!</b></li>
               <li>{user.username}</li>
               <li>{user.email}</li>
-              <div>
-                <Link onClick={toggleMenu} to='/dashboard'>Dashboard</Link>
-                <Link onClick={toggleMenu} to='/friends'>Friends</Link>
-                <Link onClick={toggleMenu} to='/events'>Events</Link>
-                <Link onClick={toggleMenu} to='/groups'>Manage Groups</Link>
-                <Link onClick={toggleMenu} to='/Notifications'>Notifications</Link>
-              </div>
+              <li><Link 
+              to='/profile/'
+              onClick={closeMenu}
+              >Dashboard</Link></li>
+              <li><Link 
+              to='/friends/'
+              onClick={closeMenu}
+              >Friends</Link></li>
+              <li><Link
+              to='/'
+              onClick={closeMenu}
+              >Events</Link></li>
+              <li><Link>Manage Groups</Link></li>
+              <li><Link>Notifications</Link></li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>

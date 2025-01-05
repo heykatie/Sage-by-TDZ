@@ -1,0 +1,41 @@
+.event-rsvp-tile {
+    border: solid lightgray 1px;
+    border-radius: 16px;
+    margin: 10px;
+    display: flex;
+    width: 150px;
+}
+
+.event-rsvp-tile .rsvp-link {
+    /* border: dotted pink; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event-rsvp-tile .rsvp-link img {
+    width: 80px;
+    height: auto;
+    padding: 0;
+}
+
+.rsvp-tiles-container {
+    border: solid lightgreen 1px;
+    border-radius: 4px;
+    display: flex;
+    overflow: scroll;
+    margin: 10px 0px;
+}
+
+.rsvps-label-link {
+    /* border: solid red; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.view-rsvps-link:hover {
+    text-decoration: underline;
+}

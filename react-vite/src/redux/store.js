@@ -11,15 +11,18 @@ import friendReducer from "./friends";
 import inviteReducer from "./invites";
 import userReducer from './user';
 import groupReducer from './group';
+import friendReducer from './friends';
+import eventReducer from "./events";
 
 
-const rootReducer = combineReducers({
-  session: sessionReducer,
-  user: userReducer,
-  events: eventsReducer,
-  group: groupReducer,
-  friends: friendReducer,
-  invite: inviteReducer
+  const rootReducer = combineReducers({
+    session: sessionReducer,
+    user: userReducer,
+    events: eventsReducer,
+    group: groupReducer,
+    friends: friendReducer,
+    event: eventReducer,
+    invite: inviteReducer
 
 
 

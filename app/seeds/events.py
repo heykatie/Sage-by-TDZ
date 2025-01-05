@@ -17,10 +17,10 @@ def seed_events():
         start_time='8:00:00',
         end_time='14:00:00',
         badge_url='badgeOneURL',
-        preview='previewImageURL'
+        preview='https://i0.wp.com/www.onegreenplanet.org/wp-content/uploads/2017/07/img_4149.jpg'
         )
     xmasToyDrive = Event(
-        title='XMAS Toy Drive',
+        title='Holiday Toy Drive',
         description='This an event description.',
         organizer_id=3,
         categories='Indoors, Donation, Handicap Accessible',
@@ -31,7 +31,7 @@ def seed_events():
         start_time='10:30:00',
         end_time='16:30:00',
         badge_url='badgeTwoURL',
-        preview='previewImageURL'
+        preview='https://www.clinton.k12.ma.us/ourpages/auto/2023/11/30/46834948/toydrive.jpg'
         )
     soupKitchen = Event(
         title='Soup Kitchen',
@@ -45,7 +45,7 @@ def seed_events():
         start_time='7:00:00',
         end_time='20:15:00',
         badge_url='badgeThreeURL',
-        preview='previewImageURL'
+        preview='https://static.wixstatic.com/media/406c48_1778d6d9e5924cd9a23d9d1b6182debb~mv2.jpg/v1/fill/w_900,h_600,al_c,q_85,enc_auto/406c48_1778d6d9e5924cd9a23d9d1b6182debb~mv2.jpg'
         )
     puppyCarWash = Event(
         title='Puppy Car Wash',
@@ -59,13 +59,13 @@ def seed_events():
         start_time='10:00:00',
         end_time='12:30:00',
         badge_url='badgeFourURL',
-        preview='previewImageURL'
+        preview='https://myhswm.org/wp-content/uploads/2023/06/DSC00289-1-1024x576.jpg'
         )
     helpingHands = Event(
         title='Helping Hands',
         description='This an event description.',
         organizer_id=2,
-        categories='Outdoors, Commnity Development, Physical',
+        categories='Outdoors, Community Development, Physical',
         address='2367 Apple St. Apt 4B',
         city='New York',
         state='New York',
@@ -73,7 +73,7 @@ def seed_events():
         start_time='8:00:00',
         end_time='17:00:00',
         badge_url='badgeFiveURL',
-        preview='previewImageURL'
+        preview='https://bridgebible.church/wp-content/uploads/2023/03/Helping-Hand-logo-940x720.png'
         )
     kidsTheatre = Event(
         title='Kids Theatre',
@@ -87,7 +87,7 @@ def seed_events():
         start_time='17:30:00',
         end_time='20:00:00',
         badge_url='badgeSixURL',
-        preview='previewImageURL'
+        preview='https://images.childrenstheatre.org/uploads/2019/10/KER_6617.jpg'
         )
     communityGarden = Event(
         title='Community Garden',
@@ -101,7 +101,7 @@ def seed_events():
         start_time='7:00:00',
         end_time='20:15:00',
         badge_url='badgeSevenURL',
-        preview='previewImageURL'
+        preview='https://cdn.hosted-assets.com/nourishingneighbors/ul/q_auto/9DEY071R/c89e77/c89e77-iStock-1364679535.jpg'
         )
     bigBrotherBigSister = Event(
         title='Big Brother Big Sister',
@@ -115,7 +115,7 @@ def seed_events():
         start_time='15:00:00',
         end_time='17:15:00',
         badge_url='badgeEightURL',
-        preview='previewImageURL'
+        preview='https://mentornj.org/wp-content/uploads/2024/05/about-intro.jpg'
         )
     readToTheElderly = Event(
         title='Read to the Elderly',
@@ -129,7 +129,7 @@ def seed_events():
         start_time='7:00:00',
         end_time='20:15:00',
         badge_url='badgeNineURL',
-        preview='previewImageURL'
+        preview='https://bpb-eu-w2.wpmucdn.com/blogs.bristol.ac.uk/dist/3/200/files/2019/02/shutterstock_1033321135-25sky2w.jpg'
         )
     holidayHotline = Event(
         title='Holiday Hotline',
@@ -143,10 +143,10 @@ def seed_events():
         start_time='6:00:00',
         end_time='23:55:00',
         badge_url='badgeTenURL',
-        preview='previewImageURL'
+        preview='https://www.sfsuicide.org/wp-content/uploads/2021/08/SFSP-Hotline-Volunteer.png'
         )
     disasterRelief = Event(
-        title='Disater Relief',
+        title='Disaster Relief',
         description='This an event description.',
         organizer_id=2,
         categories='Outdoors, Crisis Relief',
@@ -157,7 +157,7 @@ def seed_events():
         start_time='15:00:00',
         end_time='18:00:00',
         badge_url='badgeElevenURL',
-        preview='previewImageURL'
+        preview='https://www.allhandsandhearts.org/wp-content/uploads/2023/06/400_Turkey_Response_DART_IMG0034_02.19.23.webp'
         )
     clothingDrive = Event(
         title='Clothing Drive',
@@ -171,7 +171,7 @@ def seed_events():
         start_time='7:00:00',
         end_time='20:15:00',
         badge_url='badgeTwelveURL',
-        preview='previewImageURL'
+        preview='https://svdpli.org/wp-content/uploads/2023/10/iStock-1362787530-1_11zon-1024x683.jpg'
         )
     catDates = Event(
         title='Cat Dates',
@@ -185,7 +185,7 @@ def seed_events():
         start_time='10:00:00',
         end_time='17:00:00',
         badge_url='badgeThirteenURL',
-        preview='previewImageURL'
+        preview='https://heavenlypets.org/wp-content/uploads/2021/04/Perrys-Place-DeRemer-Final_-8-scaled-e1709358056657-1536x1197.jpg'
         )
 
     db.session.add(beachCleanUp)

@@ -1,0 +1,6 @@
+.rsvp-tile {
+    border: dotted red;
+    padding: 10px;
+    min-width: 300px;
+    max-width: 50%;
+}

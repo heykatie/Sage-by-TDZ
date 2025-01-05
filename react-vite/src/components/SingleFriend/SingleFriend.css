@@ -1,0 +1,96 @@
+.events-attended {
+    text-decoration: none;
+    font-weight: 100;
+    color: gray;
+}
+
+.events-attended:hover {
+    text-decoration: underline;
+}
+
+.nav-title {
+    /* border: dotted green; */
+    font-weight: 100;
+    color: gray;
+}
+
+.shared-events:hover {
+    text-decoration: underline;
+}
+
+.shared-events {
+    text-decoration: none;
+    font-weight: 600;
+    color: black;
+}
+
+.dashboard-title h4 {
+    font-weight: 200;
+    color: gray;
+}
+
+.dashboard-title {
+    border-bottom: solid lightgray 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.friends-button {
+    display: flex;
+    column-gap: 4px;
+    max-height: 34px;
+    min-width: 80px;
+}
+
+h2.friend-name {
+    /* border: solid red; */
+    color: black;
+    font-weight: 600;
+}
+
+.info-body {
+    /* border: dotted red; */
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.shared-event-info {
+    border: solid lightgray 1px;
+    border-radius: 24px;
+    height: 300px;
+    width: 300px;
+    text-align: center;
+    margin: 20px;
+}
+
+.info-body img {
+    /* border: dotted magenta; */
+    width: 100%;
+    height: 60%;
+}
+
+.date-time {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+}
+
+@media only screen and (min-width: 400px) and (max-width: 600px){
+   .info-body {
+    display: flex;
+    align-items: center;
+   }
+}
+
+.shared-event-info h2 {
+    color: green;
+}
+
+.info-body p {
+    padding-top: 20px;
+}

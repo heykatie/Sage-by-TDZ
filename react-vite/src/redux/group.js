@@ -32,7 +32,7 @@ export const thunkFetchGroup = (groupId) => async (dispatch) => {
 // Thunk: Create a new group
 export const thunkCreateGroup = (groupData) => async (dispatch) => {
 	try {
-		const response = await csrfFetch('/api/groups', {
+		const response = await csrfFetch('/api/groups/', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(groupData),

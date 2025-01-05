@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 // Action Types
 const LOAD_USER = 'user/LOAD_USER';
+const LOAD_ALL_USERS = 'user/loadAllUsers';
 const LOAD_USER_EVENTS = 'user/LOAD_USER_EVENTS';
 const LOAD_USER_BADGES = 'user/LOAD_USER_BADGES';
 const LOAD_USER_INVITES = 'user/LOAD_USER_INVITES';
@@ -15,6 +16,11 @@ export const loadUser = (user) => ({
 	type: LOAD_USER,
 	user,
 });
+
+export const loadAllUsers = payload => ({
+	type: LOAD_ALL_USERS,
+	payload
+})
 
 export const loadUserEvents = (events) => ({
 	type: LOAD_USER_EVENTS,
@@ -70,6 +76,17 @@ export const fetchCurrentUser = () => async (dispatch) => {
 		dispatch(setStatus('failed'));
 	}
 };
+
+export const thunkAllUsers = () => async dispatch => {
+	const res = await csrfFetch('/api/users/');
+
+	if(res.ok) {
+		const users = await res.json();
+		if(users.errors) { return; }
+
+		dispatch(loadAllUsers(users));
+	}
+}
 
 export const fetchUserEvents = () => async (dispatch) => {
 	dispatch(setStatus('loading'));
@@ -151,7 +168,7 @@ export const fetchUserFriends = () => async (dispatch) => {
 	dispatch(setStatus('loading'));
 	try {
 		console.log('Fetching friends...'); // Debug log
-		const res = await csrfFetch('/api/friends', {
+		const res = await csrfFetch('/api/friends/', {
 			method: 'GET',
 			credentials: 'include',
 		});
@@ -183,6 +200,7 @@ const initialState = {
 	friends: [],
 	status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
 	error: null, // Stores error messages
+	users: {}
 };
 
 const userReducer = (state = initialState, action) => {
@@ -204,6 +222,14 @@ const userReducer = (state = initialState, action) => {
 			return { ...state, status: action.status };
 		case SET_ERROR:
 			return { ...state, error: action.error };
+		case LOAD_ALL_USERS: {
+			const newState = {...state, users: {}};
+			const usersArr = action.payload.users;
+			usersArr.forEach(user=>{
+				newState.users[user.id] = user;
+			})
+			return newState;
+		}
 		default:
 			return state;
 	}
