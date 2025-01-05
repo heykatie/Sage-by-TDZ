@@ -1,4 +1,4 @@
-.rsvp-tile {
+.event-rsvp-tile {
     border: solid lightgray 1px;
     border-radius: 16px;
     margin: 10px;
@@ -6,7 +6,7 @@
     width: 150px;
 }
 
-.rsvp-tile .rsvp-link {
+.event-rsvp-tile .rsvp-link {
     /* border: dotted pink; */
     width: 100%;
     display: flex;
@@ -14,7 +14,7 @@
     align-items: center;
 }
 
-.rsvp-tile .rsvp-link img {
+.event-rsvp-tile .rsvp-link img {
     width: 80px;
     height: auto;
     padding: 0;

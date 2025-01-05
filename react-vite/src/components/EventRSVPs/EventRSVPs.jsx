@@ -31,7 +31,7 @@ export default function EventRSVPs() {
 
     const rsvpTile = r => {
         return (
-            <div key={r.id}>
+            <div className='rsvp-tile' key={r.id}>
                 <img src={users[r.id].profile_pic} />
                 <h3>{users[r.id].first_name}</h3>
                 <IoIosMore />

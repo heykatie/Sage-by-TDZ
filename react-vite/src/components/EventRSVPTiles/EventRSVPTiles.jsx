@@ -40,7 +40,7 @@ export default function EventRSVPTiles() {
 
     const rsvpTile = r => {
         return (
-            <div className='rsvp-tile' key={r.id}>
+            <div className='event-rsvp-tile' key={r.id}>
                 <Link
                 className='rsvp-link'
                 to={linkSrc(r.user_id)}
