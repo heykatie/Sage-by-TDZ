@@ -24,28 +24,29 @@ function Navigation() {
 
 	return (
 		<nav className='nav'>
-			<ul>
+			<ul className='nav-contents'>
 				<li>
 					<NavLink to='/'>Home</NavLink>
 				</li>
 
-				<li>
-					<ProfileButton />
-				</li>
-
-				{/* Show "Create a Group" button only if user is logged in */}
-				{user && (
-					<li className='create-group-container'>
-						<button
-							className='create-group-button'
-							onClick={openGroupModal}>
-							Create a Group
-						</button>
-						{showCreateGroupModal && (
-							<CreateGroupModal onClose={closeGroupModal} />
-						)}
+				<div className='profile-button-create-group'>
+					{/* Show "Create a Group" button only if user is logged in */}
+					{user && (
+						<li className='create-group-container'>
+							<button
+								className='create-group-button'
+								onClick={openGroupModal}>
+								Create Group
+							</button>
+							{showCreateGroupModal && (
+								<CreateGroupModal onClose={closeGroupModal} />
+							)}
+						</li>
+					)}
+					<li>
+						<ProfileButton />
 					</li>
-				)}
+				</div>
 			</ul>
 		</nav>
 	);

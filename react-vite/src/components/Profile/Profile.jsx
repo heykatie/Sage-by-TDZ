@@ -28,7 +28,7 @@ const ProfilePage = () => {
 
 	// Loading and error handling
 	if (status === 'loading') return <p>Loading...</p>;
-	if (status === 'failed') return <p>Error: {error}</p>;
+	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
 
 	// Dynamic content rendering
 	const renderSection = () => {

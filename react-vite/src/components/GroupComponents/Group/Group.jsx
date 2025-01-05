@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkFetchGroup } from '../../../redux/group';
-import sprout from './../../../../dist/assets/sprout.png';
+import sprout from 'https://i.postimg.cc/jdK73WSg/sprout.png';
 import './Group.css';
 
 const Group = () => {
