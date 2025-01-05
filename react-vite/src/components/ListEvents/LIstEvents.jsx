@@ -5,6 +5,7 @@ import './ListEvents.css'
 import { useEffect } from 'react';
 import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
 
+
 const ListEvents = () => {
 
     const dispatch = useDispatch()
@@ -22,10 +23,13 @@ const ListEvents = () => {
        <li key = {event.id}>
             <div className='li-event-list'>
                 <Link to={ `/events/${event.id}` } > {event.title}
+                <div className='li-event-image'>
                 <img src={event.preview} alt={event.title} />
+                </div>
                 <div className='li-event-categories'>
                     {event.categories.split(',').forEach(category => {
                         <li className='category'>
+                            {/* {console.log('i exist', category)} */}
                             <p>{category}</p>
                         </li>
                     })}

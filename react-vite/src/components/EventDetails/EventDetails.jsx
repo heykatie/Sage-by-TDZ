@@ -52,13 +52,13 @@ const EventDetails = () => {
                    <h2>Location</h2>
                     <h3>{event?.address}</h3>
                     <h3>{event?.city}</h3>
-                    <h3>{event?.state}</h3> 
+                    <h3>{event?.state}</h3>
                 </div>
                 <div className='date-time-info'>
                    <h2>Date and Time</h2>
                     <h3>Date: {event?.event_date}</h3>
                     <h3>Start Time: {event?.start_time}</h3>
-                    <h3>End Time: {event?.end_time}</h3> 
+                    <h3>End Time: {event?.end_time}</h3>
                 </div>
             </div>
             <div className='li-event-preview'>
@@ -71,15 +71,38 @@ const EventDetails = () => {
                     </li>
                 })}
             </div>
-        
+
             <div className='li-event-attendees'>
                 <EventRSVPTiles />
             </div>
             <div className='li-event-rsvp'>
                 {/* need rsvps reducer */}
+                { user?
+                <OpenModalButton
+                buttonText="Click here to RSVP"
+                modalComponent={<RSVPModal eventId={event?.id} />}
+                onButtonClick
+                onModalClose
+                /> :
+                <h4>Log In to RSVh4</h4>
+                }
             </div>
             <div className='li-event-invite'>
                 {/* need invites reducer */}
+                { user?
+                (
+                <>
+                    <p>Invite your friends to volunteer wuth you!</p>
+                    <OpenModalButton
+                    buttonText="+"
+                    modalComponent={<RSVPModal eventId={event?.id} />}
+                    onButtonClick
+                    onModalClose
+                    />
+                </>
+                ) :
+                <h4>Log In to RSVP</h4>
+                }
             </div>
         </div>
         <div className='li-organizer-details'>
@@ -87,22 +110,22 @@ const EventDetails = () => {
                 <h2>Event Organizer - {organizer?.name}</h2>
                 <img className='organizer-logo' src={organizer?.logo} alt={organizer?.name} />
             </div>
-            
+
             <div className='li-organizer-description'>
                 <p className='description' >{organizer?.description}</p>
-                
+
                 <div className='li-organizer-contact'>
                     <div className='contact-logo-label'>
                         <MdLocalPhone className='icon' />
                         <h3>Contact Us!</h3>
                         <p>{organizer?.phone_number}</p>
                     </div>
-                
-                    
-                <Link 
-                className='org-link' 
+
+
+                <Link
+                className='org-link'
                 to={organizer.link}
-                ><GoLinkExternal className='icon' /> 
+                ><GoLinkExternal className='icon' />
                 <p>{organizer?.link}</p>
                 </Link>
 
@@ -110,17 +133,17 @@ const EventDetails = () => {
                     <TfiEmail className='icon' />
                     <p>{organizer?.email}</p>
                 </div>
-                
+
                 </div>
             </div>
             <div className='li-organizer-feedback'>
                 <h3>Community Feedback: <AvgReaction rating={avgFeedback} /> </h3>
-                { 
+                {
                     event?.avgFeedback?
                     <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :
                     <p>Be the first to voice your feedback !</p>
                 }
-                
+
                 {
                     currentUser?
                     <OpenModalButton
@@ -153,13 +176,13 @@ const EventDetails = () => {
         //                <h2>Location</h2>
         //                 <h3>{event?.address}</h3>
         //                 <h3>{event?.city}</h3>
-        //                 <h3>{event?.state}</h3> 
+        //                 <h3>{event?.state}</h3>
         //             </div>
         //             <div className='date-time-info'>
         //                <h2>Date and Time</h2>
         //                 <h3>Date: {event?.event_date}</h3>
         //                 <h3>Start Time: {event?.start_time}</h3>
-        //                 <h3>End Time: {event?.end_time}</h3> 
+        //                 <h3>End Time: {event?.end_time}</h3>
         //             </div>
         //         </div>
         //         <div className='li-event-preview'>
@@ -172,7 +195,7 @@ const EventDetails = () => {
         //                 </li>
         //             })}
         //         </div>
-            
+
         //         <div className='li-event-attendees'>
         //             <EventRSVPTiles />
         //         </div>
@@ -188,39 +211,39 @@ const EventDetails = () => {
         //             <h2>Event Organizer - {organizer?.name}</h2>
         //             <img className='organizer-logo' src={organizer?.logo} alt={organizer?.name} />
         //         </div>
-                
+
         //         <div className='li-organizer-description'>
         //             <p className='description' >{organizer?.description}</p>
-                    
+
         //             <div className='li-organizer-contact'>
         //                 <div className='contact-logo-label'>
         //                     <MdLocalPhone className='icon' />
         //                     <h3>Contact Us!</h3>
         //                     <p>{organizer?.phone_number}</p>
         //                 </div>
-                    
-                        
+
+
         //             <Link className='org-link' to={organizer.link}><GoLinkExternal className='icon' /> <p>{organizer?.link}</p></Link>
-    
+
         //             <div className='org-email'>
         //                 <TfiEmail className='icon' />
         //                 <p>{organizer?.email}</p>
         //             </div>
-                    
+
         //             </div>
         //         </div>
         //         <div className='li-organizer-feedback'>
         //             <h3>Community Feedback: </h3>
-        //             { 
+        //             {
         //                 event?.avgFeedback?
         //                 <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :
         //                 <p>Be the first to voice your feedback !</p>
         //             }
-                    
+
         //         </div>
         //     </div>
         //     </div>
-    
+
         // )
 
         return(
@@ -233,13 +256,13 @@ const EventDetails = () => {
                         <h2>Location</h2>
                             <h3>{event?.address}</h3>
                             <h3>{event?.city}</h3>
-                            <h3>{event?.state}</h3> 
+                            <h3>{event?.state}</h3>
                         </div>
                         <div className='date-time-info'>
                         <h2>Date and Time</h2>
                             <h3>Date: {event?.event_date}</h3>
                             <h3>Start Time: {event?.start_time}</h3>
-                            <h3>End Time: {event?.end_time}</h3> 
+                            <h3>End Time: {event?.end_time}</h3>
                         </div>
                     </div>
                     <div className='li-event-preview'>
@@ -266,10 +289,10 @@ const EventDetails = () => {
                                     <h3>Contact Us!</h3>
                                     <p>{organizer?.phone_number}</p>
                                 </div>
-                                <Link 
-                                className='org-link' 
+                                <Link
+                                className='org-link'
                                 to={organizer.link}
-                                ><GoLinkExternal className='icon' /> 
+                                ><GoLinkExternal className='icon' />
                                 <p>{organizer?.link}</p>
                                 </Link>
                                 <div className='org-email'>
@@ -285,7 +308,7 @@ const EventDetails = () => {
                 </div>
             </div>
         )
-        
+
     }
 
     return (
