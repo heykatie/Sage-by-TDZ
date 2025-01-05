@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { thunkSingleEvent, thunkGetRSVPs } from '../../redux/events';
 import { thunkAllUsers } from '../../redux/user';
 import { IoIosMore } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 export default function EventRSVPs() {
     const dispatch = useDispatch();
@@ -31,11 +32,14 @@ export default function EventRSVPs() {
 
     const rsvpTile = r => {
         return (
-            <div className='rsvp-tile' key={r.id}>
-                <img src={users[r.id].profile_pic} />
-                <h3>{users[r.id].first_name}</h3>
-                <IoIosMore />
+            <div className='friend-tile'>
+               <Link className='friend-link' key={r.id}>
+                    <img className='profile-pic' src={users[r.id].profile_pic} />
+                    <h3 className='friend-name'>{users[r.id].first_name}</h3>
+                    <IoIosMore className='more-dots' />
+                </Link> 
             </div>
+            
         )
     }
 
