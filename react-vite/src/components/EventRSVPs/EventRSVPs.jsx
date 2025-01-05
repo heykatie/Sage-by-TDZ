@@ -7,6 +7,7 @@ import { thunkAllUsers } from '../../redux/user';
 import { IoIosMore } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import { thunkAllFriends } from '../../redux/friends';
+import { IoArrowBack } from "react-icons/io5";
 
 export default function EventRSVPs() {
     const dispatch = useDispatch();
@@ -34,8 +35,6 @@ export default function EventRSVPs() {
         return ``
     }
 
-    console.log(users)
-
     const rsvpTile = r => {
         return (
             <div className='friend-tile'>
@@ -59,6 +58,10 @@ export default function EventRSVPs() {
             {event && event.map(e=>(
                 <div key={e.event.id}>
                     <h1>{e.event.title} - RSVPs</h1>
+                    <Link 
+                    to={`/events/${eventId}`}
+                    className='event-page-back-link'
+                    ><IoArrowBack /> Back to Event Page</Link>
                     {rsvps && rsvps.map(r=>(
                         rsvpTile(r)
                     ))}

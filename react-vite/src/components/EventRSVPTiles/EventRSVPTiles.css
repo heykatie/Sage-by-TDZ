@@ -28,3 +28,14 @@
     margin: 10px 0px;
 }
 
+.rsvps-label-link {
+    /* border: solid red; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.view-rsvps-link:hover {
+    text-decoration: underline;
+}

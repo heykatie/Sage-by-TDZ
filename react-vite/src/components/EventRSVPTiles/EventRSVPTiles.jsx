@@ -23,7 +23,7 @@ export default function EventRSVPTiles() {
     }, [dispatch, eventId]);
 
     const event = Object.values(useSelector(state=>state.event.event));
-    const rsvps = Object.values(useSelector(state=>state.event.rsvps));
+    const rsvps = useSelector(state=>state.event.rsvps);
     const users = useSelector(state=>state.user.users);
     const friends = useSelector(state=>state.friends.allFriends);
 
@@ -39,7 +39,7 @@ export default function EventRSVPTiles() {
             <div className='event-rsvp-tile' key={r.id}>
                 <Link
                 className='rsvp-link'
-                to={linkSrc(r.user_id)}
+                to={currentUser && linkSrc(r.user_id)}
                 >
                 <img src={users[r.user_id]?.profile_pic} className='profile-pic' />
                 <h3 className='friend-name'>{users[r.user_id]?.first_name}</h3>
@@ -48,16 +48,40 @@ export default function EventRSVPTiles() {
         )
     }
 
-    if(!rsvps.length) return (<></>)
+
+    const TileTitle = () => {
+        if(!rsvps[currentUser.id]) {return (
+            <div className='rsvps-label-link'>
+               <h4>{rsvps?.length} Users have RSVPd, join in the fun!</h4>
+               <Link
+                to={`/events/${eventId}/rsvps`}
+                className='view-rsvps-link'
+                >View all RSVPs</Link>  
+            </div> 
+        )} else if (rsvps[currentUser.id]) {
+            return (
+            <div className='rsvps-label-link'>
+                <h4>{Object.values(rsvps)?.length} Users have RSVPd</h4>
+                <Link
+                to={`/events/${eventId}/rsvps`}
+                className='view-rsvps-link'
+                >View all RSVPs</Link>
+            </div>)
+        } else {
+            return (<div></div>)
+        }
+    }
+
+    if(!Object.values(rsvps)?.length) return (<></>)
 
 
     return (
         <div>
             {event && event.map(e=>(
                 <div key={e.id}>
-                    <h2>RSVPs</h2>
+                    {currentUser && <TileTitle />}
                    <div className='rsvp-tiles-container' key={e.event.id}>
-                    {rsvps && rsvps.map(r=>(
+                    {rsvps && Object.values(rsvps).map(r=>(
                         <div key={r.id}>{rsvpTile(r)}</div>
                     ))}
                     </div> 
