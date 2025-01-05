@@ -14,6 +14,7 @@ import FeedbackModal from '../FeedbackModal/FeedbackModal'
 import './EventDetails.css';
 import AllAttendees from '../AllAttendees/AllAttendees';
 import { thunkSingleEvent } from '../../redux/events';
+import AvgReaction from '../AvgReaction/AvgReaction';
 
 const EventDetails = () => {
 
@@ -34,15 +35,6 @@ const EventDetails = () => {
     const event = useSelector((state) => state.event.event);
     const eventInfo = event[eventId];
 
-    let avgReaction = (rating) => {
-        if (rating === 1) return <TbMoodSadSquint className='sad-face'/>
-
-        if (rating === 2) return <PiSmileyMeh className='meh-face'/>
-
-        return <BiHappy className='happy-face'/>
-    };
-
-
     if (eventInfo && isLoaded) {
         console.log('ALL EVENTS --->', eventInfo)
         const event = eventInfo?.event
@@ -51,7 +43,7 @@ const EventDetails = () => {
 
         const organizer = eventInfo?.organizer
 
-        const avgFeedback = eventInfo?.avgFeedback
+        const avgFeedback = eventInfo?.avgFeedback;
 
     return (
         <>
@@ -110,10 +102,10 @@ const EventDetails = () => {
                 <h3>Community Feedback: </h3>
                 {
                     event?.avgFeedback?
-                    <img src={avgReaction(avgFeedback)} alt={organizer?.name} /> :
-                    <p>Be the first to voice your feeback !</p>
+                    <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :
+                    <p>Be the first to voice your feedback !</p>
                 }
-                <img src={avgReaction(avgFeedback)} alt={organizer?.name} />
+                
                 {
                     user?
                     <OpenModalButton
