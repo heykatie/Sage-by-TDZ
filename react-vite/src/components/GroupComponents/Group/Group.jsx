@@ -1,13 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import sprout from '../../../../dist/assets/sprout.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { thunkFetchGroup } from '../../../redux/group';
+import sprout from './../../../../dist/assets/sprout.png';
 
 const GroupPage = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const { groupId } = useParams();
 	const { group } = useSelector((state) => state.group);
 	const currentUser = useSelector((state) => state.session.user);
+
+	const [members, setMembers] = useState([]);
+	const [messages, setMessages] = useState([]);
+	const [newMessage, setNewMessage] = useState('');
+
+	// Fetch group members when component mounts
+
+	useEffect(() => {
+		if (groupId) {
+			dispatch(thunkFetchGroup(groupId)); // Ensures the group data is set in the state
+		}
+	}, [dispatch, groupId]);
+
+	useEffect(() => {
+		const fetchGroupMembers = async () => {
+			try {
+				const response = await fetch(`/api/groups/${groupId}/members`, {
+					credentials: 'include',
+				});
+				const data = await response.json();
+				if (response.ok) {
+					setMembers(data.Members);
+				} else {
+					console.error('Failed to fetch members:', data.message);
+				}
+			} catch (error) {
+				console.error('Error fetching group members:', error);
+			}
+		};
+
+		// Fetch messages for the group
+		const fetchMessages = async () => {
+			try {
+				const response = await fetch(`/api/groups/${groupId}/messages`, {
+					credentials: 'include',
+				});
+				const data = await response.json();
+				if (response.ok) {
+					setMessages(data.messages || []);
+				} else {
+					console.error('Failed to fetch messages:', data.message);
+				}
+			} catch (error) {
+				console.error('Error fetching messages:', error);
+			}
+		};
+
+		fetchGroupMembers();
+		fetchMessages();
+	}, [groupId]);
+
+	// Handle new message submission
+	const handleSendMessage = async (e) => {
+		e.preventDefault();
+		if (!newMessage.trim()) return;
+
+		try {
+			const response = await fetch(`/api/groups/${groupId}/messages`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'include',
+				body: JSON.stringify({ message: newMessage }),
+			});
+			const data = await response.json();
+			if (response.ok) {
+				setMessages((prev) => [...prev, data]); // Add the new message
+				setNewMessage(''); // Clear input
+			} else {
+				console.error('Failed to post message:', data.message);
+			}
+		} catch (error) {
+			console.error('Error posting message:', error);
+		}
+	};
 
 	if (!group) {
 		return <p>Loading group details...</p>;
@@ -22,7 +98,7 @@ const GroupPage = () => {
 					alt='Event Banner'
 				/>
 			</div>
-			<h2>{`Group for ${group.event?.title || 'Event Title'}`}</h2>
+			<h2>{`${group.event?.title || 'Event Title'} Group`}</h2>
 			<p>
 				Hosted by: {`${currentUser?.first_name} ${currentUser?.last_name}`}
 			</p>
@@ -32,31 +108,59 @@ const GroupPage = () => {
 				View Event Details
 			</a>
 
-			{/* Group description */}
+			{/* Group Description */}
 			<div className='group-description'>
 				<h3>Group Description</h3>
 				<p>{group.description || 'No description added yet.'}</p>
 			</div>
 
-			{/* Invited Friends */}
-			<section className='friends-section'>
-				<h3>Friends in this Group</h3>
-				<div className='friends-list'>
-					{group.invitedFriends.length ? (
-						group.invitedFriends.map((friend) => (
-							<div className='friend-item' key={friend.id}>
+			{/* Members Section */}
+			<section className='members-section'>
+				<h3>Group Members</h3>
+				<div className='members-list'>
+					{members.length ? (
+						members.map((member) => (
+							<div className='member-item' key={member.id}>
 								<img
-									src={friend.profile_pic || sprout}
-									alt={`${friend.first_name}'s profile`}
-									className='friend-profile-pic'
+									src={member.profile_pic || sprout}
+									alt={`${member.first_name}'s profile`}
+									className='member-profile-pic'
 								/>
-								<span>{`${friend.first_name} ${friend.last_name}`}</span>
+								<span>{`${member.first_name} ${member.last_name}`}</span>
 							</div>
 						))
 					) : (
-						<p>No friends added to this group yet.</p>
+						<p>No members in this group yet.</p>
 					)}
 				</div>
+			</section>
+
+			{/* Message Board Section */}
+			<section className='message-board-section'>
+				<h3>Message Board</h3>
+				<div className='messages-list'>
+					{messages.length ? (
+						messages.map((message, index) => (
+							<div className='message-item' key={index}>
+								<strong>{message.first_name || 'Anonymous'}:</strong>{' '}
+								<span>{message.message}</span>
+							</div>
+						))
+					) : (
+						<p>No messages yet. Start the conversation!</p>
+					)}
+				</div>
+
+				{/* New Message Form */}
+				<form className='new-message-form' onSubmit={handleSendMessage}>
+					<input
+						type='text'
+						placeholder='Write a message...'
+						value={newMessage}
+						onChange={(e) => setNewMessage(e.target.value)}
+					/>
+					<button type='submit'>Send</button>
+				</form>
 			</section>
 
 			{/* Navigation Buttons */}

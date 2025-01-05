@@ -93,14 +93,28 @@ def get_group_members(groupId):
 @group_routes.route('/<int:groupId>/messages')
 @login_required
 def get_all_messages(groupId):
-    messages = Message.query.filter(Message.group_id == groupId)
-    members = get_group_members(groupId)['Members']
-    # member = [member for member in members if member['id'] == current_user.id]
-    members = [member for member in get_group_members(groupId) if member['id'] == current_user.id]
-    if messages and members:
-        return {'messages': [message.to_dict() for message in messages]}
+    """
+    Get all messages for a specific group.
+    """
+    group = Group.query.get(groupId)
+    if not group:
+        return {"message": "Group not found"}, 404
 
-    return { 'error': { 'message': 'No messages found' } }
+    messages = Message.query.filter(Message.group_id == groupId).all()
+    if not messages:
+        return {"messages": []}, 200
+
+    return {"messages": [message.to_dict() for message in messages]}, 200
+
+# def get_all_messages(groupId):
+#     messages = Message.query.filter(Message.group_id == groupId)
+#     members = get_group_members(groupId)['Members']
+#     # member = [member for member in members if member['id'] == current_user.id]
+#     members = [member for member in get_group_members(groupId) if member['id'] == current_user.id]
+#     if messages and members:
+#         return {'messages': [message.to_dict() for message in messages]}
+
+#     return { 'error': { 'message': 'No messages found' } }
 
 @group_routes.route('/<int:groupId>/messages', methods=['POST'])
 @login_required
@@ -112,6 +126,9 @@ def create_message(groupId):
 
     data = request.get_json()
     message = data.get('message')
+
+    if not message:
+        return {"error": "Message cannot be empty"}, 400
 
     newMessage = Message(
         group_id=groupId,
