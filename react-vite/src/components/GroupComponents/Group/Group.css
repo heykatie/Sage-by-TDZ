@@ -1,0 +1,188 @@
+.group-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.left-column {
+  flex: 2;
+  padding: 10px;
+}
+
+.right-column {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-header {
+  margin-bottom: 10px;
+}
+
+.event-banner {
+  width: 100%;
+  height: 250px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.group-description {
+  margin-top: 20px;
+}
+
+.group-description p {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.members-section {
+  margin-top: 20px;
+}
+
+.members-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  width: calc(50% - 10px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.member-profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.message-board-section {
+  margin-top: 30px;
+}
+
+.messages-list {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.message-item {
+  margin-bottom: 10px;
+}
+
+.new-message-form {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.new-message-form input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.new-message-form button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #6b8f71; /* Sage Green */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.new-message-form button:hover {
+  background-color: #557b5d; /* Darker Sage Green */
+}
+
+.group-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.dashboard-button,
+.event-button {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+}
+
+.dashboard-button {
+  background-color: #6b8f71;
+  color: white;
+}
+
+.dashboard-button:hover {
+  background-color: #557b5d;
+}
+
+.event-button {
+  background-color: white;
+  border: 1px solid #8f9f94;
+  color: #333;
+}
+
+.event-button:hover {
+  background-color: #f0f5f2;
+}
+
+.edit-group-button {
+  background-color: #6b8f71;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+}
+
+.edit-group-button:hover {
+  background-color: #557b5d;
+}
+
+@media (max-width: 768px) {
+  .group-page {
+    flex-direction: column;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+  }
+
+  .member-item,
+  .friend-item {
+    width: 100%;
+  }
+}

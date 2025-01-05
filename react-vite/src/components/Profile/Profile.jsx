@@ -8,7 +8,7 @@ import {
 	fetchUserGroups,
 } from '../../redux/user'; // Ensure correct import path
 // import Navigation from '../Navigation';
-import './ProfilePage.css';
+import './Profile.css';
 
 const ProfilePage = () => {
 	const dispatch = useDispatch();

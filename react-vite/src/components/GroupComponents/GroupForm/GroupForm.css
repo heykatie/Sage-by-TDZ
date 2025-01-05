@@ -1,0 +1,177 @@
+.group-form-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.left-column {
+  flex: 2;
+  padding: 10px;
+}
+
+.right-column {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-header {
+  margin-bottom: 10px;
+}
+
+.event-banner {
+  width: 100%;
+  height: 250px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.group-description textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-top: 10px;
+}
+
+.friends-section {
+  margin-top: 20px;
+}
+
+.friends-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  width: calc(50% - 10px);
+  /* Makes items appear 2 per row */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  /* For centering the friend name */
+}
+
+.friend-details {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  /* Ensures the center content takes available space */
+  text-align: center;
+}
+
+.friend-profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.friend-name {
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  /* Prevents wrapping */
+}
+
+.select-friend-button {
+  width: 80px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #6b8f71;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  text-align: center;
+}
+
+.select-friend-button.selected {
+  background-color: #8c6c64;
+}
+
+.select-friend-button:hover {
+  background-color: #557b5d;
+}
+
+.select-friend-button.selected:hover {
+  background-color: #7b4f49;
+}
+
+.group-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.save-group-button,
+.cancel-button,
+.delete-group-button {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+}
+
+.save-group-button {
+  background-color: #6b8f71;
+  color: white;
+}
+
+.save-group-button:hover {
+  background-color: #557b5d;
+}
+
+.cancel-button {
+  background-color: white;
+  border: 1px solid #8f9f94;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background-color: #f0f5f2;
+}
+
+.delete-group-button {
+  background-color: #8c6c64;
+  color: white;
+}
+
+.delete-group-button:hover {
+  background-color: #7b4f49;
+}
+
+@media (max-width: 768px) {
+  .group-form-page {
+    flex-direction: column;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+  }
+
+  .friend-item {
+    width: 100%;
+  }
+}

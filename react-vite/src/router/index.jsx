@@ -10,8 +10,11 @@ import AllFriends from '../components/AllFriends';
 import EventRSVPs from '../components/EventRSVPs';
 import SingleFriend from '../components/SingleFriend';
 import ProfilePage from '../components/ProfilePage';
+import SharedEvents from '../components/SharedEvents';
+import Profile from '../components/Profile';
 import Layout from './Layout';
-import GroupFormPage from '../components/GroupComponents/GroupFormPage';
+import GroupForm from '../components/GroupComponents/GroupForm';
+import Group from '../components/GroupComponents/Group';
 
 export const router = createBrowserRouter([
 	{
@@ -55,12 +58,16 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'profile',
-				element: <ProfilePage />,
+				element: <Profile />,
 			},
 			{
 				path: 'groups/new',
-				element: <GroupFormPage />,
+				element: <GroupForm />,
 			},
+			{
+				path: 'groups/:groupId',
+				element: <Group/>
+			}
 		],
 	},
 ]);

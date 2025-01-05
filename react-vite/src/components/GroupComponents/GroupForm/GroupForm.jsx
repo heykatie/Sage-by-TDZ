@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, useParams } from 'react-router-dom'; // Import useLocation
-import {
-	CreateGroupModal,
-	DeleteGroupModal,
-	RemoveFriendModal,
-} from '../GroupModals';
+// import {
+// 	CreateGroupModal,
+// 	DeleteGroupModal,
+// 	RemoveFriendModal,
+// } from '../GroupModals';
 import {
 	thunkCreateGroup,
 	thunkUpdateGroup,
 	thunkDeleteGroup,
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
+import sprout from '../../../../dist/assets/sprout.png';
+import GroupForm from './GroupForm.css'
 
 const GroupFormPage = ({ isEditMode, groupData }) => {
 	const dispatch = useDispatch();
@@ -19,14 +21,16 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 	const location = useLocation(); // Get data from route state
 	const eventData = location.state?.eventData; // Get eventData from modal navigation
 	const { groupId } = useParams();
+
 	const currentUser = useSelector((state) => state.session.user);
-	const { group, loading, error } = useSelector((state) => state.group);
-	const { events, friends } = useSelector((state) => state.user);
+	const { loading, error } = useSelector((state) => state.group); // group,
+	const { friends } = useSelector((state) => state.user); // events,
+
 	const [description, setDescription] = useState('');
 	const [friendsList, setFriendsList] = useState([]);
 	const [selectedFriends, setSelectedFriends] = useState([]);
-	const [showRemoveModal, setShowRemoveModal] = useState(false);
-	const [friendToRemove, setFriendToRemove] = useState(null);
+	// const [showRemoveModal, setShowRemoveModal] = useState(false);
+	// const [friendToRemove, setFriendToRemove] = useState(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	useEffect(() => {
@@ -39,7 +43,10 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 			setDescription(groupData.description || '');
 			setSelectedFriends(groupData.invitedFriends || []);
 		}
-		dispatch(fetchUserFriends()).then((friends) => setFriendsList(friends));
+		dispatch(fetchUserFriends()).then((friends) =>
+			setFriendsList(friends || [])
+		);
+		if (friendsList) console.log(friendsList);
 	}, [dispatch, isEditMode, groupData, eventData, navigate]);
 
 	// Toggle friend selection
@@ -60,30 +67,38 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 		const payload = {
 			description,
 			eventId: eventData.id, // Use event ID passed from modal
-			friends: selectedFriends,
+			// ownerId: currentUser.id,
 		};
 		if (isEditMode) {
 			await dispatch(
 				thunkUpdateGroup({ ...payload, groupId: groupData.id })
 			);
-			navigate(`/events/${eventData.id}`);
+			navigate(`/groups/${groupId}`);
 		} else {
-			await dispatch(thunkCreateGroup(payload));
-			navigate(`/events/${eventData.id}`);
+			const savedGroup = await dispatch(thunkCreateGroup(payload));
+			if (savedGroup?.id) {
+				navigate(`/groups/${savedGroup.id}`); // Use savedGroup's id to navigate
+			} else {
+				console.error('Failed to navigate: Group ID not found');
+			}
 		}
 	};
 
 	// Delete group
 	const handleDeleteGroup = async () => {
 		await dispatch(thunkDeleteGroup(groupId));
-		navigate('/dashboard');
+		navigate('/events');
 	};
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
 
-	return (
-		<div className='group-form-page'>
+	console.log(eventData);
+
+return (
+	<div className='group-form-page'>
+		{/* Left Column: Group Details and Friends */}
+		<div className='left-column'>
 			<h2>
 				{isEditMode
 					? `Edit Group - ${eventData.title || 'Event Title'}`
@@ -95,34 +110,44 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 					? `${currentUser.first_name} ${currentUser.last_name}`
 					: 'Loading...'}
 			</p>
-			<p>{`${eventData.event_date} | ${eventData.start_time} | ${eventData.categories}`}</p>
-			<p>{eventData.address}</p>
-			<a href={`/events/${eventData.id}`} className='event-link'>
-				Link to Event Page
-			</a>
+			<p>{`${eventData.event_date} | ${eventData.start_time} - ${eventData.end_time} | ${eventData.categories}`}</p>
+			<p>
+				{eventData.address} {eventData.city}, {eventData.state}
+			</p>
+			<p>
+				<a href={`/events/${eventData.id}`} className='event-link'>
+					Link to {eventData.title} Event Page
+				</a>
+			</p>
 
 			{/* Group description */}
-			<label htmlFor='description'>Add group description:</label>
-			<textarea
-				id='description'
-				value={description}
-				onChange={(e) => setDescription(e.target.value)}
-				required
-			/>
+			<div className='group-description'>
+				<textarea
+					id='description'
+					placeholder='Add group description:'
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
+					required
+				/>
+			</div>
 
-			{/* Friends Selection */}
+			{/* Friends Section */}
 			<section className='friends-section'>
-				<h3>Invite Friends!</h3>
+				<h3>{isEditMode ? 'Friends Invited' : 'Invite Friends!'}</h3>
 				<div className='friends-list'>
 					{friends.length ? (
 						friends.map((friend) => (
 							<div className='friend-item' key={friend.id}>
 								<img
-									src={friend.profile_pic}
+									src={friend.profile_pic || sprout}
 									alt={`${friend.first_name}'s profile`}
 									className='friend-profile-pic'
 								/>
-								<span>{`${friend.first_name} ${friend.last_name}`}</span>
+								<div className='friend-details'>
+									<span className='friend-name'>
+										{`${friend.first_name} ${friend.last_name}`}
+									</span>
+								</div>
 								<button
 									className={`select-friend-button ${
 										selectedFriends.includes(friend) ? 'selected' : ''
@@ -137,11 +162,27 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 					)}
 				</div>
 			</section>
+		</div>
+
+		{/* Right Column: Banner and Buttons */}
+		<div className='right-column'>
+			<div className='event-header'>
+				<img
+					className='event-banner'
+					src={eventData.preview || sprout}
+					alt='Event Banner'
+				/>
+			</div>
 
 			{/* Save and Delete Buttons */}
 			<div className='group-buttons'>
 				<button className='save-group-button' onClick={handleSaveGroup}>
 					Save Group
+				</button>
+				<button
+					onClick={() => navigate(`/events/${eventData.id}`)}
+					className='cancel-button'>
+					Cancel
 				</button>
 				{isEditMode && (
 					<button
@@ -151,29 +192,30 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 					</button>
 				)}
 			</div>
-
-			{/* Delete Modal */}
-			{showDeleteModal && (
-				<div className='delete-modal'>
-					<div className='delete-modal-content'>
-						<p>Are you sure you want to delete this group?</p>
-						<div className='modal-buttons'>
-							<button
-								className='confirm-delete'
-								onClick={handleDeleteGroup}>
-								Yes, Delete
-							</button>
-							<button
-								className='cancel-delete'
-								onClick={() => setShowDeleteModal(false)}>
-								No, Go Back
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
 		</div>
-	);
+	</div>
+);
 };
 
 export default GroupFormPage;
+
+{/* Delete Modal
+{showDeleteModal && (
+	<div className='delete-modal'>
+		<div className='delete-modal-content'>
+			<p>Are you sure you want to delete this group?</p>
+			<div className='modal-buttons'>
+				<button
+					className='confirm-delete'
+					onClick={handleDeleteGroup}>
+					Yes, Delete
+				</button>
+				<button
+					className='cancel-delete'
+					onClick={() => setShowDeleteModal(false)}>
+					No, Go Back
+				</button>
+			</div>
+		</div>
+	</div>
+)} */}
