@@ -156,6 +156,21 @@ h2 {
   background-color: #f0f5f2;
 }
 
+.edit-group-button {
+  background-color: #6b8f71;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+}
+
+.edit-group-button:hover {
+  background-color: #557b5d;
+}
+
 @media (max-width: 768px) {
   .group-page {
     flex-direction: column;

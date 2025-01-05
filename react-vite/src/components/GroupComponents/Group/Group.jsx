@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkFetchGroup } from '../../../redux/group';
 import sprout from './../../../../dist/assets/sprout.png';
-import Group from './Group.css';
 
 const GroupPage = () => {
 	const navigate = useNavigate();
@@ -16,11 +15,10 @@ const GroupPage = () => {
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState('');
 
-	// Fetch group members when component mounts
-
+	// Fetch group members and group details
 	useEffect(() => {
 		if (groupId) {
-			dispatch(thunkFetchGroup(groupId)); // Ensures the group data is set in the state
+			dispatch(thunkFetchGroup(groupId)); // Fetch the group data
 		}
 	}, [dispatch, groupId]);
 
@@ -90,6 +88,9 @@ const GroupPage = () => {
 		return <p>Loading group details...</p>;
 	}
 
+	// Check if current user is the owner of the group
+	const isOwner = currentUser?.id === group.owner_id;
+
 	return (
 		<div className='group-page'>
 			<div className='event-header'>
@@ -101,7 +102,7 @@ const GroupPage = () => {
 			</div>
 			<h2>{`${group.event?.title || 'Event Title'} Group`}</h2>
 			<p>
-				Hosted by: {`${currentUser?.first_name} ${currentUser?.last_name}`}
+				Hosted by: {`${group.owner?.first_name} ${group.owner?.last_name}`}
 			</p>
 			<p>{`${group.event?.event_date} | ${group.event?.start_time} | ${group.event?.categories}`}</p>
 			<p>{group.event?.address}</p>
@@ -164,7 +165,7 @@ const GroupPage = () => {
 				</form>
 			</section>
 
-			{/* Navigation Buttons */}
+			{/* Navigation and Edit Group Buttons */}
 			<div className='group-buttons'>
 				<button
 					onClick={() => navigate('/profile')}
@@ -176,6 +177,17 @@ const GroupPage = () => {
 					className='event-button'>
 					View Event
 				</button>
+				{isOwner && (
+					<button
+						onClick={() =>
+							navigate(`/groups/${groupId}/edit`, {
+								state: { eventData: group.event },
+							})
+						}
+						className='edit-group-button'>
+						Edit Group
+					</button>
+				)}
 			</div>
 		</div>
 	);
