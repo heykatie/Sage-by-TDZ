@@ -47,7 +47,7 @@ export const thunkSharedEvents = (friendId) => async dispatch => {
     if(res.ok) {
         const events = await res.json();
 
-        if(events.errors) { return; }
+        if(events.errors) { return; } 
 
         dispatch(getSharedEvents(events));
     }

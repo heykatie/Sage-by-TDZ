@@ -1,7 +1,7 @@
 import './AllFriends.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as friendActions from '../../redux/friends';
 import { IoIosMore } from "react-icons/io";
 import {
@@ -13,10 +13,13 @@ import {
 } from '../../redux/user';
 
 
+
 export default function AllFriends() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { profile } = useSelector((state) => state.user);
-
+    const currentUser = useSelector(state=>state.session.user);
+    
     const [activeSection, setActiveSection] = useState('friends');
 
     useEffect(() => {
@@ -27,6 +30,10 @@ export default function AllFriends() {
         dispatch(fetchUserGroups());
         dispatch(friendActions.thunkAllFriends())
     }, [dispatch]);
+
+   
+
+   if(!currentUser) navigate('/');
 
     const friendTile = friend => {
         return (
