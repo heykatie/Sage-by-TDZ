@@ -47,7 +47,7 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 			setFriendsList(friends || [])
 		);
 		if (friendsList) console.log(friendsList);
-	}, [dispatch, isEditMode, groupData, eventData, navigate]);
+	}, [dispatch, isEditMode, groupData, eventData, navigate, friendsList]);
 
 	// Toggle friend selection
 	const toggleFriendSelection = (friend) => {
