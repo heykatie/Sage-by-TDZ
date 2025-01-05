@@ -17,25 +17,21 @@ export default function EventRSVPs() {
 
     useEffect(() => {
         dispatch(thunkSingleEvent(eventId))
-    }, [dispatch, eventId]);
-
-    useEffect(() => {
         dispatch(thunkGetRSVPs(eventId))
-    }, [dispatch, eventId]);
-
-    useEffect(() => {
         dispatch(thunkAllUsers())
-    }, [dispatch]);
+    }, [dispatch, eventId]);
 
     const event = Object.values(useSelector(state=>state.event.event));
     const rsvps = Object.values(useSelector(state=>state.event.rsvps));
     const users = useSelector(state=>state.user.users);
 
+    console.log(users)
+
     const rsvpTile = r => {
         return (
             <div key={r.id}>
-                <img src={users && users[r.id].profile_pic} />
-                <h3>{users && users[r.id].first_name}</h3>
+                <img src={users && users[r.user_id].profile_pic} />
+                <h3>{users && users[r.user_id].first_name}</h3>
                 <IoIosMore />
             </div>
         )
