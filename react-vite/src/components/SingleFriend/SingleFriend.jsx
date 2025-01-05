@@ -1,5 +1,5 @@
 import './SingleFriend.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkSingleFriend } from '../../redux/friends';
@@ -37,6 +37,7 @@ const eventInfo = event => {
 export default function SingleFriend() {
     const { friendId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(thunkSingleFriend(friendId))
@@ -51,6 +52,8 @@ export default function SingleFriend() {
 
     const friend = Object.values(useSelector(state=>state.friends.friend));
     const events = Object.values(useSelector(state=>state.friends.sharedEvents));
+
+    if(!friend.length) navigate('/');
 
     return (
     <div className='single-friend'>

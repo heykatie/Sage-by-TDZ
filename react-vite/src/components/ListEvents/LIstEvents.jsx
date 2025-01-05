@@ -33,10 +33,15 @@ const ListEvents = () => {
                     })}
                 </div>
                 <div className='li-event-description'>
-                    <h2>{event.city}, {event.state}</h2>
-                    <h3>Date: {event.event_date}</h3>
-                    <h3>Start Time: {event.start_time}</h3>
-                    <h3>End Time: {event.end_time}</h3>
+                    <div className='city-date'>
+                        <h2>{event.city}, {event.state}</h2>
+                        <h3>Date: {event.event_date}</h3>
+                    </div>
+                    <div className='start-end-time'>
+                        <h3>Start Time: {event.start_time}</h3>
+                        <h3>End Time: {event.end_time}</h3>
+                    </div>
+                    
                     <p>{event.description}</p>
                 </div>
                 </Link>

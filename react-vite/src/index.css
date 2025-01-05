@@ -1,1 +1,23 @@
 /* TODO: Add sitewide styles */
+
+@font-face {
+    font-family: 'Montserrat';
+    src: "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap";
+}
+
+html {
+    font-family: 'Montserrat';
+}
+
+ul {
+    list-style-type: none;
+}
+
+h2, h3 {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
