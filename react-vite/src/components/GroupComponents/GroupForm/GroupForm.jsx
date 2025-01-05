@@ -12,7 +12,7 @@ import {
 	thunkDeleteGroup,
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
-import sprout from '../../../../dist/assets/sprout.png';
+import sprout from 'https://i.postimg.cc/jdK73WSg/sprout.png';
 import GroupForm from './GroupForm.css'
 
 const GroupFormPage = ({ isEditMode, groupData }) => {
