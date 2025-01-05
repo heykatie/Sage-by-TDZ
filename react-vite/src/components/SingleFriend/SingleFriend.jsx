@@ -69,7 +69,18 @@ export default function SingleFriend() {
         <div className='single-friend'>
             {friend && friend.map(f=>(friendInfo(f)))}
             <div className='info-body'>
-                <h3 className='nav-title'> <Link className='events-attended' onClick={handleClick} >Events Attended</Link> | <Link className='shared-events' to={`/friends/${friendId}`}>Shared Events</Link></h3>
+                <h3 className='nav-title'> 
+                    <Link 
+                    className='events-attended' 
+                    onClick={handleClick} 
+                    >Events Attended
+                    </Link> |  <Link 
+                    className='shared-events' 
+                    to={`/friends/${friendId}`}
+                    >  Shared Events
+                    </Link>
+                </h3>
+                <p>You and {friend[0]?.first_name} have both RSVPd to:</p>
                 {sharedEvents && eventInfo(sharedEvents)}
             </div>
         </div>
