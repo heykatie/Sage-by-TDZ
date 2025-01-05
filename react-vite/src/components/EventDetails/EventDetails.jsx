@@ -8,11 +8,11 @@ import * as eventActions from '../../redux/event';
 import { MdLocalPhone } from "react-icons/md";
 import { GoLinkExternal } from "react-icons/go";
 import { TfiEmail } from "react-icons/tfi";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import OpenModalButton  from '../OpenModalButton/OpenModalButton'
 import FeedbackModal from '../FeedbackModal/FeedbackModal'
 import './EventDetails.css';
-import { useState } from 'react';
+import AllAttendees from '../AllAttendees/AllAttendees';
 
 const EventDetails = () => {
 
@@ -26,6 +26,8 @@ const EventDetails = () => {
         dispatch(eventActions.singleEvent(eventId))
         setisLoaded(true)
     }, [dispatch, eventId])
+
+
 
     const user = useSelector((state) => state.session.user)
     const event = useSelector((state) => state.events.single)
@@ -80,6 +82,7 @@ const EventDetails = () => {
                 <h3>End Time: {event?.end_time}</h3>
             </div>
             <div className='li-event-attendees'>
+                <AllAttendees />
                 {/* need rsvps reducer */}
             </div>
             <div className='li-event-rsvp'>
