@@ -139,11 +139,15 @@ return (
 						friends.map((friend) => (
 							<div className='friend-item' key={friend.id}>
 								<img
-									src={friend.profile_pic}
+									src={friend.profile_pic || sprout}
 									alt={`${friend.first_name}'s profile`}
 									className='friend-profile-pic'
 								/>
-								<span>{`${friend.first_name} ${friend.last_name}`}</span>
+								<div className='friend-details'>
+									<span className='friend-name'>
+										{`${friend.first_name} ${friend.last_name}`}
+									</span>
+								</div>
 								<button
 									className={`select-friend-button ${
 										selectedFriends.includes(friend) ? 'selected' : ''

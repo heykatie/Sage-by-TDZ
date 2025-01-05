@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkFetchGroup } from '../../../redux/group';
 import sprout from './../../../../dist/assets/sprout.png';
+import Group from './Group.css';
 
 const GroupPage = () => {
 	const navigate = useNavigate();

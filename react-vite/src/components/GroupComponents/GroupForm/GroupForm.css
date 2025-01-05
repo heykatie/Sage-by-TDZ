@@ -58,12 +58,22 @@ h2 {
 .friend-item {
   display: flex;
   align-items: center;
-  gap: 10px;
   background-color: #f9f9f9;
   padding: 10px;
   border-radius: 8px;
   width: calc(50% - 10px);
+  /* Makes items appear 2 per row */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  /* For centering the friend name */
+}
+
+.friend-details {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  /* Ensures the center content takes available space */
+  text-align: center;
 }
 
 .friend-profile-pic {
@@ -71,6 +81,39 @@ h2 {
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+  margin-right: 10px;
+}
+
+.friend-name {
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  /* Prevents wrapping */
+}
+
+.select-friend-button {
+  width: 80px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #6b8f71;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  text-align: center;
+}
+
+.select-friend-button.selected {
+  background-color: #8c6c64;
+}
+
+.select-friend-button:hover {
+  background-color: #557b5d;
+}
+
+.select-friend-button.selected:hover {
+  background-color: #7b4f49;
 }
 
 .group-buttons {
@@ -91,27 +134,31 @@ h2 {
 }
 
 .save-group-button {
-  background-color: #007bff;
+  background-color: #6b8f71;
   color: white;
+}
+
+.save-group-button:hover {
+  background-color: #557b5d;
 }
 
 .cancel-button {
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid #8f9f94;
   color: #333;
 }
 
 .cancel-button:hover {
-  background-color: #f1f1f1;
+  background-color: #f0f5f2;
 }
 
 .delete-group-button {
-  background-color: #dc3545;
+  background-color: #8c6c64;
   color: white;
 }
 
 .delete-group-button:hover {
-  background-color: #c82333;
+  background-color: #7b4f49;
 }
 
 @media (max-width: 768px) {
