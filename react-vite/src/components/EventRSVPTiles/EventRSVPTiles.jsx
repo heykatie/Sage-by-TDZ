@@ -6,6 +6,48 @@ import { thunkSingleEvent, thunkGetRSVPs } from '../../redux/events';
 import { thunkAllUsers } from '../../redux/user';
 import { thunkAllFriends } from '../../redux/friends';
 
+const TileTitle = ({eventId}) => {
+    const dispatch = useDispatch();
+
+    const currentUser = useSelector((state) => state.session.user);
+
+    useEffect(() => {
+        dispatch(thunkSingleEvent(eventId))
+        dispatch(thunkGetRSVPs(eventId))
+        dispatch(thunkAllUsers())
+        dispatch(thunkAllFriends())
+    }, [dispatch, eventId]);
+
+    const event = Object.values(useSelector(state=>state.event.event));
+    const rsvps = useSelector(state=>state.event.rsvps);
+    const users = useSelector(state=>state.user.users);
+    const friends = useSelector(state=>state.friends.allFriends);
+
+    if(!rsvps[currentUser.id]) {return (
+        <div className='rsvps-label-link'>
+           <h4>{rsvps?.length} Users have RSVPd, join in the fun!</h4>
+           <Link
+            to={`/events/${eventId}/rsvps`}
+            className='view-rsvps-link'
+            >View all RSVPs</Link>  
+        </div> 
+    )} else if (rsvps[currentUser.id]) {
+        return (
+        <div className='rsvps-label-link'>
+            <h4>{Object.values(rsvps)?.length} Users have RSVPd</h4>
+            <Link
+            to={`/events/${eventId}/rsvps`}
+            className='view-rsvps-link'
+            >View all RSVPs</Link>
+        </div>)
+    } else {
+        return (
+        <div>
+        </div>
+        )
+    }
+}
+
 export default function EventRSVPTiles() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -49,29 +91,6 @@ export default function EventRSVPTiles() {
     }
 
 
-    const TileTitle = () => {
-        if(!rsvps[currentUser.id]) {return (
-            <div className='rsvps-label-link'>
-               <h4>{rsvps?.length} Users have RSVPd, join in the fun!</h4>
-               <Link
-                to={`/events/${eventId}/rsvps`}
-                className='view-rsvps-link'
-                >View all RSVPs</Link>  
-            </div> 
-        )} else if (rsvps[currentUser.id]) {
-            return (
-            <div className='rsvps-label-link'>
-                <h4>{Object.values(rsvps)?.length} Users have RSVPd</h4>
-                <Link
-                to={`/events/${eventId}/rsvps`}
-                className='view-rsvps-link'
-                >View all RSVPs</Link>
-            </div>)
-        } else {
-            return (<div></div>)
-        }
-    }
-
     if(!Object.values(rsvps)?.length) return (<></>)
 
 
@@ -79,8 +98,8 @@ export default function EventRSVPTiles() {
         <div>
             {event && event.map(e=>(
                 <div key={e.id}>
-                    {currentUser && <TileTitle />}
-                   <div className='rsvp-tiles-container' key={e.event.id}>
+                    {currentUser && <TileTitle eventId={eventId} />}
+                <div className='rsvp-tiles-container' key={e.event.id}>
                     {rsvps && Object.values(rsvps).map(r=>(
                         <div key={r.id}>{rsvpTile(r)}</div>
                     ))}
@@ -89,5 +108,7 @@ export default function EventRSVPTiles() {
                 
             ))}
         </div>
-    )
+    ) 
+    
+    
 }

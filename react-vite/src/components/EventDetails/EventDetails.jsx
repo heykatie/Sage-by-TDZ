@@ -252,9 +252,7 @@ const EventDetails = () => {
                             </li>
                         })}
                     </div>
-                    {/* <div className='li-event-attendees'>
-                <EventRSVPTiles />
-            </div> */}
+                    <button className='login-to-rsvp-button'>Login to RSVP</button>
                     <div className='li-organizer-details'>
                         <div className='organizer-name-logo'>
                             <h2>Event Organizer - {organizer?.name}</h2>
