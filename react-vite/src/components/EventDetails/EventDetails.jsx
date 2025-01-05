@@ -10,7 +10,7 @@ import FeedbackModal from '../FeedbackModal/FeedbackModal'
 import './EventDetails.css';
 import { thunkSingleEvent } from '../../redux/events';
 import AvgReaction from '../AvgReaction/AvgReaction';
-import EventRSVPs from '../EventRSVPs';
+import EventRSVPTiles from '../EventRSVPTiles';
 import { thunkGetRSVPs } from '../../redux/events';
 
 
@@ -75,7 +75,7 @@ const EventDetails = () => {
             </div>
         
             <div className='li-event-attendees'>
-                <EventRSVPs />
+                <EventRSVPTiles />
             </div>
             <div className='li-event-rsvp'>
                 {/* need rsvps reducer */}
