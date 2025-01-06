@@ -57,43 +57,45 @@ function ProfileButton() {
               <li className="user-info">{user.username}</li>
               <li id="item" className="user-info">{user.email}</li>
 
-              <li id="item">
+              <li className="dropdown-li" id="item">
                 <Link to="/profile/" onClick={closeMenu}>
                   Dashboard
                 </Link>
               </li>
-              <li id="item">
+              <li className="dropdown-li" id="item">
                 <Link to="/friends/" onClick={closeMenu}>
                   Friends
                 </Link>
               </li>
-              <li id="item">
+              <li className="dropdown-li" id="item">
                 <Link to="/" onClick={closeMenu}>
                   Events
                 </Link>
               </li>
-              <li id="item">
+              <li className="dropdown-li" id="item">
                 <Link to="/groups/" onClick={closeMenu}>
                   Manage Groups
                 </Link>
               </li>
-              <li>
+              <li className="dropdown-li">
                 <Link to="/notifications/" onClick={closeMenu}>
                   Notifications
                 </Link>
               </li>
-              <li>
+              <li className="dropdown-li">
                 <button onClick={logout}>Log Out</button>
               </li>
             </>
           ) : (
             <>
               <OpenModalMenuItem
+                className="dropdown-li"
                 itemText="Log In"
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
               <OpenModalMenuItem
+                className="dropdown-li"
                 itemText="Sign Up"
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}

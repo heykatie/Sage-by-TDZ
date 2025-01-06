@@ -8,8 +8,7 @@ const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 export default function RSVPModal({navigate, eventId}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
-    const [userId, setUserId] = useState("");
-    let [targetEventId, setEventId] = useState(eventId);
+    let [targetEventId] = useState(eventId);
 
     useEffect(() => {
         dispatch(thunkAllUsers());

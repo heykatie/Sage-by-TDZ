@@ -22,7 +22,7 @@ const EventDetails = () => {
 
     const dispatch = useDispatch()
 
-    const { setModalContent, setOnModalClose, closeModal } = useModal();
+    const { setModalContent } = useModal();
 
     const { eventId } = useParams()
 
