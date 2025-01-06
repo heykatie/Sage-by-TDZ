@@ -14,6 +14,7 @@ import SentRequests from './SentRequests';
 import ReceivedRequests from './ReceivedRequests';
 import GroupRequests from './GroupRequests';
 import GroupInvites from '../../InvitePage/InvitePage';
+const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 
 const RequestsPage = () => {
 	const dispatch = useDispatch();
@@ -66,7 +67,7 @@ const RequestsPage = () => {
 			<section className='user-info'>
 				<div className='profile-picture'>
 					<img
-						src={profile?.profile_pic || '/default-avatar.png'}
+						src={profile?.profile_pic || sproutImage}
 						alt='Profile'
 					/>
 					{/* <button onClick={() => setActiveSection('edit-profile')}>
