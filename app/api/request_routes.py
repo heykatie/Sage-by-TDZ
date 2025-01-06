@@ -11,9 +11,20 @@ request_routes = Blueprint('requests', __name__)
 def get_sent_requests():
     sent_requests = Request.query.filter(Request.sender_id == current_user.get_id())
     received_requests = Request.query.filter(Request.receiver_id == current_user.get_id())
+    def requestNormalizer(request):
+        formattedRequest = {
+            "accepted": request.accepted,
+            "created_at": request.created_at,
+            "id": request.id,
+            "receiver_id": request.receiver_id,
+            "sender_id": request.sender_id,
+            "sender_name": User.query.get(request.sender_id).username,
+            "sender_pic": User.query.get(request.sender_id).profile_pic
+        }
+        return formattedRequest
     if not sent_requests and not received_requests:
         return { 'errors': { 'message': 'No requests found.' } }, 404
-    return { 'sent_requests': [request.to_dict() for request in sent_requests], 'received_requests': [request.to_dict() for request in received_requests] }
+    return { 'sent_requests': [requestNormalizer(request) for request in sent_requests], 'received_requests': [requestNormalizer(request) for request in received_requests] }
 
 @request_routes.route('/', methods=['POST'])
 @login_required
