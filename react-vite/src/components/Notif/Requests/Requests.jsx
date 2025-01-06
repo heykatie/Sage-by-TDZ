@@ -24,11 +24,11 @@ const RequestsPage = () => {
 
 	// Fetch necessary data on component mount
 	useEffect(() => {
-		dispatch(fetchCurrentUser());
-		dispatch(fetchUserEvents());
-		dispatch(fetchUserBadges());
-		dispatch(fetchUserFriends());
-		dispatch(fetchUserGroups());
+		// dispatch(fetchCurrentUser());
+		// dispatch(fetchUserEvents());
+		// dispatch(fetchUserBadges());
+		// dispatch(fetchUserFriends());
+		// dispatch(fetchUserGroups());
         // dispatch(inviteActions.fetchUserInvites());
         // dispatch(inviteActions.fetchGroupInvites());
 	}, [dispatch]);
@@ -83,7 +83,7 @@ const RequestsPage = () => {
 					<nav>
 						<button
 							className={activeSection === 'invites' ? 'active' : ''}
-							onClick={() => setActiveSection('invited')}>
+							onClick={() => setActiveSection('invites')}>
 							Invites
 						</button>
 						<button

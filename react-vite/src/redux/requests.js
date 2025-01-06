@@ -21,17 +21,17 @@ const deleteRequest = (requestId) => ({
 })
 
 export const fetchAllRequests = () => async (dispatch) => {
-    const response = await csrfFetch('api/requests/');
-    console.log('hello from THUNK')
+    const response = await csrfFetch('/api/requests/');
+    // console.log('hello from THUNK')
     if (response.ok) {
         const requests = await response.json();
-        console.log('I AM YOUR REQUESTS', requests)
+        // console.log('I AM YOUR REQUESTS', requests)
         dispatch(loadRequests(requests.sent_requests, requests.received_requests))
     }
 }
 
 export const fetchGroupInvites = (user_id) => async (dispatch) => {
-    const response = await csrfFetch(`api/reuqests/${user_id}`);
+    const response = await csrfFetch(`/api/reuqests/${user_id}`);
     if (response.ok) {
         const invites = await response.json();
         dispatch(loadInvites(invites))
@@ -39,7 +39,7 @@ export const fetchGroupInvites = (user_id) => async (dispatch) => {
 }
 
 export const createRequest = (request) => async (dispatch) => {
-    const response = await csrfFetch('api/requests/', {
+    const response = await csrfFetch('/api/requests/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -59,18 +59,18 @@ export const createRequest = (request) => async (dispatch) => {
 
 }
 
-export const updateRequest = (request) => async (dispatch) => {
-    const response = await csrfFetch(`api/requests/${request.id}`, {
+export const updateRequest = (requestId, payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/requests/${requestId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(request)
+        body: JSON.stringify(payload)
     });
 
     if (response.ok){
         const newRequest = await response.json();
-        dispatch(addRequest(request))
+        dispatch(addRequest(newRequest))
 
         return newRequest
     } else {
@@ -80,8 +80,8 @@ export const updateRequest = (request) => async (dispatch) => {
 
 }
 
-export const removeRequest = (request) => async (dispatch) => {
-    const response = await csrfFetch(`api/requests/${request.id}`, {
+export const removeRequest = (requestId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/requests/${requestId}`, {
         method: 'DELETE',
     })
     if (response.ok) {
@@ -117,7 +117,7 @@ const requestReducer = ( state = initialState, action) => {
         }
         case ADD_REQUEST:{
             const requestState = {...state}
-            requestState.sent[action.request.id] = normalData(action.request)
+            requestState.received[action.request.id] = action.request
 
             return requestState;
         }
