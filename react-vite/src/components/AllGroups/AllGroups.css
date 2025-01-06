@@ -9,6 +9,7 @@
   margin: 20px;
   width: 300px;
   background-color: #f9f9f9;
+  height: 600px;
 }
 
 .group-link {
@@ -36,6 +37,7 @@
 .group-members-count {
   font-size: 14px;
   font-weight: bold;
+  margin: 20px auto;
 }
 
 .tiles {
