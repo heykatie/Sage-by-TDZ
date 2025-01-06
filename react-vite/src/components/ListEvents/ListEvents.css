@@ -3,7 +3,7 @@
     border-radius: 16px;
     margin: 20px;
     width: 400px;
-    height: 400px;
+    height: 450px;
 }
 
 .li-event-list img {
@@ -17,21 +17,25 @@
     display: flex;
     row-gap: 0;
     justify-content: space-between;
+    width: 100%;
+    height: 80px;
 }
 
 .event-list-container .city-date, .start-end-time {
     display: flex;
     flex-direction: column;
     row-gap: 8px;
-    padding: 10px 0px;
 }
 
 .event-list-container .start-end-time {
     text-align: right;
+    margin: 10px;
 }
 
 .event-list-container .city-date {
     text-align: left;
+    width: fit-content;
+    margin: 10px;
 }
 
 .event-list-container .li-event-list a {
@@ -53,23 +57,33 @@
 .event-list-container ul {
     /* border: dashed teal; */
     display: flex;
+    justify-content: flex-start;
     flex-wrap: wrap;
+    width: 100%;
+    column-gap: 8px;
+    padding: 0;
 }
 
-@media only screen and (min-width: 400px) and (max-width: 800px){
+.event-description {
+    height: 100px;
+    overflow: scroll;
+    margin: 10px;
+    /* border: solid pink; */
+}
+
+.event-description::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.event-list-container li {
+    margin: 0 auto;
+}
+
+@media only screen and (min-width: 400px) and (max-width: 900px){
     .event-list-container ul {
         /* border: dashed teal; */
         display: flex;
         justify-content: center;
-
     }
 }
 
-@media only screen and (min-width: 800px) and (max-width: 950px){
-    .event-list-container ul {
-        /* border: dashed teal; */
-        display: flex;
-        justify-content: center;
-
-    }
-}

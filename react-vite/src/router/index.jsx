@@ -6,7 +6,7 @@ import ListEvents from '../components/ListEvents';
 import EventDetails from '../components/EventDetails';
 import EditProfileModal from '../components/EditProfileModal';
 import UpcomingEvents from '../components/UpcomingEvents';
-import AllFriends from '../components/AllFriends';
+// import AllFriends from '../components/AllFriends';
 import EventRSVPs from '../components/EventRSVPs';
 import SingleFriend from '../components/SingleFriend';
 import Profile from '../components/Profile';
@@ -19,6 +19,7 @@ import GroupForm from '../components/GroupComponents/GroupForm';
 import Group from '../components/GroupComponents/Group';
 // import GroupComponent from '../components/GroupComponent';
 import Dashboard from '../components/Dashboard/Dashboard';
+import FriendsPage from '../components/FriendsPage/FriendsPage';
 
 export const router = createBrowserRouter([
 	{
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'friends',
-				element: <AllFriends />,
+				element: <FriendsPage />,
 			},
 			{
 				path: 'friends/:friendId',
