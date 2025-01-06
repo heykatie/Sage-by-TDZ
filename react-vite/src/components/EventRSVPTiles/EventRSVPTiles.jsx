@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { thunkSingleEvent, thunkGetRSVPs } from '../../redux/events';
 import { thunkAllUsers } from '../../redux/user';
 import { thunkAllFriends } from '../../redux/friends';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import RSVPModal from '../RSVPModal/RSVPModal';
 
 const TileTitle = ({eventId}) => {
     const dispatch = useDispatch();
@@ -76,17 +78,34 @@ export default function EventRSVPTiles() {
         return ``
     }
 
+    console.log(rsvps[currentUser.id])
+
+    const Rsvp = () => {
+        if(!rsvps[currentUser.id]) {
+            return (<OpenModalButton
+                buttonText="Click here to RSVP"
+                modalComponent={<RSVPModal eventId={event?.id} />}
+                onButtonClick
+                onModalClose
+                /> )
+        }
+        return (<button>Log In to RSVP</button>)
+    }
+
     const rsvpTile = r => {
         return (
-            <div className='event-rsvp-tile' key={r.id}>
-                <Link
-                className='rsvp-link'
-                to={currentUser && linkSrc(r.user_id)}
-                >
-                <img src={users[r.user_id]?.profile_pic} className='profile-pic' />
-                <h3 className='friend-name'>{users[r.user_id]?.first_name}</h3>
-                </Link>
+            <div>
+               <div className='event-rsvp-tile' key={r.id}>
+                    <Link
+                    className='rsvp-link'
+                    to={currentUser && linkSrc(r.user_id)}
+                    >
+                    <img src={users[r.user_id]?.profile_pic} className='profile-pic' />
+                    <h3 className='friend-name'>{users[r.user_id]?.first_name}</h3>
+                    </Link>
+                </div> 
             </div>
+            
         )
     }
 
@@ -107,6 +126,7 @@ export default function EventRSVPTiles() {
                 </div>
                 
             ))}
+            {!currentUser && <Rsvp />}
         </div>
     ) 
     

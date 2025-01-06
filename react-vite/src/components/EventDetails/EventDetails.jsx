@@ -26,15 +26,18 @@ const EventDetails = () => {
 
     useEffect(() => {
         dispatch(thunkSingleEvent(eventId));
-        dispatch(thunkGetRSVPs());
+        dispatch(thunkGetRSVPs(eventId));
         setisLoaded(true)
     }, [dispatch, eventId])
-
 
 
     const currentUser = useSelector((state) => state.session.user);
     const event = useSelector((state) => state.event.event);
     const eventInfo = event[eventId];
+    const rsvps = useSelector(state=>state.rsvp.allRsvps)
+
+    console.log(rsvps)
+
 
 
     if (eventInfo && isLoaded && currentUser) {
@@ -91,20 +94,6 @@ const EventDetails = () => {
             </div>
             <div className='li-event-invite'>
                 {/* need invites reducer */}
-                { currentUser?
-                (
-                <>
-                    <p>Invite your friends to volunteer with you!</p>
-                    <OpenModalButton
-                    buttonText="Create a Group"
-                    modalComponent={<CreateGroupModal />}
-                    onButtonClick
-                    onModalClose
-                    />
-                </>
-                ) :
-                <h4>Log In to RSVP</h4>
-                }
             </div>
         </div>
         <div className='li-organizer-details'>
