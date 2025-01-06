@@ -34,6 +34,7 @@ const GroupForm = ({ isEditMode, groupData }) => {
 	// const [showRemoveModal, setShowRemoveModal] = useState(false);
 	// const [friendToRemove, setFriendToRemove] = useState(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [groupsId, setGroupsId] = useState(null); // Initially, groupId is null
 
 	useEffect(() => {
 		if (!groupData) {
@@ -82,27 +83,43 @@ const GroupForm = ({ isEditMode, groupData }) => {
 	// 	);
 	// };
 
-const toggleFriendSelection = async (friend) => {
-	if (!selectedFriends.some((f) => f.id === friend.id)) {
-		// Add friend and create invite
-		console.log('HIIII', friend)
-		const invite = {
-			group_id: groupId, // Group ID from params
-			user_id: currentUser.id, // ID of the invited friend
-			friend_id: friend.id,
-		};
+	const toggleFriendSelection = async (friend) => {
 		try {
-			const newInvite = await dispatch(createInvite(invite));
-			console.log('Invite created:', newInvite);
-			setSelectedFriends((prev) => [...prev, friend]); // Add friend to local state
+			let groupIdToUse = groupId;
+
+			// If group has not been created, auto-create the group first
+			if (!groupIdToUse) {
+				const payload = {
+					description,
+					eventId: eventData.id, // Use event ID passed from modal
+					ownerId: currentUser.id, // Add the current user's ID
+				};
+
+				const savedGroup = await dispatch(thunkCreateGroup(payload));
+
+				if (savedGroup?.id) {
+					groupIdToUse = savedGroup.id; // Set group ID after auto-creation
+					console.log('Group auto-saved. New group ID:', groupIdToUse);
+				} else {
+					alert('Failed to create group. Please try again.');
+					return;
+				}
+			}
+
+			// Create the invite after group is created or if it already exists
+			const invitePayload = {
+				group_id: groupIdToUse,
+				user_id: currentUser.id, // The ID of the group creator
+				friend_id: friend.id, // The selected friend to invite
+				event_id: eventData.id,
+				going: null,
+			};
+
+			await dispatch(createInvite(invitePayload));
 		} catch (error) {
 			console.error('Failed to create invite:', error);
 		}
-	} else {
-		// Remove friend from selectedFriends state
-		setSelectedFriends((prev) => prev.filter((f) => f.id !== friend.id));
-	}
-};
+	};
 
 	const handleSaveGroup = async (e) => {
 		e.preventDefault();
@@ -117,13 +134,12 @@ const toggleFriendSelection = async (friend) => {
 		};
 
 		if (isEditMode) {
-			await dispatch(
-				thunkUpdateGroup({ ...payload, groupId})
-			);
+			await dispatch(thunkUpdateGroup({ ...payload, groupId }));
 			navigate(`/groups/${groupId}`);
 		} else {
 			const savedGroup = await dispatch(thunkCreateGroup(payload));
 			if (savedGroup?.id) {
+				setGroupsId(savedGroup.id);
 				navigate(`/groups/${savedGroup.id}`); // Use savedGroup's id to navigate
 			} else {
 				console.error('Failed to navigate: Group ID not found');
@@ -142,113 +158,117 @@ const toggleFriendSelection = async (friend) => {
 
 	// console.log(eventData);
 
-return (
-	<div className='group-form-page'>
-		{/* Left Column: Group Details and Friends */}
-		<div className='left-column'>
-			<h2>
-				{isEditMode
-					? `Edit Group - ${eventData.title || 'Event Title'}`
-					: `Create Group - ${eventData.title || 'Event Title'}`}
-			</h2>
-			<p>
-				Hosted by:{' '}
-				{currentUser
-					? `${currentUser.first_name} ${currentUser.last_name}`
-					: 'Loading...'}
-			</p>
-			<p>{`${eventData.event_date} | ${eventData.start_time} - ${eventData.end_time} | ${eventData.categories}`}</p>
-			<p>
-				{eventData.address} {eventData.city}, {eventData.state}
-			</p>
-			<p>
-				<a href={`/events/${eventData.id}`} className='event-link'>
-					Link to {eventData.title} Event Page
-				</a>
-			</p>
+	return (
+		<div className='group-form-page'>
+			{/* Left Column: Group Details and Friends */}
+			<div className='left-column'>
+				<h2>
+					{isEditMode
+						? `Edit Group - ${eventData.title || 'Event Title'}`
+						: `Create Group - ${eventData.title || 'Event Title'}`}
+				</h2>
+				<p>
+					Hosted by:{' '}
+					{currentUser
+						? `${currentUser.first_name} ${currentUser.last_name}`
+						: 'Loading...'}
+				</p>
+				<p>{`${eventData.event_date} | ${eventData.start_time} - ${eventData.end_time} | ${eventData.categories}`}</p>
+				<p>
+					{eventData.address} {eventData.city}, {eventData.state}
+				</p>
+				<p>
+					<a href={`/events/${eventData.id}`} className='event-link'>
+						Link to {eventData.title} Event Page
+					</a>
+				</p>
 
-			{/* Group description */}
-			<div className='group-description'>
-				<textarea
-					id='description'
-					placeholder='Add group description:'
-					value={description}
-					onChange={(e) => setDescription(e.target.value)}
-					required
-				/>
+				{/* Group description */}
+				<div className='group-description'>
+					<textarea
+						id='description'
+						placeholder='Add group description:'
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+						required
+					/>
+				</div>
+
+				{/* Friends Section */}
+				<section className='friends-section'>
+					<h3>{isEditMode ? 'Friends Invited' : 'Invite Friends!'}</h3>
+					<div className='friends-list'>
+						{friends.length ? (
+							friends.map((friend) => (
+								<div className='friend-item' key={friend.id}>
+									<img
+										src={friend.profile_pic || sprout}
+										alt={`${friend.first_name}'s profile`}
+										className='friend-profile-pic'
+									/>
+									<div className='friend-details'>
+										<span className='friend-name'>
+											{`${friend.first_name} ${friend.last_name}`}
+										</span>
+									</div>
+									<button
+										className={`select-friend-button ${
+											selectedFriends.includes(friend)
+												? 'selected'
+												: ''
+										}`}
+										onClick={() => toggleFriendSelection(friend)}>
+										{selectedFriends.includes(friend)
+											? 'Remove'
+											: 'Add'}
+									</button>
+								</div>
+							))
+						) : (
+							<p>No friends to display. Invite friends to connect!</p>
+						)}
+					</div>
+				</section>
 			</div>
 
-			{/* Friends Section */}
-			<section className='friends-section'>
-				<h3>{isEditMode ? 'Friends Invited' : 'Invite Friends!'}</h3>
-				<div className='friends-list'>
-					{friends.length ? (
-						friends.map((friend) => (
-							<div className='friend-item' key={friend.id}>
-								<img
-									src={friend.profile_pic || sprout}
-									alt={`${friend.first_name}'s profile`}
-									className='friend-profile-pic'
-								/>
-								<div className='friend-details'>
-									<span className='friend-name'>
-										{`${friend.first_name} ${friend.last_name}`}
-									</span>
-								</div>
-								<button
-									className={`select-friend-button ${
-										selectedFriends.includes(friend) ? 'selected' : ''
-									}`}
-									onClick={() => toggleFriendSelection(friend)}>
-									{selectedFriends.includes(friend) ? 'Remove' : 'Add'}
-								</button>
-							</div>
-						))
-					) : (
-						<p>No friends to display. Invite friends to connect!</p>
+			{/* Right Column: Banner and Buttons */}
+			<div className='right-column'>
+				<div className='event-header'>
+					<img
+						className='event-banner'
+						src={eventData.preview || sprout}
+						alt='Event Banner'
+					/>
+				</div>
+
+				{/* Save and Delete Buttons */}
+				<div className='group-buttons'>
+					<button className='save-group-button' onClick={handleSaveGroup}>
+						Save Group
+					</button>
+					<button
+						onClick={() => navigate(`/events/${eventData.id}`)}
+						className='cancel-button'>
+						Cancel
+					</button>
+					{isEditMode && (
+						<button
+							className='delete-group-button'
+							onClick={() => setShowDeleteModal(true)}>
+							Delete Group
+						</button>
 					)}
 				</div>
-			</section>
-		</div>
-
-		{/* Right Column: Banner and Buttons */}
-		<div className='right-column'>
-			<div className='event-header'>
-				<img
-					className='event-banner'
-					src={eventData.preview || sprout}
-					alt='Event Banner'
+			</div>
+			{showDeleteModal && (
+				<DeleteGroupModal
+					onConfirm={handleDeleteGroup}
+					onCancel={() => setShowDeleteModal(false)}
+					eventName={eventData.title || 'this event'} // Pass event title
 				/>
-			</div>
-
-			{/* Save and Delete Buttons */}
-			<div className='group-buttons'>
-				<button className='save-group-button' onClick={handleSaveGroup}>
-					Save Group
-				</button>
-				<button
-					onClick={() => navigate(`/events/${eventData.id}`)}
-					className='cancel-button'>
-					Cancel
-				</button>
-				{isEditMode && (
-					<button
-						className='delete-group-button'
-						onClick={() => setShowDeleteModal(true)}>
-						Delete Group
-					</button>
-				)}
-			</div>
+			)}
 		</div>
-		{showDeleteModal && (
-			<DeleteGroupModal
-				onConfirm={handleDeleteGroup}
-				onCancel={() => setShowDeleteModal(false)}
-				eventName={eventData.title || 'this event'} // Pass event title
-			/>
-		)}
-	</div>
-);
+	);
 };
 
 export default GroupForm;
