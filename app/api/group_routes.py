@@ -106,6 +106,7 @@ def get_all_messages(groupId):
         return {"messages": []}, 200
 
     return {"messages": [message.to_dict() for message in messages]}, 200
+
 # def get_all_messages(groupId):
 #     messages = Message.query.filter(Message.group_id == groupId)
 #     members = get_group_members(groupId)['Members']
