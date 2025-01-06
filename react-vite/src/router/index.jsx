@@ -10,14 +10,14 @@ import AllFriends from '../components/AllFriends';
 import EventRSVPs from '../components/EventRSVPs';
 import SingleFriend from '../components/SingleFriend';
 import Profile from '../components/Profile';
-import SharedEvents from '../components/SharedEvents';
-import ProfilePage from '../components/ProfilePage';
+// import SharedEvents from '../components/SharedEvents';
+// import ProfilePage from '../components/ProfilePage';
 // import ListEvents from '../components/ListEvents';
 import GroupInvites from '../components/InvitePage/InvitePage';
 import Layout from './Layout';
 import GroupForm from '../components/GroupComponents/GroupForm';
 import Group from '../components/GroupComponents/Group';
-import GroupComponent from '../components/GroupComponent';
+// import GroupComponent from '../components/GroupComponent';
 import Dashboard from '../components/Dashboard/Dashboard';
 
 export const router = createBrowserRouter([

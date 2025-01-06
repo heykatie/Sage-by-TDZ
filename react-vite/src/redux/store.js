@@ -11,7 +11,6 @@ import friendReducer from "./friends";
 import inviteReducer from "./invites";
 import userReducer from './user';
 import groupReducer from './group';
-import friendReducer from './friends';
 import eventReducer from "./events";
 
 

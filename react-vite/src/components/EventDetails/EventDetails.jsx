@@ -12,6 +12,7 @@ import { thunkSingleEvent } from '../../redux/events';
 import AvgReaction from '../AvgReaction/AvgReaction';
 import EventRSVPTiles from '../EventRSVPTiles';
 import { thunkGetRSVPs } from '../../redux/events';
+import RSVPModal from '../RSVPModal/RSVPModal';
 
 
 const EventDetails = () => {
@@ -77,7 +78,7 @@ const EventDetails = () => {
             </div>
             <div className='li-event-rsvp'>
                 {/* need rsvps reducer */}
-                { user?
+                { currentUser?
                 <OpenModalButton
                 buttonText="Click here to RSVP"
                 modalComponent={<RSVPModal eventId={event?.id} />}
@@ -89,7 +90,7 @@ const EventDetails = () => {
             </div>
             <div className='li-event-invite'>
                 {/* need invites reducer */}
-                { user?
+                { currentUser?
                 (
                 <>
                     <p>Invite your friends to volunteer wuth you!</p>

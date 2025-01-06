@@ -218,10 +218,10 @@ const userReducer = (state = initialState, action) => {
 		case LOAD_USER_FRIENDS:
 			console.log('Loaded friends:', action.friends); // Should print the array
 			return { ...state, friends: action.friends };
-		case SET_STATUS:
-			return { ...state, status: action.status };
-		case SET_ERROR:
-			return { ...state, error: action.error };
+		// case SET_STATUS:
+		// 	return { ...state, status: action.status };
+		// case SET_ERROR:
+		// 	return { ...state, error: action.error };
 		case LOAD_ALL_USERS: {
 			const newState = {...state, users: {}};
 			const usersArr = action.payload.users;
