@@ -73,6 +73,7 @@
 
 .dashboard-title button {
   margin: 0 5px;
+  color: black;
   background-color: transparent;
   border: 1px solid #ddd;
   padding: 8px 16px;
@@ -344,13 +345,26 @@
   gap: 10px;
 }
 
+.view-group-button {
+  height: 40px;
+  margin: 12px;
+  padding: 12px;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .view-group-button,
 .edit-group-button {
   background-color: #3498db;
   color: white;
   border: none;
   padding: 8px 12px;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   text-align: center;
   flex: 1;
