@@ -76,14 +76,11 @@ const ProfilePage = () => {
 													/>
 												</div>
 												<div className='li-event-categories'>
-													{event.categories
-														.split(',')
-														.forEach((category) => {
-															<li className='category'>
-																{/* {console.log('i exist', category)} */}
-																<p>{category}</p>
-															</li>;
-														})}
+													{event.categories.split(',').map((category, index) => (
+	<li className='category' key={`${event.id}-category-${index}`}>
+		<p>{category.trim()}</p>
+	</li>
+))}
 												</div>
 												<div className='li-event-description'>
 													<div className='city-date'>
