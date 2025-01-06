@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as inviteActions from '../../../redux/invites';
+import './GroupRequests.css';
 
 const GroupRequests = () => {
     const dispatch = useDispatch()
@@ -12,13 +13,13 @@ const GroupRequests = () => {
 
     useEffect(() => {
         dispatch(inviteActions.fetchGroupInvites(user.id))
-    }, [])
+    }, [dispatch])
 
     const handleSumbit = () => {}
 
     return (
         <section id='invites' className='invites'>
-            <h3>Group Invites</h3>
+            <h2>Group Invites</h2>
             <div className='invite-grid'>
                 {invites?.length > 0 ? (
                     invites.map((invite, index) => (

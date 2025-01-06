@@ -10,7 +10,7 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(40), nullable=False, unique=True)
-    description = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
     organizer_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('organizers.id')), nullable=False)
     categories = db.Column(db.String(255), nullable=False)
     address = db.Column(db.String(255), nullable=True)
