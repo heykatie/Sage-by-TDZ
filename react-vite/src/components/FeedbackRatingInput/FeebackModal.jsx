@@ -53,7 +53,7 @@ const FeedbackModal = ({ organizer, user }) => {
 		    alt='Sprout'
 		    className='sprout-icon-left'
 		/>
-		<h1>How was working with {organizer.name}?</h1>
+		<h2>How was working with {organizer.name}?</h2>
 		<img
 			src={sproutImage}
 			alt='Sprout'
