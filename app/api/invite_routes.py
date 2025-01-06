@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models.db import db
 from app.models.invites import Invites
+from app.models import User, Event
 
 invite_route = Blueprint('invites', __name__ )
 
@@ -36,7 +37,7 @@ def group_invites(user_id):
     Query all the invites of a user
     """
 
-    invites = Invites.query.filter_by(user_id=user_id).all()
+    invites = Invites.query.filter_by(friend_id=user_id).all()
 
     if not invites:
         return {"message": "No invites found"}
@@ -50,7 +51,10 @@ def group_invites(user_id):
         'group_id': invite.group_id,
         'event_id': invite.event_id,
         'created_at': invite.created_at,
-        'going': invite.going
+        'going': invite.going,
+        'sender': User.query.get(user_id).username,
+        'url': Event.query.get(invite.event_id).preview,
+        'event_name': Event.query.get(invite.event_id).title,
         })
 
     return invites_list
