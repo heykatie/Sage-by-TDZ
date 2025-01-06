@@ -47,7 +47,7 @@ const UpcomingEvents = ({user}) => {
     return (
         <>
         <div className='event-list-container'>
-        <h1>UPCOMING EVENTS</h1>
+        <h2>UPCOMING EVENTS</h2>
         <ul className='event-list'>
             { upcomingEvents ?
             eventTiles(upcomingEvents) :
