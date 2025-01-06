@@ -103,6 +103,7 @@
 .create-group-button:hover {
   cursor: pointer;
   text-decoration: underline;
+  background-color: wheat;
 }
 
 .sage-icon-container {

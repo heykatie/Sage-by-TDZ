@@ -85,10 +85,11 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    width: 100%;
-    column-gap: 8px;
+    justify-content: flex-start;
+    /* Center align the event tiles */
     padding: 0;
 }
+
 
 /* Categories Section */
 .li-event-categories {
@@ -110,6 +111,7 @@
     margin: 0;
     white-space: nowrap;
 }
+
 
 @media only screen and (min-width: 400px) and (max-width: 800px) {
     .event-list-container ul {
