@@ -58,6 +58,28 @@ export const createRequest = (request) => async (dispatch) => {
     }
 
 }
+
+export const updateRequest = (request) => async (dispatch) => {
+    const response = await csrfFetch(`api/requests/${request.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(request)
+    });
+
+    if (response.ok){
+        const newRequest = await response.json();
+        dispatch(addRequest(request))
+
+        return newRequest
+    } else {
+        const errorData = await response.json();
+        throw errorData
+    }
+
+}
+
 export const removeRequest = (request) => async (dispatch) => {
     const response = await csrfFetch(`api/requests/${request.id}`, {
         method: 'DELETE',
