@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, useParams } from 'react-router-dom'; // Import useLocation
 const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 import DeleteGroupModal from '../GroupModals/DeleteGroupModal';
-import {
-	thunkCreateGroup,
-	thunkUpdateGroup,
-	thunkDeleteGroup,
-} from '../../../redux/group';
+import {thunkCreateGroup, thunkUpdateGroup, thunkDeleteGroup, thunkFetchGroup} from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
 import {
 	fetchInvitedFriends,
@@ -24,7 +20,7 @@ const GroupForm = ({ isEditMode }) => {
 	const { groupId } = useParams();
 
 	const currentUser = useSelector((state) => state.session.user);
-	const { loading, error } = useSelector((state) => state.group);
+	const { group, loading, error } = useSelector((state) => state.group);
 	const { friends } = useSelector((state) => state.user);
 
 	const invitedFriends = useSelector((state) => state.invite || []); // Invited friends list
@@ -39,6 +35,7 @@ const GroupForm = ({ isEditMode }) => {
 	useEffect(() => {
 		if (isEditMode) {
 			dispatch(fetchInvitedFriends(groupId));
+			dispatch(thunkFetchGroup(groupId));
 		}
 	}, [dispatch, isEditMode, groupId]);
 
@@ -46,6 +43,7 @@ const GroupForm = ({ isEditMode }) => {
 	useEffect(() => {
 		if (isEditMode) {
 			setSelectedFriends(invitedFriends.map((invite) => invite.friend_id));
+			setDescription(group?.description || '');
 		}
 	}, [invitedFriends, isEditMode]);
 
