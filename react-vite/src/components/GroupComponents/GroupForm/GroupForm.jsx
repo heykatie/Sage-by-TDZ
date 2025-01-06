@@ -44,7 +44,6 @@ const GroupForm = ({ isEditMode, groupData }) => {
 
 	// **Set selected friends based on invited friends**
 	useEffect(() => {
-		console.log('Invited friends:', invitedFriends);
 		if (isEditMode) {
 			setSelectedFriends(invitedFriends.map((invite) => invite.friend_id));
 		}
