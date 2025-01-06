@@ -29,6 +29,7 @@ function Notification() {
     // const sent = Object.values(requests.sent)
 
     const totalRequests = Object.keys(requests.received).filter(key => !requests.received[key].accepted).length
+    
     const totalInvites = invites.length
 
     console.log("REQUESTS", totalRequests)

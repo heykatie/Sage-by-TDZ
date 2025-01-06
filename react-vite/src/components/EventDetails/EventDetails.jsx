@@ -15,6 +15,7 @@ import EventRSVPTiles from '../EventRSVPTiles';
 import { thunkGetRSVPs } from '../../redux/events';
 import RSVPModal from '../RSVPModal/RSVPModal';
 import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
+import LoginFormModal from '../LoginFormModal';
 
 
 const EventDetails = () => {
@@ -41,6 +42,9 @@ const EventDetails = () => {
 
     console.log(rsvps)
 
+    // const rsvpLogin = () => {
+    //     LoginFormModal
+    // }
 
 
     if (eventInfo && isLoaded && currentUser) {
@@ -283,7 +287,13 @@ const EventDetails = () => {
                             </li>
                         })}
                     </div>
-                    <button className='login-to-rsvp-button'>Login to RSVP</button>
+                    <OpenModalButton
+                    buttonText="Login to RSVP"
+                    modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
+                    onButtonClick
+                    onModalClose
+                    /> 
+                    {/* <button onClick={rsvpLogin}className='login-to-rsvp-button'>Login to RSVP</button> */}
                     <div className='li-organizer-details'>
                         <div className='organizer-name-logo'>
                             <h2>Event Organizer - {organizer?.name}</h2>
