@@ -12,6 +12,20 @@ import {
     fetchUserGroups,
 } from '../../redux/user';
 
+export const friendTile = friend => {
+    return (
+        <div className='friend-tile' key={friend?.id}>
+            <Link 
+            to={`/friends/${friend?.id}`}
+            className='friend-link' 
+            >
+            <img className='profile-pic' src={friend?.profile_pic}  />
+            <h3 className='friend-name'>{friend?.first_name} {friend?.last_name}</h3>
+            <IoIosMore className='more-dots' />
+            </Link>
+        </div>
+    )
+}
 
 
 export default function AllFriends() {
@@ -35,20 +49,7 @@ export default function AllFriends() {
 
    if(!currentUser) navigate('/');
 
-    const friendTile = friend => {
-        return (
-            <div className='friend-tile' key={friend?.id}>
-                <Link 
-                to={`/friends/${friend?.id}`}
-                className='friend-link' 
-                >
-                <img className='profile-pic' src={friend?.profile_pic}  />
-                <h3 className='friend-name'>{friend?.first_name} {friend?.last_name}</h3>
-                <IoIosMore className='more-dots' />
-                </Link>
-            </div>
-        )
-    }
+
 
     const friends = Object.values(useSelector(state=>state.friends.allFriends));
 
@@ -96,6 +97,7 @@ export default function AllFriends() {
                 </nav>
             </div>
             </section>
+            <h1>Friends List</h1>
             <div className='tile-container'>
                 <div className='tiles'>
                     {friends && friends.map(friend=>(

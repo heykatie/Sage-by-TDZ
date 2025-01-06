@@ -31,13 +31,15 @@ def user_invites():
 
 @invite_route.route('/<int:user_id>')
 @login_required
-def group_invites():
+def group_invites(user_id):
     """
     Query all the invites of a user
     """
 
-    user_id = current_user.id
     invites = Invites.query.filter_by(user_id=user_id).all()
+
+    if not invites:
+        return {"message": "No invites found"}
 
     invites_list = []
     for invite in invites:
@@ -51,7 +53,7 @@ def group_invites():
         'going': invite.going
         })
 
-    return invites_list.to_dict()
+    return invites_list
 
 
 @invite_route.route('/create', methods=['POST'])

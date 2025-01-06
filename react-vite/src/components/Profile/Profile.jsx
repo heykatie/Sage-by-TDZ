@@ -9,11 +9,11 @@ import {
 } from '../../redux/user'; // Ensure correct import path
 // import Navigation from '../Navigation';
 import './Profile.css';
+import { useNavigate, Link } from 'react-router-dom';
+import AllFriends from '../AllFriends';
 
 const ProfilePage = () => {
 	const dispatch = useDispatch();
-	const { profile, events, badges, friends, groups, status, error } =
-		useSelector((state) => state.user);
 
 	const [activeSection, setActiveSection] = useState('badges'); // Tracks active section
 
@@ -26,22 +26,28 @@ const ProfilePage = () => {
 		dispatch(fetchUserGroups());
 	}, [dispatch]);
 
+	const { profile, events, friends, groups, status, error } =
+		useSelector((state) => state.user);
 	// Loading and error handling
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
+
+	const badges = Object.values(useSelector(state=>state.user.badges));
+
+	console.log(friends)
 
 	// Dynamic content rendering
 	const renderSection = () => {
 		switch (activeSection) {
 			case 'badges':
 				return (
-					<section id='badges' className='badges'>
+					<section id='badges' className='badges-container'>
 						<h3>Badges</h3>
 						<div className='badge-grid'>
 							{badges?.length > 0 ? (
 								badges.map((badge, index) => (
 									<div className='badge' key={index}>
-										<img src={badge.url} alt={`Badge ${index}`} />
+										<img src={badge.url} alt={badge.title} />
 										<p>{badge.name}</p>
 									</div>
 								))
@@ -58,12 +64,33 @@ const ProfilePage = () => {
 						<ul>
 							{events?.length > 0 ? (
 								events.map((event) => (
-									<li key={event.id}>
-										<h4>{event.title}</h4>
-										<p>Date: {event.eventDate}</p>
-										<p>
-											Location: {event.city}, {event.state}
-										</p>
+									<li className='profile-events' key = {event.id}>
+										<div className='li-event-list'>
+											<Link to={ `/events/${event?.id}` } > {event?.title}
+											<div className='li-event-image'>
+											<img src={event.preview} alt={event?.title} />
+											</div>
+											<div className='li-event-categories'>
+												{event.categories.split(',').forEach(category => {
+													<li className='category'>
+														{/* {console.log('i exist', category)} */}
+														<p>{category}</p>
+													</li>
+												})}
+											</div>
+											<div className='li-event-description'>
+												<div className='city-date'>
+													<h2>{event?.city}, {event?.state}</h2>
+													<h3>Date: {event?.event_date}</h3>
+												</div>
+												<div className='start-end-time'>
+													<h3>Start Time: {event?.start_time}</h3>
+													<h3>End Time: {event?.end_time}</h3>
+												</div>
+											</div>
+											<p>{event?.description}</p>
+											</Link>
+										</div>
 									</li>
 								))
 							) : (
@@ -74,23 +101,7 @@ const ProfilePage = () => {
 				);
 			case 'friends':
 				return (
-					<section id='friends' className='friends'>
-						<h3>Friends</h3>
-						<ul>
-							{friends?.length > 0 ? (
-								friends.map((friend) => (
-									<li key={friend.id}>
-										<h4>
-											{friend.firstName} {friend.lastName}
-										</h4>
-										<p>{friend.username}</p>
-									</li>
-								))
-							) : (
-								<p>No friends yet</p>
-							)}
-						</ul>
-					</section>
+					<AllFriends />
 				);
 			case 'groups':
 				return (

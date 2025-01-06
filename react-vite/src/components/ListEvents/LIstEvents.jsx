@@ -22,9 +22,9 @@ const ListEvents = () => {
         <>
        <li key = {event.id}>
             <div className='li-event-list'>
-                <Link to={ `/events/${event.id}` } > {event.title}
+                <Link to={ `/events/${event?.id}` } > {event?.title}
                 <div className='li-event-image'>
-                <img src={event.preview} alt={event.title} />
+                <img src={event.preview} alt={event?.title} />
                 </div>
                 <div className='li-event-categories'>
                     {event.categories.split(',').forEach(category => {
@@ -36,15 +36,15 @@ const ListEvents = () => {
                 </div>
                 <div className='li-event-description'>
                     <div className='city-date'>
-                        <h2>{event.city}, {event.state}</h2>
-                        <h3>Date: {event.event_date}</h3>
+                        <h2>{event?.city}, {event?.state}</h2>
+                        <h3>Date: {event?.event_date}</h3>
                     </div>
                     <div className='start-end-time'>
-                        <h3>Start Time: {event.start_time}</h3>
-                        <h3>End Time: {event.end_time}</h3>
+                        <h3>Start Time: {event?.start_time}</h3>
+                        <h3>End Time: {event?.end_time}</h3>
                     </div>
                 </div>
-                <p>{event.description}</p>
+                <p>{event?.description}</p>
                 </Link>
             </div>
         </li>
@@ -55,6 +55,7 @@ const ListEvents = () => {
     return (
         <>
         <div className='event-list-container'>
+            <h1>Current Volunteer Opportunities:</h1>
         <ul className='event-list'>
             { events ?
             eventTiles(events) :
