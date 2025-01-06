@@ -22,7 +22,7 @@ const EventDetails = () => {
 
     const dispatch = useDispatch()
 
-    const { closeModal } = useModal();
+    const { setModalContent, setOnModalClose, closeModal } = useModal();
 
     const { eventId } = useParams()
 
@@ -105,7 +105,7 @@ const EventDetails = () => {
                 modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
                 onButtonClick
                 onModalClose
-                /> 
+                />
                 }
             </div>
             <div className='li-event-invite'>
@@ -115,11 +115,10 @@ const EventDetails = () => {
                 <div className='create-group-button-container'>
                     <p>Invite your friends to volunteer with you!</p>
                     <OpenModalButton
-                    buttonText="Create a Group"
-                    modalComponent={<CreateGroupModal closeModal={closeModal}/>}
-                    onButtonClick
-                    onModalClose
-                    />
+    buttonText="Create a Group"
+    modalComponent={<CreateGroupModal onClose={() => setModalContent(null)} />}
+    onModalClose={() => setModalContent(null)}
+/>
                 </div>
                 ) :
                 <OpenModalButton
@@ -127,7 +126,7 @@ const EventDetails = () => {
                 modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
                 onButtonClick
                 onModalClose
-                /> 
+                />
                 }
             </div>
         </div>
@@ -226,7 +225,7 @@ const EventDetails = () => {
                     modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
                     onButtonClick
                     onModalClose
-                    /> 
+                    />
                     {/* <button onClick={rsvpLogin}className='login-to-rsvp-button'>Login to RSVP</button> */}
                     <div className='li-organizer-details'>
                         <div className='organizer-name-logo'>

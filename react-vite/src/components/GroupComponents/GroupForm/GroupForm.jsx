@@ -11,6 +11,7 @@ import {
 	deleteInvite,
 } from '../../../redux/invites';
 import './GroupForm.css';
+import {useModal} from '../../../context/Modal'
 
 const GroupForm = ({ isEditMode }) => {
 	const dispatch = useDispatch();
