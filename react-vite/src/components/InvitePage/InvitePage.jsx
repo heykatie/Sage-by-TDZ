@@ -15,12 +15,12 @@ function GroupInvite({ invite }){
 
 function GroupInvites() {
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.user)
+    const sessionUser = useSelector(state => state.session.user)
 
     console.log('user', sessionUser)
 
     useEffect(() => {
-        dispatch(fetchGroupInvites() )
+        dispatch(fetchGroupInvites(sessionUser.id))
     }, [dispatch]);
 
     const invites = useSelector(state => state.invite);
