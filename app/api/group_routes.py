@@ -73,6 +73,21 @@ def delete_group(groupId):
     db.session.commit()
     return {"message": "Successfully deleted group"}
 
+@group_routes.route('/<int:groupId>', methods=['PUT'])
+@login_required
+def update_group(groupId):
+    data = request.get_json()
+    group = Group.query.get(groupId)
+    if not group:
+        return {"message": "Group not found"}, 404
+
+    # Update fields like description, eventId, etc.
+    group.description = data.get('description', group.description)
+    group.event_id = data.get('eventId', group.event_id)
+    db.session.commit()
+
+    return group.to_dict(), 200
+
 @group_routes.route('/<int:groupId>/members')
 @login_required
 def get_group_members(groupId):
