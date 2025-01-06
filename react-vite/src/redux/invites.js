@@ -109,14 +109,29 @@ export const updateInvite = (invite) => async (dispatch) => {
     }
 }
 
-export const deleteInvite = (invite) => async (dispatch) => {
-    const response = await csrfFetch(`api/invite/${invite.id}`, {
-        method: 'DELETE',
-    })
-    if (response.ok) {
-        dispatch(deleteInvites(invite.id))
-    }
-}
+// export const deleteInvite = (invite) => async (dispatch) => {
+//     const response = await csrfFetch(`api/invite/${invite.id}`, {
+//         method: 'DELETE',
+//     })
+//     if (response.ok) {
+//         dispatch(deleteInvites(invite.id))
+//     }
+// }
+
+export const deleteInvite = (inviteId) => async (dispatch) => {
+	try {
+		const response = await csrfFetch(`/api/invites/${inviteId}`, {
+			method: 'DELETE',
+		});
+		if (response.ok) {
+			dispatch(deleteInvites(inviteId)); // Dispatch an action to update the state
+		} else {
+			throw new Error('Failed to delete invite');
+		}
+	} catch (error) {
+		console.error('Error deleting invite:', error);
+	}
+};
 
 
 const inviteReducer = ( state = initialState, action) => {

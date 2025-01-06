@@ -14,7 +14,7 @@ import {
 	thunkDeleteGroup,
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
-import { createInvite } from '../../../redux/invites';
+import { createInvite, deleteInvite } from '../../../redux/invites';
 import './GroupForm.css';
 
 const GroupForm = ({ isEditMode, groupData }) => {
@@ -66,22 +66,6 @@ const GroupForm = ({ isEditMode, groupData }) => {
 		// if (friendsList) console.log(friendsList);
 	}, [dispatch, isEditMode, groupData, eventData, navigate]);
 
-	// Toggle friend selection
-	// const toggleFriendSelection = (friend) => {
-	// 	setSelectedFriends((prev) =>
-	// 		prev.includes(friend)
-	// 			? prev.filter((f) => f !== friend)
-	// 			: [...prev, friend]
-	// 	);
-	// };
-	// const toggleFriendSelection = (friend) => {
-	// 	setSelectedFriends(
-	// 		(prev) =>
-	// 			prev.some((f) => f.id === friend.id)
-	// 				? prev.filter((f) => f.id !== friend.id) // Remove friend by id
-	// 				: [...prev, friend] // Add friend
-	// 	);
-	// };
 
 	const toggleFriendSelection = async (friend) => {
 		try {
@@ -106,16 +90,41 @@ const GroupForm = ({ isEditMode, groupData }) => {
 				}
 			}
 
-			// Create the invite after group is created or if it already exists
-			const invitePayload = {
-				group_id: groupIdToUse,
-				user_id: currentUser.id, // The ID of the group creator
-				friend_id: friend.id, // The selected friend to invite
-				event_id: eventData.id,
-				going: null,
-			};
+			const isAlreadySelected = selectedFriends.some(
+				(f) => f.id === friend.id
+			);
 
-			await dispatch(createInvite(invitePayload));
+			if (isAlreadySelected) {
+				// Remove invite
+				const inviteToDelete = await fetch(
+					`/api/invites/find?group_id=${groupIdToUse}&friend_id=${friend.id}`
+				);
+				const inviteData = await inviteToDelete.json();
+
+				if (inviteData?.id) {
+					await dispatch(deleteInvite(inviteData.id));
+					setSelectedFriends((prev) =>
+						prev.filter((f) => f.id !== friend.id)
+					); // Remove friend locally
+				} else {
+					console.error('Invite not found for this friend.');
+				}
+			} else {
+				// Create the invite after group is created or if it already exists
+				const invitePayload = {
+					group_id: groupIdToUse,
+					user_id: currentUser.id, // The ID of the group creator
+					friend_id: friend.id, // The selected friend to invite
+					event_id: eventData.id,
+					going: null,
+				};
+
+				const newInvite = await dispatch(createInvite(invitePayload));
+				setSelectedFriends((prev) => [
+					...prev,
+					{ ...friend, invite_id: newInvite.id },
+				]);
+			}
 		} catch (error) {
 			console.error('Failed to create invite:', error);
 		}
@@ -213,7 +222,7 @@ const GroupForm = ({ isEditMode, groupData }) => {
 									</div>
 									<button
 										className={`select-friend-button ${
-											selectedFriends.includes(friend)
+											selectedFriends.some((f) => f.id === friend.id)
 												? 'selected'
 												: ''
 										}`}
