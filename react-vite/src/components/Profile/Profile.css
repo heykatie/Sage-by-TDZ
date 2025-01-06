@@ -3,7 +3,7 @@
   font-family: 'Roboto', sans-serif;
   color: #333;
   padding: 20px;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
@@ -73,6 +73,7 @@
 
 .dashboard-title button {
   margin: 0 5px;
+  color: black;
   background-color: transparent;
   border: 1px solid #ddd;
   padding: 8px 16px;
@@ -107,10 +108,15 @@
 }
 
 .badge {
+  border: solid lightgray 1px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin: 20px;
+  height: 300px;
+  width: 300px;
 }
 
 .badge img {
@@ -127,28 +133,37 @@
 }
 
 /* Events Section */
+
 .events ul {
+  /* border: dotted blue; */
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   list-style: none;
   padding: 0;
 }
 
-.events li {
+.profile-events li {
+  border: dashed magenta;
+}
+
+/* .events li {
   background-color: #f9f9f9;
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
-}
+} */
 
-.events li h4 {
+/* .events li h4 {
   font-size: 18px;
   margin: 0 0 5px;
-}
+} */
 
-.events li p {
+/* .events li p {
   font-size: 14px;
   color: #666;
-}
+} */
 
 /* Friends Section */
 .friends ul {
@@ -183,7 +198,7 @@
   color: #666;
 }
 
-/* Groups Section */
+/* Groups Section
 .groups ul {
   list-style: none;
   padding: 0;
@@ -205,7 +220,7 @@
 .groups li p {
   font-size: 14px;
   color: #666;
-}
+} */
 
 /* Edit Profile Section */
 .edit-profile form {
@@ -248,6 +263,131 @@
   background-color: #217dbb;
 }
 
+/* .badges-container {
+  border: solid red;
+} */
+
+.groups-section {
+  padding: 20px;
+}
+
+.group-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.group-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.group-card:hover {
+  transform: scale(1.03);
+}
+
+.group-image-container {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.group-event-image {
+  width: 100%;
+  height: 200px;
+  /* Adjust height to fit nicely */
+  object-fit: cover;
+  /* Ensures the image covers the entire container without distortion */
+  border-radius: 8px;
+}
+
+.group-title {
+  font-size: 20px;
+  margin: 10px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.group-description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.group-owner,
+.group-members-count {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.group-members {
+  margin-bottom: 10px;
+}
+
+.group-members ul {
+  list-style: none;
+  padding: 0;
+}
+
+.group-members .member-item {
+  font-size: 14px;
+}
+
+.group-card-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.view-group-button {
+  height: 40px;
+  margin: 12px;
+  padding: 12px;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-group-button,
+.edit-group-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  flex: 1;
+}
+
+.view-group-button:hover,
+.edit-group-button:hover {
+  background-color: #217dbb;
+}
+
+/* Responsive Design for Group Cards */
+@media (max-width: 768px) {
+  .group-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .group-card {
+    width: 100%;
+  }
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .user-info {
@@ -262,5 +402,9 @@
 
   .edit-profile form {
     grid-template-columns: 1fr;
+  }
+
+    .group-card {
+    width: 100%;
   }
 }

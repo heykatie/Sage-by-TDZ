@@ -3,73 +3,135 @@
     border-radius: 16px;
     margin: 20px;
     width: 400px;
-    height: 400px;
+    height: auto;
+    /* Allow the height to adjust automatically based on content */
+    overflow: hidden;
+    /* Prevent overflow of content */
+    display: flex;
+    flex-direction: column;
+    /* Stack elements vertically */
+    justify-content: space-between;
 }
 
 .li-event-list img {
     width: 100%;
     height: 220px;
     object-fit: cover;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.li-event-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
 }
 
 .li-event-description {
-    /* border: dotted magenta; */
     display: flex;
-    row-gap: 0;
     justify-content: space-between;
+    padding: 10px 0;
 }
 
-.event-list-container .city-date, .start-end-time {
+.li-event-description p {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    /* Better line spacing for readability */
+}
+
+.event-list-container .city-date,
+.event-list-container .start-end-time {
     display: flex;
     flex-direction: column;
     row-gap: 8px;
-    padding: 10px 0px;
 }
 
 .event-list-container .start-end-time {
     text-align: right;
+    margin: 10px;
 }
 
 .event-list-container .city-date {
+    /* border: dotted; */
     text-align: left;
+    margin: 10px;
+}
+
+.event-list-container .city-date  .text {
+    /* border: dotted; */
+    padding: 0;
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
 }
 
 .event-list-container .li-event-list a {
     padding: 10px;
+    text-decoration: none;
+    /* Remove underline */
+    color: inherit;
+    /* Inherit text color */
 }
 
-.event-list-container .li-event-description h3 {
-    color: gray;
-}
-
-.event-list-container .li-event-description h3 {
-    font-size: 16px;
+.event-list-container .li-event-description h3,
+.event-list-container .li-event-description h2 {
+    margin: 0;
+    width: fit-content;
 }
 
 .event-list-container .li-event-description h2 {
     font-size: 20px;
+    width: fit-content;
+}
+
+.event-list-container a h2.text {
+    font-size: 20px;
+    /* border: solid purple; */
+    width: fit-content;
 }
 
 .event-list-container ul {
-    /* border: dashed teal; */
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+    /* Center align the event tiles */
+    padding: 0;
+    list-style: none;
 }
 
-@media only screen and (min-width: 400px) and (max-width: 800px){
-    .event-list-container ul {
-        /* border: dashed teal; */
-        display: flex;
-        justify-content: center;
+/* Categories Section */
+.li-event-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
 
+.category {
+    background-color: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+
+.category p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+@media only screen and (min-width: 400px) and (max-width: 800px) {
+    .event-list-container ul {
+        justify-content: center;
     }
 }
 
-@media only screen and (min-width: 800px) and (max-width: 950px){
+@media only screen and (min-width: 800px) and (max-width: 950px) {
     .event-list-container ul {
-        /* border: dashed teal; */
-        display: flex;
         justify-content: center;
-
     }
 }
+

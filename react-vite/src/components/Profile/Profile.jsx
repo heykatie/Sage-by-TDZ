@@ -9,13 +9,26 @@ import {
 } from '../../redux/user'; // Ensure correct import path
 // import Navigation from '../Navigation';
 import './Profile.css';
+import { Link } from 'react-router-dom';
+import AllFriends from '../AllFriends';
+import { fetchAllEvents } from '../../redux/event.js';
 
-const ProfilePage = () => {
+const ProfilePage = ({ profileState }) => {
 	const dispatch = useDispatch();
-	const { profile, events, badges, friends, groups, status, error } =
-		useSelector((state) => state.user);
+	const badges = Object.values(useSelector(state=>state.user.badges));
 
-	const [activeSection, setActiveSection] = useState('badges'); // Tracks active section
+	let [activeSection, setActiveSection] = useState('badges'); // Tracks active section
+
+	useEffect(() => {
+		if(profileState) return setActiveSection(profileState)
+	}, [profileState])
+
+	const [firstName, setFirstName] = useState('badges');
+	const [lastName, setLastName] = useState('badges');
+	const [email, setEmail] = useState('badges');
+	const [city, setCity] = useState('badges');
+	const [state, setState] = useState('badges');
+	const [address, setAddress] = useState('badges');
 
 	// Fetch necessary data on component mount
 	useEffect(() => {
@@ -26,22 +39,32 @@ const ProfilePage = () => {
 		dispatch(fetchUserGroups());
 	}, [dispatch]);
 
-	// Loading and error handling
+		useEffect(() => {
+			dispatch(fetchAllEvents()); // Fetch all events
+		}, [dispatch]);
+
+
+	const eventss = Object.values(useSelector((state) => state.events.events));
+	const { profile, events, friends, groups, status, error } =
+		useSelector((state) => state.user);
+
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
+
+
 
 	// Dynamic content rendering
 	const renderSection = () => {
 		switch (activeSection) {
 			case 'badges':
 				return (
-					<section id='badges' className='badges'>
+					<section id='badges' className='badges-container'>
 						<h3>Badges</h3>
 						<div className='badge-grid'>
 							{badges?.length > 0 ? (
 								badges.map((badge, index) => (
 									<div className='badge' key={index}>
-										<img src={badge.url} alt={`Badge ${index}`} />
+										<img src={badge.url} alt={badge.title} />
 										<p>{badge.name}</p>
 									</div>
 								))
@@ -58,12 +81,45 @@ const ProfilePage = () => {
 						<ul>
 							{events?.length > 0 ? (
 								events.map((event) => (
-									<li key={event.id}>
-										<h4>{event.title}</h4>
-										<p>Date: {event.eventDate}</p>
-										<p>
-											Location: {event.city}, {event.state}
-										</p>
+									<li className='profile-events' key={event.id}>
+										<div className='li-event-list'>
+											<Link to={`/events/${event?.id}`}>
+												{' '}
+												{event?.title}
+												<div className='li-event-image'>
+													<img
+														src={event.preview}
+														alt={event?.title}
+													/>
+												</div>
+												<div className='li-event-categories'>
+													{event.categories
+														.split(',')
+														.map((category, index) => (
+															<li
+																className='category'
+																key={`${event.id}-category-${index}`}>
+																<p>{category.trim()}</p>
+															</li>
+														))}
+												</div>
+												<div className='li-event-description'>
+													<div className='city-date'>
+														<h2>
+															{event?.city}, {event?.state}
+														</h2>
+														<h3>Date: {event?.event_date}</h3>
+													</div>
+													<div className='start-end-time'>
+														<h3>
+															Start Time: {event?.start_time}
+														</h3>
+														<h3>End Time: {event?.end_time}</h3>
+													</div>
+												</div>
+												<p>{event?.description}</p>
+											</Link>
+										</div>
 									</li>
 								))
 							) : (
@@ -73,43 +129,7 @@ const ProfilePage = () => {
 					</section>
 				);
 			case 'friends':
-				return (
-					<section id='friends' className='friends'>
-						<h3>Friends</h3>
-						<ul>
-							{friends?.length > 0 ? (
-								friends.map((friend) => (
-									<li key={friend.id}>
-										<h4>
-											{friend.firstName} {friend.lastName}
-										</h4>
-										<p>{friend.username}</p>
-									</li>
-								))
-							) : (
-								<p>No friends yet</p>
-							)}
-						</ul>
-					</section>
-				);
-			case 'groups':
-				return (
-					<section id='groups' className='groups'>
-						<h3>Groups</h3>
-						<ul>
-							{groups?.length > 0 ? (
-								groups.map((group) => (
-									<li key={group.id}>
-										<h4>{group.name}</h4>
-										<p>Members: {group.membersCount}</p>
-									</li>
-								))
-							) : (
-								<p>No groups yet</p>
-							)}
-						</ul>
-					</section>
-				);
+				return <AllFriends />;
 			case 'edit-profile':
 				return (
 					<section id='edit-profile' className='edit-profile'>
@@ -156,6 +176,98 @@ const ProfilePage = () => {
 							</div>
 							<button type='submit'>Save Changes</button>
 						</form>
+					</section>
+				);
+			case 'groups':
+				console.log('groups:', groups);
+				return (
+					<section id='groups' className='groups-section'>
+						<h3>Your Groups</h3>
+						<div className='group-list'>
+							{groups?.length > 0 ? (
+								groups.map((group) => {
+									// Find event details using event_id
+									const event = eventss.find(
+										(e) => e.id === group.event_id
+									);
+
+									console.log(
+										`Group ID: ${group.id}, Event ID: ${group.event_id}, Found Event:`,
+										event
+									);
+									return (
+										<div className='group-card' key={group.id}>
+											<div className='group-image-container'>
+												<img
+													className='group-event-image'
+													src={
+														event?.preview || '/default-event.png'
+													}
+													alt={event?.title || 'Event Image'}
+												/>
+											</div>
+											<h4 className='group-title'>
+												{event?.title || 'No Event Title'}
+											</h4>
+											<p className='group-description'>
+												{group.description ||
+													'No description provided.'}
+											</p>
+											<p className='group-owner'>
+												<strong>Owner:</strong>{' '}
+												{group.owner_name || 'Unknown'}
+											</p>
+											<p className='group-members-count'>
+												<strong>Members:</strong>{' '}
+												{group.membersCount}
+											</p>
+											<div className='group-members'>
+												<strong>Members List:</strong>
+												<ul>
+													{group.members.length > 0 ? (
+														group.members.map((member) => (
+															<li
+																key={member.id}
+																className='member-item'>
+																{member.name}
+															</li>
+														))
+													) : (
+														<li>No members yet.</li>
+													)}
+												</ul>
+											</div>
+											<div className='group-card-buttons'>
+												<Link
+													to={`/groups/${group.id}`}
+													className='view-group-button'>
+													View Group
+												</Link>
+												{group.owner_id === profile?.id && (
+													<button
+														className='edit-group-button'
+														onClick={() =>
+															navigate(
+																`/groups/${group.id}/edit`,
+																{
+																	state: {
+																		eventData: event,
+																		groupData: group,
+																	},
+																}
+															)
+														}>
+														Edit Group
+													</button>
+												)}
+											</div>
+										</div>
+									);
+								})
+							) : (
+								<p>You haven't joined any groups yet.</p>
+							)}
+						</div>
 					</section>
 				);
 			default:

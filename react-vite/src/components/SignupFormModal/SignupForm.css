@@ -1,0 +1,4 @@
+.login-form-modal#modal-content[name="signup-modal"] {
+    /* border: solid red; */
+  transform: translate(-20%, -30%);
+}

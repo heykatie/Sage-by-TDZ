@@ -5,7 +5,7 @@ import { thunkFetchGroup } from '../../../redux/group';
 const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 import './Group.css';
 
-const GroupPage = () => {
+const Group = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { groupId } = useParams();
@@ -106,10 +106,13 @@ const GroupPage = () => {
 				Hosted by: {`${group.owner?.first_name} ${group.owner?.last_name}`}
 			</p>
 			<p>{`${group.event?.event_date} | ${group.event?.start_time} | ${group.event?.categories}`}</p>
-			<p>{group.event?.address}</p>
-			<a href={`/events/${group.event?.id}`} className='event-link'>
+			<p>
+				{group.event?.address}, {group.event?.city},{' '}
+				{group.event?.state}
+			</p>
+			{/* <a href={`/events/${group.event?.id}`} className='event-link'>
 				View Event Details
-			</a>
+			</a> */}
 
 			{/* Group Description */}
 			<div className='group-description'>
@@ -143,12 +146,24 @@ const GroupPage = () => {
 				<h3>Message Board</h3>
 				<div className='messages-list'>
 					{messages.length ? (
-						messages.map((message, index) => (
-							<div className='message-item' key={index}>
-								<strong>{message.first_name || 'Anonymous'}:</strong>{' '}
-								<span>{message.message}</span>
-							</div>
-						))
+						messages.map((message, index) => {
+							// Find the corresponding member using the user_id
+							const sender = members.find(
+								(member) => member.id === message.user_id
+							);
+
+							return (
+								<div className='message-item' key={index}>
+									<strong>
+										{sender
+											? `${sender.first_name} ${sender.last_name}`
+											: 'Anonymous'}
+										:
+									</strong>{' '}
+									<span>{message.message}</span>
+								</div>
+							);
+						})
 					) : (
 						<p>No messages yet. Start the conversation!</p>
 					)}
@@ -182,7 +197,7 @@ const GroupPage = () => {
 					<button
 						onClick={() =>
 							navigate(`/groups/${groupId}/edit`, {
-								state: { eventData: group.event },
+								state: { eventData: group.event, groupData: group },
 							})
 						}
 						className='edit-group-button'>
@@ -194,4 +209,4 @@ const GroupPage = () => {
 	);
 };
 
-export default GroupPage;
+export default Group;

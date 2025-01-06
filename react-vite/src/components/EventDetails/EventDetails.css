@@ -38,7 +38,7 @@
 .li-event-description  h2 {
     font-size: 18px;
     font-weight: 500;
-    padding: 4px 0px;
+    padding: 4px 20px;
 }
 
 .event-details-container {
@@ -48,9 +48,22 @@
     padding: 20px;
 }
 
+.li-event-rsvp, .li-event-invite {
+    /* border: dotted; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event-details-container button {
+    width: fit-content;
+    margin: 20px auto;
+}
+
 .event-details-container .description {
     color: gray;
 }
+
 
 .event-details-container .contact-logo-label, .org-link, .org-email {
     display: flex;
@@ -67,4 +80,8 @@
 
 .li-organizer-description .description {
     color: gray;
+}
+
+.organizer-name-logo h2 {
+    margin: 40px 0px;
 }

@@ -62,10 +62,14 @@ h2.friend-name {
 .shared-event-info {
     border: solid lightgray 1px;
     border-radius: 24px;
-    height: 300px;
+    height: 350px;
     width: 300px;
     text-align: center;
     margin: 20px;
+}
+
+.shared-event-info h2 {
+    font-size: 20px;
 }
 
 .info-body img {
@@ -88,7 +92,7 @@ h2.friend-name {
 }
 
 .shared-event-info h2 {
-    color: green;
+    color: #557b5d;
 }
 
 .info-body p {

@@ -51,7 +51,7 @@ function SignupFormModal() {
   };
 
   return (
-    <div className="signup-modal">
+    <div className="login-form-modal" id="modal-content" name="signup-modal" >
       <h1>Sign Up</h1>
       {errors.server && <p className="error">{errors.server}</p>}
       <form className="signup-form" onSubmit={handleSubmit}>
@@ -159,6 +159,7 @@ function SignupFormModal() {
         aria-label="Sign Up"
         disabled={email.length<1 || username.length<1 || firstName.length<1 || lastName.length<1 ||
           password.length<1 || confirmPassword.length<1 || username.length<4 || password.length<6}
+          className="invite-button"
         >
           Sign Up</button>
       </form>

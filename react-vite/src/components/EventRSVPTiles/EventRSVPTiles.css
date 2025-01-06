@@ -21,7 +21,7 @@
 }
 
 .rsvp-tiles-container {
-    border: solid lightgreen 1px;
+    border: solid #6b8f71 1px;
     border-radius: 4px;
     display: flex;
     overflow: scroll;
