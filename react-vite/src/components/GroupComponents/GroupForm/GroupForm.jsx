@@ -53,9 +53,6 @@ const GroupForm = ({ isEditMode }) => {
 			alert('No event data provided. Redirecting to events page...');
 			navigate('/events'); // Redirect if event data is missing
 			return;
-		} else if (!groupData) {
-		// Redirect or show error if group data is missing
-			return <p>Error: No group data available. Please navigate properly.</p>;
 		}
 
 		dispatch(fetchUserFriends()).then((friends) =>
