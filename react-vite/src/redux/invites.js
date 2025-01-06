@@ -47,26 +47,50 @@ export const fetchGroupInvites = (user_id) => async (dispatch) => {
     }
 }
 
+// export const createInvite = (invite) => async (dispatch) => {
+//     const response = await csrfFetch('api/invites/create', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(invite)
+//     });
+
+//     if (response.ok){
+//         const newInvite = await response.json();
+//         dispatch(addInvite(invite))
+
+//         return newInvite
+//     } else {
+//         const errorData = await response.json();
+//         throw errorData
+//     }
+
+// }
+
 export const createInvite = (invite) => async (dispatch) => {
-    const response = await csrfFetch('api/invites/create', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(invite)
-    });
+	try {
+		const response = await csrfFetch('/api/invites/create', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(invite),
+		});
 
-    if (response.ok){
-        const newInvite = await response.json();
-        dispatch(addInvite(invite))
-
-        return newInvite
-    } else {
-        const errorData = await response.json();
-        throw errorData
-    }
-
-}
+		if (response.ok) {
+			const newInvite = await response.json();
+			dispatch(addInvite(newInvite)); // Add the actual new invite returned
+			return newInvite;
+		} else {
+			const errorData = await response.json();
+			throw new Error(errorData.message || 'Failed to create invite');
+		}
+	} catch (error) {
+		console.error('Error creating invite:', error);
+		throw error;
+	}
+};
 
 export const updateInvite = (invite) => async (dispatch) => {
     const response = await csrfFetch(`api/invites/${invite.id}`, {
