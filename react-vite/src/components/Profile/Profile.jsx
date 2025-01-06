@@ -16,13 +16,19 @@ import { fetchAllEvents } from '../../redux/event.js';
 const ProfilePage = ({ profileState }) => {
 	const dispatch = useDispatch();
 	const badges = Object.values(useSelector(state=>state.user.badges));
-	
+
 	let [activeSection, setActiveSection] = useState('badges'); // Tracks active section
 
 	useEffect(() => {
 		if(profileState) return setActiveSection(profileState)
 	}, [profileState])
 
+	const [firstName, setFirstName] = useState('badges');
+	const [lastName, setLastName] = useState('badges');
+	const [email, setEmail] = useState('badges');
+	const [city, setCity] = useState('badges');
+	const [state, setState] = useState('badges');
+	const [address, setAddress] = useState('badges');
 
 	// Fetch necessary data on component mount
 	useEffect(() => {
@@ -45,7 +51,7 @@ const ProfilePage = ({ profileState }) => {
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
 
-	
+
 
 	// Dynamic content rendering
 	const renderSection = () => {
