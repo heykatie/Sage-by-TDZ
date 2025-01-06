@@ -37,8 +37,8 @@ const ReceivedRequests = () => {
                                 :
                                 (
                                 <>
-                                <button className='button-yes' onClick={setAction('add')} onSubmit={handleSumbit}>Accept</button>
-                                <button className='button-no' onClick={setAction('delete')} onSubmit={handleSumbit}>Decline</button>
+                                <button className='button-yes' onClick={setAction('accept')} onSubmit={handleSumbit}>Accept</button>
+                                <button className='button-no' onClick={setAction('decline')} onSubmit={handleSumbit}>Decline</button>
                                 </>
                                 )
                             }
