@@ -1,26 +1,35 @@
 import { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as requestActions from '../../../redux/requests';
+import { TbHeartHandshake } from "react-icons/tb";
 
 const ReceivedRequests = () => {
     const dispatch = useDispatch()
-    const {sent, received} = useSelector(state => state.requests)
-    const[action, setAction] = useState('')
+    const data = useSelector(state => state.requests.received)
+    const received = Object.values(data)
+    // const[response, setResponse] = useState()
 
     useEffect(() => {
         dispatch(requestActions.fetchAllRequests())
     }, [])
-    const handleSumbit = () => {
-        e.preventDefault()
 
-        if (action === 'delete') dispatch(requestActions.removeRequest())
+    const handleSumbit = (requestId, response) => {
+        // e.preventDefault()
 
-        dispatch(requestActions.createRequest())
+        if (!response) dispatch(requestActions.removeRequest(requestId))
+
+        // const requestResponse = (requestId, response) => {
+            const payload = {
+                'accpted':response
+            }
+            dispatch(requestActions.updateRequest(requestId, payload))
+        // }
     }
+
     return (
         <section id='received-requests' className='requests'>
             {/* {console.log('SENT HERE',sent, 'RECEIVE HERE', received)} */}
-            <h3>Requests</h3>
+            <h3>Received Requests</h3>
             <div className='request-list'>
                 {received?.length > 0 ? (
                     received.map((received, index) => (
@@ -33,13 +42,17 @@ const ReceivedRequests = () => {
                             </div>
                             <div className='request-buttons'>
                             {received.accepted ?
-                                (<button onClick={setAction('delete')}>X</button>)
+                                (
+                                    <div className='request-status'>
+                                        <TbHeartHandshake id='request-status-icon' />
+                                    </div>
+                                )
                                 :
                                 (
-                                <>
-                                <button className='button-yes' onClick={setAction('accept')} onSubmit={handleSumbit}>Accept</button>
-                                <button className='button-no' onClick={setAction('decline')} onSubmit={handleSumbit}>Decline</button>
-                                </>
+                                    <>
+                                        <button className='button-yes' onClick={handleSumbit(received.id, true)}>Accept</button>
+                                        <button className='button-no' onClick={handleSumbit(received.id, false)} >Decline</button>
+                                    </>
                                 )
                             }
                             </div>

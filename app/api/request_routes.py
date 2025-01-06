@@ -19,6 +19,7 @@ def get_sent_requests():
             "receiver_id": request.receiver_id,
             "sender_id": request.sender_id,
             "sender_name": User.query.get(request.sender_id).username,
+            "receiver_name": User.query.get(request.receiver_id).username,
             "sender_pic": User.query.get(request.sender_id).profile_pic
         }
         return formattedRequest
@@ -43,6 +44,30 @@ def create_request():
     db.session.add(newRequest)
     db.session.commit()
     return newRequest.to_dict()
+
+@request_routes.route('/<int:request_id>', methods=['PUT'])
+@login_required
+def update_request(request_id):
+    """
+    Update an request either the response of the request you received changes going
+    or and request you have sent for a group
+    """
+    data = request.json
+    requests = Request.query.get(request_id)
+
+    if not requests:
+        return { 'message': 'Request not found'}, 404
+
+    if 'accepted' in data and requests.receiver_id == current_user.id:
+        requests.accepted = data['accepted'] # Update the response to an request you have received
+
+    # if 'group_id' in data and invite.user_id == current_user.id:
+    #     invite.group_id = data['group_id']
+
+    db.session.commit()
+
+    return requests.to_dict()
+
 
 
 @request_routes.route('/<int:requestId>', methods=['DELETE'])
