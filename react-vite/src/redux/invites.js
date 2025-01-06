@@ -38,7 +38,8 @@ export const fetchInvitedFriends = (groupId) => async (dispatch) => {
 		const response = await csrfFetch(`/api/groups/${groupId}/invites`, {
 			method: 'GET',
 			credentials: 'include',
-		});
+        });
+        // console.log('hi', response)
 		if (!response.ok) {
 			throw new Error('Failed to fetch invited friends');
 		}
