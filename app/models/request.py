@@ -11,7 +11,7 @@ class Request(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     sender_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     receiver_id = db.Column(db.Integer, nullable=False)
-    accepted = db.Column(db.Boolean, default=False)
+    accepted = db.Column(db.Boolean, nullable=True)
     created_at = db.Column(db.String(255), default=datetime.datetime.now().strftime("%Y-%m-%d"))
 
 
