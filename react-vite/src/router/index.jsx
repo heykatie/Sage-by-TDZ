@@ -21,6 +21,7 @@ import Group from '../components/GroupComponents/Group';
 import Dashboard from '../components/Dashboard/Dashboard';
 import RequestsPage from '../components/Notif/Requests/Requests';
 import fetchedGroupData from '../components/GroupComponents/GroupForm/GroupForm';
+import AllGroups from '../components/AllGroups/AllGroups';
 
 export const router = createBrowserRouter([
 	{
@@ -80,9 +81,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'groups/:groupId/edit',
-				element: (
-					<GroupForm isEditMode={true} />
-				),
+				element: <GroupForm isEditMode={true} />,
 			},
 			{
 				path: 'dashboard',
@@ -91,6 +90,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'invites/:userId',
 				element: <GroupInvites />,
+			},
+			{
+				path: 'groups',
+				element: <AllGroups />,
 			},
 		],
 	},
