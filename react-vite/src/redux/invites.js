@@ -70,6 +70,7 @@ export const fetchGroupInvites = (user_id) => async (dispatch) => {
 
 export const createInvite = (invite) => async (dispatch) => {
 	try {
+        console.log('IN THUNK', invite)
 		const response = await csrfFetch('/api/invites/create', {
 			method: 'POST',
 			headers: {
@@ -78,7 +79,8 @@ export const createInvite = (invite) => async (dispatch) => {
 			body: JSON.stringify(invite),
 		});
 
-		if (response.ok) {
+        console.log('RESPONSE', response)
+        if (response.ok) {
 			const newInvite = await response.json();
 			dispatch(addInvite(newInvite)); // Add the actual new invite returned
 			return newInvite;
