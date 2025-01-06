@@ -8,6 +8,7 @@ import {
 	fetchUserGroups,
 } from '../../redux/user'; // Ensure correct import path
 // import Navigation from '../Navigation';
+import {fetchAllEvents}  from '../../redux/event.js';
 import './Profile.css';
 import { useNavigate, Link } from 'react-router-dom';
 import AllFriends from '../AllFriends';
@@ -26,15 +27,24 @@ const ProfilePage = () => {
 		dispatch(fetchUserGroups());
 	}, [dispatch]);
 
+	useEffect(() => {
+		// console.log('use---------------------------------');
+		dispatch(fetchAllEvents()); // Dispatch on component mount
+	}, [dispatch]);
+
 	const { profile, events, friends, groups, status, error } =
 		useSelector((state) => state.user);
+	// const eventss = useSelector((state) => state.allEvents);
+	// console.log('All Events:', eventss);
 	// Loading and error handling
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
 
 	const badges = Object.values(useSelector(state=>state.user.badges));
 
-	console.log(friends)
+	useEffect(() => {
+		console.log('All Events from Redux:', events);
+	}, [events]);
 
 	// Dynamic content rendering
 	const renderSection = () => {
@@ -162,6 +172,7 @@ const ProfilePage = () => {
 					</section>
 				);
 			case 'groups':
+				console.log('groups:', groups);
 				return (
 					<section id='groups' className='groups-section'>
 						<h3>Your Groups</h3>
@@ -173,6 +184,10 @@ const ProfilePage = () => {
 										(e) => e.id === group.event_id
 									);
 
+									console.log(
+										`Group ID: ${group.id}, Event ID: ${group.event_id}, Found Event:`,
+										event
+									);
 									return (
 										<div className='group-card' key={group.id}>
 											<div className='group-image-container'>
@@ -180,7 +195,7 @@ const ProfilePage = () => {
 													className='group-event-image'
 													src={
 														event?.preview || '/default-event.png'
-													} // Default event image if no preview is available
+													}
 													alt={event?.title || 'Event Image'}
 												/>
 											</div>

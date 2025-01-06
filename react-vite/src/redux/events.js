@@ -23,6 +23,7 @@ const getEventRSVPs = payload => ({
 export const thunkAllEvents = () => async dispatch => {
     const res = await csrfFetch('/api/events');
 
+    console.log('-------------------', res)
     if(res.ok) {
         const events = await res.json();
         if (events.errors) { return; }
