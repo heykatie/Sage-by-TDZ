@@ -28,17 +28,15 @@ def get_group_details(groupId):
     group = Group.query.get(groupId)
     if not group:
         return {"message": "Group not found"}, 404
-    # return group.to_dict()
-    invites = group.invites  # Assuming you have a relationship `invites` on the Group model
-    invited_friends = [invite.friend.to_dict() for invite in invites]  # Get friend info from invites
+    return group.to_dict()
 
-    return {
-        "id": group.id,
-        "description": group.description,
-        "event_id": group.event_id,
-        "owner_id": group.owner_id,
-        "invitedFriends": invited_friends  # Include invited friends here
-    }
+@group_routes.route('/<int:group_id>/invites', methods=['GET'])
+@login_required
+def get_group_invites(group_id):
+    invites = Invites.query.filter_by(group_id=group_id).all()
+    if not invites:
+        return {"message": "No invites found"}, 404
+    return {"invites": [invite.to_dict() for invite in invites]}, 200
 
 @group_routes.route('/', methods=['POST'])
 @login_required

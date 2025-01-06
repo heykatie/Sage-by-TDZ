@@ -15,7 +15,7 @@ import {
 	thunkDeleteGroup,
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
-import { createInvite, deleteInvite } from '../../../redux/invites';
+import { createInvite, deleteInvite, fetchInvitedFriends} from '../../../redux/invites';
 import './GroupForm.css';
 
 const GroupForm = ({ isEditMode, groupData }) => {
@@ -38,6 +38,22 @@ const GroupForm = ({ isEditMode, groupData }) => {
 	const [groupsId, setGroupsId] = useState(groupId || null); // Initially, groupId is null
 
 	useEffect(() => {
+		if (isEditMode) {
+			dispatch(fetchInvitedFriends(groupId));
+		}
+	}, [dispatch, isEditMode, groupId]);
+
+	// Select invited friends from Redux store
+	const invitedFriends = useSelector((state) => state.invite || []);
+
+	// Set selected friends based on invited friends
+	useEffect(() => {
+		if (isEditMode && invitedFriends.length) {
+			setSelectedFriends(invitedFriends);
+		}
+	}, [invitedFriends, isEditMode]);
+
+	useEffect(() => {
 		if (!groupData) {
 			const fetchGroupData = async () => {
 				const response = await fetch(`/api/groups/${groupsId}`);
@@ -49,28 +65,6 @@ const GroupForm = ({ isEditMode, groupData }) => {
 			setDescription(groupData.description || '');
 		}
 	}, [groupData, groupsId]);
-
-	useEffect(() => {
-		const fetchGroupDetails = async () => {
-			if (isEditMode && groupId) {
-				try {
-					const response = await fetch(`/api/groups/${groupId}`);
-					if (response.ok) {
-						const data = await response.json();
-						console.log('Fetched group data:', data);
-						setDescription(data.description || '');
-						setSelectedFriends(data.invitedFriends || []);
-					} else {
-						console.error('Failed to fetch group data');
-					}
-				} catch (error) {
-					console.error('Error fetching group data:', error);
-				}
-			}
-		};
-
-		fetchGroupDetails();
-	}, [groupData, isEditMode, groupId]);
 
 	useEffect(() => {
 		if (!eventData) {

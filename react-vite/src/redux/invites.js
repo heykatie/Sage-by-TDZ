@@ -6,6 +6,12 @@ const LOAD_INVITES = "LOAD_INVITES";
 const ADD_INVITE = "ADD_INVITE";
 const UPDATE_INVITE = "UPDATE_INVITE";
 const DELETE_INVITE = "DELETE_INVITE";
+const LOAD_INVITED_FRIENDS = 'invites/LOAD_INVITED_FRIENDS';
+
+export const loadInvitedFriends = (invites) => ({
+	type: LOAD_INVITED_FRIENDS,
+	invites,
+});
 
 const loadInvites = (invites) => ({
     type: LOAD_INVITES,
@@ -27,6 +33,22 @@ const deleteInvites = (invite) => ({
     invite
 })
 
+export const fetchInvitedFriends = (groupId) => async (dispatch) => {
+	try {
+		const response = await csrfFetch(`/api/groups/${groupId}/invites`, {
+			method: 'GET',
+			credentials: 'include',
+		});
+		if (!response.ok) {
+			throw new Error('Failed to fetch invited friends');
+		}
+		const data = await response.json();
+		dispatch(loadInvitedFriends(data.invites || []));
+	} catch (error) {
+		console.error('Error fetching invited friends:', error); // Show exact error
+	}
+};
+
 export const fetchUserInvites = () => async (dispatch) => {
     const response = await csrfFetch('api/invites/');
     if (response.ok) {
@@ -46,27 +68,6 @@ export const fetchGroupInvites = (user_id) => async (dispatch) => {
         dispatch(loadInvites(invites))
     }
 }
-
-// export const createInvite = (invite) => async (dispatch) => {
-//     const response = await csrfFetch('api/invites/create', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(invite)
-//     });
-
-//     if (response.ok){
-//         const newInvite = await response.json();
-//         dispatch(addInvite(invite))
-
-//         return newInvite
-//     } else {
-//         const errorData = await response.json();
-//         throw errorData
-//     }
-
-// }
 
 export const createInvite = (invite) => async (dispatch) => {
 	try {
@@ -144,6 +145,8 @@ export const deleteInvite = (inviteId) => async (dispatch) => {
 
 const inviteReducer = ( state = initialState, action) => {
     switch (action.type) {
+        case LOAD_INVITED_FRIENDS:
+            return [...action.invites];
         case LOAD_INVITES:
             console.log('What happing here', action);
             return [...action.invites];
