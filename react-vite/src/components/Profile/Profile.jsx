@@ -155,7 +155,7 @@ const ProfilePage = ({ profileState }) => {
 								<label>First Name</label>
 								<input
 									type='text'
-									value={firstName || ''}
+									value={profile?.first_name || ''}
 									onChange={(e) => setFirstName(e.target.value)}
 								/>
 							</div>
