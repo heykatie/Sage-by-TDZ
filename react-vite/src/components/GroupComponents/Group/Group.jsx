@@ -5,7 +5,7 @@ import { thunkFetchGroup } from '../../../redux/group';
 const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 import './Group.css';
 
-const GroupPage = () => {
+const Group = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { groupId } = useParams();
@@ -206,4 +206,4 @@ const GroupPage = () => {
 	);
 };
 
-export default GroupPage;
+export default Group;

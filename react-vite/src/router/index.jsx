@@ -70,16 +70,20 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'groups/:groupId',
-				element: <Group/>
+				element: <Group />,
 			},
-      {
-        path: 'dashboard',
-        element: <Dashboard />
-      },
-      {
-        path: "invites/:userId",
-        element: <GroupInvites />
-      },
-    ],
-  },
+			{
+				path: 'groups/:groupId/edit',
+				element: <GroupForm />,
+			},
+			{
+				path: 'dashboard',
+				element: <Dashboard />,
+			},
+			{
+				path: 'invites/:userId',
+				element: <GroupInvites />,
+			},
+		],
+	},
 ]);
