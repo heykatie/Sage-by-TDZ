@@ -10,10 +10,17 @@
 import { csrfFetch } from './csrf'
 
 //action-type creators
-const LOAD_EVENTS = 'session/LOAD_EVENTS';
-const RECEIVE_EVENT = 'session/RECEIVE_EVENT';
+const LOAD_EVENTS = 'event/LOAD_EVENTS';
+const RECEIVE_EVENT = 'event/RECEIVE_EVENT';
+const FETCH_ALL_EVENTS = 'event/FETCH_ALL_EVENTS';
 
 //action-creators
+
+const fetchAllEventsSuccess = (events) => ({
+	type: FETCH_ALL_EVENTS,
+	events,
+});
+
 export const load = (events, upcoming) => ({
     type: LOAD_EVENTS,
     events,
@@ -27,6 +34,23 @@ export const receive = (event) => ({
 
 //thunk actions
 
+export const fetchAllEvents = () => async (dispatch) => {
+    try {
+        console.log('thunk---------------------------------')
+		const response = await csrfFetch('/api/events/');
+		if (response.ok) {
+			const data = await response.json();
+			dispatch({
+				type: FETCH_ALL_EVENTS, // Ensure the type matches the reducer case
+				events: data.events || [],
+			});
+		} else {
+			throw new Error('Failed to fetch events');
+		}
+	} catch (error) {
+		console.error('Error in fetchAllEvents thunk:', error);
+	}
+};
 export const getAllEvents = () => async dispatch => {
     const res = await csrfFetch('/api/events')
 
@@ -68,20 +92,20 @@ export const singleEvent = (id) => async dispatch => {
 //move to rsvps reducer
 
 export const addOrgFeedback = (feedback, eventId) => async dispatch => {
-    const res = await fetch("/api/prfoile/feedback", {
+    const res = await fetch("/api/profile/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(feedback)
-      });
+    });
 
     if ( res.status === 201 ) {
         // console.log('I AM IN THUNK')
         const newFeedback = await res.json();
 
         // console.log('FEEDBACK HAS BEEN MADE  ----->', newFeedback)
-        const res = await fetch(`/api/events/${eventId}`);
-        if (res.status === 200) {
-            const event = await res.json()
+        const ress = await fetch(`/api/events/${eventId}`);
+        if (ress.status === 200) {
+            const event = await ress.json()
             dispatch(receive(event))
         }
         return newFeedback;
@@ -123,26 +147,39 @@ const normalData = (data) => {
 //reducer
 const initialState = {events: {}, upcoming: {}, single: {}}
 const eventsReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case LOAD_EVENTS:{
-            // console.log('IN REDUCER -->',action.events)
-            const eventState = {...state}
-                if (action.events) eventState.events = normalData(action.events)
+    if (!action?.type) {
+			console.error('Invalid action dispatched:', action);
+			return state; // Return the current state if action is invalid
+		}
+    switch (action.type) {
+			case LOAD_EVENTS: {
+				// console.log('IN REDUCER -->',action.events)
+				const eventState = { ...state };
+				if (action.events) eventState.events = normalData(action.events);
 
-                if (action.upcoming) eventState.upcoming = normalData(action.upcoming)
+				if (action.upcoming)
+					eventState.upcoming = normalData(action.upcoming);
 
-                return eventState;
-             }
-        case RECEIVE_EVENT: {
-            // console.log('DO I MAKE IT ?', action.event)
-            const eventState = { ...state}
-            eventState.single[action.event.event.id] = action.event
+				return eventState;
+			}
+			case FETCH_ALL_EVENTS: {
+				// Handle the new action type
+				return {
+					...state,
+					events: normalData(action.events), // Normalize and store the events
+				};
+			}
+			case RECEIVE_EVENT: {
+				// console.log('DO I MAKE IT ?', action.event)
+				const eventState = { ...state };
+				eventState.single[action.event.event.id] = action.event;
 
-            return eventState
-        }
-        default:
-            return state
-    }
+				return eventState;
+			}
+			default:
+                console.warn('Unrecognized action type:', action.type);
+				return state;
+		}
 }
 
 export default eventsReducer;
