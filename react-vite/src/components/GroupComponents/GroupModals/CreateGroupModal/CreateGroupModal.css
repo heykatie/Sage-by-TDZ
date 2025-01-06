@@ -21,7 +21,7 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-h2 {
+.create-group-modal h2 {
   font-size: 1.6rem;
   font-weight: bold;
   color: #4a7744; /* Sage green color */
@@ -31,8 +31,8 @@ h2 {
   gap: 10px;
 }
 
-h2::before,
-h2::after {
+/* .create-group-title::before,
+.create-group-title::after {
   content: '';
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@ h2::after {
   background-repeat: no-repeat;
   width: 30px;
   height: 30px;
-}
+} */
 
 .event-selection {
   margin: 20px 0;
