@@ -7,6 +7,7 @@ import {
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import eventsReducer from "./event";
+import friendReducer from "./friends";
 import inviteReducer from "./invites";
 import userReducer from './user';
 import groupReducer from './group';
