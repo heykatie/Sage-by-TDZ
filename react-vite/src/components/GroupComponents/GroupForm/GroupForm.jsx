@@ -35,6 +35,19 @@ const GroupForm = ({ isEditMode, groupData }) => {
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	useEffect(() => {
+		if (!groupData) {
+			const fetchGroupData = async () => {
+				const response = await fetch(`/api/groups/${groupId}`);
+				const data = await response.json();
+				setDescription(data.description || ''); // Populate the description
+			};
+			fetchGroupData(); // Fallback API fetch
+		} else {
+			setDescription(groupData.description || '');
+		}
+	}, [groupData, groupId]);
+
+	useEffect(() => {
 		if (!eventData) {
 			alert('No event data provided. Redirecting to events page...');
 			navigate('/events'); // Redirect if event data is missing
@@ -44,6 +57,7 @@ const GroupForm = ({ isEditMode, groupData }) => {
 			setDescription(groupData.description || '');
 			setSelectedFriends(groupData.invitedFriends || []);
 		}
+
 		dispatch(fetchUserFriends()).then((friends) =>
 			setFriendsList(friends || [])
 		);

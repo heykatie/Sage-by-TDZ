@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserEvents } from '../../../../redux/user';
 import { useNavigate } from 'react-router-dom';
 import './CreateGroupModal.css';
+const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 
 const CreateGroupModal = ({ onClose }) => {
 	const dispatch = useDispatch();
