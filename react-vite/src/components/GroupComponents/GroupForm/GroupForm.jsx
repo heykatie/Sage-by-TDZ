@@ -182,7 +182,7 @@ const GroupForm = ({ isEditMode, groupData }) => {
 				</p>
 				<p>{`${eventData.event_date} | ${eventData.start_time} - ${eventData.end_time} | ${eventData.categories}`}</p>
 				<p>
-					{eventData.address} {eventData.city}, {eventData.state}
+					{eventData.address}, {eventData.city}, {eventData.state}
 				</p>
 				<p>
 					<a href={`/events/${eventData.id}`} className='event-link'>
