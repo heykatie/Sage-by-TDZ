@@ -54,9 +54,18 @@
 }
 
 .event-list-container .city-date {
+    /* border: dotted; */
     text-align: left;
-    width: fit-content;
     margin: 10px;
+}
+
+.event-list-container .city-date  .text {
+    /* border: dotted; */
+    padding: 0;
+    width: fit-content;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
 }
 
 .event-list-container .li-event-list a {
@@ -69,12 +78,19 @@
 
 .event-list-container .li-event-description h3,
 .event-list-container .li-event-description h2 {
-    color: gray;
     margin: 0;
+    width: fit-content;
 }
 
 .event-list-container .li-event-description h2 {
     font-size: 20px;
+    width: fit-content;
+}
+
+.event-list-container a h2.text {
+    font-size: 20px;
+    /* border: solid purple; */
+    width: fit-content;
 }
 
 .event-list-container ul {
@@ -100,6 +116,7 @@
     border-radius: 15px;
     font-size: 14px;
 }
+
 
 .category p {
     margin: 0;

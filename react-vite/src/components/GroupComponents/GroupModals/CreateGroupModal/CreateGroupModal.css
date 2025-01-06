@@ -34,7 +34,8 @@ h2 {
 h2::before,
 h2::after {
   content: '';
-  display: inline-block;
+  display: flex;
+  align-items: center;
   background-image: url('https://i.postimg.cc/jdK73WSg/sprout.png');
   background-size: contain;
   background-repeat: no-repeat;

@@ -15,6 +15,13 @@ const ListEvents = () => {
 	const user = useSelector((state) => state.session.user);
 	const events = Object.values(useSelector((state) => state.events.events));
 
+    const Location = ({event}) => {
+        if(event?.state === 'None') {
+            return (<h2 className='text'>Virtual</h2>)
+        }
+        return (<h2 className='text'>{event?.city}, {event?.state}</h2>)
+    }
+
 	const eventTiles = (events) =>
 		events.map((event) => (
 			<li key={event.id}>
@@ -35,9 +42,7 @@ const ListEvents = () => {
 						</div>
 						<div className='li-event-description'>
 							<div className='city-date'>
-								<h2>
-									{event?.city}, {event?.state}
-								</h2>
+								<Location event={event} />
 								<h3>Date: {event?.event_date}</h3>
 							</div>
 							<div className='start-end-time'>
