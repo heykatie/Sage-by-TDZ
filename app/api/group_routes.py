@@ -61,6 +61,8 @@ def get_user_groups():
 
         group_data = {
             'id': group.id,
+            'event_id': group.event_id,
+            'owner_id': group.owner_id,
             'event_title': group.event.title if group.event else 'No event',
             'owner_name': f"{group.owner.first_name} {group.owner.last_name}" if group.owner else 'Unknown',
             'description': group.description or 'No description provided.',

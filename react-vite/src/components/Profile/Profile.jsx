@@ -76,11 +76,15 @@ const ProfilePage = () => {
 													/>
 												</div>
 												<div className='li-event-categories'>
-													{event.categories.split(',').map((category, index) => (
-	<li className='category' key={`${event.id}-category-${index}`}>
-		<p>{category.trim()}</p>
-	</li>
-))}
+													{event.categories
+														.split(',')
+														.map((category, index) => (
+															<li
+																className='category'
+																key={`${event.id}-category-${index}`}>
+																<p>{category.trim()}</p>
+															</li>
+														))}
 												</div>
 												<div className='li-event-description'>
 													<div className='city-date'>
@@ -159,43 +163,82 @@ const ProfilePage = () => {
 				);
 			case 'groups':
 				return (
-					<section id='groups' className='groups'>
+					<section id='groups' className='groups-section'>
 						<h3>Your Groups</h3>
 						<div className='group-list'>
 							{groups?.length > 0 ? (
-								groups.map((group) => (
-									<div className='group-card' key={group.id}>
-										<h4>{group.name || 'Group Title'}</h4>
-										<p>
-											{group.description ||
-												'No description provided.'}
-										</p>
-										<p>
-											Members:{' '}
-											{group.membersCount ||
-												group.members?.length ||
-												0}
-										</p>
-										<div className='group-card-buttons'>
-											<Link
-												to={`/groups/${group.id}`}
-												className='view-group-button'>
-												View Group
-											</Link>
-											{group.owner_id === profile?.id && (
-												<button
-													className='edit-group-button'
-													onClick={() =>
-														navigate(`/groups/${group.id}/edit`, {
-															state: { groupData: group },
-														})
-													}>
-													Edit Group
-												</button>
-											)}
+								groups.map((group) => {
+									// Find event details using event_id
+									const event = events.find(
+										(e) => e.id === group.event_id
+									);
+
+									return (
+										<div className='group-card' key={group.id}>
+											<div className='group-image-container'>
+												<img
+													className='group-event-image'
+													src={
+														event?.preview || '/default-event.png'
+													} // Default event image if no preview is available
+													alt={event?.title || 'Event Image'}
+												/>
+											</div>
+											<h4 className='group-title'>
+												{event?.title || 'No Event Title'}
+											</h4>
+											<p className='group-description'>
+												{group.description ||
+													'No description provided.'}
+											</p>
+											<p className='group-owner'>
+												<strong>Owner:</strong>{' '}
+												{group.owner_name || 'Unknown'}
+											</p>
+											<p className='group-members-count'>
+												<strong>Members:</strong>{' '}
+												{group.membersCount}
+											</p>
+											<div className='group-members'>
+												<strong>Members List:</strong>
+												<ul>
+													{group.members.length > 0 ? (
+														group.members.map((member) => (
+															<li
+																key={member.id}
+																className='member-item'>
+																{member.name}
+															</li>
+														))
+													) : (
+														<li>No members yet.</li>
+													)}
+												</ul>
+											</div>
+											<div className='group-card-buttons'>
+												<Link
+													to={`/groups/${group.id}`}
+													className='view-group-button'>
+													View Group
+												</Link>
+												{group.owner_id === profile?.id && (
+													<button
+														className='edit-group-button'
+														onClick={() =>
+															navigate(
+																`/groups/${group.id}/edit`,
+																{
+																	state: { groupData: group },
+																}
+															)
+														}>
+														Edit Group
+													</button>
+												)}
+											</div>
 										</div>
-									</div>
-								))
+									);
+								})
 							) : (
 								<p>You haven't joined any groups yet.</p>
 							)}
