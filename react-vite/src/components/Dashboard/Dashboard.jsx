@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
-// import { AllFriends } from './AllFriends'
+// import { AllFriends } from 'react-vite/src/components/AllFriends'
 // import { EventRSVPs } from './EventRSVPs'
 // import { GroupComponent } from './GroupComponent'
 
