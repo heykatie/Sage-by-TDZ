@@ -38,25 +38,22 @@ const EventDetails = () => {
     const currentUser = useSelector((state) => state.session.user);
     const event = useSelector((state) => state.event.event);
     const eventInfo = event[eventId];
-    const rsvps = useSelector(state=>state.rsvp);
+    const rsvps = Object.values(useSelector(state=>state.event.rsvps)).map(r=>r.user_id);
 
-    console.log(eventId)
 
-    // const Rsvp = () => {
-    //     if(!rsvps[currentUser.id]) {
-    //         return (<OpenModalButton
-    //             buttonText="Click here to RSVP"
-    //             modalComponent={<RSVPModal eventId={event?.id} />}
-    //             onButtonClick
-    //             onModalClose
-    //             /> )
-    //     }
-    //     return (<></>)
-    // }
+    const Rsvp = () => {
+        if(!rsvps.includes(currentUser.id)) {
+            return (<OpenModalButton
+                buttonText="Click here to RSVP"
+                modalComponent={<RSVPModal eventId={event?.id} />}
+                onButtonClick
+                onModalClose
+                /> )
+        }
+        return (<></>)
+    }
 
-    // const rsvpLogin = () => {
-    //     LoginFormModal
-    // }
+
 
 
     if (eventInfo && isLoaded && currentUser) {
@@ -102,7 +99,7 @@ const EventDetails = () => {
             <div className='li-event-rsvp'>
                 {/* need rsvps reducer */}
                 { currentUser?
-                <></> :
+                <Rsvp /> :
                 <OpenModalButton
                 buttonText="Login to RSVP"
                 modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
@@ -115,7 +112,7 @@ const EventDetails = () => {
                 {/* need invites reducer */}
                 { currentUser?
                 (
-                <>
+                <div className='create-group-button-container'>
                     <p>Invite your friends to volunteer with you!</p>
                     <OpenModalButton
                     buttonText="Create a Group"
@@ -123,7 +120,7 @@ const EventDetails = () => {
                     onButtonClick
                     onModalClose
                     />
-                </>
+                </div>
                 ) :
                 <OpenModalButton
                 buttonText="Login to RSVP"
@@ -194,86 +191,6 @@ const EventDetails = () => {
         const categories = event?.categories.split(',');
         const organizer = eventInfo?.organizer;
         const avgFeedback = eventInfo?.avgFeedback;
-
-        // return (
-        //     <div className='event-details-container'>
-        //     <div className='event-details'>
-        //         <h1 className='event-title'>{event?.title}</h1>
-        //         <p className='description'>{event?.description}</p>
-        //         <div className='li-event-description'>
-        //             <div className='location-info'>
-        //                <h2>Location</h2>
-        //                 <h3>{event?.address}</h3>
-        //                 <h3>{event?.city}</h3>
-        //                 <h3>{event?.state}</h3>
-        //             </div>
-        //             <div className='date-time-info'>
-        //                <h2>Date and Time</h2>
-        //                 <h3>Date: {event?.event_date}</h3>
-        //                 <h3>Start Time: {event?.start_time}</h3>
-        //                 <h3>End Time: {event?.end_time}</h3>
-        //             </div>
-        //         </div>
-        //         <div className='li-event-preview'>
-        //             <img className='preview-img' src={event?.preview} alt={event?.title} />
-        //         </div>
-        //         <div className='li-event-categories'>
-        //             {categories?.forEach(category => {
-        //                 <li className='category'>
-        //                     <p>{category}</p>
-        //                 </li>
-        //             })}
-        //         </div>
-
-        //         <div className='li-event-attendees'>
-        //             <EventRSVPTiles />
-        //         </div>
-        //         <div className='li-event-rsvp'>
-        //             {/* need rsvps reducer */}
-        //         </div>
-        //         <div className='li-event-invite'>
-        //             {/* need invites reducer */}
-        //         </div>
-        //     </div>
-        //     <div className='li-organizer-details'>
-        //         <div className='organizer-name-logo'>
-        //             <h2>Event Organizer - {organizer?.name}</h2>
-        //             <img className='organizer-logo' src={organizer?.logo} alt={organizer?.name} />
-        //         </div>
-
-        //         <div className='li-organizer-description'>
-        //             <p className='description' >{organizer?.description}</p>
-
-        //             <div className='li-organizer-contact'>
-        //                 <div className='contact-logo-label'>
-        //                     <MdLocalPhone className='icon' />
-        //                     <h3>Contact Us!</h3>
-        //                     <p>{organizer?.phone_number}</p>
-        //                 </div>
-
-
-        //             <Link className='org-link' to={organizer.link}><GoLinkExternal className='icon' /> <p>{organizer?.link}</p></Link>
-
-        //             <div className='org-email'>
-        //                 <TfiEmail className='icon' />
-        //                 <p>{organizer?.email}</p>
-        //             </div>
-
-        //             </div>
-        //         </div>
-        //         <div className='li-organizer-feedback'>
-        //             <h3>Community Feedback: </h3>
-        //             {
-        //                 event?.avgFeedback?
-        //                 <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :
-        //                 <p>Be the first to voice your feedback !</p>
-        //             }
-
-        //         </div>
-        //     </div>
-        //     </div>
-
-        // )
 
         return(
             <div className='event-details-container'>
