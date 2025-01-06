@@ -17,6 +17,7 @@ const GroupForm = ({ isEditMode }) => {
 	const navigate = useNavigate();
 	const location = useLocation(); // Get data from route state
 	const eventData = location.state?.eventData; // Get eventData from modal navigation
+	const groupData = location.state?.groupData; // Get eventData from modal navigation
 	const { groupId } = useParams();
 
 	const currentUser = useSelector((state) => state.session.user);
@@ -52,6 +53,9 @@ const GroupForm = ({ isEditMode }) => {
 			alert('No event data provided. Redirecting to events page...');
 			navigate('/events'); // Redirect if event data is missing
 			return;
+		} else if (!groupData) {
+		// Redirect or show error if group data is missing
+			return <p>Error: No group data available. Please navigate properly.</p>;
 		}
 
 		dispatch(fetchUserFriends()).then((friends) =>

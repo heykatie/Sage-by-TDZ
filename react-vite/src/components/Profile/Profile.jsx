@@ -15,6 +15,7 @@ import { fetchAllEvents } from '../../redux/event.js';
 
 const ProfilePage = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [activeSection, setActiveSection] = useState('badges'); // Tracks active section
 
@@ -238,7 +239,10 @@ const ProfilePage = () => {
 															navigate(
 																`/groups/${group.id}/edit`,
 																{
-																	state: { groupData: group },
+																	state: {
+																		eventData: event,
+																		groupData: group,
+																	},
 																}
 															)
 														}>

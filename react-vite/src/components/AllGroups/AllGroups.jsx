@@ -117,12 +117,15 @@ export default function AllGroups() {
 									</Link>
 									{group.owner_id === profile?.id && (
 										<button
-											className='edit-group-button'
 											onClick={() =>
 												navigate(`/groups/${group.id}/edit`, {
-													state: { groupData: group },
+													state: {
+														eventData: event,
+														groupData: group,
+													},
 												})
-											}>
+											}
+											className='edit-group-button'>
 											Edit Group
 										</button>
 									)}
