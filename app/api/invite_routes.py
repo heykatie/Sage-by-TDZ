@@ -28,6 +28,18 @@ def user_invites():
 
     return invites_list
 
+@invite_route.route('/find')
+@login_required
+def find_invite():
+    group_id = request.args.get('group_id')
+    friend_id = request.args.get('friend_id')
+    invite = Invites.query.filter_by(group_id=group_id, friend_id=friend_id).first()
+
+    if invite:
+        return invite.to_dict(), 200
+    else:
+        return {"message": "Invite not found"}, 404
+
 
 @invite_route.route('/<int:user_id>')
 @login_required
