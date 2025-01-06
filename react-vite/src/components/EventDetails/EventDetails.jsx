@@ -6,6 +6,7 @@ import { GoLinkExternal } from "react-icons/go";
 import { TfiEmail } from "react-icons/tfi";
 import { useEffect, useState } from 'react';
 import OpenModalButton  from '../OpenModalButton/OpenModalButton'
+import { useModal } from "../../context/Modal";
 import FeedbackModal from '../FeedbackRatingInput/FeebackModal'
 import './EventDetails.css';
 import { thunkSingleEvent } from '../../redux/events';
@@ -19,6 +20,8 @@ import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
 const EventDetails = () => {
 
     const dispatch = useDispatch()
+
+    const { closeModal } = useModal();
 
     const { eventId } = useParams()
 
@@ -97,7 +100,7 @@ const EventDetails = () => {
                     <p>Invite your friends to volunteer with you!</p>
                     <OpenModalButton
                     buttonText="Create a Group"
-                    modalComponent={<CreateGroupModal />}
+                    modalComponent={<CreateGroupModal closeModal={closeModal}/>}
                     onButtonClick
                     onModalClose
                     />
