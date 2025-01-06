@@ -194,7 +194,7 @@ const Group = () => {
 					<button
 						onClick={() =>
 							navigate(`/groups/${groupId}/edit`, {
-								state: { eventData: group.event },
+								state: { eventData: group.event, groupData: group },
 							})
 						}
 						className='edit-group-button'>

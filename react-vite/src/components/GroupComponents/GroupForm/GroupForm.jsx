@@ -96,13 +96,13 @@ const GroupForm = ({ isEditMode, groupData }) => {
 	// Delete group
 	const handleDeleteGroup = async () => {
 		await dispatch(thunkDeleteGroup(groupId));
-		navigate('/events');
+		navigate('/profile'); // or '/dashboard'
 	};
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
 
-	console.log(eventData);
+	// console.log(eventData);
 
 return (
 	<div className='group-form-page'>
@@ -202,6 +202,12 @@ return (
 				)}
 			</div>
 		</div>
+		{showDeleteModal && (
+			<DeleteGroupModal
+				onConfirm={handleDeleteGroup}
+				onCancel={() => setShowDeleteModal(false)}
+			/>
+		)}
 	</div>
 );
 };
