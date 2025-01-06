@@ -20,12 +20,9 @@ const TileTitle = ({eventId}) => {
         dispatch(thunkAllFriends())
     }, [dispatch, eventId]);
 
-    const event = Object.values(useSelector(state=>state.event.event));
-    const rsvps = useSelector(state=>state.event.rsvps);
-    const users = useSelector(state=>state.user.users);
-    const friends = useSelector(state=>state.friends.allFriends);
+    const rsvps = Object.values(useSelector(state=>state.event.rsvps)).map(r=>r.user_id);
 
-    if(!rsvps[currentUser.id]) {return (
+    if(!rsvps.includes(currentUser.id)) {return (
         <div className='rsvps-label-link'>
            <h4>{rsvps?.length} Users have RSVPd, join in the fun!</h4>
            <Link
@@ -70,6 +67,7 @@ export default function EventRSVPTiles() {
     const rsvps = useSelector(state=>state.event.rsvps);
     const users = useSelector(state=>state.user.users);
     const friends = useSelector(state=>state.friends.allFriends);
+    const rsvpArr = Object.values(rsvps);
 
     const linkSrc = (id) => {
         if(friends[id]) return `/friends/${id}`
@@ -78,10 +76,9 @@ export default function EventRSVPTiles() {
         return ``
     }
 
-    console.log(rsvps[currentUser.id])
 
     const Rsvp = () => {
-        if(!rsvps[currentUser.id]) {
+        if(!rsvpArr.includes(currentUser.id)) {
             return (<OpenModalButton
                 buttonText="Click here to RSVP"
                 modalComponent={<RSVPModal eventId={event?.id} />}
@@ -110,7 +107,7 @@ export default function EventRSVPTiles() {
     }
 
 
-    if(!Object.values(rsvps)?.length) return (<></>)
+    if(!rsvpArr?.length) return (<></>)
 
 
     return (

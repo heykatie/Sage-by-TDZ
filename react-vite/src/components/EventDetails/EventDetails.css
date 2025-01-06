@@ -55,6 +55,11 @@
     justify-content: center;
 }
 
+.create-group-button-container {
+    /* border: solid red; */
+    margin-top: 20px;
+}
+
 .event-details-container button {
     width: fit-content;
     margin: 20px auto;

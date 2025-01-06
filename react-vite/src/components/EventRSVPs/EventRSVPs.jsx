@@ -43,8 +43,8 @@ export default function EventRSVPs() {
                key={r.id}
                to={linkSrc(r.id)}
                >
-                    <img className='profile-pic' src={users[r.id]?.profile_pic} />
-                    <h3 className='friend-name'>{users[r.id]?.first_name}</h3>
+                    <img className='profile-pic' src={users[r.user_id]?.profile_pic} />
+                    <h3 className='friend-name'>{users[r.user_id]?.first_name}</h3>
                     <IoIosMore className='more-dots' />
                 </Link> 
             </div>
