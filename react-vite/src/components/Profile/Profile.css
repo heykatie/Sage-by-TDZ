@@ -266,6 +266,89 @@
   border: solid red;
 } */
 
+/* Groups Section */
+.groups {
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.group-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.group-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.group-card h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.group-card p {
+  margin: 10px 0;
+  color: #666;
+  font-size: 16px;
+}
+
+.group-card-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.view-group-button,
+.edit-group-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.view-group-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.edit-group-button {
+  background-color: #3498db;
+  color: white;
+}
+
+.view-group-button:hover {
+  background-color: #45a049;
+}
+
+.edit-group-button:hover {
+  background-color: #217dbb;
+}
+
+/* Responsive Design for Group Cards */
+@media (max-width: 768px) {
+  .group-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .group-card {
+    width: 100%;
+  }
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
