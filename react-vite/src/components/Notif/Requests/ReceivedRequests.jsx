@@ -13,18 +13,17 @@ const ReceivedRequests = () => {
         dispatch(requestActions.fetchAllRequests())
     }, [])
 
-    const handleSumbit = (requestId, response) => {
-        // e.preventDefault()
+    // const handleSumbit = (requestId, response) => {
 
-        if (!response) dispatch(requestActions.removeRequest(requestId))
+    //     if (!response) dispatch(requestActions.removeRequest(requestId))
 
-        // const requestResponse = (requestId, response) => {
-            const payload = {
-                'accpted':response
-            }
-            dispatch(requestActions.updateRequest(requestId, payload))
-        // }
-    }
+
+    //     const payload = {
+    //             'accpted':response
+    //         }
+    //     dispatch(requestActions.updateRequest(requestId, payload))
+
+    // }
 
     return (
         <section id='received-requests' className='requests'>
@@ -50,8 +49,8 @@ const ReceivedRequests = () => {
                                 :
                                 (
                                     <>
-                                        <button className='button-yes' onClick={handleSumbit(received.id, true)}>Accept</button>
-                                        <button className='button-no' onClick={handleSumbit(received.id, false)} >Decline</button>
+                                        <button className='button-yes' >Accept</button>
+                                        <button className='button-no'>Decline</button>
                                     </>
                                 )
                             }
