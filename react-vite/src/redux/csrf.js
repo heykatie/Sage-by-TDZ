@@ -13,7 +13,7 @@ export const csrfFetch = async (url, options = {}) => {
 
 	options.credentials = 'include'; // Ensure cookies are sent
 
-	console.log('CSRF token:', getCSRFToken());
+	// console.log('CSRF token:', getCSRFToken());
 
 	return fetch(url, options);
 };
