@@ -1,14 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as requestActions from '../../../redux/requests';
 
 const ReceivedRequests = () => {
     const dispatch = useDispatch()
     const {sent, received} = useSelector(state => state.requests)
+    const[action, setAction] = useState('')
 
     useEffect(() => {
         dispatch(requestActions.fetchAllRequests())
     }, [])
+    const handleSumbit = () => {
+        e.preventDefault()
+
+        if (action === 'delete') dispatch(requestActions.removeRequest())
+
+        dispatch(requestActions.createRequest())
+    }
     return (
         <section id='received-requests' className='requests'>
             {/* {console.log('SENT HERE',sent, 'RECEIVE HERE', received)} */}
@@ -25,12 +33,12 @@ const ReceivedRequests = () => {
                             </div>
                             <div className='request-buttons'>
                             {received.accepted ?
-                                (<button onClick={handleSumbit}>X</button>)
+                                (<button onClick={setAction('delete')}>X</button>)
                                 :
                                 (
                                 <>
-                                <button className='button-yes' onClick={handleSumbit}>Accept</button>
-                                <button className='button-no' onClick={handleSumbit}>Decline</button>
+                                <button className='button-yes' onClick={setAction('add')} onSubmit={handleSumbit}>Accept</button>
+                                <button className='button-no' onClick={setAction('delete')} onSubmit={handleSumbit}>Decline</button>
                                 </>
                                 )
                             }
