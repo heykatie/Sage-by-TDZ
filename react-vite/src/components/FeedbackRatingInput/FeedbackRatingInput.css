@@ -1,0 +1,19 @@
+.feedback-input .filled {
+    color: green;
+  }
+
+  .feedback-input .empty {
+    color: #D0D1D4;
+  }
+
+  .feedback-input{
+    display: flex;
+    font-size: xx-large;
+    justify-content: center;
+    padding: 0 10px 0 10px;
+  }
+
+  /* .feedback-input>p{
+    margin-left: 10px;
+    font-size: x-large;
+  } */

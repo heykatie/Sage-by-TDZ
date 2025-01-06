@@ -6,13 +6,14 @@ import { GoLinkExternal } from "react-icons/go";
 import { TfiEmail } from "react-icons/tfi";
 import { useEffect, useState } from 'react';
 import OpenModalButton  from '../OpenModalButton/OpenModalButton'
-import FeedbackModal from '../FeedbackModal/FeedbackModal'
+import FeedbackModal from '../FeedbackRatingInput/FeebackModal'
 import './EventDetails.css';
 import { thunkSingleEvent } from '../../redux/events';
 import AvgReaction from '../AvgReaction/AvgReaction';
 import EventRSVPTiles from '../EventRSVPTiles';
 import { thunkGetRSVPs } from '../../redux/events';
 import RSVPModal from '../RSVPModal/RSVPModal';
+import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
 
 
 const EventDetails = () => {
@@ -96,7 +97,7 @@ const EventDetails = () => {
                     <p>Invite your friends to volunteer with you!</p>
                     <OpenModalButton
                     buttonText="Create a Group"
-                    modalComponent={<RSVPModal eventId={event?.id} />}
+                    modalComponent={<CreateGroupModal />}
                     onButtonClick
                     onModalClose
                     />

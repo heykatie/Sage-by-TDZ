@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserEvents } from '../../../../redux/user';
 import { useNavigate } from 'react-router-dom';
 import './CreateGroupModal.css';
-// const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png';
+const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 
 const CreateGroupModal = ({ onClose }) => {
 	const dispatch = useDispatch();
@@ -42,15 +42,27 @@ const CreateGroupModal = ({ onClose }) => {
 
 	// Close modal when clicking outside of it
 	const handleBackgroundClick = (e) => {
-		if (e.target.classList.contains('create-group-modal')) {
+		if (e.target.classList.contains('delete-modal')) {
 			onClose(); // Close modal
 		}
 	};
 
 	return (
-		<div className='create-group-modal' onClick={handleBackgroundClick}>
-			<div className='modal-content'>
+		<div className='delete-modal' onClick={handleBackgroundClick}>
+			<div className='delete-modal-content'>
+			<div className='delete-modal-header'>
+			<img
+				src={sproutImage}
+				alt='Sprout'
+				className='sprout-icon-left'
+			/>
 				<h2>Create Group</h2>
+			<img
+				src={sproutImage}
+				alt='Sprout'
+				className='sprout-icon-right'
+			/>
+			</div>
 				<div className='event-selection'>
 					<label htmlFor='event-select'>
 						Which event would you like to create a group for?

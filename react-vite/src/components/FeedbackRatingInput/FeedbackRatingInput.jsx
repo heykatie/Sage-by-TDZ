@@ -35,7 +35,7 @@ const FeedbackRatingInput = ({ rating, disabled, onChange }) => {
           onClick={() => onChange(3)}>
           <BiHappy />
         </div>
-        <p>Reactions</p>
+        {/* <p>Reactions</p> */}
       </div>
       </>
     );
