@@ -32,39 +32,6 @@ export default function AllGroups() {
 
 	return (
 		<div className='all-groups'>
-			<section className='user-info'>
-				<div className='profile-picture'>
-					<img
-						src={profile?.profile_pic || '/default-avatar.png'}
-						alt='Profile'
-					/>
-					<button
-						className='edit-profile-button'
-						onClick={() => setActiveSection('edit-profile')}>
-						Edit Profile
-					</button>
-				</div>
-				<div className='dashboard-title'>
-					<h2>
-						{profile?.first_name} {profile?.last_name} Dashboard
-					</h2>
-					<p>
-						{profile?.city}, {profile?.state}
-					</p>
-					<nav>
-						<button
-							className={activeSection === 'badges' ? 'active' : ''}
-							onClick={() => navigate('/profile')}>
-							Dashboard
-						</button>
-						<button
-							className={activeSection === 'groups' ? 'active' : ''}
-							onClick={() => setActiveSection('groups')}>
-							Groups
-						</button>
-					</nav>
-				</div>
-			</section>
 			<h1>Your Groups</h1>
 			<div className='group-list'>
 				{groups.length > 0 ? (
