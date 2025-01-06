@@ -10,10 +10,17 @@
     width: 50%;
 }
 
-.event-details-container .date-time-info {
-    text-align: right;
-    width: 50%;
+.date-time-info li {
+    /* border: solid red; */
+    display: flex;
+    width: 100%;
 }
+
+.date-time-info, .location-info {
+    /* border: dotted; */
+    padding: 0;
+}
+
 
 .event-details-container .li-event-preview .preview-img {
     /* border: solid blue; */
@@ -32,6 +39,7 @@
 .li-event-description  h3 {
     font-size: 16px;
     font-weight: 400;
+    width: 100%;
     padding: 4px 0px;
 }
 

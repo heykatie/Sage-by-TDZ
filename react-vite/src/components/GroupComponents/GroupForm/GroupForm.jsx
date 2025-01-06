@@ -11,14 +11,13 @@ import {
 	deleteInvite,
 } from '../../../redux/invites';
 import './GroupForm.css';
-import {useModal} from '../../../context/Modal'
 
 const GroupForm = ({ isEditMode }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation(); // Get data from route state
 	const eventData = location.state?.eventData; // Get eventData from modal navigation
-	const groupData = location.state?.groupData; // Get eventData from modal navigation
+	// const groupData = location.state?.groupData; // Get eventData from modal navigation
 	const { groupId } = useParams();
 
 	const currentUser = useSelector((state) => state.session.user);
@@ -47,7 +46,7 @@ const GroupForm = ({ isEditMode }) => {
 			setSelectedFriends(invitedFriends.map((invite) => invite.friend_id));
 			setDescription(group?.description || '');
 		}
-	}, [invitedFriends, isEditMode]);
+	}, [invitedFriends, isEditMode, group?.description]);
 
 	useEffect(() => {
 		if (!eventData) {

@@ -37,5 +37,8 @@
     border: solid #557b5d 2px;
     background-color: white;
     color: #557b5d;
-    font-weight: 200;
+  }
+
+  .demo-user-button:hover {
+    background-color: lightgreen;
   }

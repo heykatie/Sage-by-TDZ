@@ -9,7 +9,7 @@ import {
 } from '../../redux/user'; // Ensure correct import path
 // import Navigation from '../Navigation';
 import './Profile.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AllFriends from '../AllFriends';
 import { fetchAllEvents } from '../../redux/event.js';
 import { RiLeafFill } from "react-icons/ri";
@@ -18,6 +18,7 @@ import OpenModalButton from '../OpenModalButton/OpenModalButton.jsx';
 
 const ProfilePage = ({ profileState }) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const badges = Object.values(useSelector(state=>state.user.badges));
 
 	let [activeSection, setActiveSection] = useState('badges'); // Tracks active section
@@ -149,70 +150,70 @@ const ProfilePage = ({ profileState }) => {
 			case 'edit-profile':
 				return (
 					<section id='edit-profile' className='edit-profile'>
-						<h3>Edit Profile</h3>
-						<form onSubmit={handleSubmit}>
-							<div>
-								<label>First Name</label>
-								<input
-									type='text'
-									value={profile?.first_name || ''}
-									onChange={(e) => setFirstName(e.target.value)}
-								/>
-							</div>
-							<div>
-								<label>Last Name</label>
-								<input
-									type='text'
-									value={lastName|| ''}
-									onChange={(e) => setLastName(e.target.value)}
-								/>
-							</div>
-							<div>
-								<label>Email</label>
-								<input
-									type='email'
-									value={email || ''}
-									onChange={(e) => setEmail(e.target.value)}
-								/>
-							</div>
-							<div>
-								<label>City</label>
-								<input
-									type='text'
-									value={city || ''}
-									onChange={(e) => setCity(e.target.value)}
-								 />
-							</div>
-							<div>
-								<label>State</label>
-								<input
-									type='text'
-									value={state || ''}
-									onChange={(e) => setState(e.target.value)}
-								/>
-							</div>
-							<div>
-								<label>Address</label>
-								<input
-									type='text'
-									value={address || ''}
-									onChange={(e) => setAddress(e.target.value)}
-								/>
-							</div>
-							{/* <button type='submit'>Save Changes</button> */}
-							<OpenModalButton
-                			buttonText="Save Changes"
-                			modalComponent={<EditProfileModal payload={payload} />}
-                			onButtonClick
-                			onModalClose
-                			/>
-							<OpenModalButton
-                			buttonText="Delete Profile"
-                			modalComponent={<EditProfileModal payload={payload} />}
-                			onButtonClick
-                			onModalClose
-                			/>
-						</form>
+					<h3>Edit Profile</h3>
+					<form onSubmit={handleSubmit}>
+						<div>
+							<label>First Name</label>
+							<input
+								type='text'
+								value={profile?.first_name || ''}
+								onChange={(e) => setFirstName(e.target.value)}
+							/>
+						</div>
+						<div>
+							<label>Last Name</label>
+							<input
+								type='text'
+								value={lastName|| ''}
+								onChange={(e) => setLastName(e.target.value)}
+							/>
+						</div>
+						<div>
+							<label>Email</label>
+							<input
+								type='email'
+								value={email || ''}
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+						</div>
+						<div>
+							<label>City</label>
+							<input
+							type='text'
+							value={city || ''}
+							onChange={(e) => setCity(e.target.value)}
+							/>
+						</div>
+						<div>
+							<label>State</label>
+							<input
+								type='text'
+								value={state || ''}
+								onChange={(e) => setState(e.target.value)}
+							/>
+						</div>
+						<div>
+							<label>Address</label>
+							<input
+								type='text'
+								value={address || ''}
+								onChange={(e) => setAddress(e.target.value)}
+							/>
+						</div>
+					{/* <button type='submit'>Save Changes</button> */}
+					<OpenModalButton
+					buttonText="Save Changes"
+					modalComponent={<EditProfileModal payload={payload} />}
+					onButtonClick
+					onModalClose
+					/>
+					<OpenModalButton
+					buttonText="Delete Profile"
+					modalComponent={<EditProfileModal payload={payload} />}
+					onButtonClick
+					onModalClose
+					/>
+					</form>
 					</section>
 				);
 			case 'groups':
@@ -227,11 +228,7 @@ const ProfilePage = ({ profileState }) => {
 									const event = eventss.find(
 										(e) => e.id === group.event_id
 									);
-
-									console.log(
-										`Group ID: ${group.id}, Event ID: ${group.event_id}, Found Event:`,
-										event
-									);
+									console.log(group.id)
 									return (
 										<div className='group-card' key={group.id}>
 											<div className='group-image-container'>
@@ -276,16 +273,16 @@ const ProfilePage = ({ profileState }) => {
 											</div>
 											<div className='group-card-buttons'>
 												<Link
-													to={`/groups/${group.id}`}
+													to={`/groups/${group?.id}`}
 													className='view-group-button'>
 													View Group
 												</Link>
-												{group.owner_id === profile?.id && (
+												{group?.owner_id === profile?.id && (
 													<button
 														className='edit-group-button'
 														onClick={() =>
 															navigate(
-																`/groups/${group.id}/edit`,
+																`/groups/${group?.id}/edit`,
 																{
 																	state: {
 																		eventData: event,
@@ -302,7 +299,7 @@ const ProfilePage = ({ profileState }) => {
 									);
 								})
 							) : (
-								<p>You haven't joined any groups yet.</p>
+								<p>You haven'&apos;t joined any groups yet.</p>
 							)}
 						</div>
 					</section>

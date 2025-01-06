@@ -13,7 +13,7 @@ const GroupRequests = () => {
 
     useEffect(() => {
         dispatch(inviteActions.fetchGroupInvites(user.id))
-    }, [dispatch])
+    }, [dispatch, user.id])
 
     const handleSumbit = () => {}
 

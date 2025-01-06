@@ -12,19 +12,8 @@ const ReceivedRequests = () => {
 
     useEffect(() => {
         dispatch(requestActions.fetchAllRequests())
-    }, [])
+    }, [dispatch])
 
-    // const handleSumbit = (requestId, response) => {
-
-    //     if (!response) dispatch(requestActions.removeRequest(requestId))
-
-
-    //     const payload = {
-    //             'accpted':response
-    //         }
-    //     dispatch(requestActions.updateRequest(requestId, payload))
-
-    // }
 
     return (
         <section id='received-requests' className='requests'>

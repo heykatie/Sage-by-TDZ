@@ -9,11 +9,9 @@ const SentRequests = () => {
     const data = useSelector(state => state.requests.sent)
     const sent = Object.values(data)
 
-    // console.log('LOOK HERE',sent)
-
     useEffect(() => {
         dispatch(requestActions.fetchAllRequests())
-    }, [])
+    }, [dispatch])
 
     const handleSumbit = () => {
         e.preventDefault()

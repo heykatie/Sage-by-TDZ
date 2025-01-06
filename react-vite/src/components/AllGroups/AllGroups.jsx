@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
 	fetchCurrentUser,
-	fetchUserEvents,
-	fetchUserBadges,
-	fetchUserFriends,
 	fetchUserGroups,
 } from '../../redux/user';
 import { fetchAllEvents } from '../../redux/event';
@@ -101,7 +98,7 @@ export default function AllGroups() {
 						);
 					})
 				) : (
-					<p>You haven't joined any groups yet.</p>
+					<p>You haven'&apos;t joined any groups yet.</p>
 				)}
 			</div>
 		</div>

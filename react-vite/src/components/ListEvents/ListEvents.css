@@ -94,10 +94,13 @@
 }
 
 .event-list-container ul {
+    max-width: 1330px;
+    /* border: solid red; */
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     /* Center align the event tiles */
+    margin: 0 auto;
     padding: 0;
     list-style: none;
 }
@@ -131,9 +134,10 @@
     }
 }
 
-@media only screen and (min-width: 800px) and (max-width: 950px) {
+@media only screen and (min-width: 800px) and (max-width: 1000px) {
     .event-list-container ul {
         justify-content: center;
+        max-width: 900px;
     }
 }
 

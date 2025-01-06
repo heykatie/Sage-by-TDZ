@@ -4,7 +4,6 @@ import { fetchUserEvents } from '../../../../redux/user';
 import { useNavigate } from 'react-router-dom';
 import './CreateGroupModal.css';
 const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png';
-import { useModal } from "../../../../context/Modal";
 
 const CreateGroupModal = ({ onClose }) => {
 	const dispatch = useDispatch();
@@ -13,11 +12,6 @@ const CreateGroupModal = ({ onClose }) => {
 	const [selectedEventId, setSelectedEventId] = useState('');
 	const [selectedEvent, setSelectedEvent] = useState(null);
 
-	const { closeModal } = useModal();
-
-	// useEffect(() => {
-	// 	dispatch(fetchUserEvents());
-	// }, [dispatch]);
 
 	useEffect(() => {
 		dispatch(fetchUserEvents()).then((response) => {
