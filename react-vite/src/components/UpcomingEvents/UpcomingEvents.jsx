@@ -38,7 +38,7 @@ const UpcomingEvents = ({user}) => {
                         <h3>End Time: {event.end_time}</h3> 
                     </div>
                 </div>
-                <p>{event.description}</p>
+                <p className='event-description'>{event.description}</p>
                 </Link>
             </div>
         </li>

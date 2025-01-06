@@ -50,10 +50,13 @@
 
 .event-list-container .start-end-time {
     text-align: right;
+    margin: 10px;
 }
 
 .event-list-container .city-date {
     text-align: left;
+    width: fit-content;
+    margin: 10px;
 }
 
 .event-list-container .li-event-list a {
@@ -114,3 +117,4 @@
         justify-content: center;
     }
 }
+

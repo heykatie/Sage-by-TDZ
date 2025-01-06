@@ -30,9 +30,21 @@ li {
 }
 
 h2 {
-    color: green;
+    color: #557b5d;
 }
 
 div::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
+}
+
+button {
+    font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #6b8f71; /* Sage green */
+  color: white;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 12px;
 }

@@ -12,6 +12,7 @@ import inviteReducer from "./invites";
 import userReducer from './user';
 import groupReducer from './group';
 import eventReducer from "./events";
+import rsvpsReducer from "./rsvp";
 import requestReducer from "./requests";
 
 
@@ -23,9 +24,8 @@ import requestReducer from "./requests";
     friends: friendReducer,
     event: eventReducer,
     invite: inviteReducer,
-    requests: requestReducer
-
-
+    requests: requestReducer,
+    rsvp: rsvpsReducer
 
 });
 
