@@ -13,11 +13,11 @@ function ProfileButton() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
-  const ulRef = useRef();
+  const ulRef = useRef(); // Ref to detect clicks outside the menu
 
   const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
-    setShowMenu(!showMenu);
+    e.stopPropagation(); // Prevent event from closing menu immediately
+    setShowMenu((prev) => !prev);
   };
 
   useEffect(() => {
@@ -30,7 +30,6 @@ function ProfileButton() {
     };
 
     document.addEventListener("click", closeMenu);
-
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
@@ -39,55 +38,50 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout());
-    closeMenu();
+    closeMenu(); // Close the menu after logout
     navigate('/');
   };
 
-
   return (
     <>
-      <button
-      onClick={toggleMenu}
-      className="profile-menu-button"
-      >
+      <button onClick={toggleMenu} className="profile-menu-button">
         <FaUserCircle className="user-icon" />
         <IoMenu className="menu-icon" />
       </button>
+
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <ul className="profile-dropdown" ref={ulRef}>
           {user ? (
             <>
-<<<<<<< Updated upstream
-              <li id="user-info"><b>Hey {user.first_name}!</b></li>
-              <li id="user-info">{user.username}</li>
-              <li id="item">{user.email}</li>
-              <li id="item"><Link 
-              to='/profile/'
-              onClick={closeMenu}
-              >Dashboard</Link></li>
-              <li id="item"><Link 
-=======
-              <li><b>Hey {user.first_name}!</b></li>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li><Link
-              to='/profile/'
-              onClick={closeMenu}
-              >Dashboard</Link></li>
-              <li><Link
->>>>>>> Stashed changes
-              to='/friends/'
-              onClick={closeMenu}
-              >Friends</Link></li>
-              <li id="item"><Link
-              to='/'
-              onClick={closeMenu}
-              >Events</Link></li>
-              <li id="item">
-                <Link
-                to='/groups/'
-                >Manage Groups</Link></li>
-              <li><Link to='notifications'>Notifications</Link></li>
+              <li className="user-info"><b>Hey {user.first_name}!</b></li>
+              <li className="user-info">{user.username}</li>
+              <li className="user-info">{user.email}</li>
+
+              <li>
+                <Link to="/profile/" onClick={closeMenu}>
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link to="/friends/" onClick={closeMenu}>
+                  Friends
+                </Link>
+              </li>
+              <li>
+                <Link to="/" onClick={closeMenu}>
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link to="/groups/" onClick={closeMenu}>
+                  Manage Groups
+                </Link>
+              </li>
+              <li>
+                <Link to="/notifications/" onClick={closeMenu}>
+                  Notifications
+                </Link>
+              </li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>
