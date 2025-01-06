@@ -6,17 +6,17 @@ import { useEffect } from 'react';
 import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
 
 
-// const ListEvents = () => {
+const ListEvents = () => {
 
-//     const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
 
-//     useEffect(() => {
-//         dispatch(eventActions.getAllEvents())
-//     }, [dispatch])
+    useEffect(() => {
+        dispatch(eventActions.getAllEvents())
+    }, [dispatch])
 
-//     const user = useSelector((state) => state.session.user)
-//     const events = Object.values(useSelector((state) => state.events.events))
+    const user = useSelector((state) => state.session.user)
+    const events = Object.values(useSelector((state) => state.events.events))
 
     const eventTiles = (events) => (events.map((event)=>(
         <>
@@ -50,25 +50,25 @@ import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
         </li>
         </>
 
-//     )))
+    )))
 
-//     return (
-//         <>
-//         <div className='event-list-container'>
-//         <ul className='event-list'>
-//             { events ?
-//             eventTiles(events) :
-//             <h1>No Events Found</h1>
-//             }
-//         </ul>
-//         </div>
-//         {
-//             user?
-//             <UpcomingEvents user={user} /> :
-//             ''
-//         }
-//         </>
-//     )
-// }
+    return (
+        <>
+        <div className='event-list-container'>
+        <ul className='event-list'>
+            { events ?
+            eventTiles(events) :
+            <h1>No Events Found</h1>
+            }
+        </ul>
+        </div>
+        {
+            user?
+            <UpcomingEvents user={user} /> :
+            ''
+        }
+        </>
+    )
+}
 
-// export default ListEvents;
+export default ListEvents;
