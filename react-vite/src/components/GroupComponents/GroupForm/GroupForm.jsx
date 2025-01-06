@@ -46,15 +46,23 @@ const GroupFormPage = ({ isEditMode, groupData }) => {
 		dispatch(fetchUserFriends()).then((friends) =>
 			setFriendsList(friends || [])
 		);
-		if (friendsList) console.log(friendsList);
-	}, [dispatch, isEditMode, groupData, eventData, navigate, friendsList]);
+		// if (friendsList) console.log(friendsList);
+	}, [dispatch, isEditMode, groupData, eventData, navigate]);
 
 	// Toggle friend selection
+	// const toggleFriendSelection = (friend) => {
+	// 	setSelectedFriends((prev) =>
+	// 		prev.includes(friend)
+	// 			? prev.filter((f) => f !== friend)
+	// 			: [...prev, friend]
+	// 	);
+	// };
 	const toggleFriendSelection = (friend) => {
-		setSelectedFriends((prev) =>
-			prev.includes(friend)
-				? prev.filter((f) => f !== friend)
-				: [...prev, friend]
+		setSelectedFriends(
+			(prev) =>
+				prev.some((f) => f.id === friend.id)
+					? prev.filter((f) => f.id !== friend.id) // Remove friend by id
+					: [...prev, friend] // Add friend
 		);
 	};
 
