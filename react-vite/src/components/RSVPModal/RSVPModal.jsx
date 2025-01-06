@@ -32,7 +32,7 @@ export default function RSVPModal({navigate, eventId}) {
     }
 
     return (
-        <div className='delete-modal'>
+        <div className='login-form-modal' id='rsvp-modal'>
             <div className='delete-modal-header'>
 					<img
 						src={sproutImage}

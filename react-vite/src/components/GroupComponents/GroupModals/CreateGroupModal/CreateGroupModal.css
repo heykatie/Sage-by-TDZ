@@ -74,7 +74,7 @@ select {
   color: white;
   border: none;
   cursor: pointer;
-  margin-top: 15px;
+  margin: 20px auto;
   transition: background-color 0.3s ease;
 }
 
@@ -89,5 +89,6 @@ select {
 @media (max-width: 768px) {
   .modal-content {
     width: 90%;
+    border-radius: 16px;
   }
 }

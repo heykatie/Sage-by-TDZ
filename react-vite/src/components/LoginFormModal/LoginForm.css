@@ -2,8 +2,8 @@
     /* border: solid red; */
     width: 360px;
     padding: 20px 30px;
-    text-align: center;
     border-radius: 12px;
+    text-align: center;
 }
 
 .login-form-modal#modal-content {
@@ -26,4 +26,16 @@
     border-radius: 4px;
     height: 28px;
     width: 100%;
+  }
+
+  .invite-button#login {
+    /* border: dotted red; */
+    margin: 20px auto;
+  }
+
+  .demo-user-button {
+    border: solid #557b5d 2px;
+    background-color: white;
+    color: #557b5d;
+    font-weight: 200;
   }
