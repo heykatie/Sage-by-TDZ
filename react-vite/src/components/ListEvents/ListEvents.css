@@ -96,11 +96,12 @@
 .event-list-container ul {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     /* Center align the event tiles */
     padding: 0;
     list-style: none;
 }
+
 
 /* Categories Section */
 .li-event-categories {
@@ -122,6 +123,7 @@
     margin: 0;
     white-space: nowrap;
 }
+
 
 @media only screen and (min-width: 400px) and (max-width: 800px) {
     .event-list-container ul {

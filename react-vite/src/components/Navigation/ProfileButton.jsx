@@ -55,24 +55,24 @@ function ProfileButton() {
             <>
               <li className="user-info"><b>Hey {user.first_name}!</b></li>
               <li className="user-info">{user.username}</li>
-              <li className="user-info">{user.email}</li>
+              <li id="item" className="user-info">{user.email}</li>
 
-              <li>
+              <li id="item">
                 <Link to="/profile/" onClick={closeMenu}>
                   Dashboard
                 </Link>
               </li>
-              <li>
+              <li id="item">
                 <Link to="/friends/" onClick={closeMenu}>
                   Friends
                 </Link>
               </li>
-              <li>
+              <li id="item">
                 <Link to="/" onClick={closeMenu}>
                   Events
                 </Link>
               </li>
-              <li>
+              <li id="item">
                 <Link to="/groups/" onClick={closeMenu}>
                   Manage Groups
                 </Link>
