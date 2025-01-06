@@ -58,10 +58,10 @@ export const fetchUserInvites = () => async (dispatch) => {
     }
 }
 
-export const fetchGroupInvites = (user_id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/invites/${user_id}`);
-    // console.log('HERE IS THE RETURNED HTML', response)
-    // console.log('WE ARE THINKING', response)
+export const fetchGroupInvites = (userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/invites/${userId}`);
+    console.log('HERE IS THE RETURNED HTML', response)
+    console.log('WE ARE THINKING', response)
     if (response.status === 200) {
         const invites = await response.json();
         // const testStr = await response.json();

@@ -9,7 +9,7 @@ function LoginFormModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const { closeModal } = useModal();
+  const { closeModal } = useModal()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +27,12 @@ function LoginFormModal() {
       closeModal();
     }
   };
+
+  const loginDemo = () => {
+    return dispatch(thunkLogin({email:"cam@aa.io", password:"password" }))
+    .then(closeModal)
+
+  }
 
   return (
     <div className="login-form-modal" id="modal-content">
@@ -53,6 +59,7 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <button className="invite-button" type="submit">Log In</button>
+        <button onClick={loginDemo}>DEMO Log In</button>
       </form>
     </div>
   );

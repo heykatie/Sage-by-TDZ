@@ -73,7 +73,7 @@ function ProfileButton() {
               onClick={closeMenu}
               >Events</Link></li>
               <li id="item"><Link>Manage Groups</Link></li>
-              <li><Link>Notifications</Link></li>
+              <li><Link to='notifications'>Notifications</Link></li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>
