@@ -66,7 +66,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'groups/new',
-				element: <GroupForm />,
+				element: <GroupForm isEditMode={false} />,
 			},
 			{
 				path: 'groups/:groupId',
@@ -74,7 +74,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'groups/:groupId/edit',
-				element: <GroupForm />,
+				element: <GroupForm isEditMode={true} />,
 			},
 			{
 				path: 'dashboard',
