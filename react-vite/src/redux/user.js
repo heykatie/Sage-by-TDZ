@@ -177,6 +177,7 @@ export const fetchUserFriends = () => async (dispatch) => {
 			console.log('Fetched friends:', data.friends); // Log the friends array
 			dispatch(loadUserFriends(data.friends));
 			dispatch(setStatus('succeeded'));
+			return
 		} else {
 			const errors = await res.json();
 			console.error('Fetch failed:', errors);

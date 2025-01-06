@@ -30,6 +30,14 @@ def get_group_details(groupId):
         return {"message": "Group not found"}, 404
     return group.to_dict()
 
+@group_routes.route('/<int:group_id>/invites', methods=['GET'])
+@login_required
+def get_group_invites(group_id):
+    invites = Invites.query.filter_by(group_id=group_id).all()
+    if not invites:
+        return {"message": "No invites found"}, 404
+    return {"invites": [invite.to_dict() for invite in invites]}, 200
+
 @group_routes.route('/', methods=['POST'])
 @login_required
 def create_group():

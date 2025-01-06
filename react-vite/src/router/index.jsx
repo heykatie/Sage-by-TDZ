@@ -20,6 +20,7 @@ import Group from '../components/GroupComponents/Group';
 // import GroupComponent from '../components/GroupComponent';
 import Dashboard from '../components/Dashboard/Dashboard';
 import RequestsPage from '../components/Notif/Requests/Requests';
+import fetchedGroupData from '../components/GroupComponents/GroupForm/GroupForm';
 
 export const router = createBrowserRouter([
 	{
@@ -79,7 +80,9 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'groups/:groupId/edit',
-				element: <GroupForm isEditMode={true} />,
+				element: (
+					<GroupForm isEditMode={true} groupData={fetchedGroupData} />
+				),
 			},
 			{
 				path: 'dashboard',

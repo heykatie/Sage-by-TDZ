@@ -3,18 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, useParams } from 'react-router-dom'; // Import useLocation
 const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 import DeleteGroupModal from '../GroupModals/DeleteGroupModal';
-// import {
-// 	CreateGroupModal,
-// 	DeleteGroupModal,
-// 	RemoveFriendModal,
-// } from '../GroupModals';
 import {
 	thunkCreateGroup,
 	thunkUpdateGroup,
 	thunkDeleteGroup,
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
-import { createInvite, deleteInvite } from '../../../redux/invites';
+import {
+	fetchInvitedFriends,
+	createInvite,
+	deleteInvite,
+} from '../../../redux/invites';
 import './GroupForm.css';
 
 const GroupForm = ({ isEditMode, groupData }) => {
@@ -25,29 +24,45 @@ const GroupForm = ({ isEditMode, groupData }) => {
 	const { groupId } = useParams();
 
 	const currentUser = useSelector((state) => state.session.user);
-	const { loading, error } = useSelector((state) => state.group); // group,
-	const { friends } = useSelector((state) => state.user); // events,
+	const { loading, error } = useSelector((state) => state.group);
+	const { friends } = useSelector((state) => state.user);
+
+	const invitedFriends = useSelector((state) => state.invite || []); // Invited friends list
 
 	const [description, setDescription] = useState('');
 	const [friendsList, setFriendsList] = useState([]);
 	const [selectedFriends, setSelectedFriends] = useState([]);
-	// const [showRemoveModal, setShowRemoveModal] = useState(false);
-	// const [friendToRemove, setFriendToRemove] = useState(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
-	const [groupsId, setGroupsId] = useState(null); // Initially, groupId is null
+	const [groupsId, setGroupsId] = useState(groupId || null);
 
+	// **Fetch invited friends in edit mode**
+	useEffect(() => {
+		if (isEditMode) {
+			dispatch(fetchInvitedFriends(groupId));
+		}
+	}, [dispatch, isEditMode, groupId]);
+
+	// **Set selected friends based on invited friends**
+	useEffect(() => {
+		console.log('Invited friends:', invitedFriends);
+		if (isEditMode) {
+			setSelectedFriends(invitedFriends.map((invite) => invite.friend_id));
+		}
+	}, [invitedFriends, isEditMode]);
+
+	// **Fetch general group data**
 	useEffect(() => {
 		if (!groupData) {
 			const fetchGroupData = async () => {
-				const response = await fetch(`/api/groups/${groupId}`);
+				const response = await fetch(`/api/groups/${groupsId}`);
 				const data = await response.json();
-				setDescription(data.description || ''); // Populate the description
+				setDescription(data.description || '');
 			};
 			fetchGroupData(); // Fallback API fetch
 		} else {
 			setDescription(groupData.description || '');
 		}
-	}, [groupData, groupId]);
+	}, [groupData, groupsId]);
 
 	useEffect(() => {
 		if (!eventData) {
@@ -55,75 +70,64 @@ const GroupForm = ({ isEditMode, groupData }) => {
 			navigate('/events'); // Redirect if event data is missing
 			return;
 		}
-		if (isEditMode && groupData) {
-			setDescription(groupData.description || '');
-			setSelectedFriends(groupData.invitedFriends || []);
-		}
 
 		dispatch(fetchUserFriends()).then((friends) =>
 			setFriendsList(friends || [])
 		);
-		// if (friendsList) console.log(friendsList);
-	}, [dispatch, isEditMode, groupData, eventData, navigate]);
-
+	}, [dispatch, eventData, navigate]);
 
 	const toggleFriendSelection = async (friend) => {
 		try {
-			let groupIdToUse = groupId;
+			let groupIdToUse = groupsId || groupId; // Prefer groupsId after group is auto-created
 
-			// If group has not been created, auto-create the group first
 			if (!groupIdToUse) {
 				const payload = {
 					description,
-					eventId: eventData.id, // Use event ID passed from modal
-					ownerId: currentUser.id, // Add the current user's ID
+					eventId: eventData.id,
+					ownerId: currentUser.id,
 				};
 
 				const savedGroup = await dispatch(thunkCreateGroup(payload));
-
 				if (savedGroup?.id) {
-					groupIdToUse = savedGroup.id; // Set group ID after auto-creation
-					console.log('Group auto-saved. New group ID:', groupIdToUse);
-				} else {
-					alert('Failed to create group. Please try again.');
-					return;
+					groupIdToUse = savedGroup.id;
+					setGroupsId(savedGroup.id);
 				}
 			}
 
-			const isAlreadySelected = selectedFriends.some(
-				(f) => f.id === friend.id
-			);
+			const isAlreadySelected = selectedFriends.includes(friend.id);
 
 			if (isAlreadySelected) {
-				// Remove invite
-				const inviteToDelete = await fetch(
-					`/api/invites/find?group_id=${groupIdToUse}&friend_id=${friend.id}`
+				const inviteToDelete = invitedFriends.find(
+					(invite) => invite.friend_id === friend.id
 				);
-				const inviteData = await inviteToDelete.json();
 
-				if (inviteData?.id) {
-					await dispatch(deleteInvite(inviteData.id));
+				if (inviteToDelete && inviteToDelete.id) {
+					await dispatch(deleteInvite(inviteToDelete.id));
 					setSelectedFriends((prev) =>
-						prev.filter((f) => f.id !== friend.id)
-					); // Remove friend locally
+						prev.filter((f) => f !== friend.id)
+					);
 				} else {
-					console.error('Invite not found for this friend.');
+					console.error('Invite not found or invite ID missing.');
 				}
 			} else {
-				// Create the invite after group is created or if it already exists
 				const invitePayload = {
 					group_id: groupIdToUse,
-					user_id: currentUser.id, // The ID of the group creator
-					friend_id: friend.id, // The selected friend to invite
+					user_id: currentUser.id,
+					friend_id: friend.id,
 					event_id: eventData.id,
 					going: null,
 				};
 
 				const newInvite = await dispatch(createInvite(invitePayload));
-				setSelectedFriends((prev) => [
-					...prev,
-					{ ...friend, invite_id: newInvite.id },
-				]);
+
+				if (newInvite?.id) {
+					setSelectedFriends((prevSelectedFriends) => [
+						...prevSelectedFriends,
+						friend.id,
+					]);
+				} else {
+					console.error('Failed to add friend: invite ID is missing');
+				}
 			}
 		} catch (error) {
 			console.error('Failed to create invite:', error);
@@ -138,8 +142,7 @@ const GroupForm = ({ isEditMode, groupData }) => {
 		}
 		const payload = {
 			description,
-			eventId: eventData.id, // Use event ID passed from modal
-			// ownerId: currentUser.id,
+			eventId: eventData.id,
 		};
 
 		if (isEditMode) {
@@ -149,27 +152,23 @@ const GroupForm = ({ isEditMode, groupData }) => {
 			const savedGroup = await dispatch(thunkCreateGroup(payload));
 			if (savedGroup?.id) {
 				setGroupsId(savedGroup.id);
-				navigate(`/groups/${savedGroup.id}`); // Use savedGroup's id to navigate
+				navigate(`/groups/${savedGroup.id}`);
 			} else {
 				console.error('Failed to navigate: Group ID not found');
 			}
 		}
 	};
 
-	// Delete group
 	const handleDeleteGroup = async () => {
 		await dispatch(thunkDeleteGroup(groupId));
-		navigate('/profile'); // or '/dashboard'
+		navigate('/profile');
 	};
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
 
-	// console.log(eventData);
-
 	return (
 		<div className='group-form-page'>
-			{/* Left Column: Group Details and Friends */}
 			<div className='left-column'>
 				<h2>
 					{isEditMode
@@ -192,7 +191,6 @@ const GroupForm = ({ isEditMode, groupData }) => {
 					</a>
 				</p>
 
-				{/* Group description */}
 				<div className='group-description'>
 					<textarea
 						id='description'
@@ -203,7 +201,6 @@ const GroupForm = ({ isEditMode, groupData }) => {
 					/>
 				</div>
 
-				{/* Friends Section */}
 				<section className='friends-section'>
 					<h3>{isEditMode ? 'Friends Invited' : 'Invite Friends!'}</h3>
 					<div className='friends-list'>
@@ -216,18 +213,16 @@ const GroupForm = ({ isEditMode, groupData }) => {
 										className='friend-profile-pic'
 									/>
 									<div className='friend-details'>
-										<span className='friend-name'>
-											{`${friend.first_name} ${friend.last_name}`}
-										</span>
+										<span className='friend-name'>{`${friend.first_name} ${friend.last_name}`}</span>
 									</div>
 									<button
 										className={`select-friend-button ${
-											selectedFriends.some((f) => f.id === friend.id)
+											selectedFriends.includes(friend.id)
 												? 'selected'
 												: ''
 										}`}
 										onClick={() => toggleFriendSelection(friend)}>
-										{selectedFriends.some((f) => f.id === friend.id)
+										{selectedFriends.includes(friend.id)
 											? 'Remove'
 											: 'Add'}
 									</button>
@@ -240,7 +235,6 @@ const GroupForm = ({ isEditMode, groupData }) => {
 				</section>
 			</div>
 
-			{/* Right Column: Banner and Buttons */}
 			<div className='right-column'>
 				<div className='event-header'>
 					<img
@@ -250,7 +244,6 @@ const GroupForm = ({ isEditMode, groupData }) => {
 					/>
 				</div>
 
-				{/* Save and Delete Buttons */}
 				<div className='group-buttons'>
 					<button className='save-group-button' onClick={handleSaveGroup}>
 						Save Group
@@ -273,7 +266,7 @@ const GroupForm = ({ isEditMode, groupData }) => {
 				<DeleteGroupModal
 					onConfirm={handleDeleteGroup}
 					onCancel={() => setShowDeleteModal(false)}
-					eventName={eventData.title || 'this event'} // Pass event title
+					eventName={eventData.title || 'this event'}
 				/>
 			)}
 		</div>
@@ -281,24 +274,3 @@ const GroupForm = ({ isEditMode, groupData }) => {
 };
 
 export default GroupForm;
-
-{/* Delete Modal
-{showDeleteModal && (
-	<div className='delete-modal'>
-		<div className='delete-modal-content'>
-			<p>Are you sure you want to delete this group?</p>
-			<div className='modal-buttons'>
-				<button
-					className='confirm-delete'
-					onClick={handleDeleteGroup}>
-					Yes, Delete
-				</button>
-				<button
-					className='cancel-delete'
-					onClick={() => setShowDeleteModal(false)}>
-					No, Go Back
-				</button>
-			</div>
-		</div>
-	</div>
-)} */}
