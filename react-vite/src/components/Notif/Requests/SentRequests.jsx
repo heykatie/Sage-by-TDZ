@@ -30,7 +30,7 @@ const SentRequests = () => {
                     sent.map((sent, index) => (
                         <div className='request' key={index}>
                             <div className='request-photo'>
-                            <img src={sent.sender_pic} alt={`Request ${index}`} />
+                            <img className='profile-pic' src={sent.sender_pic} alt={`Request ${index}`} />
                             </div>
                             <div className='request-text'>
                             <p>{sent.receiver_name} has received your friend request!</p>

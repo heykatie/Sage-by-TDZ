@@ -1,3 +1,17 @@
 .request-status>*{
     color: pink;
 }
+
+.request {
+    border: lightgray solid 1px;
+    border-radius: 16px;
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.request p {
+    margin: 0;
+}

@@ -12,6 +12,9 @@ import './Profile.css';
 import { Link } from 'react-router-dom';
 import AllFriends from '../AllFriends';
 import { fetchAllEvents } from '../../redux/event.js';
+import { RiLeafFill } from "react-icons/ri";
+import EditProfileModal from '../EditProfileModal/EditProfileModal.jsx';
+import OpenModalButton from '../OpenModalButton/OpenModalButton.jsx';
 
 const ProfilePage = ({ profileState }) => {
 	const dispatch = useDispatch();
@@ -22,13 +25,6 @@ const ProfilePage = ({ profileState }) => {
 	useEffect(() => {
 		if(profileState) return setActiveSection(profileState)
 	}, [profileState])
-
-	const [firstName, setFirstName] = useState('badges');
-	const [lastName, setLastName] = useState('badges');
-	const [email, setEmail] = useState('badges');
-	const [city, setCity] = useState('badges');
-	const [state, setState] = useState('badges');
-	const [address, setAddress] = useState('badges');
 
 	// Fetch necessary data on component mount
 	useEffect(() => {
@@ -51,7 +47,25 @@ const ProfilePage = ({ profileState }) => {
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
 
+	const [firstName, setFirstName] = useState(profile?.first_name);
+	const [lastName, setLastName] = useState(profile?.last_name);
+	const [email, setEmail] = useState(profile?.email);
+	const [city, setCity] = useState(profile?.city);
+	const [state, setState] = useState(profile?.state);
+	const [address, setAddress] = useState(profile?.address);
 
+	const payload = {
+		first_name: firstName,
+		last_name: lastName,
+		email,
+		city,
+		state,
+		address
+	}
+
+	const handleSubmit = (event) => {
+		event.preventDefault()
+	}
 
 	// Dynamic content rendering
 	const renderSection = () => {
@@ -64,7 +78,9 @@ const ProfilePage = ({ profileState }) => {
 							{badges?.length > 0 ? (
 								badges.map((badge, index) => (
 									<div className='badge' key={index}>
-										<img src={badge.url} alt={badge.title} />
+										{/* <img src={badge.url} alt={badge.title} /> */}
+										<RiLeafFill color='green' size='large'/>
+										{badge.title}
 										<p>{badge.name}</p>
 									</div>
 								))
@@ -134,47 +150,68 @@ const ProfilePage = ({ profileState }) => {
 				return (
 					<section id='edit-profile' className='edit-profile'>
 						<h3>Edit Profile</h3>
-						<form>
+						<form onSubmit={handleSubmit}>
 							<div>
 								<label>First Name</label>
 								<input
 									type='text'
-									defaultValue={profile?.first_name || ''}
+									value={profile?.first_name || ''}
+									onChange={(e) => setFirstName(e.target.value)}
 								/>
 							</div>
 							<div>
 								<label>Last Name</label>
 								<input
 									type='text'
-									defaultValue={profile?.last_name || ''}
+									value={lastName|| ''}
+									onChange={(e) => setLastName(e.target.value)}
 								/>
 							</div>
 							<div>
 								<label>Email</label>
 								<input
 									type='email'
-									defaultValue={profile?.email || ''}
+									value={email || ''}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
 							<div>
 								<label>City</label>
-								<input type='text' defaultValue={profile?.city || ''} />
+								<input
+									type='text'
+									value={city || ''}
+									onChange={(e) => setCity(e.target.value)}
+								 />
 							</div>
 							<div>
 								<label>State</label>
 								<input
 									type='text'
-									defaultValue={profile?.state || ''}
+									value={state || ''}
+									onChange={(e) => setState(e.target.value)}
 								/>
 							</div>
 							<div>
 								<label>Address</label>
 								<input
 									type='text'
-									defaultValue={profile?.address || ''}
+									value={address || ''}
+									onChange={(e) => setAddress(e.target.value)}
 								/>
 							</div>
-							<button type='submit'>Save Changes</button>
+							{/* <button type='submit'>Save Changes</button> */}
+							<OpenModalButton
+                			buttonText="Save Changes"
+                			modalComponent={<EditProfileModal payload={payload} />}
+                			onButtonClick
+                			onModalClose
+                			/>
+							<OpenModalButton
+                			buttonText="Delete Profile"
+                			modalComponent={<EditProfileModal payload={payload} />}
+                			onButtonClick
+                			onModalClose
+                			/>
 						</form>
 					</section>
 				);

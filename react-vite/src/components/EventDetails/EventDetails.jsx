@@ -6,18 +6,22 @@ import { GoLinkExternal } from "react-icons/go";
 import { TfiEmail } from "react-icons/tfi";
 import { useEffect, useState } from 'react';
 import OpenModalButton  from '../OpenModalButton/OpenModalButton'
-import FeedbackModal from '../FeedbackModal/FeedbackModal'
+import { useModal } from "../../context/Modal";
+import FeedbackModal from '../FeedbackRatingInput/FeebackModal'
 import './EventDetails.css';
 import { thunkSingleEvent } from '../../redux/events';
 import AvgReaction from '../AvgReaction/AvgReaction';
 import EventRSVPTiles from '../EventRSVPTiles';
 import { thunkGetRSVPs } from '../../redux/events';
 import RSVPModal from '../RSVPModal/RSVPModal';
+import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
 
 
 const EventDetails = () => {
 
     const dispatch = useDispatch()
+
+    const { closeModal } = useModal();
 
     const { eventId } = useParams()
 
@@ -25,15 +29,18 @@ const EventDetails = () => {
 
     useEffect(() => {
         dispatch(thunkSingleEvent(eventId));
-        dispatch(thunkGetRSVPs());
+        dispatch(thunkGetRSVPs(eventId));
         setisLoaded(true)
     }, [dispatch, eventId])
-
 
 
     const currentUser = useSelector((state) => state.session.user);
     const event = useSelector((state) => state.event.event);
     const eventInfo = event[eventId];
+    const rsvps = useSelector(state=>state.rsvp.allRsvps)
+
+    console.log(rsvps)
+
 
 
     if (eventInfo && isLoaded && currentUser) {
@@ -96,7 +103,7 @@ const EventDetails = () => {
                     <p>Invite your friends to volunteer with you!</p>
                     <OpenModalButton
                     buttonText="Create a Group"
-                    modalComponent={<RSVPModal eventId={event?.id} />}
+                    modalComponent={<CreateGroupModal closeModal={closeModal}/>}
                     onButtonClick
                     onModalClose
                     />

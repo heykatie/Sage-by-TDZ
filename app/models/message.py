@@ -11,7 +11,7 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('groups.id')), nullable=False)
-    message = db.Column(db.String(255), nullable=False)
+    message = db.Column(db.String(1000), nullable=False)
     created_at = db.Column(db.String(255), default=datetime.datetime.now().strftime("%Y-%m-%d"))
     updated_at = db.Column(db.String(255), default=datetime.datetime.now().strftime("%Y-%m-%d"))
 

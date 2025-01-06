@@ -2,6 +2,7 @@ import { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as requestActions from '../../../redux/requests';
 import { TbHeartHandshake } from "react-icons/tb";
+import './Requests.css';
 
 const ReceivedRequests = () => {
     const dispatch = useDispatch()
@@ -34,7 +35,7 @@ const ReceivedRequests = () => {
                     received.map((received, index) => (
                         <div className='request' key={index}>
                             <div className='request-photo'>
-                            <img src={received.sender_pic} alt={`Request ${index}`} />
+                            <img className='profile-pic' src={received.sender_pic} alt={`Request ${index}`} />
                             </div>
                             <div className='request-text'>
                             <p>{received.sender_name} has sent you a friend request!</p>
