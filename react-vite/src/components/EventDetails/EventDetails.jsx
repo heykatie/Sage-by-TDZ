@@ -38,9 +38,21 @@ const EventDetails = () => {
     const currentUser = useSelector((state) => state.session.user);
     const event = useSelector((state) => state.event.event);
     const eventInfo = event[eventId];
-    const rsvps = useSelector(state=>state.rsvp.allRsvps)
+    const rsvps = useSelector(state=>state.rsvp);
 
-    console.log(rsvps)
+    console.log(eventId)
+
+    // const Rsvp = () => {
+    //     if(!rsvps[currentUser.id]) {
+    //         return (<OpenModalButton
+    //             buttonText="Click here to RSVP"
+    //             modalComponent={<RSVPModal eventId={event?.id} />}
+    //             onButtonClick
+    //             onModalClose
+    //             /> )
+    //     }
+    //     return (<></>)
+    // }
 
     // const rsvpLogin = () => {
     //     LoginFormModal
@@ -90,13 +102,13 @@ const EventDetails = () => {
             <div className='li-event-rsvp'>
                 {/* need rsvps reducer */}
                 { currentUser?
+                <></> :
                 <OpenModalButton
-                buttonText="Click here to RSVP"
-                modalComponent={<RSVPModal eventId={event?.id} />}
+                buttonText="Login to RSVP"
+                modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
                 onButtonClick
                 onModalClose
-                /> :
-                <h4>Log In to RSVP</h4>
+                /> 
                 }
             </div>
             <div className='li-event-invite'>
@@ -113,7 +125,12 @@ const EventDetails = () => {
                     />
                 </>
                 ) :
-                <h4>Log In to RSVP</h4>
+                <OpenModalButton
+                buttonText="Login to RSVP"
+                modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
+                onButtonClick
+                onModalClose
+                /> 
                 }
             </div>
         </div>
