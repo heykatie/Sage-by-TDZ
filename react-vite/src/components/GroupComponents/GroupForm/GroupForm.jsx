@@ -220,6 +220,7 @@ return (
 			<DeleteGroupModal
 				onConfirm={handleDeleteGroup}
 				onCancel={() => setShowDeleteModal(false)}
+				eventName={eventData.title || 'this event'} // Pass event title
 			/>
 		)}
 	</div>

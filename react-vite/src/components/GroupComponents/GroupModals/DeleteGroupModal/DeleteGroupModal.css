@@ -29,10 +29,16 @@
   margin-bottom: 20px;
 }
 
+.delete-modal-header h2 {
+  flex-grow: 1;
+  text-align: center;
+}
+
 .sprout-icon-left,
 .sprout-icon-right {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 h2 {
