@@ -14,6 +14,8 @@ import GroupForm from '../components/GroupComponents/GroupForm';
 import Group from '../components/GroupComponents/Group';
 import Dashboard from '../components/Dashboard/Dashboard';
 import FriendsPage from '../components/FriendsPage/FriendsPage';
+import RequestsPage from '../components/Notif/Requests/Requests';
+import AllGroups from '../components/AllGroups/AllGroups';
 
 export const router = createBrowserRouter([
 	{
@@ -82,6 +84,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'invites/:userId',
 				element: <GroupInvites />,
+			},
+			{
+				path: 'groups',
+				element: <AllGroups />,
 			},
 			{
 				path: '*',
