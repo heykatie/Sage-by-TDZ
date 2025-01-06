@@ -30,7 +30,7 @@
   padding-bottom: 0;
 }
 
-.nav-contents
+
 
 .profile-dropdown button {
   /* border: solid red; */
@@ -50,14 +50,11 @@
   background-color: #557b5d; /* Darker sage green */
 }
 
-.nav-contents {
-  /* border: dotted purple; */
-  display: flex;
-  justify-content: space-between;
-}
 
 .nav-contents {
   /* border: dotted red; */
+  display: flex;
+  justify-content: space-between;
   margin: none;
   padding: 0px 20px;
   height: 40px;
@@ -94,6 +91,8 @@
 .create-group-button {
   border: none;
   background-color: white;
+  color: black;
+  font-size: 16px;
   /* padding: 8px 5px; */
 }
 
