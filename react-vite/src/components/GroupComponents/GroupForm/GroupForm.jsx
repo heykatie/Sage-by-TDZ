@@ -16,7 +16,7 @@ import {
 } from '../../../redux/invites';
 import './GroupForm.css';
 
-const GroupForm = ({ isEditMode, groupData }) => {
+const GroupForm = ({ isEditMode }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation(); // Get data from route state
@@ -48,20 +48,6 @@ const GroupForm = ({ isEditMode, groupData }) => {
 			setSelectedFriends(invitedFriends.map((invite) => invite.friend_id));
 		}
 	}, [invitedFriends, isEditMode]);
-
-	// **Fetch general group data**
-	useEffect(() => {
-		if (!groupData) {
-			const fetchGroupData = async () => {
-				const response = await fetch(`/api/groups/${groupsId}`);
-				const data = await response.json();
-				setDescription(data.description || '');
-			};
-			fetchGroupData(); // Fallback API fetch
-		} else {
-			setDescription(groupData.description || '');
-		}
-	}, [groupData, groupsId]);
 
 	useEffect(() => {
 		if (!eventData) {
