@@ -33,11 +33,19 @@ def user_invites():
 def find_invite():
     group_id = request.args.get('group_id')
     friend_id = request.args.get('friend_id')
+
+    if not group_id or not friend_id:
+        return ({"message": "Missing query parameters"}), 400
+
     invite = Invites.query.filter_by(group_id=group_id, friend_id=friend_id).first()
 
+    print(f"Invite Query: {invite}")  # See what the query returns
+
     if invite:
+        print(f"Found invite: {invite.to_dict()}")  # Log found invite
         return invite.to_dict(), 200
     else:
+        print("Invite not found")  # Debug when invite is not found
         return {"message": "Invite not found"}, 404
 
 
@@ -91,7 +99,7 @@ def create_invite():
     Create a new invite
     """
     try:
-        invite_data = request.json
+        invite_data = request.get_json()
 
         if not invite_data:
             return {"message": "Invalid request body"}, 400
