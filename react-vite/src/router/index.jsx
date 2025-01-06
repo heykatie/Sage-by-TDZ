@@ -19,6 +19,7 @@ import GroupForm from '../components/GroupComponents/GroupForm';
 import Group from '../components/GroupComponents/Group';
 // import GroupComponent from '../components/GroupComponent';
 import Dashboard from '../components/Dashboard/Dashboard';
+import RequestsPage from '../components/Notif/Requests/Requests';
 
 export const router = createBrowserRouter([
 	{
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'profile',
 				element: <Profile />,
+			},
+			{
+				path: 'profile/requests',
+				element: <RequestsPage />,
 			},
 			{
 				path: 'groups/new',
