@@ -110,10 +110,10 @@ export const fetchUserEvents = () => async (dispatch) => {
 export const fetchUserBadges = () => async (dispatch) => {
 	dispatch(setStatus('loading'));
 	try {
-		const res = await csrfFetch('/api/profile/badges');
+		const res = await csrfFetch('/api/profile/');
 		if (res.ok) {
 			const badges = await res.json();
-			dispatch(loadUserBadges(badges.badges));
+			dispatch(loadUserBadges(badges));
 			dispatch(setStatus('succeeded'));
 		} else {
 			const errors = await res.json();

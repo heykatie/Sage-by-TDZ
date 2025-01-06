@@ -21,7 +21,7 @@ function GroupInvites() {
 
     useEffect(() => {
         dispatch(fetchGroupInvites() )
-    }, []);
+    }, [dispatch]);
 
     const invites = useSelector(state => state.invite);
     console.log("what is going on with you", invites)
