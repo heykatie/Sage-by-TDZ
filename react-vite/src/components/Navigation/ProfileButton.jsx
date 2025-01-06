@@ -43,6 +43,7 @@ function ProfileButton() {
     navigate('/');
   };
 
+
   return (
 		<>
 			<button onClick={toggleMenu} className='profile-menu-button'>

@@ -9,15 +9,20 @@ import {
 } from '../../redux/user'; // Ensure correct import path
 // import Navigation from '../Navigation';
 import './Profile.css';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AllFriends from '../AllFriends';
 import { fetchAllEvents } from '../../redux/event.js';
 
-const ProfilePage = () => {
+const ProfilePage = ({ profileState }) => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const badges = Object.values(useSelector(state=>state.user.badges));
+	
+	let [activeSection, setActiveSection] = useState('badges'); // Tracks active section
 
-	const [activeSection, setActiveSection] = useState('badges'); // Tracks active section
+	useEffect(() => {
+		if(profileState) return setActiveSection(profileState)
+	}, [profileState])
+
 
 	// Fetch necessary data on component mount
 	useEffect(() => {
@@ -40,7 +45,7 @@ const ProfilePage = () => {
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
 
-	const badges = Object.values(useSelector(state=>state.user.badges));
+	
 
 	// Dynamic content rendering
 	const renderSection = () => {
