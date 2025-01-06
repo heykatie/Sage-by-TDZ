@@ -56,21 +56,49 @@ def group_invites(user_id):
     return invites_list
 
 
+# @invite_route.route('/create', methods=['POST'])
+# @login_required
+# def create_invite():
+#     """
+#     Create a new invite?
+#     """
+#     invite = request.json
+
+#     new_invite = Invites(**invite)
+
+#     db.session.add(new_invite)
+
+#     db.session.commit()
+
+#     return new_invite.to_dict()
+
 @invite_route.route('/create', methods=['POST'])
 @login_required
 def create_invite():
     """
-    Create a new invite?
+    Create a new invite
     """
-    invite = request.json
+    try:
+        invite_data = request.json
 
-    new_invite = Invites(**invite)
+        if not invite_data:
+            return {"message": "Invalid request body"}, 400
 
-    db.session.add(new_invite)
+        print("Request data:", invite_data)
 
-    db.session.commit()
+        # Check required fields
+        if not all(key in invite_data for key in ['group_id', 'user_id']):
+            return {"message": "Missing required fields"}, 400
 
-    return new_invite.to_dict()
+        new_invite = Invites(**invite_data)
+        db.session.add(new_invite)
+        db.session.commit()
+
+        return new_invite.to_dict(), 201
+
+    except Exception as e:
+        print(f"Error creating invite: {e}")  # Log the error in the console
+        return {"message": "Internal server error"}, 500
 
 
 @invite_route.route('/<int:invite_id>', methods=['PUT'])
