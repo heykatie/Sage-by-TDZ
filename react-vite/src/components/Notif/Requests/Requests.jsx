@@ -75,12 +75,8 @@ const RequestsPage = () => {
 					</button> */}
 				</div>
 				<div className='dashboard-title'>
-					<h2>
-						{profile?.first_name} {profile?.last_name} Dashboard
-					</h2>
-					<p>
-						{profile?.city}, {profile?.state}
-					</p>
+					<h2>{profile?.first_name} {profile?.last_name} Dashboard</h2>
+					<p>{profile?.city}, {profile?.state}</p>
 					<nav>
 						<button
 							className={activeSection === 'invites' ? 'active' : ''}

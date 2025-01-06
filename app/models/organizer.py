@@ -9,7 +9,7 @@ class Organizer(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False, unique=True)
-    description = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
     logo = db.Column(db.String(255), nullable=False)
     link = db.Column(db.String(255), nullable=False)
     phone_number = db.Column(db.String(255), nullable=False)

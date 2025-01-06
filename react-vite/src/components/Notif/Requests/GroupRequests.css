@@ -1,0 +1,12 @@
+.invite {
+    border: solid lightgray 1px;
+    border-radius: 16px;
+    width: 300px;
+    text-align: center;
+    padding: 10px;
+    margin: 20px;
+}
+
+.invites img {
+    width: 100%;
+}
