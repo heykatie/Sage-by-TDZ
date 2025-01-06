@@ -16,6 +16,10 @@
   /* border-bottom: solid lightgray; */
 }
 
+.profile-dropdown a {
+  cursor: pointer;
+}
+
 .profile-dropdown li#item {
   /* padding: 10px 8px; */
   border-bottom: solid lightgray;
