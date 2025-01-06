@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, useParams } from 'react-router-dom'; // Import useLocation
+const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
+import DeleteGroupModal from '../GroupModals/DeleteGroupModal';
 // import {
 // 	CreateGroupModal,
 // 	DeleteGroupModal,
@@ -12,9 +14,8 @@ import {
 	thunkDeleteGroup,
 } from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';
-const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
+import { createInvite } from '../../../redux/invites';
 import './GroupForm.css';
-import DeleteGroupModal from '../GroupModals/DeleteGroupModal';
 
 const GroupForm = ({ isEditMode, groupData }) => {
 	const dispatch = useDispatch();
@@ -72,14 +73,36 @@ const GroupForm = ({ isEditMode, groupData }) => {
 	// 			: [...prev, friend]
 	// 	);
 	// };
-	const toggleFriendSelection = (friend) => {
-		setSelectedFriends(
-			(prev) =>
-				prev.some((f) => f.id === friend.id)
-					? prev.filter((f) => f.id !== friend.id) // Remove friend by id
-					: [...prev, friend] // Add friend
-		);
-	};
+	// const toggleFriendSelection = (friend) => {
+	// 	setSelectedFriends(
+	// 		(prev) =>
+	// 			prev.some((f) => f.id === friend.id)
+	// 				? prev.filter((f) => f.id !== friend.id) // Remove friend by id
+	// 				: [...prev, friend] // Add friend
+	// 	);
+	// };
+
+const toggleFriendSelection = async (friend) => {
+	if (!selectedFriends.some((f) => f.id === friend.id)) {
+		// Add friend and create invite
+		console.log('HIIII', friend)
+		const invite = {
+			group_id: groupId, // Group ID from params
+			user_id: currentUser.id, // ID of the invited friend
+			friend_id: friend.id,
+		};
+		try {
+			const newInvite = await dispatch(createInvite(invite));
+			console.log('Invite created:', newInvite);
+			setSelectedFriends((prev) => [...prev, friend]); // Add friend to local state
+		} catch (error) {
+			console.error('Failed to create invite:', error);
+		}
+	} else {
+		// Remove friend from selectedFriends state
+		setSelectedFriends((prev) => prev.filter((f) => f.id !== friend.id));
+	}
+};
 
 	const handleSaveGroup = async (e) => {
 		e.preventDefault();
