@@ -92,9 +92,10 @@ const GroupForm = ({ isEditMode, groupData }) => {
 			eventId: eventData.id, // Use event ID passed from modal
 			// ownerId: currentUser.id,
 		};
+
 		if (isEditMode) {
 			await dispatch(
-				thunkUpdateGroup({ ...payload, groupId: groupData.id })
+				thunkUpdateGroup({ ...payload, groupId})
 			);
 			navigate(`/groups/${groupId}`);
 		} else {
