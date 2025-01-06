@@ -85,7 +85,7 @@ const EventDetails = () => {
                 onButtonClick
                 onModalClose
                 /> :
-                <h4>Log In to RSVh4</h4>
+                <h4>Log In to RSVP</h4>
                 }
             </div>
             <div className='li-event-invite'>
@@ -93,9 +93,9 @@ const EventDetails = () => {
                 { currentUser?
                 (
                 <>
-                    <p>Invite your friends to volunteer wuth you!</p>
+                    <p>Invite your friends to volunteer with you!</p>
                     <OpenModalButton
-                    buttonText="+"
+                    buttonText="Create a Group"
                     modalComponent={<RSVPModal eventId={event?.id} />}
                     onButtonClick
                     onModalClose
