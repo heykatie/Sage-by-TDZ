@@ -106,7 +106,10 @@ const Group = () => {
 				Hosted by: {`${group.owner?.first_name} ${group.owner?.last_name}`}
 			</p>
 			<p>{`${group.event?.event_date} | ${group.event?.start_time} | ${group.event?.categories}`}</p>
-			<p>{group.event?.address}</p>
+			<p>
+				{group.event?.address}, {group.event?.city},{' '}
+				{group.event?.state}
+			</p>
 			{/* <a href={`/events/${group.event?.id}`} className='event-link'>
 				View Event Details
 			</a> */}
@@ -194,7 +197,7 @@ const Group = () => {
 					<button
 						onClick={() =>
 							navigate(`/groups/${groupId}/edit`, {
-								state: { eventData: group.event },
+								state: { eventData: group.event, groupData: group },
 							})
 						}
 						className='edit-group-button'>

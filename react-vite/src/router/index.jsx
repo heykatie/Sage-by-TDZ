@@ -14,6 +14,8 @@ import GroupForm from '../components/GroupComponents/GroupForm';
 import Group from '../components/GroupComponents/Group';
 import Dashboard from '../components/Dashboard/Dashboard';
 import FriendsPage from '../components/FriendsPage/FriendsPage';
+import RequestsPage from '../components/Notif/Requests/Requests';
+import fetchedGroupData from '../components/GroupComponents/GroupForm/GroupForm';
 
 export const router = createBrowserRouter([
 	{
@@ -60,8 +62,12 @@ export const router = createBrowserRouter([
 				element: <Profile />,
 			},
 			{
+				path: '/requests',
+				element: <RequestsPage />,
+			},
+			{
 				path: 'groups/new',
-				element: <GroupForm />,
+				element: <GroupForm isEditMode={false} />,
 			},
 			{
 				path: 'groups/:groupId',
@@ -69,7 +75,9 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'groups/:groupId/edit',
-				element: <GroupForm />,
+				element: (
+					<GroupForm isEditMode={true} />
+				),
 			},
 			{
 				path: 'dashboard',

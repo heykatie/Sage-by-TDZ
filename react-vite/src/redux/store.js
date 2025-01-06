@@ -13,6 +13,7 @@ import userReducer from './user';
 import groupReducer from './group';
 import eventReducer from "./events";
 import rsvpsReducer from "./rsvp";
+import requestReducer from "./requests";
 
 
   const rootReducer = combineReducers({
@@ -23,6 +24,7 @@ import rsvpsReducer from "./rsvp";
     friends: friendReducer,
     event: eventReducer,
     invite: inviteReducer,
+    requests: requestReducer,
     rsvp: rsvpsReducer
 
 });

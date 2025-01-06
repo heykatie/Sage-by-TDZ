@@ -21,7 +21,7 @@ const getSharedEvents = (payload) => ({
 
 export const thunkAllFriends = () => async dispatch => {
     const res = await csrfFetch("/api/friends/");
-    
+
     if (res.ok) {
         const friends = await res.json();
         if(friends.errors) { return; }
@@ -47,7 +47,7 @@ export const thunkSharedEvents = (friendId) => async dispatch => {
     if(res.ok) {
         const events = await res.json();
 
-        if(events.errors) { return; } 
+        if(events.errors) { return; }
 
         dispatch(getSharedEvents(events));
     }
@@ -85,4 +85,3 @@ export default function friendReducer(state = initialState, action) {
             return state;
     }
 }
-

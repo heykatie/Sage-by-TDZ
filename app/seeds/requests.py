@@ -48,7 +48,19 @@ def seed_requests():
         receiver_id=3,
         accepted=False
     )
-    
+    request10 = Request(
+        sender_id=2,
+        receiver_id=1
+    )
+    request11 = Request(
+        sender_id=4,
+        receiver_id=1
+    )
+    request12 = Request(
+        sender_id=1,
+        receiver_id=3
+    )
+
 
     db.session.add(request1)
     db.session.add(request2)
@@ -59,6 +71,9 @@ def seed_requests():
     db.session.add(request7)
     db.session.add(request8)
     db.session.add(request9)
+    db.session.add(request10)
+    db.session.add(request11)
+    db.session.add(request12)
     db.session.commit()
 
 

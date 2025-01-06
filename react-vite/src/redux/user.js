@@ -146,21 +146,13 @@ export const fetchUserInvites = () => async (dispatch) => {
 };
 
 export const fetchUserGroups = () => async (dispatch) => {
-	dispatch(setStatus('loading'));
 	try {
-		const res = await csrfFetch('/api/groups');
-		if (res.ok) {
-			const groups = await res.json();
-			dispatch(loadUserGroups(groups.groups));
-			dispatch(setStatus('succeeded'));
-		} else {
-			const errors = await res.json();
-			dispatch(setError(errors));
-			dispatch(setStatus('failed'));
-		}
+		const response = await fetch('/api/groups/'); // Adjust if your endpoint is different
+		if (!response.ok) throw new Error('Failed to fetch groups');
+		const data = await response.json(); // Assuming the response contains `{ groups: [...] }`
+		dispatch(loadUserGroups(data.Groups)); // Dispatch the data to Redux state
 	} catch (error) {
-		dispatch(setError(error.message));
-		dispatch(setStatus('failed'));
+		console.error('Error fetching groups:', error);
 	}
 };
 
@@ -177,6 +169,7 @@ export const fetchUserFriends = () => async (dispatch) => {
 			console.log('Fetched friends:', data.friends); // Log the friends array
 			dispatch(loadUserFriends(data.friends));
 			dispatch(setStatus('succeeded'));
+			return
 		} else {
 			const errors = await res.json();
 			console.error('Fetch failed:', errors);
