@@ -45,64 +45,56 @@ function ProfileButton() {
 
 
   return (
-		<>
-			<button onClick={toggleMenu} className='profile-menu-button'>
-				<FaUserCircle className='user-icon' />
-				<IoMenu className='menu-icon' />
-			</button>
-			{showMenu && (
-				<ul className={'profile-dropdown'} ref={ulRef}>
-					{user ? (
-						<>
-							<li>
-								<b>Hey {user.first_name}!</b>
-							</li>
-							<li>{user.username}</li>
-							<li>{user.email}</li>
-							<li>
-								<Link to='/profile/' onClick={closeMenu}>
-									Dashboard
-								</Link>
-							</li>
-							<li>
-								<Link to='/friends/' onClick={closeMenu}>
-									Friends
-								</Link>
-							</li>
-							<li>
-								<Link to='/' onClick={closeMenu}>
-									Events
-								</Link>
-							</li>
-							<li>
-								<Link to='/groups' onClick={closeMenu}>
-									Manage Groups
-								</Link>
-							</li>
-							<li>
-								<Link>Notifications</Link>
-							</li>
-							<li>
-								<button onClick={logout}>Log Out</button>
-							</li>
-						</>
-					) : (
-						<>
-							<OpenModalMenuItem
-								itemText='Log In'
-								onItemClick={closeMenu}
-								modalComponent={<LoginFormModal />}
-							/>
-							<OpenModalMenuItem
-								itemText='Sign Up'
-								onItemClick={closeMenu}
-								modalComponent={<SignupFormModal />}
-							/>
-						</>
-					)}
-				</ul>
-			)}
-		</>
+    <>
+      <button 
+      onClick={toggleMenu}
+      className="profile-menu-button"
+      >
+        <FaUserCircle className="user-icon" />
+        <IoMenu className="menu-icon" />
+      </button>
+      {showMenu && (
+        <ul className={"profile-dropdown"} ref={ulRef}>
+          {user ? (
+            <>
+              <li id="user-info"><b>Hey {user.first_name}!</b></li>
+              <li id="user-info">{user.username}</li>
+              <li id="item">{user.email}</li>
+              <li id="item"><Link 
+              to='/profile/'
+              onClick={closeMenu}
+              >Dashboard</Link></li>
+              <li id="item"><Link 
+              to='/friends/'
+              onClick={closeMenu}
+              >Friends</Link></li>
+              <li id="item"><Link
+              to='/'
+              onClick={closeMenu}
+              >Events</Link></li>
+              <li id="item"><Link>Manage Groups</Link></li>
+              <li><Link>Notifications</Link></li>
+              <li>
+                <button onClick={logout}>Log Out</button>
+              </li>
+            </>
+          ) : (
+            <>
+              <OpenModalMenuItem
+                itemText="Log In"
+                onItemClick={closeMenu}
+                modalComponent={<LoginFormModal />}
+              />
+              <OpenModalMenuItem
+                itemText="Sign Up"
+                onItemClick={closeMenu}
+                modalComponent={<SignupFormModal />}
+              />
+            </>
+          )}
+        </ul>
+      )}
+    </>
   );
 }
 

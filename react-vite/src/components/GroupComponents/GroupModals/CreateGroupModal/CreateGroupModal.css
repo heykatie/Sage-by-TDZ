@@ -81,6 +81,10 @@ select {
   background-color: #557b5d; /* Darker sage green */
 }
 
+.invite-button:disabled {
+  background-color: lightgray;
+}
+
 @media (max-width: 768px) {
   .modal-content {
     width: 90%;
