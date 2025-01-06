@@ -21,6 +21,7 @@ COPY . .
 
 RUN flask db revision --rev-id 94cd1a3d0581
 RUN flask db revision --rev-id ffdc0a98111c
+RUN flask db downgrade
 RUN flask db upgrade
 RUN flask seed all
 CMD gunicorn app:app

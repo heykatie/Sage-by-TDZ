@@ -15,7 +15,6 @@ import Group from '../components/GroupComponents/Group';
 import Dashboard from '../components/Dashboard/Dashboard';
 import FriendsPage from '../components/FriendsPage/FriendsPage';
 import RequestsPage from '../components/Notif/Requests/Requests';
-import fetchedGroupData from '../components/GroupComponents/GroupForm/GroupForm';
 import AllGroups from '../components/AllGroups/AllGroups';
 
 export const router = createBrowserRouter([
