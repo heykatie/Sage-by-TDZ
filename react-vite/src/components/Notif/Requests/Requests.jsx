@@ -11,6 +11,9 @@ import {
 // import Navigation from '../Navigation';
 import './Requests.css';
 import SentRequests from './SentRequests';
+import ReceivedRequests from './ReceivedRequests';
+import GroupRequests from './GroupRequests';
+import GroupInvites from '../../InvitePage/InvitePage';
 
 const RequestsPage = () => {
 	const dispatch = useDispatch();
@@ -39,41 +42,11 @@ const RequestsPage = () => {
 		switch (activeSection) {
 			case 'invites':
 				return (
-					<section id='invites' className='invites'>
-						<h3>Invites</h3>
-						<div className='invite-grid'>
-							{invites?.length > 0 ? (
-								invites.map((invite, index) => (
-									<div className='invite' key={index}>
-										<img src={invite.url} alt={`Invite ${index}`} />
-										<p>{invite.name}</p>
-									</div>
-								))
-							) : (
-								<p>No invites yet</p>
-							)}
-						</div>
-					</section>
+					<GroupRequests />
 				);
 			case 'requests':
 				return (
-					<section id='requests' className='requests'>
-						<h3>Requests</h3>
-						<ul>
-							{friends?.length > 0 ? (
-								friends.map((friend) => (
-									<li key={friend.id}>
-										<h4>
-											{friend.firstName} {friend.lastName}
-										</h4>
-										<p>{friend.username}</p>
-									</li>
-								))
-							) : (
-								<p>No requests yet!</p>
-							)}
-						</ul>
-					</section>
+					<ReceivedRequests />
 				);
 			case 'sent':
 				return (
