@@ -64,31 +64,42 @@ const ProfilePage = () => {
 						<ul>
 							{events?.length > 0 ? (
 								events.map((event) => (
-									<li className='profile-events' key = {event.id}>
+									<li className='profile-events' key={event.id}>
 										<div className='li-event-list'>
-											<Link to={ `/events/${event?.id}` } > {event?.title}
-											<div className='li-event-image'>
-											<img src={event.preview} alt={event?.title} />
-											</div>
-											<div className='li-event-categories'>
-												{event.categories.split(',').forEach(category => {
-													<li className='category'>
-														{/* {console.log('i exist', category)} */}
-														<p>{category}</p>
-													</li>
-												})}
-											</div>
-											<div className='li-event-description'>
-												<div className='city-date'>
-													<h2>{event?.city}, {event?.state}</h2>
-													<h3>Date: {event?.event_date}</h3>
+											<Link to={`/events/${event?.id}`}>
+												{' '}
+												{event?.title}
+												<div className='li-event-image'>
+													<img
+														src={event.preview}
+														alt={event?.title}
+													/>
 												</div>
-												<div className='start-end-time'>
-													<h3>Start Time: {event?.start_time}</h3>
-													<h3>End Time: {event?.end_time}</h3>
+												<div className='li-event-categories'>
+													{event.categories
+														.split(',')
+														.forEach((category) => {
+															<li className='category'>
+																{/* {console.log('i exist', category)} */}
+																<p>{category}</p>
+															</li>;
+														})}
 												</div>
-											</div>
-											<p>{event?.description}</p>
+												<div className='li-event-description'>
+													<div className='city-date'>
+														<h2>
+															{event?.city}, {event?.state}
+														</h2>
+														<h3>Date: {event?.event_date}</h3>
+													</div>
+													<div className='start-end-time'>
+														<h3>
+															Start Time: {event?.start_time}
+														</h3>
+														<h3>End Time: {event?.end_time}</h3>
+													</div>
+												</div>
+												<p>{event?.description}</p>
 											</Link>
 										</div>
 									</li>
@@ -100,27 +111,7 @@ const ProfilePage = () => {
 					</section>
 				);
 			case 'friends':
-				return (
-					<AllFriends />
-				);
-			case 'groups':
-				return (
-					<section id='groups' className='groups'>
-						<h3>Groups</h3>
-						<ul>
-							{groups?.length > 0 ? (
-								groups.map((group) => (
-									<li key={group.id}>
-										<h4>{group.name}</h4>
-										<p>Members: {group.membersCount}</p>
-									</li>
-								))
-							) : (
-								<p>No groups yet</p>
-							)}
-						</ul>
-					</section>
-				);
+				return <AllFriends />;
 			case 'edit-profile':
 				return (
 					<section id='edit-profile' className='edit-profile'>
@@ -167,6 +158,51 @@ const ProfilePage = () => {
 							</div>
 							<button type='submit'>Save Changes</button>
 						</form>
+					</section>
+				);
+			case 'groups':
+				return (
+					<section id='groups' className='groups'>
+						<h3>Your Groups</h3>
+						<div className='group-list'>
+							{groups?.length > 0 ? (
+								groups.map((group) => (
+									<div className='group-card' key={group.id}>
+										<h4>{group.name || 'Group Title'}</h4>
+										<p>
+											{group.description ||
+												'No description provided.'}
+										</p>
+										<p>
+											Members:{' '}
+											{group.membersCount ||
+												group.members?.length ||
+												0}
+										</p>
+										<div className='group-card-buttons'>
+											<Link
+												to={`/groups/${group.id}`}
+												className='view-group-button'>
+												View Group
+											</Link>
+											{group.owner_id === profile?.id && (
+												<button
+													className='edit-group-button'
+													onClick={() =>
+														navigate(`/groups/${group.id}/edit`, {
+															state: { groupData: group },
+														})
+													}>
+													Edit Group
+												</button>
+											)}
+										</div>
+									</div>
+								))
+							) : (
+								<p>You haven't joined any groups yet.</p>
+							)}
+						</div>
 					</section>
 				);
 			default:

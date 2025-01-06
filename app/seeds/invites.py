@@ -5,11 +5,11 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_invites():
     invite1 = Invites(
-        user_id=1, friend_id=2, group_id=1, event_id=1, going= None )
+        user_id=1, friend_id=2, group_id=1, event_id=1, going= True )
     invite2 = Invites(
         user_id=3, friend_id=1, group_id=2, event_id=2, going= None )
     invite3 = Invites(
-        user_id=1, friend_id=3, group_id=3, event_id=3, going= None )
+        user_id=1, friend_id=3, group_id=3, event_id=3, going= True )
     invite4 = Invites(
         user_id=6, friend_id=4, group_id=4, event_id=4, going= None )
     invite5 = Invites(
