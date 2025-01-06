@@ -26,7 +26,7 @@ export default function FriendsPage() {
 
     return (
         <div className='all-friends'>
-            <h1>Friends List</h1>
+            <h1>Friends</h1>
             <div className='tile-container'>
                 <div className='tiles'>
                     {friends && friends.map(friend=>(
