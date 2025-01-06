@@ -16,6 +16,7 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import FriendsPage from '../components/FriendsPage/FriendsPage';
 import RequestsPage from '../components/Notif/Requests/Requests';
 import AllGroups from '../components/AllGroups/AllGroups';
+import Notification from '../components/Notif/Notifications';
 
 export const router = createBrowserRouter([
 	{
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
 				path: 'dashboard',
 				element: <Dashboard />,
 			},
+      {
+        path: 'notifications',
+        element: <Notification />
+      },
 			{
 				path: 'invites/:userId',
 				element: <GroupInvites />,
