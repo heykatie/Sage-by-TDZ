@@ -46,7 +46,7 @@ function ProfileButton() {
 
   return (
     <>
-      <button 
+      <button
       onClick={toggleMenu}
       className="profile-menu-button"
       >
@@ -57,6 +57,7 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
+<<<<<<< Updated upstream
               <li id="user-info"><b>Hey {user.first_name}!</b></li>
               <li id="user-info">{user.username}</li>
               <li id="item">{user.email}</li>
@@ -65,6 +66,16 @@ function ProfileButton() {
               onClick={closeMenu}
               >Dashboard</Link></li>
               <li id="item"><Link 
+=======
+              <li><b>Hey {user.first_name}!</b></li>
+              <li>{user.username}</li>
+              <li>{user.email}</li>
+              <li><Link
+              to='/profile/'
+              onClick={closeMenu}
+              >Dashboard</Link></li>
+              <li><Link
+>>>>>>> Stashed changes
               to='/friends/'
               onClick={closeMenu}
               >Friends</Link></li>
