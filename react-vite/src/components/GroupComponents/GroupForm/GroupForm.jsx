@@ -227,7 +227,7 @@ const GroupForm = ({ isEditMode, groupData }) => {
 												: ''
 										}`}
 										onClick={() => toggleFriendSelection(friend)}>
-										{selectedFriends.includes(friend)
+										{selectedFriends.some((f) => f.id === friend.id)
 											? 'Remove'
 											: 'Add'}
 									</button>
