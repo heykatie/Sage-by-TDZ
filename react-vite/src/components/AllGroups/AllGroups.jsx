@@ -1,4 +1,4 @@
-import './AllGroups.css'; // Create a new CSS file for styling
+import './AllGroups.css'; // Create or import the CSS file for styling
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,31 +11,9 @@ import {
 } from '../../redux/user';
 import { fetchAllEvents } from '../../redux/event';
 
-export const groupTile = (group, event) => {
-	return (
-		<div className='group-tile' key={group?.id}>
-			<Link to={`/groups/${group.id}`} className='group-link'>
-				<img
-					className='group-event-pic'
-					src={event?.preview || '/default-event.png'}
-					alt={event?.title || 'Event Image'}
-				/>
-				<h3 className='group-title'>{event?.title || 'No Event Title'}</h3>
-				<p className='group-description'>
-					{group.description || 'No description provided.'}
-				</p>
-				<p className='group-members-count'>
-					<strong>Members:</strong> {group.membersCount || 0}
-				</p>
-			</Link>
-		</div>
-	);
-};
-
 export default function AllGroups() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
 	const { profile, groups } = useSelector((state) => state.user);
 	const events = useSelector((state) => state.events.events);
 	const currentUser = useSelector((state) => state.session.user);
@@ -44,11 +22,8 @@ export default function AllGroups() {
 
 	useEffect(() => {
 		dispatch(fetchCurrentUser());
-		dispatch(fetchUserEvents());
-		dispatch(fetchUserBadges());
-		dispatch(fetchUserFriends());
 		dispatch(fetchUserGroups());
-		dispatch(fetchAllEvents()); // Fetch all events for groups
+		dispatch(fetchAllEvents()); // Fetch all events for matching event IDs
 	}, [dispatch]);
 
 	if (!currentUser) navigate('/');
@@ -79,18 +54,8 @@ export default function AllGroups() {
 					<nav>
 						<button
 							className={activeSection === 'badges' ? 'active' : ''}
-							onClick={() => setActiveSection('badges')}>
-							Badges
-						</button>
-						<button
-							className={activeSection === 'events' ? 'active' : ''}
-							onClick={() => setActiveSection('events')}>
-							Events
-						</button>
-						<button
-							className={activeSection === 'friends' ? 'active' : ''}
-							onClick={() => setActiveSection('friends')}>
-							Friends
+							onClick={() => navigate('/profile')}>
+							Dashboard
 						</button>
 						<button
 							className={activeSection === 'groups' ? 'active' : ''}
@@ -101,19 +66,73 @@ export default function AllGroups() {
 				</div>
 			</section>
 			<h1>Your Groups</h1>
-			<div className='tile-container'>
-				<div className='tiles'>
-					{groups.length > 0 ? (
-						groups.map((group) => {
-							const event = eventsArray.find(
-								(e) => e.id === group.event_id
-							);
-							return groupTile(group, event);
-						})
-					) : (
-						<p>You haven't joined any groups yet.</p>
-					)}
-				</div>
+			<div className='group-list'>
+				{groups.length > 0 ? (
+					groups.map((group) => {
+						// Find the matching event for this group
+						const event = eventsArray.find(
+							(e) => e.id === group.event_id
+						);
+						return (
+							<div className='group-card' key={group.id}>
+								<div className='group-image-container'>
+									<img
+										className='group-event-image'
+										src={event?.preview || '/default-event.png'}
+										alt={event?.title || 'Event Image'}
+									/>
+								</div>
+								<h4 className='group-title'>
+									{event?.title || 'No Event Title'}
+								</h4>
+								<p className='group-description'>
+									{group.description || 'No description provided.'}
+								</p>
+								<p className='group-owner'>
+									<strong>Owner:</strong>{' '}
+									{group.owner_name || 'Unknown'}
+								</p>
+								<p className='group-members-count'>
+									<strong>Members:</strong> {group.membersCount || 0}
+								</p>
+								<div className='group-members'>
+									<strong>Members List:</strong>
+									<ul>
+										{group.members.length > 0 ? (
+											group.members.map((member) => (
+												<li key={member.id} className='member-item'>
+													{member.name}
+												</li>
+											))
+										) : (
+											<li>No members yet.</li>
+										)}
+									</ul>
+								</div>
+								<div className='group-card-buttons'>
+									<Link
+										to={`/groups/${group.id}`}
+										className='view-group-button'>
+										View Group
+									</Link>
+									{group.owner_id === profile?.id && (
+										<button
+											className='edit-group-button'
+											onClick={() =>
+												navigate(`/groups/${group.id}/edit`, {
+													state: { groupData: group },
+												})
+											}>
+											Edit Group
+										</button>
+									)}
+								</div>
+							</div>
+						);
+					})
+				) : (
+					<p>You haven't joined any groups yet.</p>
+				)}
 			</div>
 		</div>
 	);
