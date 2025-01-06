@@ -38,6 +38,8 @@ h2 {
 
 .group-description {
   margin-top: 20px;
+  width: 100%;
+  height: 40px;
 }
 
 .group-description p {
@@ -48,7 +50,7 @@ h2 {
 }
 
 .members-section {
-  margin-top: 20px;
+  padding: 60px 0px;
 }
 
 .members-list {
@@ -158,7 +160,6 @@ h2 {
 }
 
 .edit-group-button {
-  display: flex;
   background-color: #6b8f71;
   color: white;
   padding: 12px;

@@ -5,8 +5,8 @@
     src: "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap";
 }
 
-html {
-    font-family: 'Montserrat';
+html * {
+    font-family: 'Montserrat' !important;
 }
 
 ul {
