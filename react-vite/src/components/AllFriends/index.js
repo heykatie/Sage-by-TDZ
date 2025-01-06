@@ -1,3 +1,3 @@
-import Friends from "./AllFriends";
+import AllFriends from "./AllFriends";
 
-export default Friends;
+export default AllFriends;

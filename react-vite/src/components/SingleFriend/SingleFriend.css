@@ -34,6 +34,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 40px 20px;
 }
 
 .friends-button {
@@ -79,7 +80,7 @@ h2.friend-name {
     color: gray;
 }
 
-@media only screen and (max-width: 800px){
+@media only screen and (min-width: 400px) and (max-width: 600px){
    .info-body {
     display: flex;
     align-items: center;
@@ -88,4 +89,8 @@ h2.friend-name {
 
 .shared-event-info h2 {
     color: green;
+}
+
+.info-body p {
+    padding-top: 20px;
 }

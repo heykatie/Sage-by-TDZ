@@ -15,29 +15,38 @@
 .li-event-description {
     /* border: dotted magenta; */
     display: flex;
-    flex-direction: column;
     row-gap: 0;
+    justify-content: space-between;
 }
 
-.city-date, .start-end-time {
+.event-list-container .city-date, .start-end-time {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    row-gap: 8px;
     padding: 10px 0px;
 }
 
-.li-event-list a {
+.event-list-container .start-end-time {
+    text-align: right;
+}
+
+.event-list-container .city-date {
+    text-align: left;
+}
+
+.event-list-container .li-event-list a {
     padding: 10px;
 }
 
-.li-event-description h2, h3 {
+.event-list-container .li-event-description h3 {
     color: gray;
 }
 
-.li-event-description h3 {
+.event-list-container .li-event-description h3 {
     font-size: 16px;
 }
 
-.li-event-description h2 {
+.event-list-container .li-event-description h2 {
     font-size: 20px;
 }
 

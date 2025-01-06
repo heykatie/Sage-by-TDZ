@@ -1,9 +1,10 @@
-import { NavLink } from 'react-router-dom';
-import ProfileButton from './ProfileButton';
-import './Navigation.css';
 import { useState } from 'react';
 import { useSelector } from 'react-redux'; // Import to get the session user
 import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
+import { GiSprout } from "react-icons/gi";
+import { NavLink } from "react-router-dom";
+import ProfileButton from "./ProfileButton";
+import "./Navigation.css";
 
 function Navigation() {
 	const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
@@ -25,8 +26,8 @@ function Navigation() {
 	return (
 		<nav className='nav'>
 			<ul className='nav-contents'>
-				<li>
-					<NavLink to='/'>Home</NavLink>
+				<li className='icon-home'>
+					<NavLink to='/' className='sage-icon-container'><GiSprout className='sage-icon'/> Sage</NavLink>
 				</li>
 
 				<div className='profile-button-create-group'>

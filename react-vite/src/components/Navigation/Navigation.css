@@ -32,10 +32,49 @@
   /* border: solid green; */
   display: flex;
   column-gap: 12px;
+  align-items: center;
 }
 
 .profile-menu-button {
   display: flex;
-  column-gap: 4px;
+  column-gap: 8px;
   align-items: center;
+  border: gray 1px;
+  height: 32px;
+  width: 70px;
+  justify-content: center;
+  border-radius: 24px;
+}
+
+.profile-menu-button:hover {
+  cursor: pointer;
+}
+
+.sage-icon {
+  color: green;
+}
+
+.create-group-button {
+  border: none;
+  background-color: white;
+  /* padding: 8px 5px; */
+}
+
+.create-group-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.sage-icon-container {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.user-icon, .menu-icon {
+  font-size: 24px;
+}
+
+.nav {
+  border-bottom: lightgray 1px solid;
 }

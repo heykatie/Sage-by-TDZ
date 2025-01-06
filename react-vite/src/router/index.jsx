@@ -9,12 +9,16 @@ import UpcomingEvents from '../components/UpcomingEvents';
 import AllFriends from '../components/AllFriends';
 import EventRSVPs from '../components/EventRSVPs';
 import SingleFriend from '../components/SingleFriend';
-import ProfilePage from '../components/Profile/Profile';
-// import SharedEvents from '../components/SharedEvents';
 import Profile from '../components/Profile';
+// import SharedEvents from '../components/SharedEvents';
+// import ProfilePage from '../components/ProfilePage';
+// import ListEvents from '../components/ListEvents';
+import GroupInvites from '../components/InvitePage/InvitePage';
 import Layout from './Layout';
 import GroupForm from '../components/GroupComponents/GroupForm';
 import Group from '../components/GroupComponents/Group';
+// import GroupComponent from '../components/GroupComponent';
+import Dashboard from '../components/Dashboard/Dashboard';
 
 export const router = createBrowserRouter([
 	{
@@ -67,7 +71,15 @@ export const router = createBrowserRouter([
 			{
 				path: 'groups/:groupId',
 				element: <Group/>
-			}
-		],
-	},
+			},
+      {
+        path: 'dashboard',
+        element: <Dashboard />
+      },
+      {
+        path: "invites/:userId",
+        element: <GroupInvites />
+      },
+    ],
+  },
 ]);

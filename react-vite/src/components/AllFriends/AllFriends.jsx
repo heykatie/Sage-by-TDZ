@@ -37,13 +37,13 @@ export default function AllFriends() {
 
     const friendTile = friend => {
         return (
-            <div className='friend-tile' key={friend.id}>
+            <div className='friend-tile' key={friend?.id}>
                 <Link 
-                to={`/friends/${friend.id}`}
+                to={`/friends/${friend?.id}`}
                 className='friend-link' 
                 >
-                <img className='profile-pic' src={friend.profile_pic} />
-                <h3 className='friend-name'>{friend.first_name} {friend.last_name}</h3>
+                <img className='profile-pic' src={friend?.profile_pic}  />
+                <h3 className='friend-name'>{friend?.first_name} {friend?.last_name}</h3>
                 <IoIosMore className='more-dots' />
                 </Link>
             </div>

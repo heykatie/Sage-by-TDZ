@@ -16,7 +16,7 @@ export const thunkGetRSVPs = (eventId) => async dispatch => {
         'Accept': 'application/json'
       }})
 
-    console.log('WE HAVE THUNK')
+    // console.log('WE HAVE THUNK')
 
     if( res.status === 200 ){
 
@@ -45,7 +45,7 @@ const normalData = (data) => {
 //reducer
 const initialState = {allRsvps: {}}
 const rsvpsReducer = (state = initialState, action) => {
-    console.log('IN RSVP REDUCER -->',action.rsvps)
+    // console.log('IN RSVP REDUCER -->',action.rsvps)
     switch(action.type) {
         case LOAD_RSVPS:{
             // console.log('IN REDUCER -->',action.rsvps)

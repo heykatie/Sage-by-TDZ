@@ -28,7 +28,7 @@ export const thunkAllEvents = () => async dispatch => {
         if (events.errors) { return; }
 
         dispatch(getEvents(events));
-    }
+    } else throw new Error('Failed to fetch')
 }
 
 export const thunkSingleEvent = eventId => async dispatch => {
