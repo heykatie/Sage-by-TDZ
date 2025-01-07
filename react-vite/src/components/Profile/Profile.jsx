@@ -13,6 +13,7 @@ import AllFriends from '../AllFriends';
 import { fetchAllEvents } from '../../redux/event.js';
 import { RiLeafFill } from "react-icons/ri";
 import EditProfileModal from '../EditProfileModal/EditProfileModal.jsx';
+import DeleteProfileModal from '../DeleteProfileModal/DeleteProfileModal.jsx';
 import OpenModalButton from '../OpenModalButton/OpenModalButton.jsx';
 import { thunkUserRSVPs } from '../../redux/rsvp.js';
 import { ConvertDate } from '../EventDetails/EventDetails';
@@ -30,7 +31,7 @@ const ProfilePage = ({ profileState }) => {
 	const [city, setCity] = useState(profile?.city);
 	const [state, setState] = useState(profile?.state);
 	const [address, setAddress] = useState(profile?.address);
-	
+
 
 	useEffect(() => {
 		if(profileState) return setActiveSection(profileState)
@@ -46,7 +47,7 @@ const ProfilePage = ({ profileState }) => {
 		dispatch(thunkUserRSVPs());
 		dispatch(fetchAllEvents());
 	}, [dispatch]);
-	
+
 
 	const events = Object.values(useSelector(state=>state.events.events))
 	const rsvps = useSelector((state) => state.rsvp.userRsvps.rsvps);
@@ -57,7 +58,6 @@ const ProfilePage = ({ profileState }) => {
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
 
-	
 
 	const payload = {
 		first_name: firstName,
@@ -67,6 +67,8 @@ const ProfilePage = ({ profileState }) => {
 		state,
 		address
 	}
+
+	// console.log('PAYLOAD- - ->',payload)
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
@@ -153,7 +155,7 @@ const ProfilePage = ({ profileState }) => {
 			case 'friends':
 				return (
 						<AllFriends />
-				
+
 			);
 			case 'edit-profile':
 				return (
@@ -165,7 +167,7 @@ const ProfilePage = ({ profileState }) => {
 							<label>First Name</label>
 							<input
 								type='text'
-								value={profile?.first_name || ''}
+								defaultValue={profile.first_name ? profile.first_name : ''}
 								onChange={(e) => setFirstName(e.target.value)}
 							/>
 						</div>
@@ -173,7 +175,7 @@ const ProfilePage = ({ profileState }) => {
 							<label>Last Name</label>
 							<input
 								type='text'
-								value={lastName|| ''}
+								defaultValue={profile.last_name ? profile.last_name : ''}
 								onChange={(e) => setLastName(e.target.value)}
 							/>
 						</div>
@@ -181,23 +183,23 @@ const ProfilePage = ({ profileState }) => {
 							<label>Email</label>
 							<input
 								type='email'
-								value={email || ''}
+								defaultValue={profile.email ? profile.email : ''}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
 						<div>
 							<label>City</label>
 							<input
-							type='text'
-							value={city || ''}
-							onChange={(e) => setCity(e.target.value)}
+								type='text'
+								defaultValue={profile.city ? profile.city : ''}
+								onChange={(e) => setCity(e.target.value)}
 							/>
 						</div>
 						<div>
 							<label>State</label>
 							<input
 								type='text'
-								value={state || ''}
+								defaultValue={profile.state ? profile.state : ''}
 								onChange={(e) => setState(e.target.value)}
 							/>
 						</div>
@@ -205,25 +207,23 @@ const ProfilePage = ({ profileState }) => {
 							<label>Address</label>
 							<input
 								type='text'
-								value={address || ''}
+								defaultValue={profile.address ? profile.address : ''}
 								onChange={(e) => setAddress(e.target.value)}
 							/>
 						</div>
-						</div>
-					<div className='form-buttons'>
-						<OpenModalButton
-						buttonText="Save Changes"
-						modalComponent={<EditProfileModal payload={payload} />}
-						onButtonClick
-						onModalClose
-						/>
-						<OpenModalButton
-						buttonText="Delete Profile"
-						modalComponent={<EditProfileModal payload={payload} />}
-						onButtonClick
-						onModalClose
-						/>
-					</div>
+					{/* <button type='submit'>Save Changes</button> */}
+					<OpenModalButton
+					buttonText="Save Changes"
+					modalComponent={<EditProfileModal payload={payload} />}
+					onButtonClick
+					onModalClose
+					/>
+					<OpenModalButton
+					buttonText="Delete Profile"
+					modalComponent={<DeleteProfileModal />}
+					onButtonClick
+					onModalClose
+					/>
 					</form>
 					</section>
 				);

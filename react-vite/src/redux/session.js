@@ -66,35 +66,39 @@ export const thunkLogout = () => async (dispatch) => {
 };
 
 export const thunkDeleteProfile = (user) => async dispatch => {
-  const response = await csrfFetch("/api/prfoile/delete", {
+  const response = await csrfFetch(`/api/profile/delete/${user.id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user)
   });
 
   if(response.ok) {
-    // const data = await response.json();
-    dispatch(removeUser(user));
+    const data = await response.json();
+    console.log(data)
+    dispatch(removeUser());
   } else if (response.status < 500) {
-    const errorMessages = await response.json();
-    return errorMessages
+    const errorMessages = await response.text();
+    console.log(errorMessages)
+    // return errorMessages
   } else {
     return { server: "Something went wrong. Please try again" }
   }
 };
 
 export const thunkEditProfile = (user) => async dispatch => {
-  const response = await csrfFetch("/api/prfoile/edit", {
+  const response = await csrfFetch("/api/profile/edit", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user)
   });
 
   if(response.ok) {
-    // const data = await response.json();
-    dispatch(setUser(user));
+    const newUser = await response.json();
+    dispatch(setUser(newUser));
+    window.location.reload()
   } else if (response.status < 500) {
-    const errorMessages = await response.json();
+    const errorMessages = await response.text();
+    console.log(errorMessages)
     return errorMessages
   } else {
     return { server: "Something went wrong. Please try again" }

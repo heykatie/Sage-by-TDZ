@@ -1,33 +1,54 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { Navigate, useNavigate } from "react-router-dom";
 import { thunkDeleteProfile } from "../../redux/session";
 import './DeleteProfileModal.css'
+import { Link } from "react-router-dom";
+const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 
-const DeleteProfileModal = ({ user }) => {
+const DeleteProfileModal = () => {
     const { closeModal } = useModal();
 
     const dispatch = useDispatch();
 
+    const navigate = useNavigate();
+
+    const user = useSelector(state => state.session.user);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         return dispatch(thunkDeleteProfile(user))
-        .then(closeModal)
-        .catch(async (res) => {
-        const data = await res.json();
-        });
+               .then(closeModal)
+               .then(navigate('/'))
     }
     return (
         <>
-        <div className="delete-window">
-        <h1>Confirm Delete</h1>
-            <h3>Are you sure you want to remove this review?</h3>
-            <button type="Submit" className="button-yes" onClick={handleSubmit}>Yes (Delete Profile)</button>
-            <button type="Submit" className="button-no" onClick={closeModal}>No (Keep Profile)</button>
-        </div>
+          <div className="delete-modal">
+          <div className="delete-modal-content">
+          <div className="delete-modal-header">
+          <img
+						src={sproutImage}
+						alt='Sprout'
+						className='sprout-icon-left'
+					/>
+					<h1>Delete Profile</h1>
+					<img
+						src={sproutImage}
+						alt='Sprout'
+						className='sprout-icon-right'
+					/>
+          </div>
+          <p>Are you sure you want to make this change?</p>
+          <p>This action cannot be undone.</p>
+
+          <button type="Submit" className='confirm-delete' onClick={handleSubmit}>Delete</button>
+          <Link to={'/profile'} onClick={closeModal}>No, Go Back.</Link>
+
+          </div>
+          </div>
         </>
-    )
+      );
 
 };
 
