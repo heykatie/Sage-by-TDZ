@@ -114,8 +114,7 @@ const ProfilePage = ({ profileState }) => {
 									<li className='profile-events' key={event?.id}>
 										<div className='li-event-list'>
 											<Link to={`/events/${event?.id}`}>
-												{' '}
-												{event?.title}
+												<div className='li-event-title'>{event?.title}</div>
 												<div className='li-event-image'>
 													<img
 														src={event?.preview}
@@ -133,7 +132,7 @@ const ProfilePage = ({ profileState }) => {
 															</li>
 														))}
 												</div>
-												<div className='li-event-description'>
+												<div className='li-event-location-time'>
 													<div className='city-date'>
 														<h2>
 															<Location event={event} />
@@ -147,7 +146,7 @@ const ProfilePage = ({ profileState }) => {
 														<h3>End Time: {event?.end_time}</h3>
 													</div>
 												</div>
-												<p>{event?.description}</p>
+												<p className='li-event-description'>{event?.description}</p>
 											</Link>
 										</div>
 									</li>
