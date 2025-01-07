@@ -139,27 +139,21 @@
   padding: 0;
 }
 
-.profile-events li {
+.li-event-categories li {
   border: dashed magenta;
 }
 
-/* .events li {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
-} */
+/* Events */
 
-/* .events li h4 {
-  font-size: 18px;
-  margin: 0 0 5px;
-} */
+.li-event-list#upcoming {
+  border: solid lightgray 1px;
+  padding: 20px;
+}
 
-/* .events li p {
-  font-size: 14px;
-  color: #666;
-} */
+.dashboard-events .li-event-location-time h2 {
+  font-size: 20px;
+}
+
 
 /* Friends Section */
 
@@ -170,23 +164,6 @@
   padding: 0;
 }
 
-.groups li {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.groups li h4 {
-  font-size: 18px;
-  margin: 0 0 5px;
-}
-
-.groups li p {
-  font-size: 14px;
-  color: #666;
-} */
 
 /* Edit Profile Section */
 .edit-profile form {
