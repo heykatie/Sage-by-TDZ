@@ -21,8 +21,15 @@ const ProfilePage = ({ profileState }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const badges = Object.values(useSelector(state=>state.user.badges));
-
+	const { profile, groups, status, error } = useSelector((state) => state.user);
 	let [activeSection, setActiveSection] = useState('badges'); // Tracks active section
+	const [firstName, setFirstName] = useState(profile?.first_name);
+	const [lastName, setLastName] = useState(profile?.last_name);
+	const [email, setEmail] = useState(profile?.email);
+	const [city, setCity] = useState(profile?.city);
+	const [state, setState] = useState(profile?.state);
+	const [address, setAddress] = useState(profile?.address);
+	
 
 	useEffect(() => {
 		if(profileState) return setActiveSection(profileState)
@@ -45,22 +52,16 @@ const ProfilePage = ({ profileState }) => {
 
 
 	const rsvps = useSelector((state) => state.rsvp.userRsvps.rsvps)
-	let eventss;
+	let rsvpArr;
 
-	if(rsvps) eventss = Object.values(rsvps);
+	if(rsvps) rsvpArr = Object.values(rsvps);
 
-	const { profile, events, friends, groups, status, error } =
-		useSelector((state) => state.user);
+	
 
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
 
-	const [firstName, setFirstName] = useState(profile?.first_name);
-	const [lastName, setLastName] = useState(profile?.last_name);
-	const [email, setEmail] = useState(profile?.email);
-	const [city, setCity] = useState(profile?.city);
-	const [state, setState] = useState(profile?.state);
-	const [address, setAddress] = useState(profile?.address);
+	
 
 	const payload = {
 		first_name: firstName,
@@ -109,8 +110,8 @@ const ProfilePage = ({ profileState }) => {
 					<section id='events' className='events'>
 						<h3>Upcoming Events</h3>
 						<ul>
-							{eventss?.length > 0 ? (
-								eventss.map((event) => (
+							{rsvpArr?.length > 0 ? (
+								rsvpArr.map((event) => (
 									<li className='profile-events' key={event?.id}>
 										<div className='li-event-list'>
 											<Link to={`/events/${event?.id}`}>
@@ -237,7 +238,7 @@ const ProfilePage = ({ profileState }) => {
 					{groups?.length > 0 ? (
 						groups.map((group) => {
 							// Find event details using event_id
-							const event = eventss.find(
+							const event = rsvpArr.find(
 								(e) => e?.id === group?.event_id
 							);
 							return (
@@ -310,7 +311,7 @@ const ProfilePage = ({ profileState }) => {
 							);
 						})
 					) : (
-						<p>You haven'&apos;t joined any groups yet.</p>
+						<p>You haven&apos;t joined any groups yet.</p>
 					)}
 					</div>
 				</section>
