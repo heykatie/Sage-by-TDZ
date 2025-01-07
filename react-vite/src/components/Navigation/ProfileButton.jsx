@@ -68,7 +68,7 @@ function ProfileButton() {
                 </Link>
               </li>
               <li className="dropdown-li" id="item">
-                <Link to="/" onClick={closeMenu}>
+                <Link to="/profile/rsvps" onClick={closeMenu}>
                   Events
                 </Link>
               </li>
