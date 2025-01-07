@@ -71,8 +71,8 @@ const CreateGroupModal = ({ onClose }) => {
 						required>
 						<option value=''>List of available events:</option>
 						{events.map((event) => (
-							<option key={event.id} value={event.id}>
-								{event.title} - {event.event_date}
+							<option key={event?.id} value={event?.id}>
+								{event?.title} - {event?.event_date}
 							</option>
 						))}
 					</select>

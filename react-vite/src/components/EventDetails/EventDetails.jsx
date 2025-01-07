@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdLocalPhone } from "react-icons/md";
@@ -20,7 +20,8 @@ import LoginFormModal from '../LoginFormModal';
 
 const EventDetails = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { setModalContent } = useModal();
 
@@ -38,14 +39,14 @@ const EventDetails = () => {
     const currentUser = useSelector((state) => state.session.user);
     const event = useSelector((state) => state.event.event);
     const eventInfo = event[eventId];
-    const rsvps = Object.values(useSelector(state=>state.event.rsvps)).map(r=>r.user_id);
+    const rsvps = Object.values(useSelector(state=>state.event.rsvps)).map(r=>r?.user_id);
 
 
     const Rsvp = () => {
         if(!rsvps.includes(currentUser.id)) {
             return (<OpenModalButton
                 buttonText="Click here to RSVP"
-                modalComponent={<RSVPModal eventId={event?.id} />}
+                modalComponent={<RSVPModal navigate={navigate} eventId={eventId} />}
                 onButtonClick
                 onModalClose
                 /> )
@@ -115,10 +116,10 @@ const EventDetails = () => {
                 <div className='create-group-button-container'>
                     <p>Invite your friends to volunteer with you!</p>
                     <OpenModalButton
-    buttonText="Create a Group"
-    modalComponent={<CreateGroupModal onClose={() => setModalContent(null)} />}
-    onModalClose={() => setModalContent(null)}
-/>
+                        buttonText="Create a Group"
+                        modalComponent={<CreateGroupModal onClose={() => setModalContent(null)} />}
+                        onModalClose={() => setModalContent(null)}
+                    />
                 </div>
                 ) :
                 <OpenModalButton

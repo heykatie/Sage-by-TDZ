@@ -56,8 +56,8 @@ export default function EventRSVPs() {
     return (
         <div>
             {event && event.map(e=>(
-                <div key={e.event.id}>
-                    <h1>{e.event.title} - RSVPs</h1>
+                <div key={e.event?.id}>
+                    <h1>{e.event?.title} - RSVPs</h1>
                     <Link 
                     to={`/events/${eventId}`}
                     className='event-page-back-link'

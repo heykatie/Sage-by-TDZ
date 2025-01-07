@@ -115,9 +115,9 @@ export default function EventRSVPTiles() {
             {event && event.map(e=>(
                 <div key={e.id}>
                     {currentUser && <TileTitle eventId={eventId} />}
-                <div className='rsvp-tiles-container' key={e.event.id}>
+                <div className='rsvp-tiles-container' key={e.event?.id}>
                     {rsvps && Object.values(rsvps).map(r=>(
-                        <div key={r.id}>{rsvpTile(r)}</div>
+                        <div key={r?.id}>{rsvpTile(r)}</div>
                     ))}
                     </div> 
                 </div>

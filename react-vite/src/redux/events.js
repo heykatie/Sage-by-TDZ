@@ -2,7 +2,8 @@ import { csrfFetch } from "./csrf";
 
 const GET_EVENTS = 'events/getEvents';
 const SINGLE_EVENT = 'events/singleEvent';
-const RSVPS = 'events/rsvps';
+const EVENT_RSVPS = 'events/rsvps';
+const CREATE_RSVP = 'events/createRsvp';
 
 
 const getEvents = payload => ({
@@ -16,9 +17,14 @@ const getSingleEvent = payload => ({
 })
 
 const getEventRSVPs = payload => ({
-    type: RSVPS,
+    type: EVENT_RSVPS,
     payload
 });
+
+const createRsvp = payload => ({
+    type: CREATE_RSVP,
+    payload
+})
 
 export const thunkAllEvents = () => async dispatch => {
     const res = await csrfFetch('/api/events');
@@ -54,6 +60,20 @@ export const thunkGetRSVPs = eventId => async dispatch => {
     }
 }
 
+export const thunkCreateRSVP = (eventId, data) => async dispatch => {
+    const res = await csrfFetch(`/api/events/${eventId}/rsvps`, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data),
+      });
+    if(res.ok) {
+        const rsvp = await res.json();
+        if(rsvp.errors) { return; }
+        dispatch(createRsvp(rsvp));
+        window.location.reload();
+    }
+}
+
 const initialState = { allEvents: {}, event: {}, rsvps: {}}
 
 export default function eventReducer(state = initialState, action) {
@@ -72,12 +92,21 @@ export default function eventReducer(state = initialState, action) {
             newState.event[event.event.id] = event;
             return newState
         }
-        case RSVPS: {
+        case EVENT_RSVPS: {
             const newState = {...state, rsvps: {}};
             const rsvpsArr = action.payload.RSVPs;
             rsvpsArr.forEach(rsvp=>{
                 newState.rsvps[rsvp.id] = rsvp;
             })
+            return newState;
+        }
+        case CREATE_RSVP: {
+            const newState = {
+                rsvps: {
+                    ...state.rsvps,
+                    [action.payload.id]: action.payload
+                }
+            }
             return newState;
         }
         default:

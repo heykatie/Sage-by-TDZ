@@ -32,8 +32,8 @@ export default function EventRSVPs() {
     const rsvpTile = r => {
         return (
             <div key={r.id}>
-                <img src={users[r.id].profile_pic} />
-                <h3>{users[r.id].first_name}</h3>
+                <img src={users[r.id]?.profile_pic} />
+                <h3>{users[r.id]?.first_name}</h3>
                 <IoIosMore />
             </div>
         )
@@ -43,8 +43,8 @@ export default function EventRSVPs() {
     return (
         <div>
             {event && event.map(e=>(
-                <div key={e.event.id}>
-                    <h1>{e.event.title} - RSVPs</h1>
+                <div key={e.event?.id}>
+                    <h1>{e.event?.title} - RSVPs</h1>
                     {rsvps && rsvps.map(r=>(
                         rsvpTile(r)
                     ))}
