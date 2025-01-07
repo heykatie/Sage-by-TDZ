@@ -24,7 +24,7 @@ const ListEvents = () => {
 
 	const eventTiles = (events) =>
 		events.map((event) => (
-			<li key={event.id}>
+			<li className='profile-events' key={event.id}>
 				<div className='li-event-list'>
 					<Link to={`/events/${event?.id}`}>
 						<div className='li-event-title'>{event?.title}</div>
@@ -42,7 +42,7 @@ const ListEvents = () => {
 						</div>
 						<div className='li-event-location-time'>
 							<div className='city-date'>
-								<Location event={event} />
+								<h2><Location event={event} /></h2>
 								<h3>Date: {event?.event_date}</h3>
 							</div>
 							<div className='start-end-time'>
