@@ -7,11 +7,11 @@ rsvp_routes = Blueprint('rsvps', __name__)
 
 @rsvp_routes.route('/', methods=['POST'])
 @login_required
-def add_rsvp(id):
-    userId = current_user.get_id()
+def add_rsvp(event_id):
+    user_id = current_user.get_id()
     rsvp = RSVP(
-        event_id=id,
-        user_id=userId
+        event_id=event_id,
+        user_id=user_id
     )
     db.session.add(rsvp)
     db.session.commit()
