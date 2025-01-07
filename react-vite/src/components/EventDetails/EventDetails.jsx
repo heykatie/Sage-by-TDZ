@@ -16,6 +16,7 @@ import { thunkGetRSVPs } from '../../redux/events';
 import RSVPModal from '../RSVPModal/RSVPModal';
 import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
 import LoginFormModal from '../LoginFormModal';
+import RemoveRSVPModal from '../RemoveRSVPModal/RemoveRSVPModal';
 
 
 const EventDetails = () => {
@@ -39,11 +40,12 @@ const EventDetails = () => {
     const currentUser = useSelector((state) => state.session.user);
     const event = useSelector((state) => state.event.event);
     const eventInfo = event[eventId];
-    const rsvps = Object.values(useSelector(state=>state.event.rsvps)).map(r=>r?.user_id);
+    const rsvps = Object.values(useSelector(state=>state.event.rsvps))
+    const rsvpArr = rsvps.map(r=>r?.user_id);
 
 
     const Rsvp = () => {
-        if(!rsvps.includes(currentUser.id)) {
+        if(!rsvpArr.includes(currentUser.id)) {
             return (<OpenModalButton
                 buttonText="Click here to RSVP"
                 modalComponent={<RSVPModal navigate={navigate} eventId={eventId} />}
@@ -51,7 +53,21 @@ const EventDetails = () => {
                 onModalClose
                 /> )
         }
-        return (<></>)
+        return (
+            <div className='create-group-button-container'>
+                <p>Invite your friends to volunteer with you!</p>
+                <OpenModalButton
+                    buttonText="Create a Group"
+                    modalComponent={<CreateGroupModal onClose={() => setModalContent(null)} />}
+                    onModalClose={() => setModalContent(null)}
+                />
+                <OpenModalButton
+                buttonText="Remove RSVP"
+                modalComponent={<RemoveRSVPModal navigate={navigate} eventId={eventId} rsvps={rsvps} currentUser={currentUser} />} 
+                onClose={() => setModalContent(null)}
+                />
+            </div>
+        )
     }
 
 
@@ -113,14 +129,7 @@ const EventDetails = () => {
                 {/* need invites reducer */}
                 { currentUser?
                 (
-                <div className='create-group-button-container'>
-                    <p>Invite your friends to volunteer with you!</p>
-                    <OpenModalButton
-                        buttonText="Create a Group"
-                        modalComponent={<CreateGroupModal onClose={() => setModalContent(null)} />}
-                        onModalClose={() => setModalContent(null)}
-                    />
-                </div>
+                <></>
                 ) :
                 <OpenModalButton
                 buttonText="Login to RSVP"

@@ -72,9 +72,7 @@ def delete_rsvp(event_id):
     user_id = current_user.get_id()
 
     rsvp = RSVP.query.filter(and_(RSVP.user_id == user_id and RSVP.event_id == event_id)).first()
-    print(rsvp)
 
-    
     if not rsvp:
         return { 'errors': { 'rsvp': 'No rsvp found.' } }, 404
     

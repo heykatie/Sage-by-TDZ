@@ -4,6 +4,7 @@ const GET_EVENTS = 'events/getEvents';
 const SINGLE_EVENT = 'events/singleEvent';
 const EVENT_RSVPS = 'events/rsvps';
 const CREATE_RSVP = 'events/createRsvp';
+const DELETE_RSVP = 'events/deleteRsvp';
 
 
 const getEvents = payload => ({
@@ -26,10 +27,14 @@ const createRsvp = payload => ({
     payload
 })
 
+const deleteRsvp = id => ({
+    type: DELETE_RSVP,
+    payload: id
+})
+
 export const thunkAllEvents = () => async dispatch => {
     const res = await csrfFetch('/api/events');
 
-    console.log('-------------------', res)
     if(res.ok) {
         const events = await res.json();
         if (events.errors) { return; }
@@ -74,6 +79,16 @@ export const thunkCreateRSVP = (eventId, data) => async dispatch => {
     }
 }
 
+export const thunkDeleteRSVP = (eventId, rsvpId) => async dispatch => {
+    const res = await csrfFetch(`/api/events/${eventId}/rsvps`, {
+        method: "DELETE",
+      });
+    if(res.ok) {
+        dispatch(deleteRsvp(rsvpId));
+        window.location.reload();
+    }
+}
+
 const initialState = { allEvents: {}, event: {}, rsvps: {}}
 
 export default function eventReducer(state = initialState, action) {
@@ -107,6 +122,11 @@ export default function eventReducer(state = initialState, action) {
                     [action.payload.id]: action.payload
                 }
             }
+            return newState;
+        }
+        case DELETE_RSVP: {
+            const newState = {...state};
+            delete newState.rsvps[action.payload];
             return newState;
         }
         default:

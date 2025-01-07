@@ -5,6 +5,11 @@
     justify-content: center;
 }
 
+.event-details-container {
+     /* border: dotted red; */
+    max-width: 1000px;
+}
+
 .event-details-container .location-info {
     text-align: left;
     width: 50%;
