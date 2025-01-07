@@ -42,21 +42,18 @@ const ProfilePage = ({ profileState }) => {
 		dispatch(fetchUserBadges());
 		dispatch(fetchUserFriends());
 		dispatch(fetchUserGroups());
-		dispatch(thunkUserRSVPs())
+		dispatch(thunkUserRSVPs());
+		dispatch(fetchAllEvents());
 	}, [dispatch]);
-
-		useEffect(() => {
-			dispatch(fetchAllEvents()); // Fetch all events
-		}, [dispatch]);
 	
 
-
-	const rsvps = useSelector((state) => state.rsvp.userRsvps.rsvps)
+	const events = Object.values(useSelector(state=>state.events.events))
+	const rsvps = useSelector((state) => state.rsvp.userRsvps.rsvps);
 	let rsvpArr;
 
 	if(rsvps) rsvpArr = Object.values(rsvps);
 
-	
+	console.log(events)
 
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
@@ -230,7 +227,7 @@ const ProfilePage = ({ profileState }) => {
 					</section>
 				);
 			case 'groups':
-				console.log('groups:', groups);
+				console.log(groups);
 				return (
 				<section id='groups' className='groups-section'>
 					<h3>Your Groups</h3>
@@ -238,8 +235,8 @@ const ProfilePage = ({ profileState }) => {
 					{groups?.length > 0 ? (
 						groups.map((group) => {
 							// Find event details using event_id
-							const event = rsvpArr.find(
-								(e) => e?.id === group?.event_id
+							const event = events.find(
+								(e) => e.id === group.event_id
 							);
 							return (
 								<div className='group-card' key={group?.id}>
@@ -249,7 +246,7 @@ const ProfilePage = ({ profileState }) => {
 											src={
 												event?.preview || '/default-event.png'
 											}
-											alt={event?.title || 'Event Image'}
+											alt={event?.event_title || 'Event Image'}
 										/>
 									</div>
 									<h4 className='group-title'>
