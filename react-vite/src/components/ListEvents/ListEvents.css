@@ -33,7 +33,6 @@
     display: flex;
     justify-content: space-between;
     max-height: 90px;
-    font-size: 14px;
 }
 
 .li-event-description {
@@ -55,15 +54,20 @@
     /* Better line spacing for readability */
 }
 
-.event-list-container .city-date,
-.event-list-container .start-end-time {
+.city-date,
+.start-end-time {
     display: flex;
     flex-direction: column;
     row-gap: 8px;
 }
 
+.start-end-time h3 {
+    width: 100%;
+    text-align: right;
+}
+
 .event-list-container .start-end-time {
-     border: solid white 1px;
+    border: solid white 1px;
     text-align: right;
 }
 
@@ -96,14 +100,8 @@
     width: fit-content;
 }
 
-.event-list-container .li-event-description h2 {
+.li-event-description h2 {
     font-size: 20px;
-    width: fit-content;
-}
-
-.event-list-container a h2.text {
-    font-size: 20px;
-    /* border: solid purple; */
     width: fit-content;
 }
 

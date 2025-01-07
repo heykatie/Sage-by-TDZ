@@ -109,8 +109,8 @@ const ProfilePage = ({ profileState }) => {
 						<ul>
 							{rsvpArr?.length > 0 ? (
 								rsvpArr.map((event) => (
-									<li className='profile-events' key={event?.id}>
-										<div className='li-event-list'>
+									<li className='dashboard-events' key={event?.id}>
+										<div className='li-event-list' id='upcoming'>
 											<Link to={`/events/${event?.id}`}>
 												<div className='li-event-title'>{event?.title}</div>
 												<div className='li-event-image'>
@@ -132,15 +132,11 @@ const ProfilePage = ({ profileState }) => {
 												</div>
 												<div className='li-event-location-time'>
 													<div className='city-date'>
-														<h2>
-															<Location event={event} />
-														</h2>
+														<h2><Location event={event} /></h2>
 														<h3>Date: {event?.event_date}</h3>
 													</div>
 													<div className='start-end-time'>
-														<h3>
-															Start Time: {event?.start_time}
-														</h3>
+														<h3>Start Time: {event?.start_time}</h3>
 														<h3>End Time: {event?.end_time}</h3>
 													</div>
 												</div>
@@ -227,7 +223,6 @@ const ProfilePage = ({ profileState }) => {
 					</section>
 				);
 			case 'groups':
-				console.log(groups);
 				return (
 				<section id='groups' className='groups-section'>
 					<h3>Your Groups</h3>
