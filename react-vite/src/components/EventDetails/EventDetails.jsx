@@ -25,9 +25,7 @@ const EventDetails = () => {
     const navigate = useNavigate();
 
     const { setModalContent } = useModal();
-
     const { eventId } = useParams()
-
     const[isLoaded, setisLoaded] = useState(false)
 
     useEffect(() => {
@@ -63,7 +61,7 @@ const EventDetails = () => {
                 />
                 <OpenModalButton
                 buttonText="Remove RSVP"
-                modalComponent={<RemoveRSVPModal navigate={navigate} eventId={eventId} rsvps={rsvps} currentUser={currentUser} />} 
+                modalComponent={<RemoveRSVPModal navigate={navigate} eventId={eventId} rsvps={rsvps} currentUser={currentUser} eventInfo={eventInfo} />} 
                 onClose={() => setModalContent(null)}
                 />
             </div>

@@ -1,0 +1,14 @@
+.login-form-modal#remove-rsvp-modal {
+    /* border: dashed red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form-modal h3 {
+    margin: 20px 0px;
+}
+
+.login-form-modal button {
+    width: 100%;
+}

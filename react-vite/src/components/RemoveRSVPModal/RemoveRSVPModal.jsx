@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { thunkDeleteRSVP, thunkGetRSVPs } from '../../redux/events';
 import { useEffect } from 'react';
 
-export default function RemoveRSVPModal({navigate, eventId, rsvps, currentUser}) {
+export default function RemoveRSVPModal({navigate, eventId, rsvps, currentUser, eventInfo}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
 
@@ -24,18 +24,20 @@ export default function RemoveRSVPModal({navigate, eventId, rsvps, currentUser})
     }
 
     return (
-        <div className='remove-rsvp-modal'>
-            <h1>Remove RSVP for:</h1>
-            <h3>Event Name?</h3>
+        <div className='login-form-modal' id='remove-rsvp-modal'>
+            <h2>Remove RSVP for:</h2>
+            <h3>{eventInfo?.event.title} ?</h3>
             <button 
             onClick={handleClick} 
-            id='remove-yes'
+            id='yes'
             aria-label='remove-rsvp-I-do-not-plan-to-attend' 
-            >Remove RSVP (I do not plan to attend)</button>
+            >
+            Remove RSVP 
+            (I do not plan to attend)</button>
             <button 
             onClick={closeModal} 
-            id='no-go-back'
-            aria-label='close-modal' 
+            id='reverse'
+            aria-label='no-go-back' 
             >No (Go Back)</button>
         </div>
     )

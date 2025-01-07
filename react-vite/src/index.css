@@ -55,3 +55,12 @@ button:hover {
     background-color: #557b5d;
 }
 
+*#reverse {
+    background-color: white;
+    color: #4a7744;
+    border: 2px solid #8f9f94;
+}
+
+*#reverse:hover {
+    background-color: #f0f5f2;
+}
