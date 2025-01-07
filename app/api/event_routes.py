@@ -69,13 +69,17 @@ def add_rsvp(event_id):
 @event_routes.route('/<int:event_id>/rsvps', methods=['DELETE'])
 @login_required
 def delete_rsvp(event_id):
-    userId = current_user.get_id()
-    rsvp = RSVP.query.filter(and_(
-            RSVP.user_id == userId,
-            RSVP.event_id == event_id)
-        )
+    user_id = current_user.get_id()
+
+    rsvp = RSVP.query.filter(and_(RSVP.user_id == user_id and RSVP.event_id == event_id)).first()
+
+    
+    if not rsvp:
+        return { 'errors': { 'rsvp': 'No rsvp found.' } }, 404
+    
     if rsvp:
         db.session.delete(rsvp)
         db.session.commit()
-        return { 'message': "Successfully deleted" }
+        return { 'message': "Successfully deleted" }, 200
+    
     return {'errors': {'message': "No RSVPS could be found"}}, 404
