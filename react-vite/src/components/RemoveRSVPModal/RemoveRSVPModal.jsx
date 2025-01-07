@@ -1,16 +1,24 @@
 import './RemoveRSVPModal.css';
 import { useModal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
+import { thunkDeleteRSVP, thunkGetRSVPs } from '../../redux/events';
+import { useEffect } from 'react';
 
-export default function RemoveRSVPModal({navigate, eventId}) {
+export default function RemoveRSVPModal({navigate, eventId, rsvps, currentUser}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(thunkGetRSVPs(eventId))
+    }, [dispatch, eventId])
+
+    const targetRsvp = rsvps.filter(r=>r.user_id===currentUser.id);
 
     const handleClick = e => {
         e.preventDefault();
 
         // need delete rsvp thunk
-        return dispatch()
+        return dispatch(thunkDeleteRSVP(eventId, targetRsvp.id))
             .then(closeModal)
             .then(navigate(`/events/${eventId}`))
     }
