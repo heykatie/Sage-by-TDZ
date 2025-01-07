@@ -48,7 +48,7 @@ export default function RSVPModal({navigate, eventId}) {
             >Yes (I plan to attend)</button>
             <button
             onClick={closeModal}
-            id='yes'
+            id='reverse'
             aria-label='close-modal'
             >No (Go Back)</button>
         </div>
