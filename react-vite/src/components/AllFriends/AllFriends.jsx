@@ -49,8 +49,7 @@ export default function AllFriends() {
 
     return (
         <div className='all-friends'>
-      
-            <h1>Friends</h1>
+            <h3>Friends</h3>
             <div className='tile-container'>
                 <div className='tiles'>
                     {friends && friends.map(friend=>(
