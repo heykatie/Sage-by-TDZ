@@ -224,6 +224,7 @@ const ProfilePage = ({ profileState }) => {
 					onButtonClick
 					onModalClose
 					/>
+					</div>
 					</form>
 					</section>
 				);
