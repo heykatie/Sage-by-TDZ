@@ -89,13 +89,11 @@ function ProfileButton() {
           ) : (
             <>
               <OpenModalMenuItem
-                className="dropdown-li"
                 itemText="Log In"
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
               <OpenModalMenuItem
-                className="dropdown-li"
                 itemText="Sign Up"
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}

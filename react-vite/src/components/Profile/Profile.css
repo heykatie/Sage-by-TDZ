@@ -261,9 +261,10 @@
   background-color: #217dbb;
 }
 
-/* .badges-container {
-  border: solid red;
-} */
+h2.city-state-toggle {
+  /* border: solid red; */
+  padding: 0;
+}
 
 .groups-section {
   padding: 20px;

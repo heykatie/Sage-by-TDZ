@@ -27,15 +27,22 @@ export default function SingleFriend() {
 
     const friendInfo = friend => {
         return (
-            <div className='dashboard-title' key={friend.id}>
-                <img className='profile-picture' height='100px' width='100px' src={friend.profile_pic} />
+            <div className='dashboard-title' key={friend?.id}>
+                <img className='profile-picture' height='100px' width='100px' src={friend?.profile_pic} />
                 <div className='friend-info'>
-                    <h2 className='friend-name'>{friend.first_name} {friend.last_name}</h2>
-                    <h4>{friend.username} | {friend.city} | {friend.state}</h4>
+                    <h2 className='friend-name'>{friend?.first_name} {friend?.last_name}</h2>
+                    <h4>{friend?.username} | {friend?.city} | {friend?.state}</h4>
                 </div>
                 <button className='friends-button'><FaUserCheck /> Friends</button>
             </div>
         )
+    }
+
+    const Location = ({event}) => {
+        if(event?.state === 'None') {
+            return (<h2 className='city-state-toggle'>Virtual</h2>)
+        }
+        return (<h2 className='city-state-toggle'>{event?.city}, {event?.state}</h2>)
     }
     
     const eventInfo = events => {
@@ -53,7 +60,7 @@ export default function SingleFriend() {
                     <h2 className='title'>{event.title}</h2>
                     <img className='event-img' height='400px' width='400px' src={event.preview} />
                     <div className='date-time'>
-                        <p>{event.city}, {event.state}</p>
+                        <Location event={event} />
                         <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
                     </div>
                 </Link>

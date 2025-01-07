@@ -1,9 +1,9 @@
 .li-event-list {
-    border: solid lightgray 1px;
+    border: solid gray 1px;
     border-radius: 16px;
-    margin: 20px;
-    width: 400px;
-    height: auto;
+    margin: 10px;
+    width: 420px;
+    height: 600px;
     /* Allow the height to adjust automatically based on content */
     overflow: hidden;
     /* Prevent overflow of content */
@@ -28,10 +28,24 @@
     margin: 10px 0;
 }
 
-.li-event-description {
+.li-event-location-time {
+    /* border: dashed green; */
     display: flex;
     justify-content: space-between;
+    max-height: 90px;
+    font-size: 14px;
+}
+
+.li-event-description {
+    /* border: dotted blue; */
+    height: 160px;
+    display: flex;
+    overflow: scroll;
     padding: 10px 0;
+}
+
+.li-event-description::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
 }
 
 .li-event-description p {
@@ -49,14 +63,14 @@
 }
 
 .event-list-container .start-end-time {
+     border: solid white 1px;
     text-align: right;
-    margin: 10px;
 }
 
 .event-list-container .city-date {
     /* border: dotted; */
     text-align: left;
-    margin: 10px;
+
 }
 
 .event-list-container .city-date  .text {
@@ -109,7 +123,7 @@
 /* Categories Section */
 .li-event-categories {
     display: flex;
-    flex-wrap: wrap;
+    overflow: scroll;
     gap: 8px;
     margin: 10px 0;
 }

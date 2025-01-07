@@ -68,7 +68,18 @@ const EventDetails = () => {
         )
     }
 
-
+    const Location = ({event}) => {
+        if(event?.state === 'None') {
+            return (<h3 className='city-state-toggle'>Virtual</h3>)
+        }
+        return (
+            <>
+            <h3>{event?.address}</h3>
+            <h3>{event?.city}</h3>
+            <h3>{event?.state}</h3>
+            </>
+        )
+    }
 
 
     if (eventInfo && isLoaded && currentUser) {
@@ -86,9 +97,7 @@ const EventDetails = () => {
             <div className='li-event-description'>
                 <div className='location-info'>
                    <h2>Location</h2>
-                    <h3>{event?.address}</h3>
-                    <h3>{event?.city}</h3>
-                    <h3>{event?.state}</h3>
+                    <Location event={event} />
                 </div>
                 <div className='date-time-info'>
                    <h2>Date and Time</h2>
