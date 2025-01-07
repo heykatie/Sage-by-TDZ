@@ -39,7 +39,6 @@ export const fetchInvitedFriends = (groupId) => async (dispatch) => {
 			method: 'GET',
 			credentials: 'include',
         });
-        // console.log('hi', response)
 		if (!response.ok) {
 			throw new Error('Failed to fetch invited friends');
 		}
@@ -60,19 +59,14 @@ export const fetchUserInvites = () => async (dispatch) => {
 
 export const fetchGroupInvites = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/invites/${userId}`);
-    console.log('HERE IS THE RETURNED HTML', response)
-    console.log('WE ARE THINKING', response)
     if (response.status === 200) {
         const invites = await response.json();
-        // const testStr = await response.json();
-        // console.log('HERE IS THE RETURNED HTML', testStr)
         dispatch(loadInvites(invites))
     }
 }
 
 export const createInvite = (invite) => async (dispatch) => {
 	try {
-		console.log('IN THUNK', invite); // Log the invite payload
 		const response = await csrfFetch('/api/invites/create', {
 			method: 'POST',
 			headers: {
@@ -81,7 +75,6 @@ export const createInvite = (invite) => async (dispatch) => {
 			body: JSON.stringify(invite),
 		});
 
-		console.log('RESPONSE', response);
 		if (response.ok) {
 			const newInvite = await response.json();
 			dispatch(addInvite(newInvite)); // Add the actual new invite returned
@@ -133,7 +126,6 @@ export const deleteInvite = (inviteId) => async (dispatch) => {
 
 		if (response.ok) {
 			dispatch({ type: DELETE_INVITE, payload: inviteId }); // payload should be inviteId
-			console.log('Dispatched DELETE_INVITE with inviteId:', inviteId); // Check if this logs correctly
 		} else {
 			const errorData = await response.json();
 			throw new Error(errorData.message || 'Failed to delete invite');
@@ -149,7 +141,6 @@ const inviteReducer = ( state = initialState, action) => {
         case LOAD_INVITED_FRIENDS:
             return [...action.invites];
         case LOAD_INVITES:
-            console.log('What happing here', action);
             return [...action.invites];
         case ADD_INVITE:
             return [...state, action.invite];
@@ -158,7 +149,6 @@ const inviteReducer = ( state = initialState, action) => {
                 invite.id === action.invite.id ? action.invite : invite
             );
         case DELETE_INVITE:
-            console.log('DELETE_INVITE action payload:', action.payload);
             if (!action.payload) {
                 console.error('No invite ID provided for deletion!');
                 return state;

@@ -1,5 +1,5 @@
 import './AllGroups.css'; // Create or import the CSS file for styling
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -14,8 +14,6 @@ export default function AllGroups() {
 	const { profile, groups } = useSelector((state) => state.user);
 	const events = useSelector((state) => state.events.events);
 	const currentUser = useSelector((state) => state.session.user);
-
-	const [activeSection, setActiveSection] = useState('groups');
 
 	useEffect(() => {
 		dispatch(fetchCurrentUser());
@@ -98,7 +96,7 @@ export default function AllGroups() {
 						);
 					})
 				) : (
-					<p>You haven'&apos;t joined any groups yet.</p>
+					<p>You haven&apos;t joined any groups yet.</p>
 				)}
 			</div>
 		</div>

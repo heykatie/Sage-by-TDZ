@@ -16,9 +16,7 @@ const EditProfileModal = ({ user, newData }) => {
 
     const dispatch = useDispatch();
 
-    user = useSelector(state => state.session.user)
-
-    console.log(errors)
+    user = useSelector(state => state.session.user);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,9 +37,7 @@ const EditProfileModal = ({ user, newData }) => {
             .then(closeModal)
             .catch(async (res) => {
             const data = await res.json();
-            if ( data ) {
-            console.log(data)
-            }
+            if(data.errors) return data.errors;
             })
         }
 

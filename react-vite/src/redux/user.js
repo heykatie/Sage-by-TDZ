@@ -159,14 +159,12 @@ export const fetchUserGroups = () => async (dispatch) => {
 export const fetchUserFriends = () => async (dispatch) => {
 	dispatch(setStatus('loading'));
 	try {
-		console.log('Fetching friends...'); // Debug log
 		const res = await csrfFetch('/api/friends/', {
 			method: 'GET',
 			credentials: 'include',
 		});
 		if (res.ok) {
 			const data = await res.json();
-			console.log('Fetched friends:', data.friends); // Log the friends array
 			dispatch(loadUserFriends(data.friends));
 			dispatch(setStatus('succeeded'));
 			return
@@ -209,7 +207,6 @@ const userReducer = (state = initialState, action) => {
 		case LOAD_USER_GROUPS:
 			return { ...state, groups: action.groups };
 		case LOAD_USER_FRIENDS:
-			console.log('Loaded friends:', action.friends); // Should print the array
 			return { ...state, friends: action.friends };
 		// case SET_STATUS:
 		// 	return { ...state, status: action.status };

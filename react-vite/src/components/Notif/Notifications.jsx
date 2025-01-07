@@ -16,24 +16,16 @@ function Notification() {
         dispatch(fetchGroupInvites(user_id));
         dispatch(fetchAllRequests())
 
-    }, []);
+    }, [dispatch, user_id]);
 
-    const invites = useSelector(state => state.invite)
-    console.log("notifications invites", invites)
-    const requests = useSelector(state => state.requests)
-    console.log( requests)
-
-    const receive = Object.values(requests.received)
-
-    
-    // const sent = Object.values(requests.sent)
+    const invites = useSelector(state => state.invite);
+    const requests = useSelector(state => state.requests);
+    const receive = Object.values(requests.received);
 
     const totalRequests = Object.keys(requests.received).filter(key => !requests.received[key].accepted).length
     
     const totalInvites = invites.length
 
-    console.log("REQUESTS", totalRequests)
-    console.log("INVITES", totalInvites)
     return (
         <div>
             <h1>

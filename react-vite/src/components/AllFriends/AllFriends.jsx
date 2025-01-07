@@ -12,7 +12,7 @@ import {
     fetchUserGroups,
 } from '../../redux/user';
 
-export const friendTile = friend => {
+export const FriendTile = friend => {
     return (
         <div className='friend-tile' key={friend?.id}>
             <Link 
@@ -53,7 +53,7 @@ export default function AllFriends() {
             <div className='tile-container'>
                 <div className='tiles'>
                     {friends && friends.map(friend=>(
-                    friendTile(friend)
+                    FriendTile(friend)
                     ))}
                 </div>
             </div>

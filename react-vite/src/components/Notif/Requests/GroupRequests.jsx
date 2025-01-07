@@ -4,12 +4,9 @@ import * as inviteActions from '../../../redux/invites';
 import './GroupRequests.css';
 
 const GroupRequests = () => {
-    const dispatch = useDispatch()
-    const invites = useSelector(state => state.invite)
-    const user = useSelector(state => state.session.user)
-    // const [action, setAction] = useState('')
-    
-    // console.log('LOOK HERE', invites)
+    const dispatch = useDispatch();
+    const invites = useSelector(state => state.invite);
+    const user = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(inviteActions.fetchGroupInvites(user.id))

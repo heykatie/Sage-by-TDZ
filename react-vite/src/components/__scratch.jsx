@@ -27,8 +27,6 @@ export default function EventRSVPs() {
     const rsvps = Object.values(useSelector(state=>state.event.rsvps));
     const users = useSelector(state=>state.user.users)
 
-    console.log(users)
-
     const rsvpTile = r => {
         return (
             <div key={r.id}>

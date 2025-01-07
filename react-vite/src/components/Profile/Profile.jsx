@@ -7,7 +7,6 @@ import {
 	fetchUserFriends,
 	fetchUserGroups,
 } from '../../redux/user'; // Ensure correct import path
-// import Navigation from '../Navigation';
 import './Profile.css';
 import { Link, useNavigate } from 'react-router-dom';
 import AllFriends from '../AllFriends';
@@ -52,8 +51,6 @@ const ProfilePage = ({ profileState }) => {
 	let rsvpArr;
 
 	if(rsvps) rsvpArr = Object.values(rsvps);
-
-	console.log(events)
 
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;

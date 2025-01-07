@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as requestActions from '../../../redux/requests';
 import { TbHeartHandshake } from "react-icons/tb";
@@ -17,7 +17,6 @@ const ReceivedRequests = () => {
 
     return (
         <section id='received-requests' className='requests'>
-            {/* {console.log('SENT HERE',sent, 'RECEIVE HERE', received)} */}
             <h3>Received Requests</h3>
             <div className='request-list'>
                 {received?.length > 0 ? (
