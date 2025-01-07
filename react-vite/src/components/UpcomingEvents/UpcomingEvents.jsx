@@ -3,6 +3,8 @@ import { thunkUserRSVPs } from '../../redux/rsvp';
 import { useEffect } from 'react';
 import './UpcomingEvents.css'
 import { Link } from 'react-router-dom';
+import { ConvertDate } from '../EventDetails/EventDetails';
+import { ConvertTime } from '../ListEvents/ListEvents';
 
 
 const UpcomingEvents = ({user, events}) => {
@@ -41,11 +43,11 @@ const UpcomingEvents = ({user, events}) => {
                 <div className='li-event-location-time'>
                     <div className='city-date'>
                        <Location event={event} />
-                        <h3>Date: {event?.event_date}</h3> 
+                        <h3>Date: {ConvertDate(event?.event_date)}</h3> 
                     </div>
                     <div className='start-end-time'>
-                       <h3>Start Time: {event?.start_time}</h3>
-                        <h3>End Time: {event?.end_time}</h3> 
+                       <h3>Start: {ConvertTime(event?.start_time)}</h3>
+                        <h3>End: {ConvertTime(event?.end_time)}</h3> 
                     </div>
                 </div>
                 <p className='upcoming-event-description'>{event.description}</p>

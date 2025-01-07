@@ -4,6 +4,13 @@ import * as eventActions from '../../redux/event';
 import './ListEvents.css';
 import { useEffect } from 'react';
 import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
+import { ConvertDate } from '../EventDetails/EventDetails';
+
+export const ConvertTime = (time) => {
+	if(time.length === 7) return `${time.slice(0, 4)} AM`
+	if(time.length === 8 && +time.slice(0, 2) < 12) return `${time.slice(0, 5)} AM`
+	if(time.length === 8 && +time.slice(0, 2) > 12) return `${time.slice(0, 2)-12}:${time.slice(3, 5)} PM`
+}
 
 const ListEvents = () => {
 	const dispatch = useDispatch();
@@ -25,6 +32,7 @@ const ListEvents = () => {
 	const eventTiles = (events) =>
 		events.map((event) => (
 			<li className='profile-events' key={event.id}>
+				{console.log(event.start_time, event.start_time.length)}
 				<div className='li-event-list'>
 					<Link to={`/events/${event?.id}`}>
 						<div className='li-event-title'>{event?.title}</div>
@@ -43,11 +51,11 @@ const ListEvents = () => {
 						<div className='li-event-location-time'>
 							<div className='city-date'>
 								<h2><Location event={event} /></h2>
-								<h3>Date: {event?.event_date}</h3>
+								<h3>Date: {ConvertDate(event?.event_date)}</h3>
 							</div>
 							<div className='start-end-time'>
-								<h3>Start Time: {event?.start_time}</h3>
-								<h3>End Time: {event?.end_time}</h3>
+								<h3>Start: {ConvertTime(event?.start_time)}</h3>
+								<h3>End: {ConvertTime(event?.end_time)}</h3>
 							</div>
 						</div>
 						<p className='li-event-description'>{event?.description}</p>

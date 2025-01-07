@@ -61,7 +61,13 @@
     padding: 20px;
 }
 
-.li-event-rsvp, .li-event-invite {
+.li-event-rsvp {
+    /* border: dotted; */
+    display: flex;
+    justify-content: center;
+}
+
+.li-event-invite {
     /* border: dotted; */
     display: flex;
     flex-direction: column;

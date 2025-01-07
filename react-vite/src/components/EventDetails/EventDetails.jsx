@@ -17,6 +17,11 @@ import RSVPModal from '../RSVPModal/RSVPModal';
 import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
 import LoginFormModal from '../LoginFormModal';
 import RemoveRSVPModal from '../RemoveRSVPModal/RemoveRSVPModal';
+import { ConvertTime } from '../ListEvents/ListEvents';
+
+export const ConvertDate = date => {
+    return new Date(date).toLocaleDateString();
+}
 
 
 const EventDetails = () => {
@@ -102,8 +107,8 @@ const EventDetails = () => {
                 <div className='date-time-info'>
                    <h2>Date and Time</h2>
                     <h3>Date: {event?.event_date}</h3>
-                    <h3>Start Time: {event?.start_time}</h3>
-                    <h3>End Time: {event?.end_time}</h3>
+                    <h3>Start: {ConvertTime(event?.start_time)}</h3>
+                    <h3>End: {ConvertTime(event?.end_time)}</h3>
                 </div>
             </div>
             <div className='li-event-preview'>
@@ -222,9 +227,9 @@ const EventDetails = () => {
                         </div>
                         <div className='date-time-info'>
                         <h2>Date and Time</h2>
-                            <h3>Date: {event?.event_date}</h3>
-                            <h3>Start Time: {event?.start_time}</h3>
-                            <h3>End Time: {event?.end_time}</h3>
+                            <h3>Date: {ConvertDate(event?.event_date)}</h3>
+                            <h3>Start: {ConvertTime(event?.start_time)}</h3>
+                            <h3>End: {ConvertTime(event?.end_time)}</h3>
                         </div>
                     </div>
                     <div className='li-event-preview'>

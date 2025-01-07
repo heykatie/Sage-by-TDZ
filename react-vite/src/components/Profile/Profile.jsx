@@ -15,6 +15,8 @@ import { RiLeafFill } from "react-icons/ri";
 import EditProfileModal from '../EditProfileModal/EditProfileModal.jsx';
 import OpenModalButton from '../OpenModalButton/OpenModalButton.jsx';
 import { thunkUserRSVPs } from '../../redux/rsvp.js';
+import { ConvertDate } from '../EventDetails/EventDetails';
+import { ConvertTime } from '../ListEvents/ListEvents.jsx';
 
 const ProfilePage = ({ profileState }) => {
 	const dispatch = useDispatch();
@@ -130,11 +132,11 @@ const ProfilePage = ({ profileState }) => {
 												<div className='li-event-location-time'>
 													<div className='city-date'>
 														<h2><Location event={event} /></h2>
-														<h3>Date: {event?.event_date}</h3>
+														<h3>Date: {ConvertDate(event?.event_date)}</h3>
 													</div>
 													<div className='start-end-time'>
-														<h3>Start Time: {event?.start_time}</h3>
-														<h3>End Time: {event?.end_time}</h3>
+														<h3>Start: {ConvertTime(event?.start_time)}</h3>
+														<h3>End: {ConvertTime(event?.end_time)}</h3>
 													</div>
 												</div>
 												<p className='li-event-description'>{event?.description}</p>
