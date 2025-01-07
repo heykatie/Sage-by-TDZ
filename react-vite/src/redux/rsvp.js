@@ -5,53 +5,33 @@ import { csrfFetch } from './csrf'
 const LOAD_RSVPS = 'session/LOAD_RSVPS';
 
 //action-creators
-export const loadRSVPs = (rsvps) => ({
+export const loadRSVPs = (payload) => ({
     type: LOAD_RSVPS,
-    rsvps
+    payload
 });
 
 //thunks
-export const thunkGetRSVPs = (eventId) => async dispatch => {
-    const res = await csrfFetch(`http://127.0.0.1:5000/api/events/rsvps`, {headers: {
-        'Accept': 'application/json'
-      }})
+export const thunkUserRSVPs = () => async dispatch => {
+    const res = await csrfFetch('/api/profile/rsvps')
 
-    // console.log('WE HAVE THUNK')
-
-    if( res.status === 200 ){
-
-        const data = await res.text();
-
-        console.log('rsvps HAVE BEEN FOUND  ----->', data)
-        // dispatch(loadRSVPs(data.RSVPs));
-        return null;
+    if( res.ok ){
+        const data = await res.json();
+        dispatch(loadRSVPs(data))
     } else {
         const errors = res.errors;
-        // console.log('IM A PROBLEM', errors)
         return errors;
     }
 };
 
-//normailzer
-const normalData = (data) => {
-    const normalData = {}
-    data.forEach((event) => {
-        normalData[event.id] = event
-    })
-
-    return normalData
-}
 
 //reducer
-const initialState = {allRsvps: {}}
+const initialState = { userRsvps: {} }
 const rsvpsReducer = (state = initialState, action) => {
-    // console.log('IN RSVP REDUCER -->',action.rsvps)
     switch(action.type) {
         case LOAD_RSVPS:{
-            // console.log('IN REDUCER -->',action.rsvps)
-            const rsvpState = {...state}
-            rsvpState.allRsvps = normalData(action.rsvps)
-            return rsvpState;
+            const newState = { ...state, userRsvps: {} }
+            newState.userRsvps = action.payload
+            return newState;
         }
         default:
             return state

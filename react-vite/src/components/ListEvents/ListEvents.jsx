@@ -68,7 +68,7 @@ const ListEvents = () => {
 					)}
 				</ul>
 			</div>
-			{user ? <UpcomingEvents user={user} /> : ''}
+			{user ? <UpcomingEvents user={user} events={events} /> : ''}
 		</>
 	);
 };
