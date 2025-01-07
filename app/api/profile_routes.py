@@ -10,9 +10,9 @@ profile_routes = Blueprint('profile', __name__)
 @profile_routes.route('/')
 @login_required
 def badges():
-    userId = current_user.get_id()
+    user_id = current_user.get_id()
     currentDate = datetime.datetime.now().strftime("%Y-%m-%d")
-    rsvps = RSVP.query.filter(RSVP.user_id == userId)
+    rsvps = RSVP.query.filter(RSVP.user_id == user_id)
     if rsvps:
         rsvpList = [rsvp.event_id for rsvp in rsvps]
         events = [Event.query.get(eventId) for eventId in rsvpList]
@@ -23,9 +23,9 @@ def badges():
 @profile_routes.route('/rsvps')
 @login_required
 def rsvps():
-    userId = current_user.get_id()
+    user_id = current_user.get_id()
     currentDate = datetime.datetime.now().strftime("%Y-%m-%d")
-    rsvps = RSVP.query.filter(RSVP.user_id == userId)
+    rsvps = RSVP.query.filter(RSVP.user_id == user_id)
     if rsvps:
         rsvpList = [rsvp.event_id for rsvp in rsvps]
         events = [Event.query.get(eventId)for eventId in rsvpList]
@@ -39,8 +39,8 @@ def edit_profile():
     form = ProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        userId = current_user.get_id()
-        user = User.query.get(userId)
+        user_id = current_user.get_id()
+        user = User.query.get(user_id)
 
         user.username = form.data['username']
         user.email = form.data['email']
