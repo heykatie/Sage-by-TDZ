@@ -63,7 +63,7 @@ const UpcomingEvents = ({user, events}) => {
         <ul className='event-list'>
             { rsvps && rsvps?.length ?
             eventTiles(upcomingEvents) :
-            <h1>RSVP to see Upcoming Events</h1>
+            <h2>RSVP to see Upcoming Events</h2>
             }
         </ul>
         </div>

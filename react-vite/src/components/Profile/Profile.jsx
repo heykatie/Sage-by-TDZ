@@ -151,12 +151,16 @@ const ProfilePage = ({ profileState }) => {
 					</section>
 				);
 			case 'friends':
-				return <AllFriends />;
+				return (
+						<AllFriends />
+				
+			);
 			case 'edit-profile':
 				return (
 					<section id='edit-profile' className='edit-profile'>
 					<h3>Edit Profile</h3>
 					<form onSubmit={handleSubmit}>
+						<div className='form-info'>
 						<div>
 							<label>First Name</label>
 							<input
@@ -205,19 +209,21 @@ const ProfilePage = ({ profileState }) => {
 								onChange={(e) => setAddress(e.target.value)}
 							/>
 						</div>
-					{/* <button type='submit'>Save Changes</button> */}
-					<OpenModalButton
-					buttonText="Save Changes"
-					modalComponent={<EditProfileModal payload={payload} />}
-					onButtonClick
-					onModalClose
-					/>
-					<OpenModalButton
-					buttonText="Delete Profile"
-					modalComponent={<EditProfileModal payload={payload} />}
-					onButtonClick
-					onModalClose
-					/>
+						</div>
+					<div className='form-buttons'>
+						<OpenModalButton
+						buttonText="Save Changes"
+						modalComponent={<EditProfileModal payload={payload} />}
+						onButtonClick
+						onModalClose
+						/>
+						<OpenModalButton
+						buttonText="Delete Profile"
+						modalComponent={<EditProfileModal payload={payload} />}
+						onButtonClick
+						onModalClose
+						/>
+					</div>
 					</form>
 					</section>
 				);

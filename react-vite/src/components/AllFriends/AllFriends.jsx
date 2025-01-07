@@ -15,14 +15,14 @@ import {
 export const FriendTile = friend => {
     return (
         <div className='friend-tile' key={friend?.id}>
-            <img className='profile-pic' src={friend?.profile_pic}  />
             <Link 
             to={`/friends/${friend?.id}`}
             className='friend-link' 
             >
+            <img className='profile-pic' src={friend?.profile_pic}  />
             <h3 className='friend-name'>{friend?.first_name} {friend?.last_name}</h3>
-            </Link>
             <IoIosMore className='more-dots' />
+            </Link>
         </div>
     )
 }
