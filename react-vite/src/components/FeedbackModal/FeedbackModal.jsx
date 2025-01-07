@@ -107,15 +107,12 @@ const FeedbackFormModal = ({ eventId, organizer }) => {
             organizer_id: organizer.id
         };
 
-        // console.log(spot)
-
         return dispatch(addOrgFeedback(payload, eventId))
         .then(closeModal)
         .catch(async (res) => {
         const data = await res.json();
         if ( data ) {
             setErrors(data);
-            // console.log(errors)
         }
         });
     }

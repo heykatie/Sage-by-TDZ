@@ -16,9 +16,6 @@ const DeleteProfileModal = ({ user }) => {
         .then(closeModal)
         .catch(async (res) => {
         const data = await res.json();
-        if ( data ) {
-            console.log(data)
-        }
         });
     }
     return (

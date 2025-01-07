@@ -4,7 +4,6 @@ import { fetchGroupInvites } from "../../redux/invites";
 
 
 function GroupInvite({ invite }){
-    console.log(invite)
     return (
         <div>
             <p>{invite}</p>
@@ -15,16 +14,14 @@ function GroupInvite({ invite }){
 
 function GroupInvites() {
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user)
-
-    console.log('user', sessionUser)
+    const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(fetchGroupInvites(sessionUser.id))
-    }, [dispatch]);
+    }, [dispatch, sessionUser.id]);
 
     const invites = useSelector(state => state.invite);
-    console.log("what is going on with you", invites)
+
     return (
         <div className="group-invite-container">
             {invites.map(invite => (

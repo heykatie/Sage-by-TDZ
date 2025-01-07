@@ -22,10 +22,8 @@ const deleteRequest = (requestId) => ({
 
 export const fetchAllRequests = () => async (dispatch) => {
     const response = await csrfFetch('/api/requests/');
-    // console.log('hello from THUNK')
     if (response.ok) {
         const requests = await response.json();
-        // console.log('I AM YOUR REQUESTS', requests)
         dispatch(loadRequests(requests.sent_requests, requests.received_requests))
     }
 }

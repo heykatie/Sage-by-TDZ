@@ -13,15 +13,13 @@ const SentRequests = () => {
         dispatch(requestActions.fetchAllRequests())
     }, [dispatch])
 
-    const handleSumbit = () => {
+    const handleSumbit = (e) => {
         e.preventDefault()
-
         dispatch(requestActions.removeRequest())
     }
 
     return (
         <section id='sent-requests' className='requests'>
-            {/* {console.log('SENT HERE',sent, 'RECEIVE HERE', received)} */}
             <h3>Sent Requests</h3>
             <div className='request-list'>
                 {sent?.length > 0 ? (

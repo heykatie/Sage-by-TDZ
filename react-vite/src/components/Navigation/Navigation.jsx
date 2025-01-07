@@ -19,7 +19,6 @@ function Navigation() {
 
 	// Close modal
 	const closeGroupModal = () => {
-		console.log('Closing modal'); // Debug log to ensure it's firing
 		setShowCreateGroupModal(false);
 	};
 

@@ -33,7 +33,6 @@ const Groups = () => (
 function Dashboard() {
 
     const user = useSelector(state => state.session.user)
-    console.log(user)
     const [activeComponent, setActiveComponent] = useState('badges')
 
     const renderComponent = () => {

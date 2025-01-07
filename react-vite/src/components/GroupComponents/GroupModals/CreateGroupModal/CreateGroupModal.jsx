@@ -14,9 +14,7 @@ const CreateGroupModal = ({ onClose }) => {
 
 
 	useEffect(() => {
-		dispatch(fetchUserEvents()).then((response) => {
-			console.log('Fetched events:', response);
-		});
+		dispatch(fetchUserEvents());
 	}, [dispatch]);
 
 	// Handle event selection

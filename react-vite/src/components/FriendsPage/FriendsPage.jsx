@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import * as friendActions from '../../redux/friends';
 import { fetchCurrentUser } from '../../redux/user';
 
-import { friendTile } from '../AllFriends/AllFriends';
+import { FriendTile } from '../AllFriends/AllFriends';
 
 
 export default function FriendsPage() {
@@ -30,7 +30,7 @@ export default function FriendsPage() {
             <div className='tile-container'>
                 <div className='tiles'>
                     {friends && friends.map(friend=>(
-                    friendTile(friend)
+                    FriendTile(friend)
                     ))}
                 </div>
             </div>
