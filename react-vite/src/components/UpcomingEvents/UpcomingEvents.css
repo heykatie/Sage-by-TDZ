@@ -1,0 +1,15 @@
+.upcoming-event-description {
+    /* border: solid red; */
+    font-size: 16px;
+    font-weight: 400;
+    display: flex;
+    overflow: scroll;
+}
+
+.upcoming-event-description::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.upcoming-events-title {
+    margin: 20px 0px;
+}

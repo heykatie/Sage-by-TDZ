@@ -37,6 +37,7 @@
     border: solid #557b5d 2px;
     background-color: white;
     color: #557b5d;
+    margin: 0;
   }
 
   .demo-user-button:hover {

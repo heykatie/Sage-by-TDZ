@@ -15,6 +15,7 @@ import { fetchAllEvents } from '../../redux/event.js';
 import { RiLeafFill } from "react-icons/ri";
 import EditProfileModal from '../EditProfileModal/EditProfileModal.jsx';
 import OpenModalButton from '../OpenModalButton/OpenModalButton.jsx';
+import { thunkUserRSVPs } from '../../redux/rsvp.js';
 
 const ProfilePage = ({ profileState }) => {
 	const dispatch = useDispatch();
@@ -34,14 +35,20 @@ const ProfilePage = ({ profileState }) => {
 		dispatch(fetchUserBadges());
 		dispatch(fetchUserFriends());
 		dispatch(fetchUserGroups());
+		dispatch(thunkUserRSVPs())
 	}, [dispatch]);
 
 		useEffect(() => {
 			dispatch(fetchAllEvents()); // Fetch all events
 		}, [dispatch]);
+	
 
 
-	const eventss = Object.values(useSelector((state) => state.events.events));
+	const rsvps = useSelector((state) => state.rsvp.userRsvps.rsvps)
+	let eventss;
+
+	if(rsvps) eventss = Object.values(rsvps);
+
 	const { profile, events, friends, groups, status, error } =
 		useSelector((state) => state.user);
 
@@ -67,6 +74,12 @@ const ProfilePage = ({ profileState }) => {
 	const handleSubmit = (event) => {
 		event.preventDefault()
 	}
+	const Location = ({event}) => {
+        if(event?.state === 'None') {
+            return (<h2 className='city-state-toggle'>Virtual</h2>)
+        }
+        return (<h2 className='city-state-toggle'>{event?.city}, {event?.state}</h2>)
+    }
 
 	// Dynamic content rendering
 	const renderSection = () => {
@@ -96,26 +109,26 @@ const ProfilePage = ({ profileState }) => {
 					<section id='events' className='events'>
 						<h3>Upcoming Events</h3>
 						<ul>
-							{events?.length > 0 ? (
-								events.map((event) => (
-									<li className='profile-events' key={event.id}>
+							{eventss?.length > 0 ? (
+								eventss.map((event) => (
+									<li className='profile-events' key={event?.id}>
 										<div className='li-event-list'>
 											<Link to={`/events/${event?.id}`}>
 												{' '}
 												{event?.title}
 												<div className='li-event-image'>
 													<img
-														src={event.preview}
+														src={event?.preview}
 														alt={event?.title}
 													/>
 												</div>
 												<div className='li-event-categories'>
-													{event.categories
+													{event?.categories
 														.split(',')
 														.map((category, index) => (
 															<li
 																className='category'
-																key={`${event.id}-category-${index}`}>
+																key={`${event?.id}-category-${index}`}>
 																<p>{category.trim()}</p>
 															</li>
 														))}
@@ -123,7 +136,7 @@ const ProfilePage = ({ profileState }) => {
 												<div className='li-event-description'>
 													<div className='city-date'>
 														<h2>
-															{event?.city}, {event?.state}
+															<Location event={event} />
 														</h2>
 														<h3>Date: {event?.event_date}</h3>
 													</div>
@@ -219,90 +232,89 @@ const ProfilePage = ({ profileState }) => {
 			case 'groups':
 				console.log('groups:', groups);
 				return (
-					<section id='groups' className='groups-section'>
-						<h3>Your Groups</h3>
-						<div className='group-list'>
-							{groups?.length > 0 ? (
-								groups.map((group) => {
-									// Find event details using event_id
-									const event = eventss.find(
-										(e) => e.id === group.event_id
-									);
-									console.log(group.id)
-									return (
-										<div className='group-card' key={group.id}>
-											<div className='group-image-container'>
-												<img
-													className='group-event-image'
-													src={
-														event?.preview || '/default-event.png'
-													}
-													alt={event?.title || 'Event Image'}
-												/>
-											</div>
-											<h4 className='group-title'>
-												{event?.title || 'No Event Title'}
-											</h4>
-											<p className='group-description'>
-												{group.description ||
-													'No description provided.'}
-											</p>
-											<p className='group-owner'>
-												<strong>Owner:</strong>{' '}
-												{group.owner_name || 'Unknown'}
-											</p>
-											<p className='group-members-count'>
-												<strong>Members:</strong>{' '}
-												{group.membersCount}
-											</p>
-											<div className='group-members'>
-												<strong>Members List:</strong>
-												<ul>
-													{group.members.length > 0 ? (
-														group.members.map((member) => (
-															<li
-																key={member.id}
-																className='member-item'>
-																{member.name}
-															</li>
-														))
-													) : (
-														<li>No members yet.</li>
-													)}
-												</ul>
-											</div>
-											<div className='group-card-buttons'>
-												<Link
-													to={`/groups/${group?.id}`}
-													className='view-group-button'>
-													View Group
-												</Link>
-												{group?.owner_id === profile?.id && (
-													<button
-														className='edit-group-button'
-														onClick={() =>
-															navigate(
-																`/groups/${group?.id}/edit`,
-																{
-																	state: {
-																		eventData: event,
-																		groupData: group,
-																	},
-																}
-															)
-														}>
-														Edit Group
-													</button>
-												)}
-											</div>
-										</div>
-									);
-								})
-							) : (
-								<p>You haven'&apos;t joined any groups yet.</p>
-							)}
-						</div>
-					</section>
+				<section id='groups' className='groups-section'>
+					<h3>Your Groups</h3>
+					<div className='group-list'>
+					{groups?.length > 0 ? (
+						groups.map((group) => {
+							// Find event details using event_id
+							const event = eventss.find(
+								(e) => e?.id === group?.event_id
+							);
+							return (
+								<div className='group-card' key={group?.id}>
+									<div className='group-image-container'>
+										<img
+											className='group-event-image'
+											src={
+												event?.preview || '/default-event.png'
+											}
+											alt={event?.title || 'Event Image'}
+										/>
+									</div>
+									<h4 className='group-title'>
+										{event?.title || 'No Event Title'}
+									</h4>
+									<p className='group-description'>
+										{group?.description ||
+											'No description provided.'}
+									</p>
+									<p className='group-owner'>
+										<strong>Owner:</strong>{' '}
+										{group?.owner_name || 'Unknown'}
+									</p>
+									<p className='group-members-count'>
+										<strong>Members:</strong>{' '}
+										{group?.membersCount}
+									</p>
+									<div className='group-members'>
+										<strong>Members List:</strong>
+										<ul>
+											{group?.members.length > 0 ? (
+												group?.members.map((member) => (
+													<li
+														key={member.id}
+														className='member-item'>
+														{member.name}
+													</li>
+												))
+											) : (
+												<li>No members yet.</li>
+											)}
+										</ul>
+									</div>
+									<div className='group-card-buttons'>
+										<Link
+											to={`/groups/${group?.id}`}
+											className='view-group-button'>
+											View Group
+										</Link>
+										{group?.owner_id === profile?.id && (
+											<button
+												className='edit-group-button'
+												onClick={() =>
+													navigate(
+														`/groups/${group?.id}/edit`,
+														{
+															state: {
+																eventData: event,
+																groupData: group,
+															},
+														}
+													)
+												}>
+												Edit Group
+											</button>
+										)}
+									</div>
+								</div>
+							);
+						})
+					) : (
+						<p>You haven'&apos;t joined any groups yet.</p>
+					)}
+					</div>
+				</section>
 				);
 			default:
 				return null;

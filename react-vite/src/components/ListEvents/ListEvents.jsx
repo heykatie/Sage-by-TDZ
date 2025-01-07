@@ -40,7 +40,7 @@ const ListEvents = () => {
 								</span>
 							))}
 						</div>
-						<div className='li-event-description'>
+						<div className='li-event-location-time'>
 							<div className='city-date'>
 								<Location event={event} />
 								<h3>Date: {event?.event_date}</h3>
@@ -50,7 +50,7 @@ const ListEvents = () => {
 								<h3>End Time: {event?.end_time}</h3>
 							</div>
 						</div>
-						<p>{event?.description}</p>
+						<p className='li-event-description'>{event?.description}</p>
 					</Link>
 				</div>
 			</li>

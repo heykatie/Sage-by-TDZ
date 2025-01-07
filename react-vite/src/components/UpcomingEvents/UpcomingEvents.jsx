@@ -18,13 +18,19 @@ const UpcomingEvents = ({user, events}) => {
 
     if(rsvps) {upcomingEvents = Object.values(rsvps)}
 
-    
+    const Location = ({event}) => {
+        if(event?.state === 'None') {
+            return (<h2 className='text'>Virtual</h2>)
+        }
+        return (<h2 className='text'>{event?.city}, {event?.state}</h2>)
+    }
 
 
     const eventTiles = (events) => (events?.map((event)=>(
         <li key = {event?.id}>
             <div className='li-event-list'>
-                <Link to={ `/events/${event?.id}` } > {event?.title}
+                <Link to={ `/events/${event?.id}` }> 
+                <div className='li-event-title'>{event?.title}</div>
                 <img src={event?.preview} alt={event?.title} />
                 <div className='li-event-categories'></div>
                     {event?.categories.split(',').forEach(category => {
@@ -32,9 +38,9 @@ const UpcomingEvents = ({user, events}) => {
                             <p>{category}</p>
                         </li>
                     })}
-                <div className='li-event-description'>
+                <div className='li-event-location-time'>
                     <div className='city-date'>
-                       <h2>{event?.city}, {event?.state}</h2>
+                       <Location event={event} />
                         <h3>Date: {event?.event_date}</h3> 
                     </div>
                     <div className='start-end-time'>
@@ -42,7 +48,7 @@ const UpcomingEvents = ({user, events}) => {
                         <h3>End Time: {event?.end_time}</h3> 
                     </div>
                 </div>
-                <p className='event-description'>{event.description}</p>
+                <p className='upcoming-event-description'>{event.description}</p>
                 </Link>
             </div>
         </li>
@@ -51,7 +57,7 @@ const UpcomingEvents = ({user, events}) => {
     return (
         <>
         <div className='event-list-container'>
-        <h2>UPCOMING EVENTS</h2>
+        <h2 className='upcoming-events-title'>UPCOMING EVENTS</h2>
         <ul className='event-list'>
             { rsvps && rsvps?.length ?
             eventTiles(upcomingEvents) :
