@@ -11,12 +11,12 @@ const DeleteProfileModal = ({ user }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        return dispatch(thunkDeleteProfile(user))
-        .then(closeModal)
-        .catch(async (res) => {
-        const data = await res.json();
-        });
+        
+        dispatch(thunkDeleteProfile(user))
+        closeModal()
+        // .catch(async (res) => {
+        // const data = await res.json();
+        // });
     }
     return (
         <>

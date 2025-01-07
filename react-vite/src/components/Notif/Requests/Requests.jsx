@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import * as inviteActions from '../../redux/invites';
-import {
-	fetchCurrentUser,
-	fetchUserEvents,
-	fetchUserBadges,
-	fetchUserFriends,
-	fetchUserGroups,
-} from '../../../redux/user'; // Ensure correct import path
+// import {
+// 	fetchCurrentUser,
+// 	fetchUserEvents,
+// 	fetchUserBadges,
+// 	fetchUserFriends,
+// 	fetchUserGroups,
+// } from '../../../redux/user'; // Ensure correct import path
 // import Navigation from '../Navigation';
 import './Requests.css';
 import SentRequests from './SentRequests';
