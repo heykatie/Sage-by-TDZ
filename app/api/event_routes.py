@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Event, Organizer, Feedback, RSVP, User
 from app.models.db import db
 from flask_login import login_required, current_user
+from sqlalchemy import and_
 
 event_routes = Blueprint('events', __name__)
 
@@ -53,7 +54,7 @@ def add_rsvp(event_id):
 
     data = request.get_json()
     event_id = data.get('event_id')
-    
+
     user_id = current_user.get_id()
     
     new_rsvp = RSVP(
@@ -67,9 +68,12 @@ def add_rsvp(event_id):
 
 @event_routes.route('/<int:event_id>/rsvps', methods=['DELETE'])
 @login_required
-def delete_rsvp(id):
+def delete_rsvp(event_id):
     userId = current_user.get_id()
-    rsvp = RSVP.query.filter_by(RSVP.event_id == id, RSVP.user_id == userId)
+    rsvp = RSVP.query.filter(and_(
+            RSVP.user_id == userId,
+            RSVP.event_id == event_id)
+        )
     if rsvp:
         db.session.delete(rsvp)
         db.session.commit()
