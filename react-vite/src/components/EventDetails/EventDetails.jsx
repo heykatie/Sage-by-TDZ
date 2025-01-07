@@ -105,7 +105,7 @@ const EventDetails = () => {
                     <Location event={event} />
                 </div>
                 <div className='date-time-info'>
-                   <h2>Date and Time</h2>
+                   <h2>Date & Time</h2>
                     <h3>Date: {event?.event_date}</h3>
                     <h3>Start: {ConvertTime(event?.start_time)}</h3>
                     <h3>End: {ConvertTime(event?.end_time)}</h3>

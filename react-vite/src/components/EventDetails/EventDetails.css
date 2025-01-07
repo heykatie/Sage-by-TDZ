@@ -77,6 +77,7 @@
 .create-group-button-container {
     /* border: solid red; */
     margin-top: 20px;
+    text-align: center;
 }
 
 .event-details-container button {
