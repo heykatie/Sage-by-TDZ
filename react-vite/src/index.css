@@ -64,3 +64,8 @@ button:hover {
 *#reverse:hover {
     background-color: #f0f5f2;
 }
+
+.error {
+    color: red;
+    font-weight: bold;
+}

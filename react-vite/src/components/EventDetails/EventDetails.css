@@ -61,7 +61,7 @@
     padding: 20px;
 }
 
-.li-event-rsvp {
+.li-event-rsvp, .login-to-rsvp {
     /* border: dotted; */
     display: flex;
     justify-content: center;

@@ -7,6 +7,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
+import { AiFillHome } from "react-icons/ai";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ function ProfileButton() {
       {showMenu && (
         <ul className="profile-dropdown" ref={ulRef}>
           {user ? (
-            <>
+            <li className="dropdown-li-container">
               <li className="user-info"><b>Hey {user.first_name}!</b></li>
               <li className="user-info">{user.username}</li>
               <li id="item" className="user-info">{user.email}</li>
@@ -69,7 +70,7 @@ function ProfileButton() {
               </li>
               <li className="dropdown-li" id="item">
                 <Link to="/profile/rsvps" onClick={closeMenu}>
-                  Events
+                  Your Events
                 </Link>
               </li>
               <li className="dropdown-li" id="item">
@@ -77,15 +78,20 @@ function ProfileButton() {
                   Manage Groups
                 </Link>
               </li>
-              <li className="dropdown-li">
+              <li className="dropdown-li" id="item">
                 <Link to="/notifications/" onClick={closeMenu}>
                   Notifications
+                </Link>
+              </li>
+              <li className="dropdown-li" id="home-icon">
+                <Link to="/" onClick={closeMenu}>
+                  Home <AiFillHome />
                 </Link>
               </li>
               <li className="dropdown-li">
                 <button onClick={logout}>Log Out</button>
               </li>
-            </>
+            </li>
           ) : (
             <>
               <OpenModalMenuItem

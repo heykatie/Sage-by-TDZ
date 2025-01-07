@@ -242,13 +242,14 @@ const EventDetails = () => {
                             </li>
                         })}
                     </div>
-                    <OpenModalButton
-                    buttonText="Login to RSVP"
-                    modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
-                    onButtonClick
-                    onModalClose
-                    />
-                    {/* <button onClick={rsvpLogin}className='login-to-rsvp-button'>Login to RSVP</button> */}
+                    <div className='login-to-rsvp'>
+                        <OpenModalButton
+                        buttonText="Login to RSVP"
+                        modalComponent={<LoginFormModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
+                        onButtonClick
+                        onModalClose
+                        />
+                    </div>
                     <div className='li-organizer-details'>
                         <div className='organizer-name-logo'>
                             <h2>Event Organizer - {organizer?.name}</h2>

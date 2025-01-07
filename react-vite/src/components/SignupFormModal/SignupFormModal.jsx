@@ -132,6 +132,7 @@ function SignupFormModal() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Password must min. 6 characters"
           />
         </label>
         {errors.password && <p className="error">{errors.password}</p>}
@@ -151,6 +152,7 @@ function SignupFormModal() {
             type="text"
             value={profilePic}
             onChange={(e) => setProfilePic(e.target.value)}
+            placeholder="(optional)"
           />
         </label>
         {errors.profilePic && <p className="error">{errors.profilePic}</p>}
