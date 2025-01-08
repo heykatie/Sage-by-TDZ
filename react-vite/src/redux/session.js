@@ -73,8 +73,7 @@ export const thunkDeleteProfile = (user) => async dispatch => {
   });
 
   if(response.ok) {
-    dispatch(removeUser());
-    return data
+    await dispatch(removeUser());
   } else if (response.status < 500) {
     const errorMessages = await response.text();
     console.error(errorMessages)
