@@ -7,6 +7,7 @@ import { thunkAllUsers } from '../../redux/user';
 import { thunkAllFriends } from '../../redux/friends';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import RSVPModal from '../RSVPModal/RSVPModal';
+import { IoArrowForward } from "react-icons/io5";
 
 
 const TileTitle = ({eventId, targetGroup}) => {
@@ -30,7 +31,7 @@ const TileTitle = ({eventId, targetGroup}) => {
            <Link
             to={`/events/${eventId}/rsvps`}
             className='view-rsvps-link'
-            >View all RSVPs</Link>  
+            >View all RSVPs <IoArrowForward /></Link>  
         </div> 
     )}
     else if (!targetRsvp && rsvps.length > 1) {
@@ -40,7 +41,7 @@ const TileTitle = ({eventId, targetGroup}) => {
             <Link
             to={`/events/${eventId}/rsvps`}
             className='view-rsvps-link'
-            >View all RSVPs</Link>
+            >View all RSVPs <IoArrowForward /></Link>
         </div>)
     } 
     else if (targetRsvp && !targetGroup && rsvps.length > 1) {
@@ -50,7 +51,7 @@ const TileTitle = ({eventId, targetGroup}) => {
             <Link
             to={`/events/${eventId}/rsvps`}
             className='view-rsvps-link'
-            >View all RSVPs</Link>
+            >View all RSVPs <IoArrowForward /></Link>
         </div>)
     } 
     else if (targetRsvp && !targetGroup && rsvps.length === 1) {
@@ -60,7 +61,7 @@ const TileTitle = ({eventId, targetGroup}) => {
             <Link
             to={`/events/${eventId}/rsvps`}
             className='view-rsvps-link'
-            >View all RSVPs</Link>
+            >View all RSVPs <IoArrowForward /></Link>
         </div>)
     }
     else if (targetRsvp && targetGroup && rsvps.length === 1) {
@@ -70,7 +71,7 @@ const TileTitle = ({eventId, targetGroup}) => {
                 <Link
                 to={`/events/${eventId}/rsvps`}
                 className='view-rsvps-link'
-                >View all RSVPs</Link>
+                >View all RSVPs <IoArrowForward /></Link>
             </div>
         )
     }
@@ -81,7 +82,7 @@ const TileTitle = ({eventId, targetGroup}) => {
                 <Link
                 to={`/events/${eventId}/rsvps`}
                 className='view-rsvps-link'
-                >View all RSVPs</Link>
+                >View all RSVPs <IoArrowForward /></Link>
             </div>
         )
     }

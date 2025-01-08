@@ -13,3 +13,10 @@
 .upcoming-events-title {
     margin: 20px 0px;
 }
+
+.event-tiles-title {
+    /* border: solid red; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}

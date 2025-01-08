@@ -22,6 +22,7 @@ const UpcomingEvents = () => {
     let upcomingEvents;
 
     if(rsvps) {upcomingEvents = Object.values(rsvps).filter(e=>new Date(e.event_date)>currentDate)}
+    console.log(upcomingEvents)
 
     const Location = ({event}) => {
         if(event?.state === 'None') {
@@ -31,7 +32,7 @@ const UpcomingEvents = () => {
     }
 
 
-    const eventTiles = (events) => (events?.map((event)=>(
+    const EventTiles = (events) => (events?.map((event)=>(
         <li key = {event?.id}>
             <div className='li-event-list'>
                 <Link to={ `/events/${event?.id}` }> 
@@ -63,12 +64,10 @@ const UpcomingEvents = () => {
         <>
         <div className='event-list-container'>
         <h2 className='upcoming-events-title'>UPCOMING EVENTS</h2>
+        {upcomingEvents && <p>You have RSVPd &apos;Yes&apos; to the following events:</p>}
         <ul className='event-list'>
-            { rsvps && rsvps?.length < 1 ? 
-            <>
-            <p>You have RSVPd &apos;Yes&apos; to the following events:</p>
-            <span>{eventTiles(upcomingEvents)}</span>
-            </>
+            { upcomingEvents ? 
+                EventTiles(upcomingEvents)
              :
             <h3>No upcoming events found, RSVP to an event to get started!</h3>
             }
