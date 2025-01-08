@@ -127,12 +127,15 @@
 
 .events ul {
   /* border: dotted blue; */
-  width: 100%;
+  max-width: 1280px;
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  padding: 0;
+  padding: 20px;
+  margin: 0 auto;
 }
+
+
 
 .li-event-categories li {
   border: dashed magenta;
@@ -143,6 +146,7 @@
 .li-event-list#upcoming {
   border: solid lightgray 1px;
   padding: 20px;
+  width: 360px;
 }
 
 .dashboard-events .li-event-location-time h2 {
@@ -153,10 +157,9 @@
 /* Friends Section */
 
 
-/* Groups Section
-.groups ul {
-  list-style: none;
-  padding: 0;
+.dash-friend-tiles .tiles {
+  /* border: solid red; */
+  margin-top: 40px;
 }
 
 

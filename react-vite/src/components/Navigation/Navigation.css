@@ -108,6 +108,13 @@
 .sage-icon-container {
   display: flex;
   align-items: center;
+  column-gap: 24px;
+}
+
+.icon-label {
+  /* border: solid red; */
+  display: flex;
+  align-items: center;
   column-gap: 8px;
 }
 

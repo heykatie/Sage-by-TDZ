@@ -8,19 +8,6 @@ import { thunkAllFriends } from '../../redux/friends';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import RSVPModal from '../RSVPModal/RSVPModal';
 
-// const Title = () => {
-//     if(targetRsvp && rsvpArr.length == 1) {
-//         return (<h4>You have RSVPd - Invite Friends to join you!</h4> )
-//     }
-//     else if(!targetRsvp && rsvpArr.length == 1){
-//         return (<h4>{rsvpArr.length} User has RSVPd, join in the fun!</h4> )
-//     }
-//     else if(targetRsvp && rsvpArr.length > 1){
-//         return (<h4>{rsvpArr.length} Users have RSVPd - Invite Friends to join you!</h4>)
-//     }
-//     return (<h4>{rsvpArr.length} Users have RSVPd, join in the fun!</h4>)
-// }
-
 
 const TileTitle = ({eventId, targetGroup}) => {
     const dispatch = useDispatch();
@@ -142,7 +129,7 @@ export default function EventRSVPTiles({targetGroup}) {
         }
     }
 
-    const rsvpTile = r => {
+    const RsvpTile = r => {
         return (
             <div>
                <div className='event-rsvp-tile' key={r.id}>
@@ -170,7 +157,7 @@ export default function EventRSVPTiles({targetGroup}) {
                     {currentUser && <TileTitle targetGroup={targetGroup} eventId={eventId} />}
                     <div className='rsvp-tiles-container' key={e.event?.id}>
                     {rsvps && Object.values(rsvps).map(r=>(
-                        <div key={r?.id}>{rsvpTile(r)}</div>
+                        <div key={r?.id}>{RsvpTile(r)}</div>
                     ))}
                     </div> 
                 </div>

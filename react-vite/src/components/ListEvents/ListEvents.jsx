@@ -6,6 +6,61 @@ import { useEffect } from 'react';
 import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
 import { ConvertDate } from '../EventDetails/EventDetails';
 
+export const stateAbbObj = {
+	'Alabama': 'AL',
+	'Alaska': 'AK',
+	'Arizona': 'AZ',
+	'Arkansas': 'AR',
+	'California': 'CA',
+	'Colorado': 'CO',
+	'Connecticut': 'CT',
+	'Delaware': 'DE',
+	'Florida': 'FL',
+	'Georgia': 'GA',
+	'Hawaii': 'HI',
+	'Idaho': 'ID',
+	'Illinois': 'IL',
+	'Indiana': 'IN',
+	'Iowa': 'IA',
+	'Kansas': 'KS',
+	'Kentucky': 'KY',
+	'Louisiana': 'LA',
+	'Maine': 'ME',
+	'Maryland': 'MD',
+	'Massachusetts': 'MA',
+	'Michigan': 'MI',
+	'Minnesota': 'MN',
+	'Mississippi': 'MS',
+	'Missouri': 'MO',
+	'Montana': 'MT',
+	'Nebraska': 'NE',
+	'Nevada': 'NV',
+	'New Hampshire': 'NH',
+	'New Jersey': 'NJ',
+	'New Mexico': 'NM',
+	'New York': 'NY',
+	'North Carolina': 'NC',
+	'North Dakota': 'ND',
+	'Ohio': 'OH',
+	'Oklahoma': 'OK',
+	'Oregon': 'OR',
+	'Pennsylvania': 'PA',
+	'Rhode Island': 'RI',
+	'South Carolina': 'SC',
+	'South Dakota': 'SD',
+	'Tennessee': 'TN',
+	'Texas': 'TX',
+	'Utah': 'UT',
+	'Vermont': 'VT',
+	'Virginia': 'VA',
+	'Washington': 'WA',
+	'West Virginia': 'WV',
+	'Wisconsin': 'WI',
+	'Wyoming': 'WY'
+	} 
+
+
+
 export const ConvertTime = (time) => {
 	if(time.length === 7) return `${time.slice(0, 4)} AM`
 	if(time.length === 8 && +time.slice(0, 2) < 12) return `${time.slice(0, 5)} AM`
@@ -26,13 +81,12 @@ const ListEvents = () => {
         if(event?.state === 'None') {
             return (<h2 className='text'>Virtual</h2>)
         }
-        return (<h2 className='text'>{event?.city}, {event?.state}</h2>)
+        return (<h2 className='text'>{event?.city}, {stateAbbObj[event?.state]}</h2>)
     }
 
 	const eventTiles = (events) =>
-		events.map((event) => (
-			<li className='profile-events' key={event.id}>
-				{console.log(event.start_time, event.start_time.length)}
+		events.sort((a, b) => new Date(b.event_date) - new Date(a.event_date)).map((event) => (
+			<li className='profile-events' key={event?.id}>
 				<div className='li-event-list'>
 					<Link to={`/events/${event?.id}`}>
 						<div className='li-event-title'>{event?.title}</div>
@@ -50,7 +104,7 @@ const ListEvents = () => {
 						</div>
 						<div className='li-event-location-time'>
 							<div className='city-date'>
-								<h2><Location event={event} /></h2>
+								<Location event={event} />
 								<h3>Date: {ConvertDate(event?.event_date)}</h3>
 							</div>
 							<div className='start-end-time'>
@@ -63,6 +117,7 @@ const ListEvents = () => {
 				</div>
 			</li>
 		));
+
 
 	return (
 		<>

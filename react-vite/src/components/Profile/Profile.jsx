@@ -154,8 +154,9 @@ const ProfilePage = ({ profileState }) => {
 				);
 			case 'friends':
 				return (
+					<div className='dash-friend-tiles'>
 						<AllFriends />
-
+					</div>
 			);
 			case 'edit-profile':
 				return (

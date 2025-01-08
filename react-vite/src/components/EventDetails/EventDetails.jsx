@@ -19,6 +19,8 @@ import LoginFormModal from '../LoginFormModal';
 import RemoveRSVPModal from '../RemoveRSVPModal/RemoveRSVPModal';
 import { ConvertTime } from '../ListEvents/ListEvents';
 import { fetchUserGroups } from '../../redux/user';
+import { stateAbbObj } from '../ListEvents/ListEvents';
+
 
 export const ConvertDate = date => {
     return new Date(date).toLocaleDateString();
@@ -26,7 +28,6 @@ export const ConvertDate = date => {
 
 
 const EventDetails = () => {
-    const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ const EventDetails = () => {
                 onModalClose
                 /> )
         }
-        if(new Date(eventInfo?.event?.event_date) >= currentDate){return (
+        if(new Date(eventInfo?.event?.event_date) > currentDate){return (
             <div className='create-group-button-container'>
                 {!targetGroup.length && <p>Invite your friends to volunteer with you!</p>}
                 {!targetGroup.length && <OpenModalButton
@@ -87,7 +88,7 @@ const EventDetails = () => {
             <>
             <h3>{event?.address}</h3>
             <h3>{event?.city}</h3>
-            <h3>{event?.state}</h3>
+            <h3>{stateAbbObj[event?.state]}</h3>
             </>
         )
     }

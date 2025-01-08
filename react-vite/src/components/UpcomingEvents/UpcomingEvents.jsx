@@ -5,6 +5,7 @@ import './UpcomingEvents.css'
 import { Link } from 'react-router-dom';
 import { ConvertDate } from '../EventDetails/EventDetails';
 import { ConvertTime } from '../ListEvents/ListEvents';
+import { stateAbbObj } from '../ListEvents/ListEvents';
 
 
 const UpcomingEvents = ({user, events}) => {
@@ -26,7 +27,7 @@ const UpcomingEvents = ({user, events}) => {
         if(event?.state === 'None') {
             return (<h2 className='text'>Virtual</h2>)
         }
-        return (<h2 className='text'>{event?.city}, {event?.state}</h2>)
+        return (<h2 className='text'>{event?.city}, {stateAbbObj[event?.state]}</h2>)
     }
 
 
