@@ -26,6 +26,7 @@ const GroupForm = ({ isEditMode }) => {
 
 	const invitedFriends = useSelector((state) => state.invite || []); // Invited friends list
 
+    const [tempSelectedFriends, setTempSelectedFriends] = useState([]); 
 	const [description, setDescription] = useState('');
 	const [friendsList, setFriendsList] = useState([]);
 	const [selectedFriends, setSelectedFriends] = useState([]);
@@ -44,6 +45,7 @@ const GroupForm = ({ isEditMode }) => {
 	useEffect(() => {
 		if (isEditMode) {
 			setSelectedFriends(invitedFriends.map((invite) => invite.friend_id));
+			setTempSelectedFriends(invitedFriends.map((invite) => invite.friend_id))
 			setDescription(group?.description || '');
 		}
 	}, [invitedFriends, isEditMode, group?.description]);
@@ -61,61 +63,69 @@ const GroupForm = ({ isEditMode }) => {
 	}, [dispatch, eventData, navigate]);
 
 	const toggleFriendSelection = async (friend) => {
-		try {
-			let groupIdToUse = groupsId || groupId; // Prefer groupsId after group is auto-created
 
-			if (!groupIdToUse) {
-				const payload = {
-					description,
-					eventId: eventData.id,
-					ownerId: currentUser.id,
-				};
+		const isAlreadySelected = tempSelectedFriends.includes(friend.id);
 
-				const savedGroup = await dispatch(thunkCreateGroup(payload));
-				if (savedGroup?.id) {
-					groupIdToUse = savedGroup.id;
-					setGroupsId(savedGroup.id);
-				}
-			}
-
-			const isAlreadySelected = selectedFriends.includes(friend.id);
-
-			if (isAlreadySelected) {
-				const inviteToDelete = invitedFriends.find(
-					(invite) => invite.friend_id === friend.id
-				);
-
-				if (inviteToDelete && inviteToDelete.id) {
-					await dispatch(deleteInvite(inviteToDelete.id));
-					setSelectedFriends((prev) =>
-						prev.filter((f) => f !== friend.id)
-					);
-				} else {
-					console.error('Invite not found or invite ID missing.');
-				}
-			} else {
-				const invitePayload = {
-					group_id: groupIdToUse,
-					user_id: currentUser.id,
-					friend_id: friend.id,
-					event_id: eventData.id,
-					going: null,
-				};
-
-				const newInvite = await dispatch(createInvite(invitePayload));
-
-				if (newInvite?.id) {
-					setSelectedFriends((prevSelectedFriends) => [
-						...prevSelectedFriends,
-						friend.id,
-					]);
-				} else {
-					console.error('Failed to add friend: invite ID is missing');
-				}
-			}
-		} catch (error) {
-			console.error('Failed to create invite:', error);
+		if (isAlreadySelected) {
+			setTempSelectedFriends((prev) => prev.filter(f => f !== friend.id));
+		} else {
+			setTempSelectedFriends((prev) => [...prev, friend.id])
 		}
+		// try {
+		// 	let groupIdToUse = groupsId || groupId; // Prefer groupsId after group is auto-created
+
+		// 	if (!groupIdToUse) {
+		// 		const payload = {
+		// 			description,
+		// 			eventId: eventData.id,
+		// 			ownerId: currentUser.id,
+		// 		};
+
+		// 		const savedGroup = await dispatch(thunkCreateGroup(payload));
+		// 		if (savedGroup?.id) {
+		// 			groupIdToUse = savedGroup.id;
+		// 			setGroupsId(savedGroup.id);
+		// 		}
+		// 	}
+
+		// 	const isAlreadySelected = selectedFriends.includes(friend.id);
+
+		// 	if (isAlreadySelected) {
+		// 		const inviteToDelete = invitedFriends.find(
+		// 			(invite) => invite.friend_id === friend.id
+		// 		);
+
+		// 		if (inviteToDelete && inviteToDelete.id) {
+		// 			await dispatch(deleteInvite(inviteToDelete.id));
+		// 			setSelectedFriends((prev) =>
+		// 				prev.filter((f) => f !== friend.id)
+		// 			);
+		// 		} else {
+		// 			console.error('Invite not found or invite ID missing.');
+		// 		}
+		// 	} else {
+		// 		const invitePayload = {
+		// 			group_id: groupIdToUse,
+		// 			user_id: currentUser.id,
+		// 			friend_id: friend.id,
+		// 			event_id: eventData.id,
+		// 			going: null,
+		// 		};
+
+		// 		const newInvite = await dispatch(createInvite(invitePayload));
+
+		// 		if (newInvite?.id) {
+		// 			setSelectedFriends((prevSelectedFriends) => [
+		// 				...prevSelectedFriends,
+		// 				friend.id,
+		// 			]);
+		// 		} else {
+		// 			console.error('Failed to add friend: invite ID is missing');
+		// 		}
+		// 	}
+		// } catch (error) {
+		// 	console.error('Failed to create invite:', error);
+		// }
 	};
 
 	const handleSaveGroup = async (e) => {
@@ -129,18 +139,53 @@ const GroupForm = ({ isEditMode }) => {
 			eventId: eventData.id,
 		};
 
+		let groupIdToUse = groupsId || groupId; // Prefer groupsId after group is auto-created
+
 		if (isEditMode) {
 			await dispatch(thunkUpdateGroup({ ...payload, groupId }));
-			navigate(`/groups/${groupId}`);
+			// navigate(`/groups/${groupId}`);
 		} else {
 			const savedGroup = await dispatch(thunkCreateGroup(payload));
 			if (savedGroup?.id) {
 				setGroupsId(savedGroup.id);
-				navigate(`/groups/${savedGroup.id}`);
+				// navigate(`/groups/${savedGroup.id}`);
 			} else {
 				console.error('Failed to navigate: Group ID not found');
 			}
 		}
+
+
+		await Promise.all(
+			tempSelectedFriends.map(async (friendId) => {
+				const isAlreadySelected = selectedFriends.includes(friendId)
+				if (!isAlreadySelected) {
+					const invitePayload = {
+						group_id: groupIdToUse,
+						user_id: currentUser.id,
+						friend_id: friendId,
+						event_id: eventData.id,
+						going: null,
+					};
+					await dispatch(createInvite(invitePayload))
+				}
+			})
+		);
+
+		await Promise.all(
+			selectedFriends.map(async (friendId) => {
+				if (!tempSelectedFriends.includes(friendId)) {
+					const inviteToDelete = invitedFriends.find(
+						(invite) => invite.friend_id === friendId
+					);
+					if (inviteToDelete && inviteToDelete.id) {
+						await dispatch(deleteInvite(inviteToDelete.id))
+					}
+				}
+			})
+		);
+
+		navigate(`/groups/${groupIdToUse}`);
+		setSelectedFriends(tempSelectedFriends);
 	};
 
 	const handleDeleteGroup = async () => {
@@ -201,12 +246,12 @@ const GroupForm = ({ isEditMode }) => {
 									</div>
 									<button
 										className={`select-friend-button ${
-											selectedFriends.includes(friend.id)
+											tempSelectedFriends.includes(friend.id)
 												? 'selected'
 												: ''
 										}`}
 										onClick={() => toggleFriendSelection(friend)}>
-										{selectedFriends.includes(friend.id)
+										{tempSelectedFriends.includes(friend.id)
 											? 'Remove'
 											: 'Add'}
 									</button>
@@ -233,7 +278,7 @@ const GroupForm = ({ isEditMode }) => {
 						Save Group
 					</button>
 					<button
-						onClick={() => navigate(`/events/${eventData.id}`)}
+						onClick={() => navigate(`/groups/`)}
 						className='cancel-button'>
 						Cancel
 					</button>
