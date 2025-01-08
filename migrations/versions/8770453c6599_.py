@@ -136,6 +136,7 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE invites SET SCHEMA {SCHEMA};")
+        
     op.create_table('messages',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -149,6 +150,7 @@ def upgrade():
     )
     if environment == "production":
         op.execute(f"ALTER TABLE messages SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
