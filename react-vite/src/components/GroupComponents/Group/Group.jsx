@@ -15,6 +15,7 @@ const Group = () => {
 	const [members, setMembers] = useState([]);
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState('');
+	const currentDate = new Date();
 
 	// Fetch group members and group details
 	useEffect(() => {
@@ -107,8 +108,8 @@ const Group = () => {
 					Hosted by: {`${group.owner?.first_name} ${group.owner?.last_name}`}
 				</p>
 			</div>
-			
 			<div className='date-address-div'>
+				
 				<p>{`${group.event?.event_date} | ${group.event?.start_time} | ${group.event?.categories}`}</p>
 				<p>
 					{group.event?.address}, {group.event?.city},{' '}
@@ -198,6 +199,7 @@ const Group = () => {
 				</button>
 				{isOwner && (
 					<button
+						disabled={new Date(group.event?.event_date) < currentDate}
 						onClick={() =>
 							navigate(`/groups/${groupId}/edit`, {
 								state: { eventData: group.event, groupData: group },

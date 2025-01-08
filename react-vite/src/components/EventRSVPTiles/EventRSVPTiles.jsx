@@ -8,6 +8,20 @@ import { thunkAllFriends } from '../../redux/friends';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import RSVPModal from '../RSVPModal/RSVPModal';
 
+// const Title = () => {
+//     if(targetRsvp && rsvpArr.length == 1) {
+//         return (<h4>You have RSVPd - Invite Friends to join you!</h4> )
+//     }
+//     else if(!targetRsvp && rsvpArr.length == 1){
+//         return (<h4>{rsvpArr.length} User has RSVPd, join in the fun!</h4> )
+//     }
+//     else if(targetRsvp && rsvpArr.length > 1){
+//         return (<h4>{rsvpArr.length} Users have RSVPd - Invite Friends to join you!</h4>)
+//     }
+//     return (<h4>{rsvpArr.length} Users have RSVPd, join in the fun!</h4>)
+// }
+
+
 const TileTitle = ({eventId}) => {
     const dispatch = useDispatch();
 
@@ -21,25 +35,48 @@ const TileTitle = ({eventId}) => {
     }, [dispatch, eventId]);
 
     const rsvps = Object.values(useSelector(state=>state.event.rsvps)).map(r=>r.user_id);
+    const targetRsvp = rsvps.includes(currentUser.id);
 
-    if(!rsvps.includes(currentUser.id)) {return (
+    if(!targetRsvp && rsvps.length == 1) {return (
         <div className='rsvps-label-link'>
-           <h4>{rsvps?.length} Users have RSVPd, join in the fun!</h4>
+           <h4>{rsvps?.length} user has RSVPd, join in the fun!</h4>
            <Link
             to={`/events/${eventId}/rsvps`}
             className='view-rsvps-link'
             >View all RSVPs</Link>  
         </div> 
-    )} else if (rsvps[currentUser.id]) {
+    )}
+    else if (!targetRsvp && rsvps.length > 1) {
         return (
         <div className='rsvps-label-link'>
-            <h4>{Object.values(rsvps)?.length} Users have RSVPd</h4>
+            <h4>{rsvps?.length} users have RSVPd, join in the fun!</h4>
             <Link
             to={`/events/${eventId}/rsvps`}
             className='view-rsvps-link'
             >View all RSVPs</Link>
         </div>)
-    } else {
+    } 
+    else if (targetRsvp && rsvps.length > 1) {
+        return (
+        <div className='rsvps-label-link'>
+            <h4>{rsvps?.length} users have RSVPd - Invite Friends to join you!</h4>
+            <Link
+            to={`/events/${eventId}/rsvps`}
+            className='view-rsvps-link'
+            >View all RSVPs</Link>
+        </div>)
+    } 
+    else if (targetRsvp && rsvps.length === 1) {
+        return (
+        <div className='rsvps-label-link'>
+            <h4>You have RSVPd - Invite Friends to join you!</h4>
+            <Link
+            to={`/events/${eventId}/rsvps`}
+            className='view-rsvps-link'
+            >View all RSVPs</Link>
+        </div>)
+    }
+    else {
         return (
         <div>
         </div>
@@ -74,22 +111,8 @@ export default function EventRSVPTiles() {
         if(friends[id]) return `/friends/${id}`
         if(id === currentUser.id) return `/profile/`
         // need page for users who are not friends
-        return alert('Feature coming soon...')
     }
 
-
-    const Title = () => {
-        if(targetRsvp && rsvpArr.length == 1) {
-            return (<h4>You have RSVPd - Invite Friends to join you!</h4> )
-        }
-        else if(!targetRsvp && rsvpArr.length == 1){
-            return (<h4>{rsvpArr.length} User has RSVPd, join in the fun!</h4> )
-        }
-        else if(targetRsvp && rsvpArr.length > 1){
-            return (<h4>{rsvpArr.length} Users have RSVPd - Invite Friends to join you!</h4>)
-        }
-        return (<h4>{rsvpArr.length} Users have RSVPd, join in the fun!</h4>)
-    }
 
 
     const Rsvp = () => {
@@ -101,13 +124,11 @@ export default function EventRSVPTiles() {
                 onModalClose
                 /> )
         }
-        return (<button>Log In to RSVP</button>)
     }
 
     const rsvpTile = r => {
         return (
             <div>
-                <Title />
                <div className='event-rsvp-tile' key={r.id}>
                     <Link
                     className='rsvp-link'

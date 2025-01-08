@@ -56,6 +56,14 @@ button:hover {
     background-color: #557b5d;
 }
 
+button:disabled {
+    background-color: gray;
+}
+
+button:disabled:hover {
+    background-color: gray;
+}
+
 *#reverse {
     background-color: white;
     color: #4a7744;

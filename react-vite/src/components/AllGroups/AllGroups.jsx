@@ -14,6 +14,7 @@ export default function AllGroups() {
 	const { profile, groups } = useSelector((state) => state.user);
 	const events = useSelector((state) => state.events.events);
 	const currentUser = useSelector((state) => state.session.user);
+	const currentDate = new Date();
 
 	useEffect(() => {
 		dispatch(fetchCurrentUser());
@@ -24,6 +25,7 @@ export default function AllGroups() {
 	if (!currentUser) navigate('/');
 
 	const eventsArray = Object.values(events);
+	console.log(eventsArray)
 
 	return (
 		<div className='all-groups'>
@@ -79,6 +81,7 @@ export default function AllGroups() {
 									</Link>
 									{group.owner_id === profile?.id && (
 										<button
+										disabled={new Date(eventsArray[group.event_id].event_date) < currentDate}
 											onClick={() =>
 												navigate(`/groups/${group.id}/edit`, {
 													state: {

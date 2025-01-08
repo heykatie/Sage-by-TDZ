@@ -45,6 +45,7 @@ const EventDetails = () => {
     const eventInfo = event[eventId];
     const rsvps = Object.values(useSelector(state=>state.event.rsvps))
     const rsvpArr = rsvps.map(r=>r?.user_id);
+    const currentDate = new Date();
 
 
     const Rsvp = () => {
@@ -56,7 +57,7 @@ const EventDetails = () => {
                 onModalClose
                 /> )
         }
-        return (
+        if(new Date(eventInfo?.event.event_date) > currentDate){return (
             <div className='create-group-button-container'>
                 <p>Invite your friends to volunteer with you!</p>
                 <OpenModalButton
@@ -70,7 +71,7 @@ const EventDetails = () => {
                 onClose={() => setModalContent(null)}
                 />
             </div>
-        )
+        )}
     }
 
     const Location = ({event}) => {
@@ -184,7 +185,7 @@ const EventDetails = () => {
                 </div>
             </div>
             <div className='li-organizer-feedback'>
-                <h3>Community Feedback: <AvgReaction rating={avgFeedback} /> </h3>
+                <h3 className='community-feedback'>Community Feedback: <AvgReaction rating={avgFeedback} /> </h3>
                 {
                     event?.avgFeedback?
                     <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :

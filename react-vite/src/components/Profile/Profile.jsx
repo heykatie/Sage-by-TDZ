@@ -32,6 +32,7 @@ const ProfilePage = ({ profileState }) => {
 	const [state, setState] = useState(profile?.state);
 	const [address, setAddress] = useState(profile?.address);
 
+	const currentDate = new Date();
 
 	useEffect(() => {
 		if(profileState) return setActiveSection(profileState)
@@ -68,7 +69,6 @@ const ProfilePage = ({ profileState }) => {
 		address
 	}
 
-	// console.log('PAYLOAD- - ->',payload)
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
@@ -287,8 +287,10 @@ const ProfilePage = ({ profileState }) => {
 											className='view-group-button'>
 											View Group
 										</Link>
+										{console.log(event.event_date)}
 										{group?.owner_id === profile?.id && (
 											<button
+											disabled={new Date(event.event_date) < currentDate}
 												className='edit-group-button'
 												onClick={() =>
 													navigate(
