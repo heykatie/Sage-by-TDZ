@@ -102,7 +102,6 @@
 
 .create-group-button:hover {
   cursor: pointer;
-  text-decoration: underline;
   background-color: #f0f5f2;
 }
 
@@ -120,9 +119,9 @@
   border-bottom: lightgray 1px solid;
 }
 
-.dropdown-li#home-icon a {
+.dropdown-li a {
   /* border: solid red; */
   display: flex;
   align-items: center;
-  column-gap: 4px;
+  column-gap: 8px;
 }

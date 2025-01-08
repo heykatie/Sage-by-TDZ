@@ -6,6 +6,11 @@
     font-size: 12px;
 }
 
+.request-status {
+    /* border: solid red; */
+    margin-right: 40px;
+}
+
 .request {
     border: lightgray solid 1px;
     border-radius: 16px;

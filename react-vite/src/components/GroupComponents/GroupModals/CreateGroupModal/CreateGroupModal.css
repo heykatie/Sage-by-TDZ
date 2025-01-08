@@ -31,21 +31,18 @@
   gap: 10px;
 }
 
-/* .create-group-title::before,
-.create-group-title::after {
-  content: '';
+.delete-modal-content#create {
+  /* border: solid red; */
   display: flex;
-  align-items: center;
-  background-image: url('https://i.postimg.cc/jdK73WSg/sprout.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
-} */
+  flex-direction: column;
+  padding: 40px;
+}
 
 .event-selection {
-  margin: 20px 0;
-  text-align: left;
+  margin: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
 }
 
 label {

@@ -44,7 +44,7 @@ const CreateGroupModal = ({ onClose }) => {
 
 	return (
 		<div className='delete-modal' onClick={handleBackgroundClick}>
-			<div className='delete-modal-content'>
+			<div className='delete-modal-content' id='create'>
 			<div className='delete-modal-header'>
 			<img
 				src={sproutImage}
