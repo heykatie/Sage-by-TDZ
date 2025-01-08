@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_REQUESTS = "LOAD_REQUESTS";
 const ADD_REQUEST = "ADD_REQUEST";
-const DELETE_REQUEST = "DELETE_REQUEST";
+// const DELETE_REQUEST = "DELETE_REQUEST";
 
 const loadRequests = (sent, received) => ({
     type: LOAD_REQUESTS,
@@ -15,10 +15,10 @@ const addRequest = (request) => ({
     request
 });
 
-const deleteRequest = (requestId) => ({
-    type: DELETE_REQUEST,
-    requestId
-})
+// const deleteRequest = (requestId) => ({
+//     type: DELETE_REQUEST,
+//     requestId
+// })
 
 export const fetchAllRequests = () => async (dispatch) => {
     const response = await csrfFetch('/api/requests/');
@@ -28,13 +28,13 @@ export const fetchAllRequests = () => async (dispatch) => {
     }
 }
 
-export const fetchGroupInvites = (user_id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/reuqests/${user_id}`);
-    if (response.ok) {
-        const invites = await response.json();
-        dispatch(loadInvites(invites))
-    }
-}
+// export const fetchGroupInvites = (user_id) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/reuqests/${user_id}`);
+//     if (response.ok) {
+//         const invites = await response.json();
+//         dispatch(loadInvites(invites))
+//     }
+// }
 
 export const createRequest = (request) => async (dispatch) => {
     const response = await csrfFetch('/api/requests/', {

@@ -70,7 +70,7 @@ const EventDetails = () => {
                     buttonText="Create a Group"
                     modalComponent={<CreateGroupModal onClose={() => setModalContent(null)} />}
                 />}
-                {targetGroup && <button><Link to='/groups/'>View Groups</Link></button>}
+                {targetGroup.length? <button><Link to='/groups/'>View Groups</Link></button> : <></>}
                 <OpenModalButton
                 buttonText="Remove RSVP"
                 modalComponent={<RemoveRSVPModal navigate={navigate} eventId={eventId} rsvps={rsvps} currentUser={currentUser} eventInfo={eventInfo} />} 

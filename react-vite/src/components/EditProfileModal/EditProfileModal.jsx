@@ -1,40 +1,25 @@
 // import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 // import { useState } from "react";
-import { thunkEditProfile, thunkLogin } from "../../redux/session";
+import { thunkEditProfile } from "../../redux/session";
 import './EditProfileModal.css'
 import { Link } from "react-router-dom";
 const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 
 const EditProfileModal = ({ payload }) => {
     const { closeModal } = useModal();
-    // const [errors, setErrors] = useState({});
 
     const dispatch = useDispatch();
-
-    const user = useSelector(state => state.session.user);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         return dispatch(thunkEditProfile(payload))
                .then(closeModal)
-            // .catch(async (res) => {
-            // const data = await res.json();
-            // if(data.errors) return data.errors;
-            // })
-
-
-            // const serverResponse = await dispatch(
-            //     thunkLogin(credentials)
-            //   );
-
-            // if (serverResponse) setErrors(serverResponse);
-
-
 
     }
+
     return (
         <>
           <div className="delete-modal">

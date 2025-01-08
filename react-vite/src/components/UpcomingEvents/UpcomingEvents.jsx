@@ -8,7 +8,7 @@ import { ConvertTime } from '../ListEvents/ListEvents';
 import { stateAbbObj } from '../ListEvents/ListEvents';
 
 
-const UpcomingEvents = ({user, events}) => {
+const UpcomingEvents = () => {
 
     const dispatch = useDispatch();
 
@@ -63,6 +63,7 @@ const UpcomingEvents = ({user, events}) => {
         <>
         <div className='event-list-container'>
         <h2 className='upcoming-events-title'>UPCOMING EVENTS</h2>
+        <p>You have RSVPd &apos;Yes&apos; to the following events:</p>
         <ul className='event-list'>
             { rsvps && rsvps?.length ?
             eventTiles(upcomingEvents) :

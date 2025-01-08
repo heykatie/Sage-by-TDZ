@@ -57,11 +57,11 @@ button:hover {
 }
 
 button:disabled {
-    background-color: gray;
+    background-color: lightgray;
 }
 
 button:disabled:hover {
-    background-color: gray;
+    background-color: lightgray;
 }
 
 button a {

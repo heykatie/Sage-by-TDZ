@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import * as inviteActions from '../../redux/invites';
-import {
-	fetchCurrentUser,
-	fetchUserEvents,
-	fetchUserBadges,
-	fetchUserFriends,
-	fetchUserGroups,
-} from '../../../redux/user'; // Ensure correct import path
+// import {
+// 	fetchCurrentUser,
+// 	fetchUserEvents,
+// 	fetchUserBadges,
+// 	fetchUserFriends,
+// 	fetchUserGroups,
+// } from '../../../redux/user'; // Ensure correct import path
 // import Navigation from '../Navigation';
 import './Requests.css';
 import SentRequests from './SentRequests';
 import ReceivedRequests from './ReceivedRequests';
 import GroupRequests from './GroupRequests';
-import GroupInvites from '../../InvitePage/InvitePage';
 const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 
 const RequestsPage = () => {
 	const dispatch = useDispatch();
-	const { profile, events, badges, friends, groups, status, error } =
+	const { profile, status, error } =
 		useSelector((state) => state.user);
 
 	const [activeSection, setActiveSection] = useState('requests'); // Tracks active section

@@ -28,7 +28,7 @@ const GroupForm = ({ isEditMode }) => {
 
     const [tempSelectedFriends, setTempSelectedFriends] = useState([]); 
 	const [description, setDescription] = useState('');
-	const [friendsList, setFriendsList] = useState([]);
+	const [setFriendsList] = useState([]);
 	const [selectedFriends, setSelectedFriends] = useState([]);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [groupsId, setGroupsId] = useState(groupId || null);
@@ -60,7 +60,7 @@ const GroupForm = ({ isEditMode }) => {
 		dispatch(fetchUserFriends()).then((friends) =>
 			setFriendsList(friends || [])
 		);
-	}, [dispatch, eventData, navigate]);
+	}, [dispatch, eventData, navigate, setFriendsList]);
 
 	const toggleFriendSelection = async (friend) => {
 
@@ -201,8 +201,8 @@ const GroupForm = ({ isEditMode }) => {
 			<div className='left-column'>
 				<h2>
 					{isEditMode
-						? `Edit Group - ${eventData.title || 'Event Title'}`
-						: `Create Group - ${eventData.title || 'Event Title'}`}
+						? `Edit Group - ${eventData?.title || 'Event Title'}`
+						: `Create Group - ${eventData?.title || 'Event Title'}`}
 				</h2>
 				<p>
 					Hosted by:{' '}
@@ -210,13 +210,13 @@ const GroupForm = ({ isEditMode }) => {
 						? `${currentUser.first_name} ${currentUser.last_name}`
 						: 'Loading...'}
 				</p>
-				<p>{`${eventData.event_date} | ${eventData.start_time} - ${eventData.end_time} | ${eventData.categories}`}</p>
+				<p>{`${eventData?.event_date} | ${eventData.start_time} - ${eventData?.end_time} | ${eventData?.categories}`}</p>
 				<p>
-					{eventData.address}, {eventData.city}, {eventData.state}
+					{eventData?.address}, {eventData?.city}, {eventData?.state}
 				</p>
 				<p>
-					<a href={`/events/${eventData.id}`} className='event-link'>
-						Link to {eventData.title} Event Page
+					<a href={`/events/${eventData?.id}`} className='event-link'>
+						Link to {eventData?.title} Event Page
 					</a>
 				</p>
 
@@ -268,7 +268,7 @@ const GroupForm = ({ isEditMode }) => {
 				<div className='event-header'>
 					<img
 						className='event-banner'
-						src={eventData.preview || sprout}
+						src={eventData?.preview || sprout}
 						alt='Event Banner'
 					/>
 				</div>
@@ -295,7 +295,7 @@ const GroupForm = ({ isEditMode }) => {
 				<DeleteGroupModal
 					onConfirm={handleDeleteGroup}
 					onCancel={() => setShowDeleteModal(false)}
-					eventName={eventData.title || 'this event'}
+					eventName={eventData?.title || 'this event'}
 				/>
 			)}
 		</div>

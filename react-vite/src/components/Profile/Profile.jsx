@@ -54,7 +54,7 @@ const ProfilePage = ({ profileState }) => {
 	const rsvps = useSelector((state) => state.rsvp.userRsvps.rsvps);
 	let rsvpArr;
 
-	if(rsvps) rsvpArr = Object.values(rsvps);
+	if(rsvps) rsvpArr = Object.values(rsvps).filter(e=>new Date(e.event_date)>currentDate);
 
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
@@ -107,6 +107,7 @@ const ProfilePage = ({ profileState }) => {
 				return (
 					<section id='events' className='events'>
 						<h3>Upcoming Events</h3>
+						<p>You have RSVPd &apos;Yes&apos; to the following events:</p>
 						<ul>
 							{rsvpArr?.length > 0 ? (
 								rsvpArr.map((event) => (
@@ -288,7 +289,6 @@ const ProfilePage = ({ profileState }) => {
 											className='view-group-button'>
 											View Group
 										</Link>
-										{console.log(event.event_date)}
 										{group?.owner_id === profile?.id && (
 											<button
 											disabled={new Date(event.event_date) >= currentDate}

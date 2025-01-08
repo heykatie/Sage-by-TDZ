@@ -80,7 +80,7 @@ export default function AllGroups() {
 									</Link>
 									{group.owner_id === profile?.id && (
 										<button
-										disabled={new Date(events[group.event_id].event_date) < currentDate}
+										disabled={new Date(events[group.event_id]?.event_date) < currentDate}
 											onClick={() =>
 												navigate(`/groups/${group.id}/edit`, {
 													state: {

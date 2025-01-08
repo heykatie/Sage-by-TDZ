@@ -2,9 +2,14 @@
     /* border: solid red; */
   transform: translate(-20%, -30%);
   padding: 40px;
-  width: 700px;
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  overflow: scroll;
 }
 
 .login-form-modal label {
   color: #557b5d;
+  font-size: 16px;
 }

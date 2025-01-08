@@ -66,6 +66,10 @@
     text-align: right;
 }
 
+.event-list-container {
+    padding: 20px;
+}
+
 .event-list-container .start-end-time {
     border: solid white 1px;
     text-align: right;
