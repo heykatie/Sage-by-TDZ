@@ -68,8 +68,7 @@ export const thunkLogout = () => async (dispatch) => {
 export const thunkDeleteProfile = (user) => async dispatch => {
   const response = await csrfFetch(`/api/profile/delete/${user.id}`, {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user)
+    headers: { "Content-Type": "application/json" }
   });
 
   if(response.ok) {
