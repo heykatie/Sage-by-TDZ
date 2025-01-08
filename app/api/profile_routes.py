@@ -59,13 +59,11 @@ def edit_profile():
     return form.errors, 401
 
 @profile_routes.route('/delete/<int:user_id>', methods=['DELETE'])
-@login_required
+# @login_required
 def delete_profile(user_id):
     user = User.query.get(user_id)
     if user:
         db.session.delete(user)
-        logout_user()
-        # current_user.delete()
         db.session.commit()
         return { 'message': "Successfully deleted" }
 
