@@ -1,5 +1,4 @@
 import './DeleteGroupModal.css';
-const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 
 const DeleteGroupModal = ({
 	onConfirm,
@@ -10,17 +9,7 @@ const DeleteGroupModal = ({
 		<div className='delete-modal'>
 			<div className='delete-modal-content'>
 				<div className='delete-modal-header'>
-					<img
-						src={sproutImage}
-						alt='Sprout'
-						className='sprout-icon-left'
-					/>
 					<h2>Delete Group</h2>
-					<img
-						src={sproutImage}
-						alt='Sprout'
-						className='sprout-icon-right'
-					/>
 				</div>
 				<p>{`Are you sure you want to delete group for ${eventName}?`}</p>
 				<p className='warning-text'>This action cannot be undone.</p>

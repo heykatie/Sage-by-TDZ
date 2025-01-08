@@ -5,7 +5,6 @@ import { useModal } from "../../context/Modal";
 import { thunkEditProfile } from "../../redux/session";
 import './EditProfileModal.css'
 import { Link } from "react-router-dom";
-const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 
 const EditProfileModal = ({ payload }) => {
     const { closeModal } = useModal();
@@ -25,20 +24,9 @@ const EditProfileModal = ({ payload }) => {
           <div className="delete-modal">
           <div className="delete-modal-content">
           <div className="delete-modal-header">
-          <img
-						src={sproutImage}
-						alt='Sprout'
-						className='sprout-icon-left'
-					/>
 					<h1>Edit Profile</h1>
-					<img
-						src={sproutImage}
-						alt='Sprout'
-						className='sprout-icon-right'
-					/>
           </div>
           <p>Are you sure you want to make this change?</p>
-
           <button type="Submit" className='confirm-delete' onClick={handleSubmit}>Save Edit</button>
           <Link to={'/profile'} onClick={closeModal}>No, Go Back.</Link>
 

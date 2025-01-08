@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { thunkAllUsers } from '../../redux/user';
 import { thunkCreateRSVP } from '../../redux/events';
-const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 
 export default function RSVPModal({navigate, eventId}) {
     const { closeModal } = useModal();
@@ -28,17 +27,7 @@ export default function RSVPModal({navigate, eventId}) {
     return (
         <div className='login-form-modal' id='rsvp-modal'>
             <div className='delete-modal-header'>
-					<img
-						src={sproutImage}
-						alt='Sprout'
-						className='sprout-icon-left'
-					/>
 					<h1>Confirm RSVP</h1>
-					<img
-						src={sproutImage}
-						alt='Sprout'
-						className='sprout-icon-right'
-					/>
 				</div>
             {/* <h3>Event Name?</h3> */}
             <button

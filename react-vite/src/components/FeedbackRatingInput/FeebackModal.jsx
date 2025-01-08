@@ -4,7 +4,6 @@ import { useModal } from "../../context/Modal";
 import { addOrgFeedback } from "../../redux/event";
 import FeedbackRatingInput from "./FeedbackRatingInput";
 import './FeedbackRatingInput.css';
-const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 
 const FeedbackModal = ({ organizer, user }) => {
     const [reaction, setReaction] = useState(0);
@@ -48,17 +47,7 @@ const FeedbackModal = ({ organizer, user }) => {
         <div className='delete-modal'>
             <div className="delete-modal-content">
                 <div className="delete-modal-header">
-                <img
-                    src={sproutImage}
-                    alt='Sprout'
-                    className='sprout-icon-left'
-                />
                 <h2>How was working with {organizer.name}?</h2>
-                <img
-                    src={sproutImage}
-                    alt='Sprout'
-                    className='sprout-icon-right'
-                />
                 </div>
             <p>Send feedback to the event organizers!</p>
             <p>What emoji best fits your experience?</p>

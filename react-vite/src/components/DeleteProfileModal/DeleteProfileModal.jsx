@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { thunkDeleteProfile } from "../../redux/session";
 import './DeleteProfileModal.css'
 import { Link } from "react-router-dom";
-const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 
 const DeleteProfileModal = () => {
     const { closeModal } = useModal();
@@ -29,17 +28,7 @@ const DeleteProfileModal = () => {
           <div className="delete-modal">
           <div className="delete-modal-content">
           <div className="delete-modal-header">
-          <img
-						src={sproutImage}
-						alt='Sprout'
-						className='sprout-icon-left'
-					/>
 					<h1>Delete Profile</h1>
-					<img
-						src={sproutImage}
-						alt='Sprout'
-						className='sprout-icon-right'
-					/>
           </div>
           <p>Are you sure you want to make this change?</p>
           <p>This action cannot be undone.</p>
