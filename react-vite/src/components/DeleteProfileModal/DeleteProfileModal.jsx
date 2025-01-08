@@ -19,8 +19,10 @@ const DeleteProfileModal = () => {
         e.preventDefault();
 
         return dispatch(thunkDeleteProfile(user))
-               .then(closeModal)
-               .then(navigate('/'))
+              .then(dispatch(thunkLogout()))
+              .then(closeModal)
+              .then(navigate('/'))
+              .then(window.location.reload())
     }
     return (
         <>
@@ -43,7 +45,7 @@ const DeleteProfileModal = () => {
           <p>This action cannot be undone.</p>
 
           <button type="Submit" className='confirm-delete' onClick={handleSubmit}>Delete</button>
-          <Link to={'/profile'} onClick={closeModal}>No, Go Back.</Link>
+          <button className="cancel-delete"><Link to={'/profile'} onClick={closeModal}>No, Go Back.</Link></button>
 
           </div>
           </div>

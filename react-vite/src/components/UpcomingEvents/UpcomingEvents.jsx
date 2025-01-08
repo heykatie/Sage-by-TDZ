@@ -22,7 +22,6 @@ const UpcomingEvents = () => {
     let upcomingEvents;
 
     if(rsvps) {upcomingEvents = Object.values(rsvps).filter(e=>new Date(e.event_date)>currentDate)}
-    console.log(upcomingEvents)
 
     const Location = ({event}) => {
         if(event?.state === 'None') {

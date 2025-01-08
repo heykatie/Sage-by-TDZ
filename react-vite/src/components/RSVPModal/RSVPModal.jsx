@@ -20,7 +20,7 @@ export default function RSVPModal({navigate, eventId}) {
         const data = { event_id: +eventId }
 
         // need create rsvp thunk
-        return dispatch(thunkCreateRSVP(eventId, data))
+        return dispatch(thunkCreateRSVP(+eventId, data))
             .then(closeModal)
             .then(navigate(`/events/${+eventId}`))
     }

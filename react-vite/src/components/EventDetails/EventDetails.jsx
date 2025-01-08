@@ -55,7 +55,7 @@ const EventDetails = () => {
 
 
     const Rsvp = () => {
-        if(!rsvpArr.includes(currentUser.id)) {
+        if(!rsvpArr.includes(currentUser.id) && new Date(eventInfo?.event?.event_date) > currentDate) {
             return (<OpenModalButton
                 buttonText="Click here to RSVP"
                 modalComponent={<RSVPModal navigate={navigate} eventId={eventId} />}

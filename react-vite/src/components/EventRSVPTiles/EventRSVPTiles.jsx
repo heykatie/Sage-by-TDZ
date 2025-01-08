@@ -14,6 +14,7 @@ const TileTitle = ({eventId, targetGroup}) => {
     const dispatch = useDispatch();
 
     const currentUser = useSelector((state) => state.session.user);
+    const currentDate = new Date();
 
     useEffect(() => {
         dispatch(thunkSingleEvent(eventId))
@@ -22,10 +23,10 @@ const TileTitle = ({eventId, targetGroup}) => {
         dispatch(thunkAllFriends())
     }, [dispatch, eventId]);
 
+    const eventDate = new Date(useSelector(state=>state.event?.event[eventId]?.event?.event_date))
     const rsvps = Object.values(useSelector(state=>state.event.rsvps)).map(r=>r.user_id);
     const targetRsvp = rsvps.includes(currentUser.id);
-
-    if(!targetRsvp && rsvps.length == 1) {return (
+    if(!targetRsvp && rsvps.length == 1 && eventDate > currentDate) {return (
         <div className='rsvps-label-link'>
            <h4>{rsvps?.length} user has RSVPd, join in the fun!</h4>
            <Link
@@ -34,7 +35,7 @@ const TileTitle = ({eventId, targetGroup}) => {
             >View all RSVPs <IoArrowForward /></Link>  
         </div> 
     )}
-    else if (!targetRsvp && rsvps.length > 1) {
+    else if (!targetRsvp && rsvps.length > 1 && eventDate > currentDate) {
         return (
         <div className='rsvps-label-link'>
             <h4>{rsvps?.length} users have RSVPd, join in the fun!</h4>
@@ -44,7 +45,7 @@ const TileTitle = ({eventId, targetGroup}) => {
             >View all RSVPs <IoArrowForward /></Link>
         </div>)
     } 
-    else if (targetRsvp && !targetGroup && rsvps.length > 1) {
+    else if (targetRsvp && !targetGroup && rsvps.length > 1 && eventDate > currentDate) {
         return (
         <div className='rsvps-label-link'>
             <h4>{rsvps?.length} users have RSVPd - Invite Friends to join you!</h4>
@@ -54,7 +55,7 @@ const TileTitle = ({eventId, targetGroup}) => {
             >View all RSVPs <IoArrowForward /></Link>
         </div>)
     } 
-    else if (targetRsvp && !targetGroup && rsvps.length === 1) {
+    else if (targetRsvp && !targetGroup && rsvps.length === 1 && eventDate > currentDate) {
         return (
         <div className='rsvps-label-link'>
             <h4>You have RSVPd - Invite Friends to join you!</h4>
@@ -64,7 +65,7 @@ const TileTitle = ({eventId, targetGroup}) => {
             >View all RSVPs <IoArrowForward /></Link>
         </div>)
     }
-    else if (targetRsvp && targetGroup && rsvps.length === 1) {
+    else if (targetRsvp && targetGroup && rsvps.length === 1 && eventDate > currentDate) {
         return (
             <div className='rsvps-label-link'>
                 <h4>You have RSVPd</h4>
@@ -75,7 +76,7 @@ const TileTitle = ({eventId, targetGroup}) => {
             </div>
         )
     }
-    else if (targetRsvp && targetGroup && rsvps.length > 1) {
+    else if (targetRsvp && targetGroup && rsvps.length > 1 && eventDate > currentDate) {
         return (
             <div className='rsvps-label-link'>
                 <h4>{rsvps?.length} users have RSVPd</h4>
@@ -86,6 +87,26 @@ const TileTitle = ({eventId, targetGroup}) => {
             </div>
         )
     }
+    else if (targetRsvp && rsvps.length && eventDate < currentDate) {
+        return (
+            <div className='rsvps-label-link'>
+                <h4>Event past! - Thanks for joining us!</h4>
+                <Link
+                to={`/events/${eventId}/rsvps`}
+                className='view-rsvps-link'
+                >View all RSVPs <IoArrowForward /></Link>
+            </div>
+        )
+    }
+    return (
+        <div className='rsvps-label-link'>
+                <h4>Event past! - These users participated, thanks all!</h4>
+                <Link
+                to={`/events/${eventId}/rsvps`}
+                className='view-rsvps-link'
+                >View all RSVPs <IoArrowForward /></Link>
+            </div>
+    )
 }
 
 export default function EventRSVPTiles({targetGroup}) {

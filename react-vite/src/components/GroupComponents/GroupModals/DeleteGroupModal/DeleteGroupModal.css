@@ -49,7 +49,7 @@ h2 {
   margin: 0;
 }
 
-.delete-modal p {
+p {
   margin-top: 10px;
   font-size: 1rem;
   line-height: 1.5;
@@ -88,11 +88,15 @@ h2 {
   /* Darker sage */
 }
 
+
 .cancel-delete {
   background-color: white;
-  color: #4a7744;
   border: 2px solid #8f9f94;
   /* Light sage border */
+}
+
+.cancel-delete a {
+  color: #4a7744;
 }
 
 .cancel-delete:hover {
