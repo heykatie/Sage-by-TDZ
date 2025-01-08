@@ -290,7 +290,7 @@ const ProfilePage = ({ profileState }) => {
 										{console.log(event.event_date)}
 										{group?.owner_id === profile?.id && (
 											<button
-											disabled={new Date(event.event_date) < currentDate}
+											disabled={new Date(event.event_date) >= currentDate}
 												className='edit-group-button'
 												onClick={() =>
 													navigate(

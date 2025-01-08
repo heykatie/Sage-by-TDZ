@@ -24,13 +24,12 @@ def badges():
 @login_required
 def rsvps():
     user_id = current_user.get_id()
-    currentDate = datetime.datetime.now().strftime("%Y-%m-%d")
     rsvps = RSVP.query.filter(RSVP.user_id == user_id)
     if rsvps:
         rsvpList = [rsvp.event_id for rsvp in rsvps]
         events = [Event.query.get(eventId)for eventId in rsvpList]
-        upcomingEvents = [event for event in events if currentDate < event.event_date]
-        return {'rsvps': [event.to_dict() for event in upcomingEvents] }
+        upcoming_events = [event for event in events]
+        return {'rsvps': [event.to_dict() for event in upcoming_events] }
     return {'errors': {'message': "No RSVPS could be found"}}, 404
 
 @profile_routes.route('/edit', methods=['PUT'])

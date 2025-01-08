@@ -22,7 +22,7 @@ import RSVPModal from '../RSVPModal/RSVPModal';
 // }
 
 
-const TileTitle = ({eventId}) => {
+const TileTitle = ({eventId, targetGroup}) => {
     const dispatch = useDispatch();
 
     const currentUser = useSelector((state) => state.session.user);
@@ -56,7 +56,7 @@ const TileTitle = ({eventId}) => {
             >View all RSVPs</Link>
         </div>)
     } 
-    else if (targetRsvp && rsvps.length > 1) {
+    else if (targetRsvp && !targetGroup && rsvps.length > 1) {
         return (
         <div className='rsvps-label-link'>
             <h4>{rsvps?.length} users have RSVPd - Invite Friends to join you!</h4>
@@ -66,7 +66,7 @@ const TileTitle = ({eventId}) => {
             >View all RSVPs</Link>
         </div>)
     } 
-    else if (targetRsvp && rsvps.length === 1) {
+    else if (targetRsvp && !targetGroup && rsvps.length === 1) {
         return (
         <div className='rsvps-label-link'>
             <h4>You have RSVPd - Invite Friends to join you!</h4>
@@ -76,15 +76,31 @@ const TileTitle = ({eventId}) => {
             >View all RSVPs</Link>
         </div>)
     }
-    else {
+    else if (targetRsvp && targetGroup && rsvps.length === 1) {
         return (
-        <div>
-        </div>
+            <div className='rsvps-label-link'>
+                <h4>You have RSVPd</h4>
+                <Link
+                to={`/events/${eventId}/rsvps`}
+                className='view-rsvps-link'
+                >View all RSVPs</Link>
+            </div>
+        )
+    }
+    else if (targetRsvp && targetGroup && rsvps.length > 1) {
+        return (
+            <div className='rsvps-label-link'>
+                <h4>{rsvps?.length} users have RSVPd</h4>
+                <Link
+                to={`/events/${eventId}/rsvps`}
+                className='view-rsvps-link'
+                >View all RSVPs</Link>
+            </div>
         )
     }
 }
 
-export default function EventRSVPTiles() {
+export default function EventRSVPTiles({targetGroup}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -151,7 +167,7 @@ export default function EventRSVPTiles() {
         <div>
             {event && event.map(e=>(
                 <div key={e.id}>
-                    {currentUser && <TileTitle eventId={eventId} />}
+                    {currentUser && <TileTitle targetGroup={targetGroup} eventId={eventId} />}
                     <div className='rsvp-tiles-container' key={e.event?.id}>
                     {rsvps && Object.values(rsvps).map(r=>(
                         <div key={r?.id}>{rsvpTile(r)}</div>

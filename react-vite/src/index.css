@@ -64,6 +64,11 @@ button:disabled:hover {
     background-color: gray;
 }
 
+button a {
+    /* border: dotted; */
+    color: white;
+}
+
 *#reverse {
     background-color: white;
     color: #4a7744;

@@ -18,6 +18,7 @@ import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
 import LoginFormModal from '../LoginFormModal';
 import RemoveRSVPModal from '../RemoveRSVPModal/RemoveRSVPModal';
 import { ConvertTime } from '../ListEvents/ListEvents';
+import { fetchUserGroups } from '../../redux/user';
 
 export const ConvertDate = date => {
     return new Date(date).toLocaleDateString();
@@ -25,27 +26,31 @@ export const ConvertDate = date => {
 
 
 const EventDetails = () => {
-
+    const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const { setModalContent } = useModal();
-    const { eventId } = useParams()
-    const[isLoaded, setisLoaded] = useState(false)
+    const { eventId } = useParams();
+    const[isLoaded, setisLoaded] = useState(false);
 
     useEffect(() => {
         dispatch(thunkSingleEvent(eventId));
         dispatch(thunkGetRSVPs(eventId));
+        dispatch(fetchUserGroups());
         setisLoaded(true)
     }, [dispatch, eventId])
 
 
-    const currentUser = useSelector((state) => state.session.user);
-    const event = useSelector((state) => state.event.event);
+
+    const currentUser = useSelector((state) => state.session?.user);
+    const event = useSelector((state) => state.event?.event);
     const eventInfo = event[eventId];
-    const rsvps = Object.values(useSelector(state=>state.event.rsvps))
+    const rsvps = Object.values(useSelector(state=>state.event?.rsvps))
     const rsvpArr = rsvps.map(r=>r?.user_id);
     const currentDate = new Date();
+    const groups = useSelector(state=>state.user.groups);
+    const targetGroup = Object.values(groups).filter(g=>g.event_title === eventInfo?.event?.title)
 
 
     const Rsvp = () => {
@@ -57,14 +62,14 @@ const EventDetails = () => {
                 onModalClose
                 /> )
         }
-        if(new Date(eventInfo?.event.event_date) > currentDate){return (
+        if(new Date(eventInfo?.event?.event_date) >= currentDate){return (
             <div className='create-group-button-container'>
-                <p>Invite your friends to volunteer with you!</p>
-                <OpenModalButton
+                {!targetGroup.length && <p>Invite your friends to volunteer with you!</p>}
+                {!targetGroup.length && <OpenModalButton
                     buttonText="Create a Group"
                     modalComponent={<CreateGroupModal onClose={() => setModalContent(null)} />}
-                    onModalClose={() => setModalContent(null)}
-                />
+                />}
+                {targetGroup && <button><Link to='/groups/'>View Groups</Link></button>}
                 <OpenModalButton
                 buttonText="Remove RSVP"
                 modalComponent={<RemoveRSVPModal navigate={navigate} eventId={eventId} rsvps={rsvps} currentUser={currentUser} eventInfo={eventInfo} />} 
@@ -124,7 +129,7 @@ const EventDetails = () => {
             </div>
 
             <div className='li-event-attendees'>
-                <EventRSVPTiles />
+                <EventRSVPTiles targetGroup={targetGroup} />
             </div>
             <div className='li-event-rsvp'>
                 {/* need rsvps reducer */}
