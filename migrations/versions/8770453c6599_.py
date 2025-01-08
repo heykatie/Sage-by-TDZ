@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 6f8620e7ed88
+Revision ID: 8770453c6599
 Revises: 
-Create Date: 2025-01-08 13:31:10.056313
+Create Date: 2025-01-08 15:29:44.805451
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '6f8620e7ed88'
+revision = '8770453c6599'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,7 +31,7 @@ def upgrade():
     sa.Column('phone_number', sa.String(length=20), nullable=False),
     sa.Column('email', sa.String(length=1000), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name'),
+    sa.UniqueConstraint('name')
     )
     if environment == "production":
         op.execute(f"ALTER TABLE organizers SET SCHEMA {SCHEMA};")
@@ -50,7 +50,7 @@ def upgrade():
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('username'),
+    sa.UniqueConstraint('username')
     )
 
     if environment == "production":
@@ -72,65 +72,55 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('badge_url', sa.String(length=1000), nullable=False),
     sa.Column('preview', sa.String(length=1000), nullable=False),
-    sa.ForeignKeyConstraint(['organizer_id'], ['sage_bae.organizers.id'], ),
+    sa.ForeignKeyConstraint(['organizer_id'], ['organizers.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('title'),
+    sa.UniqueConstraint('title')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE events SET SCHEMA {SCHEMA};")
-
     op.create_table('feedback',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('organizer_id', sa.Integer(), nullable=False),
     sa.Column('reaction', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['organizer_id'], ['sage_bae.organizers.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['sage_bae.users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['organizer_id'], ['organizers.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE feedback SET SCHEMA {SCHEMA};")
-
     op.create_table('requests',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('sender_id', sa.Integer(), nullable=False),
     sa.Column('receiver_id', sa.Integer(), nullable=False),
     sa.Column('accepted', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.String(length=255), nullable=True),
-    sa.ForeignKeyConstraint(['sender_id'], ['sage_bae.users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['sender_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE requests SET SCHEMA {SCHEMA};")
-
     op.create_table('groups',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('event_id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('description', sa.Text(), nullable=True),
-    sa.ForeignKeyConstraint(['event_id'], ['sage_bae.events.id'], ),
-    sa.ForeignKeyConstraint(['owner_id'], ['sage_bae.users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['event_id'], ['events.id'], ),
+    sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE groups SET SCHEMA {SCHEMA};")
-
     op.create_table('rsvps',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('event_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['event_id'], ['sage_bae.events.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['sage_bae.users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['event_id'], ['events.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE rsvps SET SCHEMA {SCHEMA};")
-
     op.create_table('invites',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -139,15 +129,13 @@ def upgrade():
     sa.Column('event_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('going', sa.Boolean(), nullable=True),
-    sa.ForeignKeyConstraint(['event_id'], ['sage_bae.events.id'], ),
-    sa.ForeignKeyConstraint(['group_id'], ['sage_bae.groups.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['sage_bae.users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['event_id'], ['events.id'], ),
+    sa.ForeignKeyConstraint(['group_id'], ['groups.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE invites SET SCHEMA {SCHEMA};")
-
     op.create_table('messages',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -155,11 +143,10 @@ def upgrade():
     sa.Column('message', sa.String(length=1000), nullable=False),
     sa.Column('created_at', sa.String(length=255), nullable=True),
     sa.Column('updated_at', sa.String(length=255), nullable=True),
-    sa.ForeignKeyConstraint(['group_id'], ['sage_bae.groups.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['sage_bae.users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['group_id'], ['groups.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
-
     if environment == "production":
         op.execute(f"ALTER TABLE messages SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
@@ -167,13 +154,13 @@ def upgrade():
 
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
-    op.drop_table('messages', schema='sage_bae')
-    op.drop_table('invites', schema='sage_bae')
-    op.drop_table('rsvps', schema='sage_bae')
-    op.drop_table('groups', schema='sage_bae')
-    op.drop_table('requests', schema='sage_bae')
-    op.drop_table('feedback', schema='sage_bae')
-    op.drop_table('events', schema='sage_bae')
-    op.drop_table('users', schema='sage_bae')
-    op.drop_table('organizers', schema='sage_bae')
+    op.drop_table('messages')
+    op.drop_table('invites')
+    op.drop_table('rsvps')
+    op.drop_table('groups')
+    op.drop_table('requests')
+    op.drop_table('feedback')
+    op.drop_table('events')
+    op.drop_table('users')
+    op.drop_table('organizers')
     # ### end Alembic commands ###
