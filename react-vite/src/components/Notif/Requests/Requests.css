@@ -1,5 +1,9 @@
 .request-status>*{
     color: pink;
+    /* border: solid red; */
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
 }
 
 .request {
@@ -10,11 +14,15 @@
     display: flex;
     align-items: center;
     column-gap: 8px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .request p {
     margin: 0;
+    color: black;
 }
+
 
 section#sent-requests,
 section#received-requests,
@@ -22,3 +30,37 @@ section#invites {
     /* border: solid red; */
     margin-top: 40px;
 }
+
+.sender-div {
+    display: flex;
+    align-items: center;
+    column-gap: 24px;
+}
+
+.profile-pic#request {
+    /* border: solid red; */
+    padding: 20px;
+}
+
+.button-yes,
+.button-no {
+    /* border: solid red; */
+    display: flex;
+    justify-content: center;
+}
+
+.request-buttons {
+    /* border: solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.request-buttons button {
+    /* border: solid red; */
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    column-gap: 8px;
+}
+

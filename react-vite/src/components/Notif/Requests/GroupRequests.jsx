@@ -34,7 +34,7 @@ const GroupRequests = () => {
                                 (
                                 <>
                                 <button className='button-yes' onClick={handleSumbit}>Accept</button>
-                                <button id='reverse' onClick={handleSumbit}>Decline</button>
+                                <button className='button-no' id='reverse' onClick={handleSumbit}>Decline</button>
                                 </>
                                 )
                             }

@@ -33,6 +33,7 @@ const ReceivedRequests = () => {
                                 (
                                     <div className='request-status'>
                                         <TbHeartHandshake id='request-status-icon' />
+                                        <p>Accepted!</p>
                                     </div>
                                 )
                                 :
