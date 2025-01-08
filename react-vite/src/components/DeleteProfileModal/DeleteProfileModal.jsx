@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { thunkDeleteProfile } from "../../redux/session";
 import './DeleteProfileModal.css'
 import { Link } from "react-router-dom";
-const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
+const sproutImage = 'https://ibb.co/gdyXy4D'; // Sprout image
 
 const DeleteProfileModal = () => {
     const { closeModal } = useModal();

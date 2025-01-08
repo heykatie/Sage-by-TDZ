@@ -4,6 +4,7 @@ import CreateGroupModal from '../GroupComponents/GroupModals/CreateGroupModal';
 import { GiSprout } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
+import { AiFillHome } from "react-icons/ai";
 import "./Navigation.css";
 
 function Navigation() {
@@ -26,7 +27,7 @@ function Navigation() {
 		<nav className='nav'>
 			<ul className='nav-contents'>
 				<li className='icon-home'>
-					<NavLink to='/' className='sage-icon-container'><GiSprout className='sage-icon'/> Sage</NavLink>
+					<NavLink to='/' className='sage-icon-container'><div className='icon-label'><GiSprout className='sage-icon'/> <span>Sage</span></div><AiFillHome /></NavLink>
 				</li>
 
 				<div className='profile-button-create-group'>

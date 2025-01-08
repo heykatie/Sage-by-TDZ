@@ -4,3 +4,11 @@
     min-width: 300px;
     max-width: 50%;
 }
+
+.back-page-link-container {
+    /* border: solid red; */
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+    padding: 20px;
+}

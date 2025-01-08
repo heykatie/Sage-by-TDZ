@@ -11,7 +11,9 @@ const CreateGroupModal = ({ onClose }) => {
 	const { events } = useSelector((state) => state.user);
 	const [selectedEventId, setSelectedEventId] = useState('');
 	const [selectedEvent, setSelectedEvent] = useState(null);
+	const currentDate = new Date();
 
+	const potentialEvents = events.filter(event=>new Date(event.event_date)>currentDate);
 
 	useEffect(() => {
 		dispatch(fetchUserEvents());
@@ -44,7 +46,7 @@ const CreateGroupModal = ({ onClose }) => {
 
 	return (
 		<div className='delete-modal' onClick={handleBackgroundClick}>
-			<div className='delete-modal-content'>
+			<div className='delete-modal-content' id='create'>
 			<div className='delete-modal-header'>
 			<img
 				src={sproutImage}
@@ -68,7 +70,7 @@ const CreateGroupModal = ({ onClose }) => {
 						onChange={handleEventChange}
 						required>
 						<option value=''>List of available events:</option>
-						{events.map((event) => (
+						{potentialEvents.map((event) => (
 							<option key={event?.id} value={event?.id}>
 								{event?.title} - {event?.event_date}
 							</option>

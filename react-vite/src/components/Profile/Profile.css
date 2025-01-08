@@ -20,16 +20,8 @@
   /* border-bottom: 1px solid #ddd; */
 }
 
-.events, 
-.badges-container, 
-.all-friends, 
-.groups-section, 
-.edit-profile {
+.events, .badges-container, .all-friends, .groups-section {
   margin-top: 40px;
-}
-
-.all-friends {
-  padding: 0px 20px;
 }
 
 .profile-picture {
@@ -68,17 +60,12 @@
 
 .dashboard-title h2 {
   font-size: 24px;
-  margin: 0 0 5px;
 }
 
 .dashboard-title p {
   font-size: 16px;
   color: #666;
   margin: 5px 0;
-}
-
-.dashboard-title nav {
-  margin-top: 10px;
 }
 
 .dashboard-title button {
@@ -140,12 +127,15 @@
 
 .events ul {
   /* border: dotted blue; */
-  width: 100%;
+  max-width: 1280px;
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  padding: 0;
+  padding: 20px;
+  margin: 0 auto;
 }
+
+
 
 .li-event-categories li {
   border: dashed magenta;
@@ -156,6 +146,7 @@
 .li-event-list#upcoming {
   border: solid lightgray 1px;
   padding: 20px;
+  width: 360px;
 }
 
 .dashboard-events .li-event-location-time h2 {
@@ -166,34 +157,17 @@
 /* Friends Section */
 
 
-/* Groups Section
-.groups ul {
-  list-style: none;
-  padding: 0;
+.dash-friend-tiles .tiles {
+  /* border: solid red; */
+  margin-top: 40px;
 }
 
 
 /* Edit Profile Section */
 .edit-profile form {
-  /* border: solid red; */
-  padding: 20px;
-  display: flex;
-}
-
-.form-info {
-  width: 60%;
-}
-
-.form-buttons {
-  width: 40%;
-  /* border: dotted; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-buttons button {
-  width: 300px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }
 
 .edit-profile form div {

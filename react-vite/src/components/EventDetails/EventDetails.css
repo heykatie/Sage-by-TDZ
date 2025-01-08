@@ -86,6 +86,7 @@
     text-align: center;
 }
 
+
 .event-details-container button {
     width: fit-content;
     margin: 20px;
@@ -115,4 +116,10 @@
 
 .organizer-name-logo h2 {
     margin: 40px 0px;
+}
+
+.community-feedback {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
 }

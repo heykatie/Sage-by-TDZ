@@ -22,17 +22,21 @@ const ReceivedRequests = () => {
                 {received?.length > 0 ? (
                     received.map((received, index) => (
                         <div className='request' key={index}>
-                            <div className='request-photo'>
-                            <img className='profile-pic' src={received.sender_pic} alt={`Request ${index}`} />
+                            <div className='sender-div'>
+                               <div className='request-photo'>
+                                <img className='profile-pic' id='request' src={received.sender_pic} alt={`Request ${index}`} />
+                                </div>
+                                <div className='request-text'>
+                                <p>{received.sender_name} has sent you a friend request!</p>
+                                </div> 
                             </div>
-                            <div className='request-text'>
-                            <p>{received.sender_name} has sent you a friend request!</p>
-                            </div>
+                            
                             <div className='request-buttons'>
                             {received.accepted ?
                                 (
                                     <div className='request-status'>
                                         <TbHeartHandshake id='request-status-icon' />
+                                        <p>Accepted!</p>
                                     </div>
                                 )
                                 :

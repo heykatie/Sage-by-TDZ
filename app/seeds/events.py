@@ -13,7 +13,7 @@ def seed_events():
         address='3456 University Dr.',
         city='Houston',
         state='Texas',
-        event_date='2025-01-10',
+        event_date='2025-03-10',
         start_time='8:00:00',
         end_time='14:00:00',
         badge_url='badgeOneURL',

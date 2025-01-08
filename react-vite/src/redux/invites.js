@@ -28,10 +28,10 @@ const updateInvites = (invite) => ({
     invite
 })
 
-const deleteInvites = (invite) => ({
-    type: DELETE_INVITE,
-    invite
-})
+// const deleteInvites = (invite) => ({
+//     type: DELETE_INVITE,
+//     invite
+// })
 
 export const fetchInvitedFriends = (groupId) => async (dispatch) => {
 	try {

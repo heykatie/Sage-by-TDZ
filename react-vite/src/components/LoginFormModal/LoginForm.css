@@ -16,9 +16,10 @@
 .login-form-modal label {
     /* border: solid red; */
     text-align: left;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     column-gap: 8px;
+    width: 100%;
   }
 
   .login-form-modal label input {

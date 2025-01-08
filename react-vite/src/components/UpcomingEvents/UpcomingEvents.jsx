@@ -5,26 +5,29 @@ import './UpcomingEvents.css'
 import { Link } from 'react-router-dom';
 import { ConvertDate } from '../EventDetails/EventDetails';
 import { ConvertTime } from '../ListEvents/ListEvents';
+import { stateAbbObj } from '../ListEvents/ListEvents';
 
 
-const UpcomingEvents = ({user, events}) => {
+const UpcomingEvents = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(thunkUserRSVPs())
     }, [dispatch])
 
     const rsvps = useSelector((state) => state.rsvp.userRsvps.rsvps);
+    const currentDate = new Date();
+    
     let upcomingEvents;
 
-    if(rsvps) {upcomingEvents = Object.values(rsvps)}
+    if(rsvps) {upcomingEvents = Object.values(rsvps).filter(e=>new Date(e.event_date)>currentDate)}
 
     const Location = ({event}) => {
         if(event?.state === 'None') {
             return (<h2 className='text'>Virtual</h2>)
         }
-        return (<h2 className='text'>{event?.city}, {event?.state}</h2>)
+        return (<h2 className='text'>{event?.city}, {stateAbbObj[event?.state]}</h2>)
     }
 
 
@@ -60,6 +63,7 @@ const UpcomingEvents = ({user, events}) => {
         <>
         <div className='event-list-container'>
         <h2 className='upcoming-events-title'>UPCOMING EVENTS</h2>
+        <p>You have RSVPd &apos;Yes&apos; to the following events:</p>
         <ul className='event-list'>
             { rsvps && rsvps?.length ?
             eventTiles(upcomingEvents) :
