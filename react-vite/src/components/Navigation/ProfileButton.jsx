@@ -79,7 +79,7 @@ function ProfileButton() {
                 </Link>
               </li>
               <li className="dropdown-li" id="item">
-                <Link to="/notifications/" onClick={closeMenu}>
+                <Link to="/requests/" onClick={closeMenu}>
                   Notifications
                 </Link>
               </li>
