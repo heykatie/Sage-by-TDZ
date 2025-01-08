@@ -123,7 +123,7 @@ const ListEvents = () => {
 	return (
 		<>
 			<div className='event-list-container'>
-				<h1>Current Volunteer Opportunities:</h1>
+				<h1>Volunteer Opportunities:</h1>
 				<ul className='event-list'>
 					{events.length > 0 ? (
 						eventTiles(events)

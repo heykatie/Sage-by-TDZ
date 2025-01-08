@@ -13,8 +13,7 @@ export default function RemoveRSVPModal({navigate, eventId, rsvps, currentUser, 
     }, [dispatch, eventId])
 
     const targetRsvp = rsvps.filter(r=>r.user_id === currentUser.id);
-    console.log(targetRsvp[0]?.id)
-
+    
     const handleClick = e => {
         e.preventDefault();
 

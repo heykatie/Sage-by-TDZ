@@ -74,12 +74,10 @@ export const thunkDeleteProfile = (user) => async dispatch => {
 
   if(response.ok) {
     const data = await response.json();
-    console.log(data)
-    dispatch(removeUser());
+    dispatch(removeUser(data));
   } else if (response.status < 500) {
     const errorMessages = await response.text();
-    console.log(errorMessages)
-    // return errorMessages
+    console.error(errorMessages)
   } else {
     return { server: "Something went wrong. Please try again" }
   }
@@ -98,7 +96,6 @@ export const thunkEditProfile = (user) => async dispatch => {
     window.location.reload()
   } else if (response.status < 500) {
     const errorMessages = await response.text();
-    console.log(errorMessages)
     return errorMessages
   } else {
     return { server: "Something went wrong. Please try again" }
