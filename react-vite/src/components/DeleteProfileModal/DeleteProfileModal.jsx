@@ -5,6 +5,7 @@ import { thunkDeleteProfile } from "../../redux/session";
 import './DeleteProfileModal.css'
 import { Link } from "react-router-dom";
 const sproutImage = 'https://ibb.co/gdyXy4D'; // Sprout image
+import { thunkLogout } from "../../redux/session";
 
 const DeleteProfileModal = () => {
     const { closeModal } = useModal();
@@ -19,8 +20,10 @@ const DeleteProfileModal = () => {
         e.preventDefault();
 
         return dispatch(thunkDeleteProfile(user))
-               .then(closeModal)
-               .then(navigate('/'))
+              .then(dispatch(thunkLogout()))
+              .then(closeModal)
+              .then(navigate('/'))
+              .then(window.location.reload())
     }
     return (
         <>
@@ -43,7 +46,7 @@ const DeleteProfileModal = () => {
           <p>This action cannot be undone.</p>
 
           <button type="Submit" className='confirm-delete' onClick={handleSubmit}>Delete</button>
-          <Link to={'/profile'} onClick={closeModal}>No, Go Back.</Link>
+          <button className="cancel-delete"><Link to={'/profile'} onClick={closeModal}>No, Go Back.</Link></button>
 
           </div>
           </div>
