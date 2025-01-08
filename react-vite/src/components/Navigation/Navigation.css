@@ -12,17 +12,13 @@
 
 .profile-dropdown li {
   padding: 10px 8px;
-  width: 100%;
   /* border-bottom: solid lightgray; */
 }
 
-.modal-item {
+.modal-item, .profile-menu-button {
   cursor: pointer;
 }
 
-.profile-menu-button {
-  cursor: pointer;
-}
 
 .profile-dropdown li#item {
   /* padding: 10px 8px; */
@@ -122,4 +118,11 @@
 
 .nav {
   border-bottom: lightgray 1px solid;
+}
+
+.dropdown-li#home-icon a {
+  /* border: solid red; */
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
 }

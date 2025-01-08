@@ -51,6 +51,7 @@ button {
     margin: 12px;
 }
 
+
 button:hover {
     background-color: #557b5d;
 }
@@ -63,4 +64,13 @@ button:hover {
 
 *#reverse:hover {
     background-color: #f0f5f2;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+textarea {
+    font-size: 20px;
 }

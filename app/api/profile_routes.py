@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from app.models.db import db
 from app.models import User, Event, Feedback, RSVP
-from app.forms import ProfileForm
-from flask_login import current_user, login_required
+from app.forms import ProfileForm, EditProfileForm
+from flask_login import current_user, login_required, logout_user
 import datetime
 
 profile_routes = Blueprint('profile', __name__)
@@ -33,32 +33,40 @@ def rsvps():
         return {'rsvps': [event.to_dict() for event in upcomingEvents] }
     return {'errors': {'message': "No RSVPS could be found"}}, 404
 
-@profile_routes.route('/edit', methods=["PATCH"])
+@profile_routes.route('/edit', methods=['PUT'])
 @login_required
 def edit_profile():
-    form = ProfileForm()
+    form = EditProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user_id = current_user.get_id()
         user = User.query.get(user_id)
 
-        user.username = form.data['username']
-        user.email = form.data['email']
-        user.password = form.data['password']
-        user.address = form.data['address']
-        user.city = form.data['city']
-        user.state = form.data['state']
+        if form.data['first_name']:
+            user.first_name = form.data['first_name']
+        if form.data['email']:
+            user.email = form.data['email']
+        if form.data['last_name']:
+            user.last_name = form.data['last_name']
+        if form.data['address']:
+            user.address = form.data['address']
+        if form.data['city']:
+            user.city = form.data['city']
+        if form.data['state']:
+            user.state = form.data['state']
 
         db.session.commit()
         return user.to_dict()
     return form.errors, 401
 
-@profile_routes.route('/delete', methods=['DELETE'])
+@profile_routes.route('/delete/<int:user_id>', methods=['DELETE'])
 @login_required
-def delete_profile():
-    user = User.query.get(current_user.get_id())
+def delete_profile(user_id):
+    user = User.query.get(user_id)
     if user:
+        logout_user()
         db.session.delete(user)
+        # current_user.delete()
         db.session.commit()
         return { 'message': "Successfully deleted" }
 

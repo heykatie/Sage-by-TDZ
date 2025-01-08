@@ -68,17 +68,32 @@ export default function EventRSVPTiles() {
     const users = useSelector(state=>state.user.users);
     const friends = useSelector(state=>state.friends.allFriends);
     const rsvpArr = Object.values(rsvps);
+    const targetRsvp = rsvpArr.filter(r=>r.user_id===currentUser.id)
 
     const linkSrc = (id) => {
         if(friends[id]) return `/friends/${id}`
         if(id === currentUser.id) return `/profile/`
         // need page for users who are not friends
-        return ``
+        return alert('Feature coming soon...')
+    }
+
+
+    const Title = () => {
+        if(targetRsvp && rsvpArr.length == 1) {
+            return (<h4>You have RSVPd - Invite Friends to join you!</h4> )
+        }
+        else if(!targetRsvp && rsvpArr.length == 1){
+            return (<h4>{rsvpArr.length} User has RSVPd, join in the fun!</h4> )
+        }
+        else if(targetRsvp && rsvpArr.length > 1){
+            return (<h4>{rsvpArr.length} Users have RSVPd - Invite Friends to join you!</h4>)
+        }
+        return (<h4>{rsvpArr.length} Users have RSVPd, join in the fun!</h4>)
     }
 
 
     const Rsvp = () => {
-        if(!rsvpArr.includes(currentUser.id)) {
+        if(!targetRsvp) {
             return (<OpenModalButton
                 buttonText="Click here to RSVP"
                 modalComponent={<RSVPModal eventId={event?.id} />}
@@ -92,6 +107,7 @@ export default function EventRSVPTiles() {
     const rsvpTile = r => {
         return (
             <div>
+                <Title />
                <div className='event-rsvp-tile' key={r.id}>
                     <Link
                     className='rsvp-link'
@@ -115,7 +131,7 @@ export default function EventRSVPTiles() {
             {event && event.map(e=>(
                 <div key={e.id}>
                     {currentUser && <TileTitle eventId={eventId} />}
-                <div className='rsvp-tiles-container' key={e.event?.id}>
+                    <div className='rsvp-tiles-container' key={e.event?.id}>
                     {rsvps && Object.values(rsvps).map(r=>(
                         <div key={r?.id}>{rsvpTile(r)}</div>
                     ))}

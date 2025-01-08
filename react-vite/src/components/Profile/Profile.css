@@ -20,8 +20,16 @@
   /* border-bottom: 1px solid #ddd; */
 }
 
-.events, .badges-container, .all-friends, .groups-section {
+.events, 
+.badges-container, 
+.all-friends, 
+.groups-section, 
+.edit-profile {
   margin-top: 40px;
+}
+
+.all-friends {
+  padding: 0px 20px;
 }
 
 .profile-picture {
@@ -167,9 +175,25 @@
 
 /* Edit Profile Section */
 .edit-profile form {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  /* border: solid red; */
+  padding: 20px;
+  display: flex;
+}
+
+.form-info {
+  width: 60%;
+}
+
+.form-buttons {
+  width: 40%;
+  /* border: dotted; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-buttons button {
+  width: 300px;
 }
 
 .edit-profile form div {

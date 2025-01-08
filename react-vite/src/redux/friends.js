@@ -1,6 +1,6 @@
 import { csrfFetch } from "./csrf";
 
-const GET_FRIENDS = 'friends/getFriends';
+const GET_FRIENDS = 'friends/GET_FRIENDS';
 const SINGLE_FRIEND = 'friends/singleFriend';
 const SHARED_EVENTS = 'friends/sharedEvents';
 

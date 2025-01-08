@@ -82,10 +82,10 @@ export const router = createBrowserRouter([
 				path: 'dashboard',
 				element: <Dashboard />,
 			},
-      {
-        path: 'notifications',
-        element: <Notification />
-      },
+			{
+				path: 'notifications',
+				element: <Notification />
+			},
 			{
 				path: 'invites/:userId',
 				element: <GroupInvites />,
