@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { thunkDeleteProfile } from "../../redux/session";
 import './DeleteProfileModal.css'
 import { Link } from "react-router-dom";
-const sproutImage = 'https://ibb.co/gdyXy4D'; // Sprout image
+const sproutImage = 'https://i.postimg.cc/jdK73WSg/sprout.png'; // Sprout image
 
 const DeleteProfileModal = () => {
     const { closeModal } = useModal();
