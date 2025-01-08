@@ -16,7 +16,7 @@ const GroupRequests = () => {
 
     return (
         <section id='invites' className='invites'>
-            <h2>Group Invites</h2>
+            <h3>Group Invites</h3>
             <div className='invite-grid'>
                 {invites?.length > 0 ? (
                     invites.map((invite, index) => (
@@ -34,7 +34,7 @@ const GroupRequests = () => {
                                 (
                                 <>
                                 <button className='button-yes' onClick={handleSumbit}>Accept</button>
-                                <button className='button-no' onClick={handleSumbit}>Decline</button>
+                                <button id='reverse' onClick={handleSumbit}>Decline</button>
                                 </>
                                 )
                             }

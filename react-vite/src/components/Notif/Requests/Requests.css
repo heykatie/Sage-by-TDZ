@@ -15,3 +15,10 @@
 .request p {
     margin: 0;
 }
+
+section#sent-requests,
+section#received-requests,
+section#invites {
+    /* border: solid red; */
+    margin-top: 40px;
+}
