@@ -63,8 +63,8 @@ def edit_profile():
 def delete_profile(user_id):
     user = User.query.get(user_id)
     if user:
-        logout_user()
         db.session.delete(user)
+        logout_user()
         # current_user.delete()
         db.session.commit()
         return { 'message': "Successfully deleted" }

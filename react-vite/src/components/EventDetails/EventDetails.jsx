@@ -23,7 +23,7 @@ import { stateAbbObj } from '../ListEvents/ListEvents';
 
 
 export const ConvertDate = date => {
-    return new Date(date).toLocaleDateString();
+    return date
 }
 
 
@@ -111,9 +111,10 @@ const EventDetails = () => {
                    <h2>Location</h2>
                     <Location event={event} />
                 </div>
+                {console.log('----->', event?.event_date)}
                 <div className='date-time-info'>
                    <h2>Date & Time</h2>
-                    <h3>Date: {event?.event_date}</h3>
+                    <h3>Date: {ConvertDate(event?.event_date)}</h3>
                     <h3>Start: {ConvertTime(event?.start_time)}</h3>
                     <h3>End: {ConvertTime(event?.end_time)}</h3>
                 </div>
