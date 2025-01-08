@@ -79,8 +79,8 @@ export const thunkCreateRSVP = (eventId, data) => async dispatch => {
     }
 }
 
-export const thunkDeleteRSVP = (eventId, rsvpId) => async dispatch => {
-    const res = await csrfFetch(`/api/events/${eventId}/rsvps`, {
+export const thunkDeleteRSVP = (rsvpId) => async dispatch => {
+    const res = await fetch(`/api/rsvps/${rsvpId}/delete`, {
         method: "DELETE",
       });
     if(res.ok) {

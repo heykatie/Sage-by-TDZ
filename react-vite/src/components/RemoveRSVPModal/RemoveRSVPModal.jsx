@@ -12,13 +12,14 @@ export default function RemoveRSVPModal({navigate, eventId, rsvps, currentUser, 
         dispatch(thunkGetRSVPs(eventId))
     }, [dispatch, eventId])
 
-    const targetRsvp = rsvps.filter(r=>r.user_id===currentUser.id);
+    const targetRsvp = rsvps.filter(r=>r.user_id === currentUser.id);
+    console.log(targetRsvp[0]?.id)
 
     const handleClick = e => {
         e.preventDefault();
 
         // need delete rsvp thunk
-        return dispatch(thunkDeleteRSVP(eventId, targetRsvp.id))
+        return dispatch(thunkDeleteRSVP(targetRsvp[0]?.id))
             .then(closeModal)
             .then(navigate(`/events/${eventId}`))
     }

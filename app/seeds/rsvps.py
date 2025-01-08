@@ -65,6 +65,18 @@ def seed_rsvps():
         user_id=6,
         event_id=10,
         )
+    RSVPSixteen = RSVP(
+        user_id=1,
+        event_id=8,
+        )
+    RSVPSeventeen = RSVP(
+        user_id=1,
+        event_id=9,
+        )
+    RSVPEighteen = RSVP(
+        user_id=1,
+        event_id=11,
+        )
 
 
     db.session.add(RSVPOne)
@@ -82,6 +94,9 @@ def seed_rsvps():
     db.session.add(RSVPThirteen)
     db.session.add(RSVPFourteen)
     db.session.add(RSVPFifteen)
+    db.session.add(RSVPSixteen)
+    db.session.add(RSVPSeventeen)
+    db.session.add(RSVPEighteen)
     db.session.commit()
 
 

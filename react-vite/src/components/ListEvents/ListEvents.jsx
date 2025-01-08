@@ -62,7 +62,6 @@ export const stateAbbObj = {
 
 
 export const ConvertTime = (time) => {
-	console.log(time.length)
 	if(time.length === 7) return `${time.slice(0, 4)} AM`
 	if(time.length === 8 && +time.slice(0, 2) < 12) return `${time.slice(0, 5)} AM`
 	if(time.length === 8 && +time.slice(0, 2) > 12) return `${time.slice(0, 2)-12}:${time.slice(3, 5)} PM`
