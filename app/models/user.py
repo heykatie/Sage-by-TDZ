@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     feedback = db.relationship('Feedback', backref='sender', cascade='all, delete-orphan', lazy=True)
     owned_groups = db.relationship('Group', back_populates='owner', cascade='all, delete-orphan', lazy=True)
     rsvps = db.relationship('RSVP', back_populates='user', cascade='all, delete-orphan', lazy=True)
-    message = db.relationship('Message', backref='sender', cascade='all, delete-orphan', lazy=True)
+    messages = db.relationship('Message', backref='sender', cascade='all, delete-orphan', lazy=True)
 
     @property
     def password(self):
