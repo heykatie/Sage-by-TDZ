@@ -15,7 +15,7 @@ class Organizer(db.Model):
     phone_number = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(1000), nullable=False)
 
-    requests = db.relationship('Feedback', backref='feedback', cascade='all, delete-orphan')
+    requests = db.relationship('Feedback', backref='feedback', cascade='all, delete-orphan', lazy=True)
 
     def to_dict(self):
         return {

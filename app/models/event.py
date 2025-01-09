@@ -24,8 +24,8 @@ class Event(db.Model):
     badge_url = db.Column(db.String(1000), nullable=False)
     preview = db.Column(db.String(1000), nullable=False)
 
-    groups = db.relationship('Group', back_populates='event', cascade='all, delete-orphan')
-    rsvps = db.relationship('RSVP', back_populates='event', cascade='all, delete-orphan')
+    groups = db.relationship('Group', back_populates='event', cascade='all, delete-orphan', lazy=True)
+    rsvps = db.relationship('RSVP', back_populates='event', cascade='all, delete-orphan', lazy=True)
 
     def to_dict(self):
         return {

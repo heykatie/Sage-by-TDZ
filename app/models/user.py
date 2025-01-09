@@ -20,13 +20,13 @@ class User(db.Model, UserMixin):
     address = db.Column(db.String(255), nullable=True)
     profile_pic = db.Column(db.String(255), nullable=True, default='https://i.postimg.cc/jdK73WSg/sprout.png')
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
-    requests = db.relationship('Request', backref='sender', cascade='all, delete-orphan')
-    invites = db.relationship('Invites', backref='sender', cascade='all, delete-orphan')
+    requests = db.relationship('Request', backref='sender', cascade='all, delete-orphan', lazy=True)
+    invites = db.relationship('Invites', backref='sender', cascade='all, delete-orphan', lazy=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    feedback = db.relationship('Feedback', backref='sender', cascade='all, delete-orphan')
-    owned_groups = db.relationship('Group', back_populates='owner', cascade='all, delete-orphan')
-    rsvps = db.relationship('RSVP', back_populates='user', cascade='all, delete-orphan')
-    message = db.relationship('Message', backref='sender', cascade='all, delete-orphan')
+    feedback = db.relationship('Feedback', backref='sender', cascade='all, delete-orphan', lazy=True)
+    owned_groups = db.relationship('Group', back_populates='owner', cascade='all, delete-orphan', lazy=True)
+    rsvps = db.relationship('RSVP', back_populates='user', cascade='all, delete-orphan', lazy=True)
+    message = db.relationship('Message', backref='sender', cascade='all, delete-orphan', lazy=True)
 
     @property
     def password(self):

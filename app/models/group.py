@@ -15,6 +15,7 @@ class Group(db.Model):
     event = db.relationship('Event', back_populates='groups', lazy=True)
     owner = db.relationship('User', back_populates='owned_groups', lazy=True)
     messages = db.relationship('Message', backref='group', cascade='all, delete-orphan', lazy=True)
+    invites = db.relationship('Invites', backref='group', cascade='all, delete-orphan', lazy=True)
 
     def to_dict(self):
         return {
