@@ -13,8 +13,8 @@ class Group(db.Model):
 
     # Relationships
     event = db.relationship('Event', back_populates='groups', lazy=True)
-    owner = db.relationship('User', back_populates='owned_groups')
-    messages = db.relationship('Message', backref='group', cascade='all, delete-orphan')
+    owner = db.relationship('User', back_populates='owned_groups', lazy=True)
+    messages = db.relationship('Message', backref='group', cascade='all, delete-orphan', lazy=True)
 
     def to_dict(self):
         return {

@@ -25,6 +25,7 @@ class Event(db.Model):
     preview = db.Column(db.String(1000), nullable=False)
 
     groups = db.relationship('Group', back_populates='event', cascade='all, delete-orphan')
+    rsvps = db.relationship('RSVP', back_populates='event', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

@@ -11,6 +11,10 @@ class RSVP(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('events.id')), nullable=False)
 
+    # Relationships
+    event = db.relationship('Event', back_populates='rsvps', lazy=True)
+
+
     def to_dict(self):
         return {
             'id': self.id,
