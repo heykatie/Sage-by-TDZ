@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     feedback = db.relationship('Feedback', backref='sender', cascade='all, delete-orphan')
     owned_groups = db.relationship('Group', back_populates='owner', cascade='all, delete-orphan')
-    rsvp = db.relationship('RSVP', backref='sender', cascade='all, delete-orphan')
+    rsvps = db.relationship('RSVP', back_populates='user', cascade='all, delete-orphan')
     message = db.relationship('Message', backref='sender', cascade='all, delete-orphan')
 
     @property

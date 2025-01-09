@@ -13,6 +13,7 @@ class RSVP(db.Model):
 
     # Relationships
     event = db.relationship('Event', back_populates='rsvps', lazy=True)
+    user = db.relationship('User', back_populates='rsvps', lazy=True)
 
 
     def to_dict(self):
