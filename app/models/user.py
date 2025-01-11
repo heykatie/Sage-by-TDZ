@@ -20,7 +20,6 @@ class User(db.Model, UserMixin):
     address = db.Column(db.String(255), nullable=True)
     profile_pic = db.Column(db.String(255), nullable=True, default='https://i.postimg.cc/jdK73WSg/sprout.png')
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
-    updated_at = db.Column(db.DateTime, default=datetime.datetime.now())
     requests = db.relationship('Request', backref='sender', cascade='all, delete-orphan', lazy=True)
     invites = db.relationship('Invites', backref='sender', cascade='all, delete-orphan', lazy=True)
     hashed_password = db.Column(db.String(255), nullable=False)
@@ -54,6 +53,4 @@ class User(db.Model, UserMixin):
             'state': self.state,
             'address': self.address,
             'profile_pic': self.profile_pic,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
         }
