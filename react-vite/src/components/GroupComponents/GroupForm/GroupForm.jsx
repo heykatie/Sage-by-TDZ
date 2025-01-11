@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, useParams, Link } from 'react-router-dom'; // Import useLocation
-const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
+const sprout = '/sage-icon.png';
 import DeleteGroupModal from '../GroupModals/DeleteGroupModal';
 import {thunkCreateGroup, thunkUpdateGroup, thunkDeleteGroup, thunkFetchGroup} from '../../../redux/group';
 import { fetchUserFriends } from '../../../redux/user';

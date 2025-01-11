@@ -65,7 +65,7 @@ const RequestsPage = () => {
 			<section className='user-info'>
 				<div className='profile-picture'>
 					<img
-						src={profile?.profile_pic}
+						src={profile?.profile_pic || '/sage-icon.png'}
 						alt='Profile'
 					/>
 					{/* <button onClick={() => setActiveSection('edit-profile')}>

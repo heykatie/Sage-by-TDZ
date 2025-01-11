@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkFetchGroup } from '../../../redux/group';
 import { ConvertTime, stateAbbObj } from '../../ListEvents/ListEvents';
-const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
+const sprout = '/sage-icon.png';
 import './Group.css';
 import { ConvertDate } from '../../EventDetails/EventDetails';
 
