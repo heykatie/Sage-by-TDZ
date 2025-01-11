@@ -88,11 +88,14 @@ const ListEvents = () => {
 	const eventTiles = (events) =>
 		events.sort((a, b) => new Date(b.event_date) - new Date(a.event_date)).map((event) => (
 			<li className='profile-events' key={event?.id}>
-				<div className='li-event-list'>
+				<div className='group-card' id='event'>
 					<Link to={`/events/${event?.id}`}>
 						<div className='li-event-title'>{event?.title}</div>
-						<div className='li-event-image'>
-							<img src={event.preview} alt={event?.title} />
+						<div className='group-image-container'>
+							<img 
+							className='group-event-image'
+							src={event.preview} 
+							alt={event?.title} />
 						</div>
 						<div className='li-event-categories'>
 							{event.categories.split(',').map((category, index) => (

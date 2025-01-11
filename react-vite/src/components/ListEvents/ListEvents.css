@@ -40,7 +40,12 @@
     height: 160px;
     display: flex;
     overflow: scroll;
-    padding: 10px 0;
+    margin: 20px 0px;
+}
+
+.group-card#event {
+    /* border: dotted; */
+    height: 550px;
 }
 
 .li-event-description::-webkit-scrollbar { 
@@ -64,6 +69,9 @@
 .start-end-time h3 {
     width: 100%;
     text-align: right;
+    font-size: 16px;
+    font-weight: normal;
+    color: darkslategrey;
 }
 
 .event-list-container {
@@ -75,10 +83,12 @@
     text-align: right;
 }
 
-.event-list-container .city-date {
+.event-list-container .city-date h3 {
     /* border: dotted; */
     text-align: left;
-
+    font-size: 16px;
+    font-weight: normal;
+    color: darkslategrey;
 }
 
 .event-list-container .city-date  .text {
@@ -87,7 +97,7 @@
     width: fit-content;
     display: flex;
     justify-content: space-between;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .event-list-container .li-event-list a {
@@ -110,15 +120,13 @@
 }
 
 .event-list-container ul {
-    max-width: 1330px;
+    max-width: 1180px;
     /* border: solid red; */
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    /* Center align the event tiles */
+    column-gap: 40px;
+    row-gap: 40px;
     margin: 0 auto;
-    padding: 0;
-    list-style: none;
 }
 
 

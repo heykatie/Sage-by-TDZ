@@ -326,6 +326,10 @@ h2.city-state-toggle {
   .group-card {
     width: 100%;
   }
+
+  .group-card#event {
+    width: 80%;
+  }
 }
 
 
