@@ -19,7 +19,7 @@ import LoginFormModal from '../LoginFormModal';
 import RemoveRSVPModal from '../RemoveRSVPModal/RemoveRSVPModal';
 import { ConvertTime } from '../ListEvents/ListEvents';
 import { fetchUserGroups } from '../../redux/user';
-import { stateAbbObj } from '../ListEvents/ListEvents';
+import StateAbbObj from '../StateAbbObj/StateAbbObj';
 
 
 export const ConvertDate = (date) => {
@@ -92,7 +92,7 @@ const EventDetails = () => {
             <>
             <h3>{event?.address}</h3>
             <h3>{event?.city}</h3>
-            <h3>{stateAbbObj[event?.state]}</h3>
+            <h3>{StateAbbObj[event?.state]}</h3>
             </>
         )
     }

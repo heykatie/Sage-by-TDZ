@@ -5,59 +5,7 @@ import './ListEvents.css';
 import { useEffect } from 'react';
 import UpcomingEvents from '../UpcomingEvents/UpcomingEvents';
 import { ConvertDate } from '../EventDetails/EventDetails';
-
-export const stateAbbObj = {
-	'Alabama': 'AL',
-	'Alaska': 'AK',
-	'Arizona': 'AZ',
-	'Arkansas': 'AR',
-	'California': 'CA',
-	'Colorado': 'CO',
-	'Connecticut': 'CT',
-	'Delaware': 'DE',
-	'Florida': 'FL',
-	'Georgia': 'GA',
-	'Hawaii': 'HI',
-	'Idaho': 'ID',
-	'Illinois': 'IL',
-	'Indiana': 'IN',
-	'Iowa': 'IA',
-	'Kansas': 'KS',
-	'Kentucky': 'KY',
-	'Louisiana': 'LA',
-	'Maine': 'ME',
-	'Maryland': 'MD',
-	'Massachusetts': 'MA',
-	'Michigan': 'MI',
-	'Minnesota': 'MN',
-	'Mississippi': 'MS',
-	'Missouri': 'MO',
-	'Montana': 'MT',
-	'Nebraska': 'NE',
-	'Nevada': 'NV',
-	'New Hampshire': 'NH',
-	'New Jersey': 'NJ',
-	'New Mexico': 'NM',
-	'New York': 'NY',
-	'North Carolina': 'NC',
-	'North Dakota': 'ND',
-	'Ohio': 'OH',
-	'Oklahoma': 'OK',
-	'Oregon': 'OR',
-	'Pennsylvania': 'PA',
-	'Rhode Island': 'RI',
-	'South Carolina': 'SC',
-	'South Dakota': 'SD',
-	'Tennessee': 'TN',
-	'Texas': 'TX',
-	'Utah': 'UT',
-	'Vermont': 'VT',
-	'Virginia': 'VA',
-	'Washington': 'WA',
-	'West Virginia': 'WV',
-	'Wisconsin': 'WI',
-	'Wyoming': 'WY'
-	} 
+import StateAbbObj from '../StateAbbObj/StateAbbObj';
 
 
 
@@ -82,12 +30,11 @@ const ListEvents = () => {
         if(event?.state === 'None') {
             return (<b><h2 className='text'>Virtual</h2></b>)
         }
-        return (<h2 className='text'>{event?.city}, {stateAbbObj[event?.state]}</h2>)
+        return (<h2 className='text'>{event?.city}, {StateAbbObj[event?.state]}</h2>)
     }
-	const upcoming = events.filter(event=>typeof ConvertDate(event?.event_date) === 'string');
-	const past = events.filter(event=>typeof ConvertDate(event?.event_date) !== 'string');
+	const upcoming = events.filter(event=>ConvertDate(event?.event_date) !== 'PAST');
+	const past = events.filter(event=>ConvertDate(event?.event_date) === 'PAST');
 
-	const sortA = (a, b) => new Date(b.event_date) - new Date(a.event_date);
 	const sortB = (a, b) => new Date(a.event_date) - new Date(b.event_date);
 
 	const eventTiles = (events, sort) =>
@@ -136,7 +83,7 @@ const ListEvents = () => {
 					{events.length > 0 ? (
 						<>
 						{eventTiles(upcoming, sortB)}
-						{eventTiles(past, sortA)}
+						{eventTiles(past, sortB)}
 						</>
 						
 					) : (

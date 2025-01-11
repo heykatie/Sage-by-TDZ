@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkFetchGroup } from '../../../redux/group';
-import { ConvertTime, stateAbbObj } from '../../ListEvents/ListEvents';
+import { ConvertTime } from '../../ListEvents/ListEvents';
+import StateAbbObj from '../../StateAbbObj/StateAbbObj';
 const sprout = '/sage-icon.png';
 import './Group.css';
 import { ConvertDate } from '../../EventDetails/EventDetails';
@@ -116,7 +117,7 @@ const Group = () => {
 				<p>{`${ConvertDate(group.event?.event_date)} | ${ConvertTime(group.event?.start_time)} | ${group.event?.categories}`}</p>
 				<p>
 					{group.event?.address}, {group.event?.city},{' '}
-					{stateAbbObj[group.event?.state]}
+					{StateAbbObj[group.event?.state]}
 				</p>
 			</div>
 			
