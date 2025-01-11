@@ -84,9 +84,14 @@ const ListEvents = () => {
         }
         return (<h2 className='text'>{event?.city}, {stateAbbObj[event?.state]}</h2>)
     }
+	const upcoming = events.filter(event=>typeof ConvertDate(event?.event_date) === 'string');
+	const past = events.filter(event=>typeof ConvertDate(event?.event_date) !== 'string');
 
-	const eventTiles = (events) =>
-		events?.sort((a, b) => new Date(b.event_date) - new Date(a.event_date)).map((event) => (
+	const sortA = (a, b) => new Date(b.event_date) - new Date(a.event_date);
+	const sortB = (a, b) => new Date(a.event_date) - new Date(b.event_date);
+
+	const eventTiles = (events, sort) =>
+		events?.sort(sort).map((event) => (
 			<li className='profile-events' key={event?.id}>
 				<div className='group-card' id='event'>
 					<Link to={`/events/${event?.id}`}>
@@ -129,7 +134,11 @@ const ListEvents = () => {
 				<h1>Volunteer Opportunities:</h1>
 				<ul className='event-list'>
 					{events.length > 0 ? (
-						eventTiles(events)
+						<>
+						{eventTiles(upcoming, sortB)}
+						{eventTiles(past, sortA)}
+						</>
+						
 					) : (
 						<h1>No Events Found</h1>
 					)}

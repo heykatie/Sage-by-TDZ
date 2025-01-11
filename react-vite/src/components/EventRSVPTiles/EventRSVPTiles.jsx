@@ -135,7 +135,7 @@ export default function EventRSVPTiles({targetGroup}) {
     const linkSrc = (id) => {
         if(friends[id]) return `/friends/${id}`
         if(id === currentUser.id) return `/profile/`
-        // need page for users who are not friends
+        return '/'
     }
 
 

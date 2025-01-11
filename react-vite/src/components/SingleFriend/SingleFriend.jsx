@@ -55,7 +55,7 @@ export default function SingleFriend() {
     const eventInfo = events => {
         if(!events.length) {
            return (
-            <h1>No Shared Events Found</h1>
+            <h4>No Shared Events Found</h4>
             ) 
         } else {
             return (events.map(event=>(

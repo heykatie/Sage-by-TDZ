@@ -52,7 +52,6 @@ function Dashboard() {
 
     return (
         <>
-        {console.log("------>" + user.username)}
             <div className="dashboard-title">
                 <h3>{user.username} DASHBOARD</h3>
                 <div className="content-links">
