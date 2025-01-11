@@ -7,7 +7,7 @@ import { TfiEmail } from "react-icons/tfi";
 import { useEffect, useState } from 'react';
 import OpenModalButton  from '../OpenModalButton/OpenModalButton'
 import { useModal } from "../../context/Modal";
-import FeedbackModal from '../FeedbackRatingInput/FeebackModal'
+// import FeedbackModal from '../FeedbackRatingInput/FeebackModal'
 import './EventDetails.css';
 import { thunkSingleEvent } from '../../redux/events';
 import AvgReaction from '../AvgReaction/AvgReaction';
@@ -96,6 +96,8 @@ const EventDetails = () => {
             </>
         )
     }
+
+    const handleClick = () => alert('Feature coming soon..')
 
 
     if (eventInfo && isLoaded && currentUser) {
@@ -204,14 +206,16 @@ const EventDetails = () => {
 
                 {
                     currentUser?
-                    <OpenModalButton
-                    buttonText="Give Your Feedback"
-                    modalComponent={
-                    <FeedbackModal 
-                    eventId={event?.id} organizer={organizer} user={currentUser}/>}
-                    onButtonClick
-                    onModalClose
-                    /> :
+                    // <OpenModalButton
+                    // buttonText="Give Your Feedback"
+                    // modalComponent={
+                    // <FeedbackModal 
+                    // eventId={event?.id} organizer={organizer} user={currentUser}/>}
+                    // onButtonClick
+                    // onModalClose
+                    // /> 
+                    <button onClick={handleClick}>Give Your Feedback</button>
+                    :
                     <Link to={'/login'}>Log In</Link>
                 }
             </div>

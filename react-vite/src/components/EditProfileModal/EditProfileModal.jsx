@@ -4,7 +4,6 @@ import { useModal } from "../../context/Modal";
 // import { useState } from "react";
 import { thunkEditProfile } from "../../redux/session";
 import './EditProfileModal.css'
-import { Link } from "react-router-dom";
 
 const EditProfileModal = ({ payload }) => {
     const { closeModal } = useModal();

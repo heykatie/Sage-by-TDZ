@@ -73,7 +73,7 @@ const RequestsPage = () => {
 					</button> */}
 				</div>
 				<div className='dashboard-title'>
-					<h2>{profile?.first_name}'s Dashboard</h2>
+					<h2>{profile?.first_name}&apos;s Dashboard</h2>
 					<p>{profile?.city}, {profile?.state}</p>
 					<nav>
 						<button

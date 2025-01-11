@@ -8,17 +8,11 @@ import './FeedbackModal.css';
 const FeedbackFormModal = ({ eventId, organizer }) => {
     const [reaction, setReaction] = useState(0);
     const [disabled, setDisabled] = useState(true);
-
     const [errors, setErrors] = useState({});
 
-
     const { closeModal } = useModal();
-
     const dispatch = useDispatch();
 
-    const onChange = (num) => {
-        setReaction(parseInt(num));
-      };
 
     useEffect(() => {
         if(reaction > 0) setDisabled(false);
@@ -28,19 +22,21 @@ const FeedbackFormModal = ({ eventId, organizer }) => {
         e.preventDefault();
 
         const payload = {
-            reaction,
-            organizer_id: organizer?.id
+            reaction: reaction,
+            organizer_id: organizer.id
         };
 
-        return dispatch(addOrgFeedback(payload, eventId))
-        .then(closeModal)
-        .catch(async (res) => {
-        const data = await res.json();
-        if ( data ) {
-            setErrors(data);
-        }
-        });
+        const serverResponse = await dispatch(
+            addOrgFeedback(payload, eventId)
+            );
+
+        if (serverResponse) {
+            setErrors(serverResponse);
+            } else {
+            closeModal();
+            }
     }
+    
     return (
         <>
         <div className='modal'>
@@ -55,7 +51,7 @@ const FeedbackFormModal = ({ eventId, organizer }) => {
             <label>
                 <FeedbackRatingInput
                 disabled={false}
-                onChange={onChange}
+                onChange={e=>setReaction(+e.target.value)}
                 className='feedback-input'
                 rating={reaction}
                  />

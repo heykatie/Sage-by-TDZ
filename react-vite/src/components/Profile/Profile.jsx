@@ -349,7 +349,7 @@ const ProfilePage = ({ profileState }) => {
 				</div>
 				<div className='dashboard-title'>
 					<h2>
-						{profile?.first_name}'s Dashboard
+						{profile?.first_name}&apos;s Dashboard
 					</h2>
 					<p>
 						{profile?.city}, {profile?.state}
