@@ -22,7 +22,7 @@ def seed_events():
     xmasToyDrive = Event(
         title='Holiday Toy Drive',
         description="Spread holiday cheer by volunteering at our Christmas Toy Drive! Help collect, sort, and distribute toys to children in need this season. Your time and kindness will make a world of difference, ensuring every child receives a gift to brighten their holiday. All ages welcome—come share the spirit of giving!",
-        organizer_id=3,
+        organizer_id=1,
         categories='Indoors, Donation, Handicap Accessible',
         address='6708 Mountainview Cirle',
         city='Salt Lake City',
@@ -36,7 +36,7 @@ def seed_events():
     soupKitchen = Event(
         title='Soup Kitchen',
         description="Join us at the local soup kitchen to serve warm meals and spread kindness to those in need. Volunteers will help prepare, serve, and pack meals for individuals and families in the community. It’s a great way to make a direct impact and share a moment of compassion during the holiday season and beyond. All are welcome to help!",
-        organizer_id=2,
+        organizer_id=3,
         categories='Indoors, Handicap Accessible',
         address='2367 Apple St. Apt 4B',
         city='New York',
@@ -64,7 +64,7 @@ def seed_events():
     helpingHands = Event(
         title='Helping Hands',
         description="Join us for a hands-on home building volunteer event! Help construct safe, stable homes for families in need by working alongside others in your community. Whether you're experienced or a first-timer, you'll play a key role in making a lasting impact. All skill levels are welcome—come build more than just walls, but a brighter future for those in need.",
-        organizer_id=2,
+        organizer_id=1,
         categories='Outdoors, Community Development, Physical',
         address='2367 Apple St. Apt 4B',
         city='New York',
@@ -78,7 +78,7 @@ def seed_events():
     kidsTheatre = Event(
         title='Kids Theatre',
         description="Help bring a kids' theatre production to life by volunteering as a Stage Manager at the local community center! As a Stage Manager, you'll oversee backstage operations, coordinate props, and ensure everything runs smoothly during performances. It's a fun and rewarding opportunity to work with young actors and create a memorable experience for the community. No experience necessary—just a passion for theater and a love of working with kids!",
-        organizer_id=2,
+        organizer_id=3,
         categories='Indoors, Handicap Accessible',
         address='2367 Apple St. Apt 4B',
         city='New York',
@@ -92,7 +92,7 @@ def seed_events():
     communityGarden = Event(
         title='Community Garden',
         description="Come dig in and help grow our community garden! Volunteer to plant, weed, water, and maintain the garden, contributing to a greener, more sustainable neighborhood. It's a great opportunity to connect with others, learn about gardening, and help provide fresh produce to local families. All skill levels welcome—let's cultivate a thriving space together!",
-        organizer_id=2,
+        organizer_id=3,
         categories='Outdoors, Handicap Accessible, Community Development',
         address='2367 Apple St. Apt 4B',
         city='New York',
@@ -106,7 +106,7 @@ def seed_events():
     bigBrotherBigSister = Event(
         title='Big Brother Big Sister',
         description="Are you a college student interested in child care? Volunteer as a mentor for younger kids and make a positive impact in their lives! As a mentor, you’ll guide, support, and inspire children while helping them develop new skills and confidence. This is a fantastic opportunity to gain hands-on experience in child development while making a real difference in your community.",
-        organizer_id=2,
+        organizer_id=3,
         categories='Indoors, Handicap Accessible, Virtual',
         address='None',
         city='None',
@@ -120,7 +120,7 @@ def seed_events():
     readToTheElderly = Event(
         title='Read to the Elderly',
         description="Volunteer to read to the elderly and brighten their day with stories, poems, and more! This opportunity is especially valuable for those looking to earn community service hours while making a meaningful connection with older adults. It’s a wonderful way to bring joy, combat loneliness, and offer companionship, all while fulfilling your service goals.",
-        organizer_id=2,
+        organizer_id=1,
         categories='Indoors, Handicap Accessible',
         address='2367 Apple St. Apt 4B',
         city='New York',
@@ -134,7 +134,7 @@ def seed_events():
     holidayHotline = Event(
         title='Holiday Hotline',
         description="Make a difference this holiday season by volunteering virtually for a crisis prevention hotline. Support individuals experiencing feelings of loneliness or isolation by offering a listening ear, empathy, and resources. This flexible, remote opportunity allows you to provide comfort and hope to those in need during the holidays, all from the safety of your home. Perfect for those looking to give back while earning community service hours or making a lasting impact.",
-        organizer_id=2,
+        organizer_id=1,
         categories='Indoors, Crisis Relief',
         address='None',
         city='None',
@@ -148,7 +148,7 @@ def seed_events():
     disasterRelief = Event(
         title='Disaster Relief',
         description="Volunteer to help rebuild homes and businesses in the wake of a recent weather disaster. Your efforts will directly support communities in need, from clearing debris to repairing structures and restoring essential services. It’s a chance to make a meaningful, hands-on impact while helping families and local businesses recover and rebuild their lives. All skill levels welcome—your time and compassion will make a real difference.",
-        organizer_id=2,
+        organizer_id=1,
         categories='Outdoors, Crisis Relief',
         address='2367 Apple St. Apt 4B',
         city='New York',
@@ -162,7 +162,7 @@ def seed_events():
     clothingDrive = Event(
         title='Clothing Drive',
         description="Join us in supporting women in need by volunteering to gather clothes and feminine hygiene products. Help collect, sort, and distribute essential items to ensure women have the resources they need to feel comfortable and dignified. It’s a meaningful opportunity to make a direct impact and provide much-needed support to women in your community.",
-        organizer_id=2,
+        organizer_id=3,
         categories='Indoors, Handicap Accessible, Donation',
         address='2367 Apple St. Apt 4B',
         city='New York',

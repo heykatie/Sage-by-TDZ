@@ -86,7 +86,7 @@ const ListEvents = () => {
     }
 
 	const eventTiles = (events) =>
-		events.sort((a, b) => new Date(b.event_date) - new Date(a.event_date)).map((event) => (
+		events?.sort((a, b) => new Date(b.event_date) - new Date(a.event_date)).map((event) => (
 			<li className='profile-events' key={event?.id}>
 				<div className='group-card' id='event'>
 					<Link to={`/events/${event?.id}`}>

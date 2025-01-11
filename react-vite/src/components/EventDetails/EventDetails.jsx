@@ -112,7 +112,6 @@ const EventDetails = () => {
                    <h2>Location</h2>
                     <Location event={event} />
                 </div>
-                {console.log('----->', event?.event_date)}
                 <div className='date-time-info'>
                    <h2>Date & Time</h2>
                     <h3>Date: {ConvertDate(event?.event_date)}</h3>

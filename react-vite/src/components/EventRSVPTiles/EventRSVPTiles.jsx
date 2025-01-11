@@ -167,9 +167,8 @@ export default function EventRSVPTiles({targetGroup}) {
             
         )
     }
-
-
-    if(!rsvpArr?.length) return (<></>)
+    
+    if(currentUser && !rsvpArr?.length) return (<p>Event past! Contact the organizer for more information on upcoming events</p>)
 
 
     return (

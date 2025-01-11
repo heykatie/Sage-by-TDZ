@@ -31,12 +31,15 @@ const UpcomingEvents = () => {
     }
 
 
-    const EventTiles = (events) => (events?.map((event)=>(
+    const EventTiles = (events) => (events?.sort((a, b) => new Date(a.event_date) - new Date(b.event_date)).map((event)=>(
         <li key = {event?.id}>
-            <div className='li-event-list'>
+            <div className='group-card' id='event'>
                 <Link to={ `/events/${event?.id}` }> 
                 <div className='li-event-title'>{event?.title}</div>
-                <img src={event?.preview} alt={event?.title} />
+                <img
+                className='group-event-image' 
+                src={event?.preview} 
+                alt={event?.title} />
                 <div className='li-event-categories'></div>
                     {event?.categories.split(',').forEach(category => {
                         <li className='category'>
@@ -53,7 +56,7 @@ const UpcomingEvents = () => {
                         <h3>End: {ConvertTime(event?.end_time)}</h3> 
                     </div>
                 </div>
-                <p className='upcoming-event-description'>{event.description}</p>
+                <p className='li-event-description'>{event.description}</p>
                 </Link>
             </div>
         </li>
