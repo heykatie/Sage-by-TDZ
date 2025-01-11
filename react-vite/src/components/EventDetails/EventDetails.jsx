@@ -23,7 +23,8 @@ import { stateAbbObj } from '../ListEvents/ListEvents';
 
 
 export const ConvertDate = date => {
-    return date
+    date = new Date(date+'T00:00:00-05:00').toString()
+    return `${date.slice(0, 3)}, ${date.slice(3, 10)}, ${date.slice(11, 15)}`
 }
 
 
