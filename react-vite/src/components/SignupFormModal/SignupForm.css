@@ -1,6 +1,6 @@
 .login-form-modal#modal-content[name="signup-modal"] {
     /* border: solid red; */
-  transform: translate(-20%, -30%);
+  transform: translate(-20%, -20%);
   padding: 40px;
   width: 550px;
   display: flex;
@@ -12,4 +12,8 @@
 .login-form-modal label {
   color: #557b5d;
   font-size: 16px;
+}
+
+.login-form-modal h1 {
+  margin: 10px;
 }

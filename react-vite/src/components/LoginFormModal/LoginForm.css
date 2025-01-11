@@ -7,10 +7,23 @@
 }
 
 .login-form-modal#modal-content {
-    left: 50%;
-   top: 50%; 
-   margin-left: -150px;
-   margin-top: -150px;
+  left: 50%;
+  top: 50%; 
+  margin-left: -180px;
+  margin-top: -200px;
+}
+
+.login-form-modal#signup {
+  border: solid red;
+  left: 50%;
+  top: 50%; 
+  margin-left: -280px;
+  margin-top: -280px;
+  border-radius: 16px;
+  position: absolute;
+  background-color:white;
+  width: 600px;
+  overflow: scroll;
 }
 
 .login-form-modal label {
