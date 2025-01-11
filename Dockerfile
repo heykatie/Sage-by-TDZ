@@ -19,7 +19,6 @@ RUN pip install psycopg2
 
 COPY . .
 
-RUN flask db revision --rev-id 6f8620e7ed88
 RUN flask db upgrade
 RUN flask seed all
 CMD gunicorn app:app
