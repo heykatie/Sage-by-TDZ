@@ -19,7 +19,6 @@ import LoginFormModal from '../LoginFormModal';
 import RemoveRSVPModal from '../RemoveRSVPModal/RemoveRSVPModal';
 import { ConvertTime } from '../ListEvents/ListEvents';
 import { fetchUserGroups } from '../../redux/user';
-import StateAbbObj from '../StateAbbObj/StateAbbObj';
 
 
 export const ConvertDate = (date) => {
