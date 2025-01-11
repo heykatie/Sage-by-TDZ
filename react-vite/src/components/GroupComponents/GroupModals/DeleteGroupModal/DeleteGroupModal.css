@@ -88,16 +88,16 @@ p {
   /* Darker sage */
 }
 
-
+/* 
 .cancel-delete {
   background-color: white;
   border: 2px solid #8f9f94;
-  /* Light sage border */
-}
+  Light sage border
+} */
 
-.cancel-delete a {
+/* .cancel-delete a {
   color: #4a7744;
-}
+} */
 
 .cancel-delete:hover {
   background-color: #f0f5f2;

@@ -1,9 +1,15 @@
 .event-rsvp-tile {
-    border: solid lightgray 1px;
-    border-radius: 16px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     margin: 10px;
     display: flex;
     width: 150px;
+}
+
+.event-rsvp-tile:hover {
+    transform: scale(1.03);
 }
 
 .event-rsvp-tile .rsvp-link {

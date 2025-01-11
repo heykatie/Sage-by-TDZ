@@ -17,7 +17,7 @@ const DeleteGroupModal = ({
 					<button className='confirm-delete' onClick={onConfirm}>
 						Yes, Delete
 					</button>
-					<button className='cancel-delete' onClick={onCancel}>
+					<button className='cancel-delete' id='reverse' onClick={onCancel}>
 						No, Go Back
 					</button>
 				</div>

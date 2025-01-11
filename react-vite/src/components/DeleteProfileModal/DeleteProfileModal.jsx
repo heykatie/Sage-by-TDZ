@@ -30,7 +30,7 @@ const DeleteProfileModal = () => {
 					<h1>Delete Profile</h1>
           </div>
           <p>Are you sure you want to make this change?</p>
-          <p className="error">This action cannot be undone.</p>
+          <p className='warning-text'>This action cannot be undone.</p>
           <button type="Submit" className='confirm-delete' onClick={handleSubmit}>Delete</button>
           <button 
           onClick={closeModal} 
