@@ -80,7 +80,7 @@ const ListEvents = () => {
 
     const Location = ({event}) => {
         if(event?.state === 'None') {
-            return (<h2 className='text'>Virtual</h2>)
+            return (<b><h2 className='text'>Virtual</h2></b>)
         }
         return (<h2 className='text'>{event?.city}, {stateAbbObj[event?.state]}</h2>)
     }
@@ -113,12 +113,12 @@ const ListEvents = () => {
 						</div>
 						<div className='li-event-location-time'>
 							<div className='city-date'>
-								<Location event={event} />
-								<h3>Date: {ConvertDate(event?.event_date)}</h3>
+								<b><Location event={event} /></b>
+								<h3>Date: <b>{ConvertDate(event?.event_date)}</b></h3>
 							</div>
 							<div className='start-end-time'>
-								<h3>Start: {ConvertTime(event?.start_time)}</h3>
-								<h3>End: {ConvertTime(event?.end_time)}</h3>
+								<h3>Start: <b>{ConvertTime(event?.start_time)}</b></h3>
+								<h3>End: <b>{ConvertTime(event?.end_time)}</b></h3>
 							</div>
 						</div>
 						<p className='li-event-description'>{event?.description}</p>

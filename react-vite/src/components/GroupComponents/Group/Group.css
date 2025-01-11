@@ -132,10 +132,11 @@ h2 {
 
 .dashboard-button,
 .event-button {
+  /* border: solid red; */
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;
-  width: 100%;
+  max-width: 100%;
   cursor: pointer;
   border: none;
 }

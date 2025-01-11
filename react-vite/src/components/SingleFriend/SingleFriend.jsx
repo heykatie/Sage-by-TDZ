@@ -67,7 +67,7 @@ export default function SingleFriend() {
                     <h2 className='title'>{event.title}</h2>
                     <img className='event-img' height='400px' width='400px' src={event.preview} />
                     <div className='date-time' id='shared'>
-                        <Location event={event} className="shared" />
+                        <b><Location event={event} className="shared" /></b>
                         <p>{ConvertDate(event.event_date)}</p> 
                         <p>{ConvertTime(event.start_time)}</p>
                     </div>
@@ -82,10 +82,12 @@ export default function SingleFriend() {
         return (
         <div className='single-friend'>
             {friend && friend.map(f=>(friendInfo(f)))}
-            <div className='info-body'>
-                <h3>Shared Events</h3>
-                <p>You and {friend[0]?.first_name} both attended:</p>
-                {sharedEvents && eventInfo(sharedEvents)}
+            <div className='shared-events-title'>
+               <h2>Shared Events</h2>
+                <h4>You and {friend[0]?.first_name} both attended:</h4> 
+            </div>
+            <div className='info-body' id='shared-events'>
+                <div></div>{sharedEvents && eventInfo(sharedEvents)}
             </div>
         </div>
         )

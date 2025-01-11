@@ -50,7 +50,14 @@ h2.friend-name {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 20px;
+}
+
+.info-body#shared-events {
+    /* border: solid red; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
 }
 
 .shared-event-info {
@@ -61,7 +68,6 @@ h2.friend-name {
     width: 320px;
     text-align: center;
     margin: 20px;
-    padding: 15px;
 }
 
 .shared-event-info img {
@@ -99,6 +105,11 @@ h2.friend-name {
 .date-time#shared p {
     margin: 0;
     padding: 0;
+}
+
+.shared-events-title {
+    /* border: solid red; */
+    padding: 10px 40px;
 }
 
 @media only screen and (min-width: 400px) and (max-width: 600px){

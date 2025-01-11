@@ -135,12 +135,12 @@ const ProfilePage = ({ profileState }) => {
 												</div>
 												<div className='li-event-location-time'>
 													<div className='city-date'>
-														<h2><Location event={event} /></h2>
-														<h3>Date: {ConvertDate(event?.event_date)}</h3>
+														<b><h2><Location event={event} /></h2></b>
+														<h3>Date: <b>{ConvertDate(event?.event_date)}</b></h3>
 													</div>
 													<div className='start-end-time'>
-														<h3>Start: {ConvertTime(event?.start_time)}</h3>
-														<h3>End: {ConvertTime(event?.end_time)}</h3>
+														<h3>Start: <b>{ConvertTime(event?.start_time)}</b></h3>
+														<h3>End: <b>{ConvertTime(event?.end_time)}</b></h3>
 													</div>
 												</div>
 												<p className='li-event-description'>{event?.description}</p>

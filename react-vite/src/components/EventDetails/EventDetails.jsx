@@ -25,7 +25,7 @@ import { stateAbbObj } from '../ListEvents/ListEvents';
 export const ConvertDate = (date) => {
    
     const currentDate = new Date();
-    if(currentDate > new Date(date)) return (<b>PAST</b>)
+    if(currentDate > new Date(date)) return ("PAST")
     date = new Date(date+'T00:00:00-05:00').toString()
     return `${date.slice(0, 3)}, ${date.slice(3, 10)}, ${date.slice(11, 15)}`
 }
@@ -86,7 +86,7 @@ const EventDetails = () => {
 
     const Location = ({event}) => {
         if(event?.state === 'None') {
-            return (<h3 className='city-state-toggle'>Virtual</h3>)
+            return (<h3 className='city-state-toggle'><b>Virtual</b></h3>)
         }
         return (
             <>
@@ -115,13 +115,13 @@ const EventDetails = () => {
             <div className='li-event-description'>
                 <div className='location-info'>
                    <h2>Location</h2>
-                    <Location event={event} />
+                    <b><Location event={event} /></b>
                 </div>
                 <div className='date-time-info'>
                    <h2>Date & Time</h2>
-                    <h3>Date: {ConvertDate(event?.event_date)}</h3>
-                    <h3>Start: {ConvertTime(event?.start_time)}</h3>
-                    <h3>End: {ConvertTime(event?.end_time)}</h3>
+                    <h3>Date: {<b><b>{ConvertDate(event?.event_date)}</b></b>}</h3>
+                    <h3>Start: <b>{ConvertTime(event?.start_time)}</b></h3>
+                    <h3>End: <b>{ConvertTime(event?.end_time)}</b></h3>
                 </div>
             </div>
             <div className='li-event-preview'>
@@ -244,9 +244,9 @@ const EventDetails = () => {
                         </div>
                         <div className='date-time-info'>
                         <h2>Date and Time</h2>
-                            <h3>Date: {ConvertDate(event?.event_date)}</h3>
-                            <h3>Start: {ConvertTime(event?.start_time)}</h3>
-                            <h3>End: {ConvertTime(event?.end_time)}</h3>
+                            <h3>Date: <b>{ConvertDate(event?.event_date)}</b></h3>
+                            <h3>Start: <b>{ConvertTime(event?.start_time)}</b></h3>
+                            <h3>End: <b>{ConvertTime(event?.end_time)}</b></h3>
                         </div>
                     </div>
                     <div className='li-event-preview'>
