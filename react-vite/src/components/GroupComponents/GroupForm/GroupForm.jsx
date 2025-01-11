@@ -220,13 +220,14 @@ const GroupForm = ({ isEditMode }) => {
 					/>
 				</div>
 
-				<div className='group-buttons'>
+				<div className='group-buttons' id='edit'>
 					<button className='save-group-button' onClick={handleSaveGroup}>
 						Save Group
 					</button>
 					<button
-						onClick={() => navigate(`/groups/`)}
-						className='cancel-button'>
+					id='reverse'
+					onClick={() => navigate(`/groups/`)}
+					>
 						Cancel
 					</button>
 					{isEditMode && (

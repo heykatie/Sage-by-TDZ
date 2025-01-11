@@ -12,8 +12,10 @@
 }
 
 .friend-link {
-    border: solid 1px lightgray;
-    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
