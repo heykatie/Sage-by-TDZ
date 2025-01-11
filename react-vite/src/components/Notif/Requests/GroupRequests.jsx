@@ -8,11 +8,13 @@ const GroupRequests = () => {
     const invites = useSelector(state => state.invite);
     const user = useSelector(state => state.session.user);
 
+    console.log(invites)
+
     useEffect(() => {
         dispatch(inviteActions.fetchGroupInvites(user.id))
     }, [dispatch, user.id])
 
-    const handleSumbit = () => {}
+    const handleSumbit = () => alert('Feature coming soon...')
 
     return (
         <section id='invites' className='invites'>
@@ -25,6 +27,7 @@ const GroupRequests = () => {
                             <img src={invite.url} alt={`Invite ${index}`} />
                             </div>
                             <div className='invite-text'>
+                            {console.log(invite)}
                             <p>{invite.sender} has invited you to join them at the {invite.event_name}!</p>
                             </div>
                             <div className='request-buttons'>

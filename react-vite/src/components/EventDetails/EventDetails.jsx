@@ -22,7 +22,10 @@ import { fetchUserGroups } from '../../redux/user';
 import { stateAbbObj } from '../ListEvents/ListEvents';
 
 
-export const ConvertDate = date => {
+export const ConvertDate = (date) => {
+   
+    const currentDate = new Date();
+    if(currentDate > new Date(date)) return (<b>PAST</b>)
     date = new Date(date+'T00:00:00-05:00').toString()
     return `${date.slice(0, 3)}, ${date.slice(3, 10)}, ${date.slice(11, 15)}`
 }
@@ -196,14 +199,16 @@ const EventDetails = () => {
                 {
                     event?.avgFeedback?
                     <p><AvgReaction rating={avgFeedback}/> {organizer?.name}</p> :
-                    <p>Be the first to voice your feedback !</p>
+                    <p>Voice your feedback!</p>
                 }
 
                 {
                     currentUser?
                     <OpenModalButton
                     buttonText="Give Your Feedback"
-                    modalComponent={<FeedbackModal eventId={event?.id} organizer={organizer} user={currentUser}/>}
+                    modalComponent={
+                    <FeedbackModal 
+                    eventId={event?.id} organizer={organizer} user={currentUser}/>}
                     onButtonClick
                     onModalClose
                     /> :

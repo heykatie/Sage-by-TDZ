@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkFetchGroup } from '../../../redux/group';
-import { stateAbbObj } from '../../ListEvents/ListEvents';
+import { ConvertTime, stateAbbObj } from '../../ListEvents/ListEvents';
 const sprout = 'https://i.postimg.cc/jdK73WSg/sprout.png';
 import './Group.css';
+import { ConvertDate } from '../../EventDetails/EventDetails';
 
 const Group = () => {
 	const navigate = useNavigate();
@@ -112,7 +113,7 @@ const Group = () => {
 			</div>
 			<div className='date-address-div'>
 				
-				<p>{`${group.event?.event_date} | ${group.event?.start_time} | ${group.event?.categories}`}</p>
+				<p>{`${ConvertDate(group.event?.event_date)} | ${ConvertTime(group.event?.start_time)} | ${group.event?.categories}`}</p>
 				<p>
 					{group.event?.address}, {group.event?.city},{' '}
 					{stateAbbObj[group.event?.state]}

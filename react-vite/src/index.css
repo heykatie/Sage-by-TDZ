@@ -5,10 +5,6 @@
     src: "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap";
 }
 
-html * {
-    font-family: 'Montserrat' !important;
-}
-
 ul {
     list-style-type: none;
     margin: none;
@@ -58,6 +54,7 @@ button:hover {
 
 button:disabled {
     background-color: lightgray;
+    cursor: not-allowed;
 }
 
 button:disabled:hover {

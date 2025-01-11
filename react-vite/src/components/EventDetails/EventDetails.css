@@ -103,6 +103,12 @@
     column-gap: 8px;
 }
 
+.contact-logo-label p,
+.org-link p, 
+.org-email p {
+    margin: 0;
+}
+
 .organizer-name-logo .organizer-logo {
     /* border: dotted green; */
     width: 200px;
@@ -116,6 +122,13 @@
 
 .organizer-name-logo h2 {
     margin: 40px 0px;
+}
+
+.li-organizer-contact {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    margin: 20px 0px;
 }
 
 .community-feedback {

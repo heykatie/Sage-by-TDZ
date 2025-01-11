@@ -49,7 +49,8 @@
   font-size: 14px;
 }
 
-.profile-picture button:hover {
+.profile-picture button:hover,
+.dashboard-title button.active:hover {
   background-color: #217dbb;
 }
 
@@ -85,7 +86,7 @@
   color: #fff;
 }
 
-.dashboard-title button:hover {
+.dashboard-title button:hover:not(.active) {
   background-color: #f0f0f0;
 }
 
@@ -100,7 +101,7 @@
 
 .badge {
   border: solid lightgray 1px;
-  border-radius: 8px;
+  border-radius: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,6 +109,7 @@
   margin: 20px;
   height: 200px;
   width: 200px;
+  padding: 20px;
 }
 
 .badge img {
@@ -137,7 +139,7 @@
 
 
 
-.li-event-categories li {
+.li-event-categories span {
   border: dashed magenta;
 }
 
@@ -164,15 +166,25 @@
 
 
 /* Edit Profile Section */
-.edit-profile form {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+.form-info {
+  /* border: solid red; */
+  display: flex;
+  padding: 10px;
 }
 
-.edit-profile form div {
+.edit-profile-buttons {
   display: flex;
   flex-direction: column;
+  width: 40%;
+  justify-content: flex-end;
+}
+
+.form-titles-labels {
+  width: 60%;
+}
+
+.form-titles-labels input {
+  width: 90%;
 }
 
 .edit-profile form label {
@@ -181,7 +193,7 @@
   margin-bottom: 5px;
 }
 
-.edit-profile form input {
+input {
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ddd;

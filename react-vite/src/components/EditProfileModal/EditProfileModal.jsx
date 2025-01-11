@@ -21,16 +21,20 @@ const EditProfileModal = ({ payload }) => {
 
     return (
         <>
-          <div className="delete-modal">
-          <div className="delete-modal-content">
-          <div className="delete-modal-header">
+          <div className="login-form-modal" id="remove-rsvp-modal">
+       
+          <div >
 					<h1>Edit Profile</h1>
           </div>
           <p>Are you sure you want to make this change?</p>
           <button type="Submit" className='confirm-delete' onClick={handleSubmit}>Save Edit</button>
-          <Link to={'/profile'} onClick={closeModal}>No, Go Back.</Link>
-
-          </div>
+          <button 
+          onClick={closeModal} 
+          id='reverse'
+          aria-label='no-go-back' 
+          >
+          No (Go Back)
+          </button>
           </div>
         </>
       );

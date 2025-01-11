@@ -54,7 +54,7 @@ const ProfilePage = ({ profileState }) => {
 	const rsvps = useSelector((state) => state.rsvp.userRsvps.rsvps);
 	let rsvpArr;
 
-	if(rsvps) rsvpArr = Object.values(rsvps).filter(e=>new Date(e.event_date)>currentDate);
+	if(rsvps) rsvpArr = Object.values(rsvps).filter(e=>new Date(e?.event_date)>currentDate);
 
 	if (status === 'loading') return <p>Loading...</p>;
 	if (status === 'failed') return <p>{`Error: ${error}`}</p>;
@@ -75,9 +75,9 @@ const ProfilePage = ({ profileState }) => {
 	}
 	const Location = ({event}) => {
         if(event?.state === 'None') {
-            return (<h2 className='city-state-toggle'>Virtual</h2>)
+            return (<span className='city-state-toggle'>Virtual</span>)
         }
-        return (<h2 className='city-state-toggle'>{event?.city}, {event?.state}</h2>)
+        return (<span className='city-state-toggle'>{event?.city}, {event?.state}</span>)
     }
 
 	// Dynamic content rendering
@@ -93,8 +93,8 @@ const ProfilePage = ({ profileState }) => {
 									<div className='badge' key={index}>
 										{/* <img src={badge.url} alt={badge.title} /> */}
 										<RiLeafFill color='green' size='large'/>
-										{badge.title}
-										<p>{badge.name}</p>
+										{badge?.title}
+										<p>{badge?.name}</p>
 									</div>
 								))
 							) : (
@@ -108,28 +108,29 @@ const ProfilePage = ({ profileState }) => {
 					<section id='events' className='events'>
 						<h3>Upcoming Events</h3>
 						<p>You have RSVPd &apos;Yes&apos; to the following events:</p>
-						<ul>
+						<ul className='dashboard-upcoming'>
 							{rsvpArr?.length > 0 ? (
 								rsvpArr.map((event) => (
 									<li className='dashboard-events' key={event?.id}>
-										<div className='li-event-list' id='upcoming'>
+										<div className='group-card' id='upcoming'>
 											<Link to={`/events/${event?.id}`}>
 												<div className='li-event-title'>{event?.title}</div>
-												<div className='li-event-image'>
+												<div className='group-image-container'>
 													<img
-														src={event?.preview}
-														alt={event?.title}
+													className='group-event-image'
+													src={event?.preview}
+													alt={event?.title}
 													/>
 												</div>
 												<div className='li-event-categories'>
 													{event?.categories
 														.split(',')
 														.map((category, index) => (
-															<li
+															<span
 																className='category'
 																key={`${event?.id}-category-${index}`}>
 																<p>{category.trim()}</p>
-															</li>
+															</span>
 														))}
 												</div>
 												<div className='li-event-location-time'>
@@ -164,69 +165,77 @@ const ProfilePage = ({ profileState }) => {
 					<section id='edit-profile' className='edit-profile'>
 					<h3>Edit Profile</h3>
 					<form onSubmit={handleSubmit}>
-						<div className='form-info'>
-						<div>
-							<label>First Name</label>
-							<input
-								type='text'
-								defaultValue={profile.first_name ? profile.first_name : ''}
-								onChange={(e) => setFirstName(e.target.value)}
-							/>
+						<div className='form-info' id='edit-profile'>
+							<div className='form-titles-labels'>
+								<div>
+									<label>First Name</label>
+									<input
+										type='text'
+										defaultValue={profile?.first_name ? profile?.first_name : ''}
+										onChange={(e) => setFirstName(e.target.value)}
+									/>
+								</div>
+								<div>
+									<label>Last Name</label>
+									<input
+										type='text'
+										defaultValue={profile?.last_name ? profile?.last_name : ''}
+										onChange={(e) => setLastName(e.target.value)}
+									/>
+								</div>
+								<div>
+									<label>Email</label>
+									<input
+										type='email'
+										defaultValue={profile?.email ? profile?.email : ''}
+										onChange={(e) => setEmail(e.target.value)}
+									/>
+								</div>
+								<div>
+									<label>City</label>
+									<input
+										type='text'
+										defaultValue={profile?.city ? profile?.city : ''}
+										onChange={(e) => setCity(e.target.value)}
+									/>
+								</div>
+								<div>
+									<label>State</label>
+									<input
+										type='text'
+										defaultValue={profile?.state ? profile?.state : ''}
+										onChange={(e) => setState(e.target.value)}
+									/>
+								</div>
+								<div>
+									<label>Address</label>
+									<input
+										type='text'
+										defaultValue={profile?.address ? profile?.address : ''}
+										onChange={(e) => setAddress(e.target.value)}
+									/>
+								</div>
+							</div>
+						
+						
+						
+						
+						<div className='edit-profile-buttons'>
+						<OpenModalButton
+						buttonText="Save Changes"
+						modalComponent={<EditProfileModal payload={payload} />}
+						onButtonClick
+						onModalClose
+						/>
+						<OpenModalButton
+						buttonText="Delete Profile"
+						modalComponent={<DeleteProfileModal />}
+						onButtonClick
+						onModalClose
+						/>
 						</div>
-						<div>
-							<label>Last Name</label>
-							<input
-								type='text'
-								defaultValue={profile.last_name ? profile.last_name : ''}
-								onChange={(e) => setLastName(e.target.value)}
-							/>
+						
 						</div>
-						<div>
-							<label>Email</label>
-							<input
-								type='email'
-								defaultValue={profile.email ? profile.email : ''}
-								onChange={(e) => setEmail(e.target.value)}
-							/>
-						</div>
-						<div>
-							<label>City</label>
-							<input
-								type='text'
-								defaultValue={profile.city ? profile.city : ''}
-								onChange={(e) => setCity(e.target.value)}
-							/>
-						</div>
-						<div>
-							<label>State</label>
-							<input
-								type='text'
-								defaultValue={profile.state ? profile.state : ''}
-								onChange={(e) => setState(e.target.value)}
-							/>
-						</div>
-						<div>
-							<label>Address</label>
-							<input
-								type='text'
-								defaultValue={profile.address ? profile.address : ''}
-								onChange={(e) => setAddress(e.target.value)}
-							/>
-						</div>
-					{/* <button type='submit'>Save Changes</button> */}
-					<OpenModalButton
-					buttonText="Save Changes"
-					modalComponent={<EditProfileModal payload={payload} />}
-					onButtonClick
-					onModalClose
-					/>
-					<OpenModalButton
-					buttonText="Delete Profile"
-					modalComponent={<DeleteProfileModal />}
-					onButtonClick
-					onModalClose
-					/>
-					</div>
 					</form>
 					</section>
 				);
@@ -291,7 +300,7 @@ const ProfilePage = ({ profileState }) => {
 										</Link>
 										{group?.owner_id === profile?.id && (
 											<button
-											disabled={new Date(event.event_date) >= currentDate}
+											disabled={new Date(event?.event_date) <= currentDate}
 												className='edit-group-button'
 												onClick={() =>
 													navigate(
@@ -331,7 +340,7 @@ const ProfilePage = ({ profileState }) => {
 			<section className='user-info'>
 				<div className='profile-picture'>
 					<img
-						src={profile?.profile_pic || '/default-avatar.png'}
+						src={profile?.profile_pic || '/sage-icon.png'}
 						alt='Profile'
 					/>
 					<button onClick={() => setActiveSection('edit-profile')}>
@@ -340,7 +349,7 @@ const ProfilePage = ({ profileState }) => {
 				</div>
 				<div className='dashboard-title'>
 					<h2>
-						{profile?.first_name} {profile?.last_name} Dashboard
+						{profile?.first_name}'s Dashboard
 					</h2>
 					<p>
 						{profile?.city}, {profile?.state}

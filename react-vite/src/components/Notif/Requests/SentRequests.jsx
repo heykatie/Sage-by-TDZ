@@ -14,10 +14,12 @@ const SentRequests = () => {
         dispatch(requestActions.fetchAllRequests())
     }, [dispatch])
 
-    const handleSumbit = (e) => {
-        e.preventDefault()
-        dispatch(requestActions.removeRequest())
-    }
+    // const handleSumbit = (e) => {
+    //     e.preventDefault()
+    //     dispatch(requestActions.removeRequest())
+    // }
+
+    const handleClick = () => alert('Feature coming soon...');
 
     return (
         <section id='sent-requests' className='requests'>
@@ -46,7 +48,7 @@ const SentRequests = () => {
                                 :
                                 (
                                     <div className='request-buttons'>
-                                        <button onClick={handleSumbit}>Remove Request<IoClose /></button>
+                                        <button onClick={handleClick}>Remove Request<IoClose /></button>
                                     </div>
                                 )
                             }

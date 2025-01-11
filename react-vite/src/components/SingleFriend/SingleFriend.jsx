@@ -6,6 +6,8 @@ import { thunkSingleFriend } from '../../redux/friends';
 import { thunkSharedEvents } from '../../redux/friends';
 import { FaUserCheck } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
+import { ConvertDate } from '../EventDetails/EventDetails';
+import { ConvertTime } from '../ListEvents/ListEvents';
 
 
 
@@ -24,6 +26,8 @@ export default function SingleFriend() {
         if(!currentUser) navigate('/');
     }, [dispatch, friendId, currentUser, navigate]);
 
+    const handleClick = () => { alert("Feature Coming Soon..."); };
+
 
     const friendInfo = friend => {
         return (
@@ -33,7 +37,10 @@ export default function SingleFriend() {
                     <h2 className='friend-name'>{friend?.first_name} {friend?.last_name}</h2>
                     <h4>{friend?.username} | {friend?.city} | {friend?.state}</h4>
                 </div>
-                <button className='friends-button'><FaUserCheck /> Friends</button>
+                <button
+                onClick={handleClick} 
+                className='friends-button'
+                ><FaUserCheck /> Friends</button>
             </div>
         )
     }
@@ -59,16 +66,16 @@ export default function SingleFriend() {
                 >
                     <h2 className='title'>{event.title}</h2>
                     <img className='event-img' height='400px' width='400px' src={event.preview} />
-                    <div className='date-time'>
-                        <Location event={event} />
-                        <p>{new Date(event.event_date).toUTCString().slice(0, 16)}, {event.start_time.slice(0, 5)}</p>
+                    <div className='date-time' id='shared'>
+                        <Location event={event} className="shared" />
+                        <p>{ConvertDate(event.event_date)}</p> 
+                        <p>{ConvertTime(event.start_time)}</p>
                     </div>
                 </Link>
             ))) 
         } 
     }
 
-    const handleClick = () => { alert("Feature Coming Soon..."); };
 
 
     if(friend.length) {
@@ -76,18 +83,8 @@ export default function SingleFriend() {
         <div className='single-friend'>
             {friend && friend.map(f=>(friendInfo(f)))}
             <div className='info-body'>
-                <h3 className='nav-title'> 
-                    <Link 
-                    className='events-attended' 
-                    onClick={handleClick} 
-                    >Events Attended
-                    </Link> |  <Link 
-                    className='shared-events' 
-                    to={`/friends/${friendId}`}
-                    >  Shared Events
-                    </Link>
-                </h3>
-                <p>You and {friend[0]?.first_name} have both RSVPd to:</p>
+                <h3>Shared Events</h3>
+                <p>You and {friend[0]?.first_name} both attended:</p>
                 {sharedEvents && eventInfo(sharedEvents)}
             </div>
         </div>

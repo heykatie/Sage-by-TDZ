@@ -29,7 +29,7 @@ const FeedbackFormModal = ({ eventId, organizer }) => {
 
         const payload = {
             reaction,
-            organizer_id: organizer.id
+            organizer_id: organizer?.id
         };
 
         return dispatch(addOrgFeedback(payload, eventId))
@@ -45,7 +45,7 @@ const FeedbackFormModal = ({ eventId, organizer }) => {
         <>
         <div className='modal'>
         <div className="modal-text">
-        <h1>How was working with {organizer.name}?</h1>
+        <h1>How was working with {organizer?.name}?</h1>
         <p>Send feedback to the event organizers!</p>
         <p>What emoji best fits your experience?</p>
         </div>
@@ -63,7 +63,11 @@ const FeedbackFormModal = ({ eventId, organizer }) => {
             </label>
             </div>
             <div className='feedback-button'>
-            <button type="Submit" disabled={disabled} className={disabled ? 'off' : 'on'}>Submit Feedback</button>
+            <button 
+            type="Submit" 
+            disabled={reaction <= 0} 
+            className={disabled ? 'off' : 'on'}
+            >Submit Feedback</button>
             </div>
         </form>
         </div>

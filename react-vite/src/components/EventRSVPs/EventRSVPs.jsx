@@ -30,7 +30,7 @@ export default function EventRSVPs() {
 
     const linkSrc = (id) => {
         if(friends[id]) return `/friends/${id}`
-        if(id === currentUser.id) return `/profile/`
+        if(id === currentUser.id) return `/profile`
         // need page for users who are not friends
         return ``
     }
@@ -41,7 +41,7 @@ export default function EventRSVPs() {
                <Link 
                className='friend-link'
                key={r.id}
-               to={linkSrc(r.id)}
+               to={linkSrc(r.user_id)}
                >
                     <img className='profile-pic' src={users[r.user_id]?.profile_pic} />
                     <h3 className='friend-name'>{users[r.user_id]?.first_name}</h3>

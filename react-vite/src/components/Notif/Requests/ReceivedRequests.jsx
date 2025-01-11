@@ -14,6 +14,8 @@ const ReceivedRequests = () => {
         dispatch(requestActions.fetchAllRequests())
     }, [dispatch])
 
+    const handleClick = () => alert('Feature coming soon...');
+
 
     return (
         <section id='received-requests' className='requests'>
@@ -34,18 +36,24 @@ const ReceivedRequests = () => {
                             <div className='request-buttons'>
                             {received.accepted ?
                                 (
+                                    <>
+                                        <button 
+                                        className='button-yes'
+                                        onClick={handleClick} 
+                                        >Accept</button>
+                                        <button
+                                        onClick={handleClick} 
+                                        className='button-no' 
+                                        id='reverse'
+                                        >Decline</button>
+                                    </>
+                                ):(
                                     <div className='request-status'>
                                         <TbHeartHandshake id='request-status-icon' />
                                         <p>Accepted!</p>
                                     </div>
                                 )
-                                :
-                                (
-                                    <>
-                                        <button className='button-yes' >Accept</button>
-                                        <button className='button-no'>Decline</button>
-                                    </>
-                                )
+                                
                             }
                             </div>
                         </div>

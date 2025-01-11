@@ -26,18 +26,21 @@ const DeleteProfileModal = () => {
     }
     return (
         <>
-          <div className="delete-modal">
-          <div className="delete-modal-content">
-          <div className="delete-modal-header">
+          <div className="login-form-modal" id="remove-rsvp-modal">
+          <div>
 					<h1>Delete Profile</h1>
           </div>
           <p>Are you sure you want to make this change?</p>
-          <p>This action cannot be undone.</p>
-
+          <p className="error">This action cannot be undone.</p>
           <button type="Submit" className='confirm-delete' onClick={handleSubmit}>Delete</button>
-          <button className="cancel-delete"><Link to={'/profile'} onClick={closeModal}>No, Go Back.</Link></button>
+          <button 
+          onClick={closeModal} 
+          id='reverse'
+          aria-label='no-go-back' 
+          >
+          No (Go Back)
+          </button>
 
-          </div>
           </div>
         </>
       );

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 
 const Badges = () => (
     <div>
-    <h2>badges</h2>
+    <h2>Badges</h2>
     </div>
 )
 const Friends = () => (
@@ -52,6 +52,7 @@ function Dashboard() {
 
     return (
         <>
+        {console.log("------>" + user.username)}
             <div className="dashboard-title">
                 <h3>{user.username} DASHBOARD</h3>
                 <div className="content-links">

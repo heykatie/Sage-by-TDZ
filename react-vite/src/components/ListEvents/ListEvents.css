@@ -119,7 +119,8 @@
     width: fit-content;
 }
 
-.event-list-container ul {
+.event-list-container ul,
+.dashboard-upcoming {
     max-width: 1180px;
     /* border: solid red; */
     display: flex;
