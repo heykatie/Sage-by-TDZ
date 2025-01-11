@@ -55,23 +55,22 @@ export default function AllGroups() {
 									<strong>Owner:</strong>{' '}
 									{group.owner_name || 'Unknown'}
 								</p>
+								{group?.members.length > 0 ?
+								<>
 								<p className='group-members-count'>
 									<strong>Members:</strong> {group.membersCount || 0}
 								</p>
 								<div className='group-members'>
 									<strong>Members List:</strong>
 									<ul>
-										{group.members.length > 0 ? (
-											group.members.map((member) => (
-												<li key={member.id} className='member-item'>
-													{member.name}
-												</li>
-											))
-										) : (
-											<li>No members yet.</li>
-										)}
+									{group.members.map((member) => (
+										<li key={member.id} className='member-item'>
+											{member.name}
+										</li>
+									))}
 									</ul>
 								</div>
+								</> : <p>Event past, great job!</p>}
 								<div className='group-card-buttons'>
 									<Link
 										to={`/groups/${group.id}`}

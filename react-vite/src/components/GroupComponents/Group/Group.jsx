@@ -117,7 +117,7 @@ const Group = () => {
 				<p>{`${ConvertDate(group.event?.event_date)} | ${ConvertTime(group.event?.start_time)} | ${group.event?.categories}`}</p>
 				<p>
 					{group.event?.address}, {group.event?.city},{' '}
-					{StateAbbObj[group.event?.state]}
+					<StateAbbObj state={group.event?.state} />
 				</p>
 			</div>
 			
@@ -190,15 +190,19 @@ const Group = () => {
 			</section>
 
 			{/* Navigation and Edit Group Buttons */}
-			<div className='group-buttons'>
+			<div className='group-buttons' id='view-group'>
 				<button
 					onClick={() => navigate('/profile')}
-					className='dashboard-button'>
+					className='dashboard-button'
+					id='view'
+					>
 					Back to Dashboard
 				</button>
 				<button
 					onClick={() => navigate(`/events/${group.event?.id}`)}
-					className='event-button'>
+					className='event-button'
+					id='view'
+					>
 					View Event
 				</button>
 				{isOwner && (
@@ -209,7 +213,9 @@ const Group = () => {
 								state: { eventData: group.event, groupData: group },
 							})
 						}
-						className='dashboard-button'>
+						className='dashboard-button'
+						id='view'
+						>
 						Edit Group
 					</button>
 				)}

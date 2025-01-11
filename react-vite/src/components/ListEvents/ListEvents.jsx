@@ -30,7 +30,7 @@ const ListEvents = () => {
         if(event?.state === 'None') {
             return (<b><h2 className='text'>Virtual</h2></b>)
         }
-        return (<h2 className='text'>{event?.city}, {StateAbbObj[event?.state]}</h2>)
+        return (<h2 className='text'>{event?.city}, <StateAbbObj state={event?.state} /></h2>)
     }
 	const upcoming = events.filter(event=>ConvertDate(event?.event_date) !== 'PAST');
 	const past = events.filter(event=>ConvertDate(event?.event_date) === 'PAST');
@@ -64,8 +64,8 @@ const ListEvents = () => {
 								<h3>Date: <b>{ConvertDate(event?.event_date)}</b></h3>
 							</div>
 							<div className='start-end-time'>
-								<h3>Start: <b>{ConvertTime(event?.start_time)}</b></h3>
-								<h3>End: <b>{ConvertTime(event?.end_time)}</b></h3>
+								{ConvertDate(event?.event_date) !== 'PAST' && <h3>Start: <b>{ConvertTime(event?.start_time)}</b></h3>}
+								{ConvertDate(event?.event_date) !== 'PAST' && <h3>End: <b>{ConvertTime(event?.end_time)}</b></h3>}
 							</div>
 						</div>
 						<p className='li-event-description'>{event?.description}</p>

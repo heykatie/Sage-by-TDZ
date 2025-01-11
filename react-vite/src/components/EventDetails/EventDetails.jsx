@@ -91,8 +91,8 @@ const EventDetails = () => {
         return (
             <>
             <h3>{event?.address}</h3>
-            <h3>{event?.city}</h3>
-            <h3>{StateAbbObj[event?.state]}</h3>
+            <h3>{event?.city},</h3>
+            <h3>{event?.state}</h3>
             </>
         )
     }
@@ -120,8 +120,8 @@ const EventDetails = () => {
                 <div className='date-time-info'>
                    <h2>Date & Time</h2>
                     <h3>Date: {<b><b>{ConvertDate(event?.event_date)}</b></b>}</h3>
-                    <h3>Start: <b>{ConvertTime(event?.start_time)}</b></h3>
-                    <h3>End: <b>{ConvertTime(event?.end_time)}</b></h3>
+                    {ConvertDate(event?.event_date) !== 'PAST' && <h3>Start: <b>{ConvertTime(event?.start_time)}</b></h3>}
+                    {ConvertDate(event?.event_date) !== 'PAST' && <h3>End: <b>{ConvertTime(event?.end_time)}</b></h3>}
                 </div>
             </div>
             <div className='li-event-preview'>

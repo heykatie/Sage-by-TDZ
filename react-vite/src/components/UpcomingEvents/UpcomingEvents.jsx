@@ -27,7 +27,7 @@ const UpcomingEvents = () => {
         if(event?.state === 'None') {
             return (<b><h2 className='text'>Virtual</h2></b>)
         }
-        return (<h2 className='text'>{event?.city}, {StateAbbObj[event?.state]}</h2>)
+        return (<h2 className='text'>{event?.city}, <StateAbbObj state={event?.state} /></h2>)
     }
 
 

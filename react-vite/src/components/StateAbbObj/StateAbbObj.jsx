@@ -1,5 +1,6 @@
-export default function StateAbbObj() {
-    return {'Alabama': 'AL',
+export default function StateAbbObj({state}) {
+    console.log(state)
+    const states = {'Alabama': 'AL',
     'Alaska': 'AK',
     'Arizona': 'AZ',
     'Arkansas': 'AR',
@@ -48,5 +49,7 @@ export default function StateAbbObj() {
     'Washington': 'WA',
     'West Virginia': 'WV',
     'Wisconsin': 'WI',
-    'Wyoming': 'WY'}
-    } 
+    'Wyoming': 'WY'
+    }
+    return (<>{states[state]}</>);
+} 

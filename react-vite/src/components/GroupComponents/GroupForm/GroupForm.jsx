@@ -13,6 +13,7 @@ import {
 import './GroupForm.css';
 import { ConvertDate } from '../../EventDetails/EventDetails';
 import { ConvertTime } from '../../ListEvents/ListEvents';
+import StateAbbObj from '../../StateAbbObj/StateAbbObj';
 
 const GroupForm = ({ isEditMode }) => {
 	const dispatch = useDispatch();
@@ -159,7 +160,7 @@ const GroupForm = ({ isEditMode }) => {
 				</p>
 				<p>{`${ConvertDate(eventData?.event_date)} | ${ConvertTime(eventData.start_time)} - ${ConvertTime(eventData?.end_time)} | ${eventData?.categories}`}</p>
 				<p>
-					{eventData?.address}, {eventData?.city}, {eventData?.state}
+					{eventData?.address}, {eventData?.city}, <StateAbbObj state={eventData?.state} />
 				</p>
 				<p>
 					<Link href={`/events/${eventData?.id}`} className='event-link'>
