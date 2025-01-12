@@ -43,7 +43,7 @@ const GroupForm = ({ isEditMode }) => {
 			dispatch(thunkFetchGroup(groupId));
 		}
 	}, [dispatch, isEditMode, groupId]);
-
+	
 	// **Set selected friends based on invited friends**
 	useEffect(() => {
 		if (isEditMode) {
@@ -52,6 +52,7 @@ const GroupForm = ({ isEditMode }) => {
 			setDescription(group?.description || '');
 		}
 	}, [invitedFriends, isEditMode, group?.description]);
+	
 
 	useEffect(() => {
 		if (!eventData) {
@@ -64,6 +65,7 @@ const GroupForm = ({ isEditMode }) => {
 			setFriendsList(friends || [])
 		);
 	}, [dispatch, eventData, navigate, setFriendsList]);
+	
 
 	const toggleFriendSelection = async (friend) => {
 
@@ -96,7 +98,7 @@ const GroupForm = ({ isEditMode }) => {
 			const savedGroup = await dispatch(thunkCreateGroup(payload));
 			if (savedGroup?.id) {
 				setGroupsId(savedGroup.id);
-				// navigate(`/groups/${savedGroup.id}`);
+				navigate(`/groups/${savedGroup.id}`);
 			} else {
 				console.error('Failed to navigate: Group ID not found');
 			}
