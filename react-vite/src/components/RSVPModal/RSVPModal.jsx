@@ -15,13 +15,17 @@ export default function RSVPModal({navigate, eventId}) {
 
     const handleClick = e => {
         e.preventDefault();
+        let navId;
+        if(eventId) {
+            navId = +eventId
+        }
 
-        const data = { event_id: +eventId }
+        const data = { event_id: navId }
 
         // need create rsvp thunk
-        return dispatch(thunkCreateRSVP(+eventId, data))
+        return dispatch(thunkCreateRSVP(navId, data))
             .then(closeModal)
-            .then(navigate(`/events/${+eventId}`))
+            .then(navigate(`/events/${navId}`))
     }
 
     return (
