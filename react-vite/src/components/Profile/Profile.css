@@ -164,6 +164,11 @@
   margin-top: 40px;
 }
 
+.edit-profile {
+  /* border: solid red; */
+  padding: 20px;
+}
+
 
 /* Edit Profile Section */
 .form-info {
@@ -184,7 +189,9 @@
 }
 
 .form-titles-labels input {
-  width: 90%;
+  border: solid 1px lightgray;
+  width: 80%;
+  margin: 10px 5px;
 }
 
 .edit-profile form label {

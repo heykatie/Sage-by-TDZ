@@ -66,7 +66,7 @@ export const thunkGetRSVPs = eventId => async dispatch => {
 }
 
 export const thunkCreateRSVP = (eventId, data) => async dispatch => {
-    const res = await csrfFetch(`/api/events/${eventId}/rsvps`, {
+    const res = await csrfFetch(`/api/events/${+eventId}/rsvps`, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data),
