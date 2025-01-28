@@ -1,5 +1,4 @@
 export default function StateAbbObj({state}) {
-    console.log(state)
     const states = {'Alabama': 'AL',
     'Alaska': 'AK',
     'Arizona': 'AZ',
