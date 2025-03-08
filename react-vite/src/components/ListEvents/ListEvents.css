@@ -1,3 +1,16 @@
+.event-list {
+    padding: 0px;
+    margin: 0px;
+}
+
+.event-list li {
+    /* border: solid red; */
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+    margin: 0px;
+}
+
 .li-event-list {
     border: solid gray 1px;
     border-radius: 16px;
@@ -37,7 +50,7 @@
 
 .li-event-description {
     /* border: dotted blue; */
-    height: 160px;
+    max-height: 140px;
     display: flex;
     overflow: scroll;
     margin: 20px 0px;
@@ -152,6 +165,10 @@
     white-space: nowrap;
 }
 
+.profile-events {
+    width: 100%;
+}
+
 
 @media only screen and (min-width: 400px) and (max-width: 800px) {
     .event-list-container ul {
@@ -162,7 +179,13 @@
 @media only screen and (min-width: 800px) and (max-width: 1000px) {
     .event-list-container ul {
         justify-content: center;
-        max-width: 900px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .event-list-container {
+        /* border: solid red; */
+        width: 100%;
     }
 }
 
