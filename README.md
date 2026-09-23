@@ -1,131 +1,282 @@
-# Flask React Project
+<div align="center">
 
-This is the starter for the Flask React project.
+<img src="./assets/sprout.png" alt="Sage sprout logo" width="115">
 
-## Getting started
+# Sage
 
-1. Clone this repository (only this branch).
+### Make volunteering easier to find — and more social to join.
 
-2. Install dependencies.
+A full-stack volunteer community platform for discovering opportunities, RSVPing to events, connecting with friends, and organizing groups to volunteer together.
 
-   ```bash
-   pipenv install -r requirements.txt
-   ```
+![Python](https://img.shields.io/badge/Python-3.9-3776AB?style=flat-square&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-2.2-000000?style=flat-square&logo=flask&logoColor=white)
+![React](https://img.shields.io/badge/React-18-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Redux](https://img.shields.io/badge/Redux-4.2-764ABC?style=flat-square&logo=redux&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?style=flat-square&logo=sqlalchemy&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+</div>
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+---
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+## About Sage
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
+Sage is a collaborative full-stack project built around a simple problem: finding a volunteer opportunity is only part of the challenge — people also need an easy way to commit, keep track of plans, and participate with others.
 
-   ```bash
-   pipenv shell
-   ```
+The application combines volunteer event discovery with lightweight social features. Users can browse opportunities, view organizer information, RSVP to events, connect with friends, create event-based groups, invite people to join, and communicate through a group message board.
 
-   ```bash
-   flask db upgrade
-   ```
+The original product planning also explored broader ideas such as search, filtering, reminders, richer feedback, and impact tracking. This README focuses on functionality represented in the current codebase.
 
-   ```bash
-   flask seed all
-   ```
+## Implemented Features
 
-   ```bash
-   flask run
-   ```
+### Volunteer Events
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
+- Browse upcoming and past volunteer opportunities
+- View event descriptions, categories, dates, times, and locations
+- Support both in-person and virtual opportunities
+- View organizer information and community feedback
+- See other users associated with an event
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+### RSVP Management
 
-## Deployment through Render.com
+- RSVP to volunteer events
+- Remove an existing RSVP
+- View upcoming RSVP'd events
+- Surface event history through the user profile
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+### Profiles
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+- Sign up, log in, and log out using session-based authentication
+- View a personal dashboard
+- Edit profile information
+- Delete a profile
+- View upcoming events, friends, groups, and earned event-based badges
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+### Friends & Requests
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+- Send friend requests
+- Accept friend requests
+- View current friends
+- View individual friend profiles
+- Compare shared past volunteer events
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+### Volunteer Groups
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+Users can turn an event into a shared plan instead of attending alone.
 
-Start by giving your application a name.
+- Create a group around a volunteer event
+- Add a group description
+- Edit or delete groups as the owner
+- Invite friends to a group
+- Add or remove invited members
+- View group members
+- View all groups associated with the current user
+- Navigate between a group and its volunteer event
 
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
+### Group Message Board
 
-Select "Free" as your Instance Type.
+Each group includes a simple event-specific message board.
 
-### Add environment variables
+- View messages within a group
+- Post messages as a group member
+- Display messages with the sender's name
 
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
+## Tech Stack
 
-Add the following keys and values in the Render GUI form:
+| Layer | Technologies |
+| --- | --- |
+| Frontend | React 18, React Router, Redux, Redux Thunk, Vite, CSS, React Icons |
+| Backend | Python 3.9, Flask, Flask-Login, Flask-WTF, Flask-CORS |
+| Data | SQLAlchemy, Flask-SQLAlchemy, PostgreSQL, SQLite |
+| Database migrations | Flask-Migrate, Alembic |
+| Production server | Gunicorn |
+| Infrastructure | Docker |
+| Development | Git, GitHub |
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
+## Architecture
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+Sage uses a React single-page application backed by a Flask REST API.
 
-Add the following keys and values:
+```text
+React + Redux
+     │
+     │  /api/*
+     ▼
+Flask API
+     │
+     ▼
+SQLAlchemy ORM
+     │
+     ├── SQLite      development
+     └── PostgreSQL  production
+```
 
-- DATABASE_URL (copy value from the **External Database URL** field)
+During local development, Vite proxies `/api` requests to Flask on port `5000`.
 
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
+For production builds, Flask is configured to serve the compiled React application from `react-vite/dist`.
 
-### Deploy
+## Data Model
 
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
+The current application models several connected parts of the volunteer experience:
 
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
+- **Users** — accounts, profile details, relationships, RSVPs, groups, and messages
+- **Events** — volunteer opportunities with location, scheduling, categories, and organizer data
+- **Organizers** — organizations associated with volunteer events
+- **RSVPs** — user participation in events
+- **Requests** — friend-request relationships between users
+- **Groups** — user-created groups tied to individual events
+- **Invites** — invitations connecting friends to volunteer groups
+- **Messages** — group message-board posts
+- **Feedback** — user reactions associated with organizers
 
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
+### Database Schema
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+<img src="./documentation/db-schema/Schema.png" alt="Sage database schema" width="850">
+
+## My Contribution Focus
+
+Sage was built collaboratively. My work in the repository focused heavily on turning the social/group portion of the product into a connected full-stack workflow.
+
+My contributions include:
+
+- Designed and documented early product requirements, user personas, user flows, user stories, API plans, and the database schema
+- Helped structure the Flask + React project and Docker-based development/deployment setup
+- Built and refined the **Group** data model and its relationships with users and events
+- Implemented and tested group API routes
+- Built group creation, viewing, editing, and deletion flows
+- Connected group ownership and authorization behavior
+- Built friend-to-group invitation flows and add/remove member behavior
+- Added the event-specific group message board
+- Integrated groups into event pages and the user profile/dashboard
+- Worked through SQLAlchemy relationships, migrations, seed data, Redux state, and cross-feature integration issues
+
+The repository history reflects additional collaborative work across events, authentication, profiles, RSVPs, friends, styling, and deployment.
+
+## Project Documentation
+
+The repository includes planning and technical documentation created during development:
+
+- [Project Overview](./documentation/MVP/project-details/project-overview.md)
+- [Feature Planning](./documentation/MVP/feature-list/features.md)
+- [User Stories](./documentation/MVP/users/user-stories.md)
+- [API Documentation](./documentation/SAGE_API_docs.md)
+- [Database Schema](./documentation/db-schema/)
+- [Wireframes](./documentation/wireframes/)
+- [Future Feature Ideas](./documentation/SAGE_future_features.md)
+
+> Some planning documents describe proposed or future functionality beyond what is currently implemented in the application.
+
+## Local Development
+
+### Prerequisites
+
+- Python 3.9+
+- Pipenv
+- Node.js / npm
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/heykatie/Sage-by-TDZ.git
+cd Sage-by-TDZ
+```
+
+### 2. Install backend dependencies
+
+```bash
+pipenv install -r requirements.txt
+pipenv shell
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file in the project root based on `.env.example`.
+
+For local SQLite development:
+
+```env
+SECRET_KEY=your-secret-key
+DATABASE_URL=sqlite:///dev.db
+SCHEMA=flask_schema
+```
+
+### 4. Initialize the database
+
+```bash
+flask db upgrade
+flask seed all
+```
+
+### 5. Start the Flask API
+
+```bash
+flask run
+```
+
+The API runs on:
+
+```text
+http://127.0.0.1:5000
+```
+
+### 6. Start the React frontend
+
+In a second terminal:
+
+```bash
+cd react-vite
+npm install
+npm run dev
+```
+
+Vite will start the frontend and proxy `/api` requests to the Flask server.
+
+## API
+
+The application exposes REST-style routes for:
+
+```text
+/api/auth
+/api/users
+/api/profile
+/api/events
+/api/rsvps
+/api/friends
+/api/requests
+/api/groups
+/api/invites
+/api/messages
+```
+
+A development helper route is also available at:
+
+```text
+/api/docs
+```
+
+It returns the registered API routes and their docstrings.
+
+For the project's written endpoint documentation, see [SAGE_API_docs.md](./documentation/SAGE_API_docs.md).
+
+## Project Status
+
+Sage is a completed collaborative learning project and portfolio codebase rather than an actively maintained production service.
+
+There are areas that could be improved in a future iteration, including:
+
+- automated test coverage
+- stronger authorization checks across some routes
+- cleanup of legacy and duplicate files
+- more consistent API error handling
+- completing unfinished feedback functionality
+- aligning older planning documentation with the final implementation
+- updating dependencies and build configuration
+
+These are intentionally documented rather than presented as completed features.
+
+## License
+
+No license has been selected for this repository.
+
+Until a license is added, the repository does not grant permission to reuse its source code or project assets.
